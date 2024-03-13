@@ -1,0 +1,15 @@
+@page "/"
+
+<h1> Projekt </h1>
+
+<p>Losowa liczba: @losowaLiczba</p>
+
+@code {
+    public int losowaLiczba = 15;
+
+    protected override void OnInitialized() {
+        Random rand = new();
+        losowaLiczba = rand.Next(); 
+    }
+
+}
