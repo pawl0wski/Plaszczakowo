@@ -36,11 +36,14 @@ app.UseAntiforgery();
 app.MapRazorComponents<ProjektZaliczeniowy_AiSD2.Components.App>()
     .AddInteractiveServerRenderMode();
 
+
 // Uruchamiania backendu ASP.NET
 await app.StartAsync();
 
 // Tworzenie nowego okna Electron.
-await Electron.WindowManager.CreateWindowAsync();
+var window = await Electron.WindowManager.CreateWindowAsync();
+
+window.SetContentSize(1280, 720);
 
 // Oczekiwanie na zakończenie okna Electron.
 app.WaitForShutdown();
