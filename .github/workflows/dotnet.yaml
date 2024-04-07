@@ -1,0 +1,28 @@
+name: .NET Continuous Integration
+
+on:
+  push:
+    branches: ["main", "cdci"]
+  pull_request:
+    branches: ["main", "cdci"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Install Electron.NET
+        run: dotnet tool install ElectronNET.CLI -g
+      - name: Build ASP.NET
+        run: dotnet build --no-restore
+      - name: Build Desktop App
+        run: electronize build /target lin
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
