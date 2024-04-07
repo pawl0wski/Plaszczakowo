@@ -2,14 +2,12 @@
 
 <h1> Projekt </h1>
 
-<p>Losowa liczba: @losowaLiczba</p>
+<ul>
+    <li><NavLink href="/computer_science_machine">Maszyna informatyka</NavLink></li>
+    <li><NavLink href="/guard_schedule">Grafik strażników</NavLink></li>
+    <li><NavLink href="/fence_transport">Transport płotu</NavLink></li>
+</ul>
 
 @code {
-    public int losowaLiczba = 15;
-
-    protected override void OnInitialized() {
-        Random rand = new();
-        losowaLiczba = rand.Next(); 
-    }
 
 }
