@@ -44,6 +44,8 @@ await app.StartAsync();
 var window = await Electron.WindowManager.CreateWindowAsync();
 
 window.SetContentSize(1280, 720);
+window.SetMenuBarVisibility(false);
+window.SetTitle("Projekt zaliczeniowy AiSD 2");
 
 // Oczekiwanie na zakończenie okna Electron.
 app.WaitForShutdown();
