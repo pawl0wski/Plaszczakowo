@@ -1,4 +1,4 @@
-public class FenceTransportData : ProblemResolverData
+public class FenceTransportData : ProblemData
 {
     // TODO
 }

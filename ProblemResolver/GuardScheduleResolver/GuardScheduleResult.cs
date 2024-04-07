@@ -1,4 +1,4 @@
-public class GuardScheduleResult : ProblemResolverResult
+public class GuardScheduleResult : ProblemResult
 {
     // TODO
 }

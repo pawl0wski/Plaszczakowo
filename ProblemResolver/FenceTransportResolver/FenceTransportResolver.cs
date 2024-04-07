@@ -1,6 +1,6 @@
 public class FenceTransportResolver : ProblemResolver
 {
-    public override ProblemResolverResult Resolve(ProblemResolverData data)
+    public override ProblemResult Resolve(ProblemData data)
     {
         if (data is FenceTransportData)
             return Resolve(data);

@@ -1,6 +1,6 @@
 public class ComputerScienceMachineResolver : ProblemResolver
 {
-    public override ProblemResolverResult Resolve(ProblemResolverData data)
+    public override ProblemResult Resolve(ProblemData data)
     {
         if (data is ComputerScienceMachineData)
             return Resolve(data);

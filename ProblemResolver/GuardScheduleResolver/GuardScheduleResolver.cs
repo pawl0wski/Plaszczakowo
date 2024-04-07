@@ -1,6 +1,6 @@
 public class GuardScheduleResolver : ProblemResolver
 {
-    public override ProblemResolverResult Resolve(ProblemResolverData data)
+    public override ProblemResult Resolve(ProblemData data)
     {
         if (data is GuardScheduleData)
             return Resolve(data);

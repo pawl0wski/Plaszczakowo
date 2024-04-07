@@ -1,4 +1,4 @@
-public class FenceTransportResult : ProblemResolverResult
+public class FenceTransportResult : ProblemResult
 {
     // TODO
 }

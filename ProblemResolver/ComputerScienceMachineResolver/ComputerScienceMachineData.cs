@@ -1,4 +1,4 @@
-public class ComputerScienceMachineData : ProblemResolverData
+public class ComputerScienceMachineData : ProblemData
 {
     // TODO
 }
