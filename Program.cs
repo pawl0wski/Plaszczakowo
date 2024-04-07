@@ -43,8 +43,11 @@ await app.StartAsync();
 // Tworzenie nowego okna Electron.
 var window = await Electron.WindowManager.CreateWindowAsync();
 
+// Ustawianie wielkości okna
 window.SetContentSize(1280, 720);
+// Ukrywanie górnego menu
 window.SetMenuBarVisibility(false);
+// Ustawienie tytułu okna
 window.SetTitle("Projekt zaliczeniowy AiSD 2");
 
 // Oczekiwanie na zakończenie okna Electron.
