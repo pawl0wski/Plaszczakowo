@@ -1,10 +1,8 @@
 name: .NET Continuous Integration
 
 on:
-  push:
-    branches: ["main", "cdci"]
   pull_request:
-    branches: ["main", "cdci"]
+    branches: ["main"]
 
 jobs:
   build:
