@@ -1,12 +1,9 @@
-public class FenceTransportResolver : ProblemResolver
+namespace Problem;
+
+public class FenceTransportResolver :
+    ProblemResolver<FenceTransportData, FenceTransportResult>
 {
-    public override ProblemResult Resolve(ProblemData data)
-    {
-        if (data is FenceTransportData)
-            return Resolve(data);
-        throw new ArgumentException($"{this.GetType().Name} can't resolve {data.GetType().Name}");
-    }
-    public FenceTransportResult Resolve(FenceTransportData data)
+    public override FenceTransportResult Resolve(FenceTransportData data)
     {
         throw new NotImplementedException();
     }

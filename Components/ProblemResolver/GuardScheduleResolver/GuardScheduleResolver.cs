@@ -1,12 +1,9 @@
-public class GuardScheduleResolver : ProblemResolver
+namespace Problem;
+
+public class GuardScheduleResolver :
+    ProblemResolver<GuardScheduleData, GuardScheduleResult>
 {
-    public override ProblemResult Resolve(ProblemData data)
-    {
-        if (data is GuardScheduleData)
-            return Resolve(data);
-        throw new ArgumentException($"{this.GetType().Name} can't resolve {data.GetType().Name}");
-    }
-    public GuardScheduleResult Resolve(GuardScheduleData data)
+    public override GuardScheduleResult Resolve(GuardScheduleData data)
     {
         throw new NotImplementedException();
     }

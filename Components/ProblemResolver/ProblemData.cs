@@ -1,3 +1,5 @@
+namespace Problem;
+
 /*
     Dane wejściowa dla ProblemResolver
 */
