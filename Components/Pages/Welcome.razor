@@ -1,12 +1,16 @@
 @page "/"
 
-<h1> Projekt </h1>
+<div class="main-menu">
+    <h1 class="main-menu__title"> Płasczak Word </h1>
+    <div class="main-menu__buttons">
+        <ul>
+            <NavLink class="white-link" href="/computer_science_machine"><li>Maszyna informatyka</li></NavLink>
+            <NavLink class="white-link" href="/guard_schedule"><li>Grafik strażników</li></NavLink>
+            <NavLink class="white-link" href="/fence_transport"><li>Transport płotu</li></NavLink>
+        </ul>
+    </div>
+</div>
 
-<ul>
-    <li><NavLink href="/computer_science_machine">Maszyna informatyka</NavLink></li>
-    <li><NavLink href="/guard_schedule">Grafik strażników</NavLink></li>
-    <li><NavLink href="/fence_transport">Transport płotu</NavLink></li>
-</ul>
 
 @code {
 
