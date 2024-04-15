@@ -7,15 +7,34 @@ div.main-menu {
 }
 
 div.main-menu__buttons {
-    height: 80%;
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-h1.main-menu__title {
-    font-size: 40pt;
+div.main-menu__title {
+    margin-top: 5%;
+    height: 30vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.main-menu__title h1 {
+    margin: 0;
+    font-family: 'PixelifySans', sans-serif; 
+    text-align: center;
+
+    color: white;
+    text-shadow: -3px 0 black, 0 3px black, 3px 0 black, 0 -3px black;
+
+    animation-name: title-animation;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+
+    user-select: none;
 }
 
 ul {
@@ -24,7 +43,7 @@ ul {
 }
 
 li {
-    background-color: red;
+    background-color: #ff004f;
     padding: 10pt 40pt;
     margin-bottom: 15pt;
 
@@ -44,4 +63,19 @@ li {
 
 li:hover {
     background-color: blue;
+}
+
+@keyframes title-animation {
+    0% {
+        font-size: 40pt;
+        transform: rotate(-0.025turn);
+    }
+    50% {
+        font-size: 50pt;
+        transform: rotate(0.025turn);
+    }
+    100% {
+        font-size: 40pt;
+        transform: rotate(-0.025turn);
+    }
 }
