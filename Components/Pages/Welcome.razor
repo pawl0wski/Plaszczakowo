@@ -1,17 +1,27 @@
 @page "/"
 
-<div class="main-menu">
-    <div class="main-menu__title">
-        <h1> Świat płaszczaków </h1>
+<div class="welcome">
+    <div class="main-menu">
+        <div class="main-menu__title">
+            <h1> Świat płaszczaków </h1>
+        </div>
+        <div class="main-menu__buttons">
+            <ul>
+                <NavLink class="white-link" href="/computer_science_machine">
+                    <li>Maszyna informatyka</li>
+                </NavLink>
+                <NavLink class="white-link" href="/guard_schedule">
+                    <li>Grafik strażników</li>
+                </NavLink>
+                <NavLink class="white-link" href="/fence_transport">
+                    <li>Transport płotu</li>
+                </NavLink>
+            </ul>
+        </div>
     </div>
-    <div class="main-menu__buttons">
-        <ul>
-            <NavLink class="white-link" href="/computer_science_machine"><li>Maszyna informatyka</li></NavLink>
-            <NavLink class="white-link" href="/guard_schedule"><li>Grafik strażników</li></NavLink>
-            <NavLink class="white-link" href="/fence_transport"><li>Transport płotu</li></NavLink>
-        </ul>
-    </div>
+    <WelcomeBackground />
 </div>
+
 
 
 @code {
