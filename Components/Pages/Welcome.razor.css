@@ -77,15 +77,15 @@ li:hover {
 
 @keyframes title-animation {
     0% {
-        font-size: 40pt;
+        font-size: 50pt;
         transform: rotate(-0.025turn);
     }
     50% {
-        font-size: 50pt;
+        font-size: 60pt;
         transform: rotate(0.025turn);
     }
     100% {
-        font-size: 40pt;
+        font-size: 50pt;
         transform: rotate(-0.025turn);
     }
 }
