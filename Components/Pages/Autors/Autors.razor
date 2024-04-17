@@ -1,30 +1,11 @@
 @page "/autors";
+@using ProjektZaliczeniowy_AiSD2.Components.Pages.Autors.Components
 @rendermode InteractiveServer
 <h1>Autorzy</h1>
 
 <div class="autors">
-    <div class="autors__entry">
-        <div class="autors__entry__image"></div>
-        <div class="autors__entry__name">
-            Jakub Pawłowski
-        </div>    
-    </div>
-    <div class="autors__entry">
-        <div class="autors__entry__image"></div>
-        <div class="autors__entry__name">
-            Adam Cedro
-        </div>  
-    </div>
-    <div class="autors__entry">
-        <div class="autors__entry__image"></div>
-        <div class="autors__entry__name">
-            Bartłomiej Wiśniewski
-        </div>  
-    </div>
-    <div class="autors__entry">
-        <div class="autors__entry__image"></div>
-        <div class="autors__entry__name">
-            Sajmon Koniec
-        </div>  
-    </div>
+    <AutorEntry Name="Jakub Pawłowski"  />
+    <AutorEntry Name="Adam Cedro" ImgSrc="/autors/AdamCedro.png" />
+    <AutorEntry Name="Bartłomiej Wiśniewski" />
+    <AutorEntry Name="Sajmon Koniec" />
 </div>

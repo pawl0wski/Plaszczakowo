@@ -14,4 +14,7 @@
     <ItemGroup>
         <PackageReference Include="ElectronNET.API" Version="23.6.2" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="wwwroot\autors\" />
+    </ItemGroup>
 </Project>
