@@ -1,0 +1,33 @@
+h1 {
+    font-size: xx-large;
+    text-align: center;
+}
+
+div.autors {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+div.autors__entry {
+    width: 15rem;
+    height: 25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+div.autors__entry__image {
+    width: 100%;
+    height: 80%;
+    background-color: red;
+}
+
+div.autors__entry__name {
+    font-size: larger;
+    font-weight: bold;
+    text-align: center;
+}
