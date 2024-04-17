@@ -1,0 +1,102 @@
+div.welcome-background {
+    position: absolute;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+
+    background: linear-gradient(180deg, rgba(0,97,209,1) 0%, rgba(0,212,255,1) 47%, rgba(0,147,5,1) 100%); 
+}
+
+div.welcome-background__layer{
+    width: 100vw;
+    
+    display: flex;
+    flex-direction: row;
+    
+    overflow: hidden;
+    position: absolute;
+}
+
+div.welcome-background__layer img {
+    animation-name: slide;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    position: relative;
+    min-width: 100vw;
+}
+
+div#first-layer { 
+    bottom: 0px;
+    z-index: 6;
+}
+
+div#first-layer img {
+    animation-duration: 6s;
+
+}
+
+div#second-layer { 
+    bottom: 0px;
+    z-index: 5;
+}
+
+div#second-layer img {
+    animation-duration: 10s;
+}
+
+div#third-layer { 
+    bottom: 0px;
+    z-index: 4;
+}
+
+div#third-layer img {
+    animation-duration: 14s;
+}
+
+div#fourth-layer { 
+    bottom: 0px;
+    z-index: 3;
+}
+
+div#fourth-layer img {
+    animation-duration: 18s;
+}
+
+div#fifth-layer { 
+    bottom: 0px;
+    z-index: 2;
+    
+}
+
+div#fifth-layer img {
+    animation-duration: 22s;
+}
+
+div#sixth-layer { 
+    top: 0px;
+    z-index: 7;
+}
+
+div#sixth-layer img {
+    animation-duration: 15s;
+}
+
+div#seventh-layer { 
+    top: 0px;
+    z-index: 1;
+}
+
+div#seventh-layer img {
+    animation-duration: 40s;
+}
+
+@keyframes slide {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -100vw;
+    }
+}

@@ -1,0 +1,14 @@
+h1 {
+    font-size: xx-large;
+    text-align: center;
+}
+
+div.autors {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+

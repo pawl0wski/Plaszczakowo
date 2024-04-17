@@ -1,0 +1,17 @@
+<div class="autors__entry">
+    <div class="autors__entry__image">
+        <img src="@ImgSrc" alt="@Name"/>
+    </div>
+    <div class="autors__entry__name">
+        @Name 
+    </div>
+</div>
+
+@code {
+
+    [Parameter] 
+    public string? Name { get; set; }
+
+    [Parameter] public string? ImgSrc { get; set; } 
+
+}

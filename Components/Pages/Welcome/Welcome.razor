@@ -1,0 +1,39 @@
+@page "/"
+@using ProjektZaliczeniowy_AiSD2.Components.Pages.Welcome.Components
+@rendermode InteractiveServer
+
+<div class="welcome">
+    <div class="main-menu">
+        <div class="main-menu__title">
+            <h1>Płaszczakowo</h1>
+        </div>
+        <div class="main-menu__buttons">
+            <ul>
+                <NavLink class="white-link" href="/computer_science_machine">
+                    <li>Maszyna informatyka</li>
+                </NavLink>
+                <NavLink class="white-link" href="/guard_schedule">
+                    <li>Grafik strażników</li>
+                </NavLink>
+                <NavLink class="white-link" href="/fence_transport">
+                    <li>Transport płotu</li>
+                </NavLink>
+            </ul>
+        </div>
+        <div class="main-menu__bottom">
+            <ul>
+                <NavLink class="white-link" href="autors">
+                <li>
+                    <AuthorIcon />
+                </li>
+                </NavLink>
+            </ul>
+        </div>
+    </div>
+    <WelcomeBackground />
+</div>
+
+
+
+@code {
+}
