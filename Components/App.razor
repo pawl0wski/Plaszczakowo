@@ -7,13 +7,15 @@
     <link href="ProjektZaliczeniowy-AiSD2.styles.css" rel="stylesheet">
     <link href="fonts/fonts.css" rel="stylesheet">
     <link href="app.css" rel="stylesheet">
+    @* TODO: Biblioteki powinny być zawarte w aplikacji *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <base href="/" />
     <HeadOutlet @rendermode="InteractiveServer" />
 </head>
 
 <body>
     <Routes @rendermode="InteractiveServer" />
-    <script>process=undefined;</script> @* Hotfix for .NET 8.0 *@
+    <script>process = undefined;</script> @* Hotfix for .NET 8.0 *@
     <script src="_framework/blazor.web.js"></script>
 </body>
 

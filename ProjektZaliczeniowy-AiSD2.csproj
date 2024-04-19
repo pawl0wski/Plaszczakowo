@@ -12,6 +12,7 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
+        <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
         <PackageReference Include="ElectronNET.API" Version="23.6.2" />
     </ItemGroup>
     <ItemGroup>
