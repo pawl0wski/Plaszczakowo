@@ -7,14 +7,17 @@ using ElectronNET.API.Entities;
 */
 var builder = WebApplication.CreateBuilder(args);
 
-// Dodawanie Electrona do projektu.
-builder.WebHost.UseElectron(args);
 
 // Dodawanie komponentów Razora, Electrona do backendu naszej aplikacji.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddElectron();
+
+// Dodawanie Electrona do projektu.
+builder.WebHost.UseElectron(args);
+
+builder.Services.AddScoped<BlazorTransitionableRoute.IRouteTransitionInvoker, BlazorTransitionableRoute.DefaultRouteTransitionInvoker>();
 
 // Inicjalizacja naszej aplikacji wraz z dodanymi komponentami.
 var app = builder.Build();

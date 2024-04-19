@@ -1,0 +1,5 @@
+@inherits TransitionableLayoutComponent
+
+<div class="transition animate__fadeIn animate__faster animate__animated @(Transition.IntoView ? "transitioned" : "transitioned_behind")">
+    @Body
+</div>
