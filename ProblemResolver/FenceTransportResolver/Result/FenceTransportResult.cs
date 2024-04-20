@@ -1,6 +1,6 @@
 namespace Problem;
 
-public class FenceTransportResult : ProblemResult
+public class FenceTransportResult : ProblemOutputSteps
 {
     // TODO
 }

@@ -3,7 +3,7 @@ namespace Problem;
 public class FenceTransportResolver :
     ProblemResolver<FenceTransportData, FenceTransportResult>
 {
-    public override FenceTransportResult Resolve(FenceTransportData data)
+    public override List<FenceTransportResult> Resolve(FenceTransportData data)
     {
         throw new NotImplementedException();
     }

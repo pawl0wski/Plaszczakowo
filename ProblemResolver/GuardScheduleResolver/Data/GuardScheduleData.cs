@@ -1,5 +1,5 @@
 namespace Problem;
-public class GuardScheduleData : ProblemData
+public class GuardScheduleData : ProblemInputData
 {
     // TODO
 }

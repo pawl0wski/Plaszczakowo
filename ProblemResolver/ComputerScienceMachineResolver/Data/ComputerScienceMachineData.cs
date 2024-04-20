@@ -1,6 +1,6 @@
 namespace Problem;
 
-public class ComputerScienceMachineData : ProblemData
+public class ComputerScienceMachineData : ProblemInputData
 {
     // TODO
 }

@@ -1,6 +1,6 @@
 namespace Problem;
 
-public class GuardScheduleResult : ProblemResult
+public class GuardScheduleResult : ProblemOutputSteps
 {
     // TODO
 }

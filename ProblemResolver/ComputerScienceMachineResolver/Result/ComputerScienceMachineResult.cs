@@ -1,6 +1,6 @@
 namespace Problem;
 
-public class ComputerScienceMachineResult : ProblemResult
+public class ComputerScienceMachineResult : ProblemOutputSteps
 {
     // TODO
 }

@@ -1,6 +1,6 @@
 namespace Problem;
 
-public class FenceTransportData : ProblemData
+public class FenceTransportData : ProblemInputData
 {
     // TODO
 }
