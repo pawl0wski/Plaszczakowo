@@ -1,9 +1,9 @@
-namespace Problem;
+namespace Problem.ComputerScienceMachine;
 
 public class ComputerScienceMachineResolver :
-    ProblemResolver<ComputerScienceMachineData, ComputerScienceMachineResult>
+    ProblemResolver<ComputerScienceMachineInputData, ComputerScienceMachineOutputSteps>
 {
-    public override ComputerScienceMachineResult Resolve(ComputerScienceMachineData data)
+    public override List<ComputerScienceMachineOutputSteps> Resolve(ComputerScienceMachineInputData data)
     {
         throw new NotImplementedException();
     }
