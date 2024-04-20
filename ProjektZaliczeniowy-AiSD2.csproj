@@ -15,7 +15,8 @@
         <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
         <PackageReference Include="ElectronNET.API" Version="23.6.2" />
     </ItemGroup>
-    <ItemGroup>
-      <Folder Include="wwwroot\autors\" />
-    </ItemGroup>
+    <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+        <Exec Command="npm install" WorkingDirectory="JsDependencies/" />
+        <Exec Command="npm run build" WorkingDirectory="JsDependencies/" />
+    </Target>
 </Project>
