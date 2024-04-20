@@ -3,9 +3,9 @@ namespace Problem;
 /*
     Klasa odpowiedzialna za rozwiązanie problemu.
 */
-public abstract class ProblemResolver<InputData, OutputData>
+public abstract class ProblemResolver<InputData, OutputSteps>
     where InputData : ProblemInputData
-    where OutputData : ProblemOutputSteps
+    where OutputSteps : ProblemOutputSteps
 {
-    public abstract List<OutputData> Resolve(InputData data);
+    public abstract List<OutputSteps> Resolve(InputData data);
 }
