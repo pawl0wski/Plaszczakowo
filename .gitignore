@@ -5,4 +5,4 @@ obj/
 .code/
 .vscode/
 
-wwwroot/JsDependencies.js
+wwwroot/dependencies

@@ -1,0 +1,13 @@
+<i class="@(ReturnPreparedHtmlClass())" style="font-size: 23pt"></i>
+
+@code {
+
+    [Parameter] 
+    public required string Name { get; set; }
+
+    private string ReturnPreparedHtmlClass()
+    {
+        return $"fas {Name}";
+    }
+    
+}
