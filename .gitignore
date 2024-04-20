@@ -4,3 +4,5 @@ obj/
 .idea/
 .code/
 .vscode/
+
+wwwroot/JsDependencies.js
