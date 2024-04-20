@@ -3,7 +3,7 @@ h1 {
     text-align: center;
 }
 
-div.autors {
+div.authors {
     display: flex;
     flex-direction: row;
     justify-content: center;

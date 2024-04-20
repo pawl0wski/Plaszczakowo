@@ -1,4 +1,4 @@
-div.autors__entry {
+div.authors__entry {
     width: 15rem;
     height: 25rem;
     display: flex;
@@ -6,18 +6,18 @@ div.autors__entry {
     justify-content: center;
 }
 
-div.autors__entry__image {
+div.authors__entry__image {
     width: 100%;
     height: 80%;
     background-color: red;
 }
 
-div.autors__entry__image  img{
+div.authors__entry__image  img{
     width: 100%;
     height: 100%;
 }
 
-div.autors__entry__name {
+div.authors__entry__name {
     font-size: larger;
     font-weight: bold;
     text-align: center;
