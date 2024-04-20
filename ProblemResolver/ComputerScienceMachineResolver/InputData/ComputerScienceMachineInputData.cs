@@ -1,4 +1,4 @@
-namespace Problem;
+namespace Problem.ComputerScienceMachine;
 
 public class ComputerScienceMachineInputData : ProblemInputData
 {

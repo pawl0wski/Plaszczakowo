@@ -1,4 +1,4 @@
-namespace Problem;
+namespace Problem.GuardSchedule;
 
 public class GuardScheduleOutputSteps : ProblemOutputSteps
 {

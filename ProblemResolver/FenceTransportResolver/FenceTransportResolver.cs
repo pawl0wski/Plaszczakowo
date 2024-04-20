@@ -1,4 +1,4 @@
-namespace Problem;
+namespace Problem.FenceTransport;
 
 public class FenceTransportResolver :
     ProblemResolver<FenceTransportInputData, FenceTransportOutputSteps>

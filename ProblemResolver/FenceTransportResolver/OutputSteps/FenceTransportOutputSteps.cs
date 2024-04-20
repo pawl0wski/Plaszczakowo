@@ -1,4 +1,4 @@
-namespace Problem;
+namespace Problem.FenceTransport;
 
 public class FenceTransportOutputSteps : ProblemOutputSteps
 {
