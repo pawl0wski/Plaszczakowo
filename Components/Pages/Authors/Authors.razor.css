@@ -1,9 +1,24 @@
 h1 {
     font-size: xx-large;
     text-align: center;
+    padding-top: 2rem;
 }
 
-div.authors {
+div.authors_page {
+    width: 100vw;
+    height: 100vh;
+    
+    color: white;
+    
+    background: url("authors/background.png");
+    background-size: cover;
+}
+
+div.authors_page h1:first-child {
+    margin-top: 0;
+}
+
+div.authors_page__authors {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -11,4 +26,3 @@ div.authors {
     align-items: center;
     flex-wrap: wrap;
 }
-
