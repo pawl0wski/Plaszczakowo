@@ -1,9 +1,9 @@
 namespace Problem.ConvexHull;
 
 public class ConvexHullResolver :
-    ProblemResolver<ConvexHullInputData, ConvexHullOutputSteps>
+    ProblemResolver<ConvexHullInputData, ConvexHullOutputStep>
 {
-    public override List<ConvexHullOutputSteps> Resolve(ConvexHullInputData data)
+    public override List<ConvexHullOutputStep> Resolve(ConvexHullInputData data)
     {
         throw new NotImplementedException();
     }
