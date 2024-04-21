@@ -9,7 +9,7 @@ public class GraphVertex
         public ElementReference? VertexImageRef;
         public GraphState State;
 
-        public GraphVertex(int x, int y, ElementReference? vertexImageRef, int? value = null, GraphState? state = null) {
+        public GraphVertex(int x, int y, int? value = null, GraphState? state = null, ElementReference ? vertexImageRef = null) {
             this.X = x;
             this.Y = y;
             this.Value = value;
