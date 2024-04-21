@@ -1,0 +1,49 @@
+@using GraphDrawer
+@inject IJSRuntime JsRuntime;
+@rendermode InteractiveServer
+
+<div class="canvas_wrapper">
+    <BECanvas Width="Width" Height="Height" @ref="_canvasReference" />
+</div>
+
+<style>
+    div.canvas_wrapper {
+        overflow: hidden;
+    }
+</style>
+
+@code {
+
+    [Parameter]
+    public required GraphInput Input { get; set; }
+
+    [Parameter] 
+    public required int Width { get; set; }
+
+    [Parameter] 
+    public required int Height { get; set; }
+
+    private BECanvasComponent? _canvasReference;
+
+    private Canvas2DContext? _context;
+    
+    private GraphDrawer? _drawer;
+
+    private double _zoom = 1.0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        EnableCanvasZoom();
+        
+        _context = await _canvasReference.CreateCanvas2DAsync();
+        _drawer = new GraphDrawer(_context, Input);
+
+        
+        await _drawer.Draw();
+    }
+
+    private async void EnableCanvasZoom()
+    {
+        await JsRuntime.InvokeAsync<Task>("enableCanvasZoom", null);
+    }
+}
