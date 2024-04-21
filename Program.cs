@@ -12,10 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddElectron();
+// builder.Services.AddElectron();
 
 // Dodawanie Electrona do projektu.
-builder.WebHost.UseElectron(args);
+// builder.WebHost.UseElectron(args);
 
 builder.Services.AddScoped<BlazorTransitionableRoute.IRouteTransitionInvoker, BlazorTransitionableRoute.DefaultRouteTransitionInvoker>();
 
@@ -44,14 +44,14 @@ app.MapRazorComponents<ProjektZaliczeniowy_AiSD2.Components.App>()
 await app.StartAsync();
 
 // Tworzenie nowego okna Electron.
-var window = await Electron.WindowManager.CreateWindowAsync();
+// var window = await Electron.WindowManager.CreateWindowAsync();
 
 // Ustawianie wielkości okna
-window.SetContentSize(1280, 720);
+// window.SetContentSize(1280, 720);
 // Ukrywanie górnego menu
-window.SetMenuBarVisibility(false);
+// window.SetMenuBarVisibility(false);
 // Ustawienie tytułu okna
-window.SetTitle("Świat Płaszczaków");
+// window.SetTitle("Świat Płaszczaków");
 
 // Oczekiwanie na zakończenie okna Electron.
 app.WaitForShutdown();
