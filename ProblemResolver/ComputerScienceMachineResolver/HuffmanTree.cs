@@ -27,9 +27,7 @@ public class HuffmanTree
         }
         if (root.ifConnector == false)
         {
-            string result;
-            result = $"{root.character} {root.value} {root.ifConnector} Kod: {code}";
-            Console.WriteLine(result);
+            Console.WriteLine(root.ToString());
         }
         else
         {
@@ -41,28 +39,19 @@ public class HuffmanTree
     public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<ComputerScienceMachineOutputStep> outputSteps)
     {
         Node left, right, top;
-
         var MinHeap = new PriorityQueue<Node, int>();
-
-
         var arrayOfAllKeys = letters.Keys.ToArray();
-
         var arrayOfAllValues = letters.Values.ToArray();
-
         for (int i = 0; i < arrayOfAllKeys.Length; i++)
         {
             MinHeap.Enqueue(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false), arrayOfAllValues[i]);
             outputSteps[0].MinHeap.Enqueue(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false), arrayOfAllValues[i]);
         }
 
-
-
         while (MinHeap.Count != 1)
         {
             left = MinHeap.Dequeue();
-
             right = MinHeap.Dequeue();
-
             top = new Node('%', left.value + right.value, true);
             top.left = left;
             top.right = right;

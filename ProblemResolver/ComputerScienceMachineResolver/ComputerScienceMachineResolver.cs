@@ -23,10 +23,8 @@ public class ComputerScienceMachineResolver :
     {
         HuffmanTree huffmanTree = new HuffmanTree();
         Dictionary<char, string> dict = new Dictionary<char, string>();
-
         Node root = huffmanTree.CreateHuffmanTree(letterAppearances, ref outputSteps);
         outputSteps[0].HuffmanTree = root;
-
         GenerateTree(ref outputSteps, huffmanTree);
     }
 
@@ -40,11 +38,8 @@ public class ComputerScienceMachineResolver :
         List<ComputerScienceMachineOutputStep> outputSteps = new List<ComputerScienceMachineOutputStep>();
         ComputerScienceMachineOutputStep computerScienceMachineOutputStep = new ComputerScienceMachineOutputStep();
         outputSteps.Add(computerScienceMachineOutputStep);
-
         string fixedPhrase = "";
-
         correction.FixPhrase(ref fixedPhrase, ref outputSteps);
-        Console.WriteLine("Poprawiona fraza: " + fixedPhrase);
 
         Dictionary<char, int> letterAppearances = new Dictionary<char, int>();
         

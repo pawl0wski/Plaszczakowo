@@ -32,11 +32,11 @@ public class PhraseCorrection
         {
             if (correctLetters.ContainsKey(phrase[i]))
             {
-                DodajIZamien(i);
+                ChangeAndReplace(i);
             }
             else
             {
-                DodajBezZamiany(i);
+                ChangeWithoutReplace(i);
             }
         } 
 
@@ -46,14 +46,14 @@ public class PhraseCorrection
         outputSteps[0].FixingPhrase = replaceSteps.FixingPhrase;
     }
 
-    private void DodajIZamien(int i)
+    private void ChangeAndReplace(int i)
     {
         Tuple<char, char> step = new Tuple<char,char>(phrase[i], correctLetters[phrase[i]]);
         result += correctLetters[phrase[i]];
         replaceSteps.FixingPhrase.Add(step);
     }
 
-    private void DodajBezZamiany(int i)
+    private void ChangeWithoutReplace(int i)
     {
         if (phrase[i] == ' ')
         {

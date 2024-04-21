@@ -15,24 +15,17 @@ public class Node
         this.value = value;
         this.ifConnector = ifConnector;
     }
-    public void ToStringTree(Node? other = null)
+    public override string ToString()
     {
         if (this == null)
         {
-            return;
-        }
-        else if (this.ifConnector == false)
-        {
-            ToStringTree(left);
-            ToStringTree(right);
+            return "";
         }
         else {
             string result;
             result = $"{character} {value} {ifConnector}";
             Console.WriteLine(result);
+            return result;
         }
-        
-
-        return;
     }
 }
