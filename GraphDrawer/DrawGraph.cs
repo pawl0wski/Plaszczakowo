@@ -22,12 +22,12 @@ public class DrawGraph
         _edges = input.Edges;
     }
 
-    public async Task ChangeVerticeStatus(int index, GraphState state) {
+    public async Task ChangeVertexStatusAndRedraw(int index, GraphState state) {
         _vertices[index].State = state;
         await DrawVertex(_vertices[index]);
     }
 
-    public async Task ChangeEdgeStatus(int index, GraphState state) {
+    public async Task ChangeEdgeStatusAndRedraw(int index, GraphState state) {
         var currentEdge = _edges[index];
         currentEdge.State = state;
         await DrawEdge(currentEdge);
