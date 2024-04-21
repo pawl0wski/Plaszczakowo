@@ -1,6 +1,7 @@
 h1 {
     font-size: xx-large;
     text-align: center;
+    padding-top: 2rem;
 }
 
 div.authors_page {
@@ -25,4 +26,3 @@ div.authors_page__authors {
     align-items: center;
     flex-wrap: wrap;
 }
-
