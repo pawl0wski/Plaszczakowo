@@ -3,8 +3,8 @@ namespace Problem.ComputerScienceMachine;
 public class ComputerScienceMachineInputData : ProblemInputData
 {
     public string InputPhrase;
-    public ComputerScienceMachineInputData(string InputPhrase)
+    public ComputerScienceMachineInputData(string inputPhrase)
     {
-        this.InputPhrase = InputPhrase;
+        this.InputPhrase = inputPhrase;
     }
 }

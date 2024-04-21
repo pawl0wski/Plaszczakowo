@@ -8,14 +8,14 @@ public class HuffmanTree
         {
             return;
         }
-        if (root.ifConnector == false)
+        if (root.IfConnector == false)
         {
-            dict.Add(root.character, code);
+            dict.Add(root.Character, code);
         }
         else
         {
-            GenerateDictionary(root.left, code + "0", dict);
-            GenerateDictionary(root.right, code + "1", dict);
+            GenerateDictionary(root.Left, code + "0", dict);
+            GenerateDictionary(root.Right, code + "1", dict);
         }
     }
 
@@ -25,14 +25,14 @@ public class HuffmanTree
         {
             return;
         }
-        if (root.ifConnector == false)
+        if (root.IfConnector == false)
         {
             Console.WriteLine(root.ToString());
         }
         else
         {
-            PrintTree(root.left, code + "0");
-            PrintTree(root.right, code + "1");
+            PrintTree(root.Left, code + "0");
+            PrintTree(root.Right, code + "1");
         }
     }
 
@@ -52,10 +52,10 @@ public class HuffmanTree
         {
             left = MinHeap.Dequeue();
             right = MinHeap.Dequeue();
-            top = new Node('%', left.value + right.value, true);
-            top.left = left;
-            top.right = right;
-            MinHeap.Enqueue(top, top.value);
+            top = new Node('%', left.Value + right.Value, true);
+            top.Left = left;
+            top.Right = right;
+            MinHeap.Enqueue(top, top.Value);
         }
 
         return MinHeap.Dequeue();
