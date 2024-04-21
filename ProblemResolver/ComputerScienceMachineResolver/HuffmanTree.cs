@@ -38,7 +38,7 @@ public class HuffmanTree
         }
     }
 
-    public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<ComputerScienceMachineOutputSteps> outputSteps)
+    public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<ComputerScienceMachineOutputStep> outputSteps)
     {
         Node left, right, top;
 

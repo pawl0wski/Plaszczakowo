@@ -1,7 +1,7 @@
 namespace Problem.ComputerScienceMachine;
 
 public class ComputerScienceMachineResolver :
-    ProblemResolver<ComputerScienceMachineInputData, ComputerScienceMachineOutputSteps>
+    ProblemResolver<ComputerScienceMachineInputData, ComputerScienceMachineOutputStep>
 {
     public Dictionary<char, int> CalculateAppearances(string phrase)
     {
@@ -19,7 +19,7 @@ public class ComputerScienceMachineResolver :
         return letterAppearances;
     }
 
-    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref List<ComputerScienceMachineOutputSteps> outputSteps)
+    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref List<ComputerScienceMachineOutputStep> outputSteps)
     {
         HuffmanTree huffmanTree = new HuffmanTree();
         Dictionary<char, string> dict = new Dictionary<char, string>();
@@ -30,15 +30,15 @@ public class ComputerScienceMachineResolver :
         GenerateTree(ref outputSteps, huffmanTree);
     }
 
-    public void GenerateTree(ref List<ComputerScienceMachineOutputSteps> output, HuffmanTree huffmanTree)
+    public void GenerateTree(ref List<ComputerScienceMachineOutputStep> output, HuffmanTree huffmanTree)
     {
         huffmanTree.GenerateDictionary(output[0].HuffmanTree, "", output[0].HuffmanDictionary);
     }
-    public override List<ComputerScienceMachineOutputSteps> Resolve(ComputerScienceMachineInputData data)
+    public override List<ComputerScienceMachineOutputStep> Resolve(ComputerScienceMachineInputData data)
     {
         PhraseCorrection correction = new PhraseCorrection(data.InputPhrase);
-        List<ComputerScienceMachineOutputSteps> outputSteps = new List<ComputerScienceMachineOutputSteps>();
-        ComputerScienceMachineOutputSteps computerScienceMachineOutputStep = new ComputerScienceMachineOutputSteps();
+        List<ComputerScienceMachineOutputStep> outputSteps = new List<ComputerScienceMachineOutputStep>();
+        ComputerScienceMachineOutputStep computerScienceMachineOutputStep = new ComputerScienceMachineOutputStep();
         outputSteps.Add(computerScienceMachineOutputStep);
 
         string fixedPhrase = "";

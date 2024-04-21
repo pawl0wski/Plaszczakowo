@@ -1,9 +1,9 @@
 namespace Problem.CarrierAssignment;
 
 public class CarrierAssignmentResolver :
-    ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentOutputSteps>
+    ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentOutputStep>
 {
-    public override List<CarrierAssignmentOutputSteps> Resolve(CarrierAssignmentInputData data)
+    public override List<CarrierAssignmentOutputStep> Resolve(CarrierAssignmentInputData data)
     {
         throw new NotImplementedException();
     }

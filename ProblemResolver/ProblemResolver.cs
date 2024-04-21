@@ -5,7 +5,7 @@ namespace Problem;
 */
 public abstract class ProblemResolver<InputData, OutputSteps>
     where InputData : ProblemInputData
-    where OutputSteps : ProblemOutputSteps
+    where OutputSteps : ProblemOutputStep
 {
     public abstract List<OutputSteps> Resolve(InputData data);
 }

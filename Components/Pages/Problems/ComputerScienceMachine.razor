@@ -10,8 +10,8 @@
                 ComputerScienceMachineInputData data = new ComputerScienceMachineInputData("abcdet");
                 Console.WriteLine("Tekst wejściowy: {0}", data.InputPhrase);
                 ComputerScienceMachineResolver resolve = new ComputerScienceMachineResolver();
-                List<ComputerScienceMachineOutputSteps> output = resolve.Resolve(data);
-                ComputerScienceMachineOutputSteps results = output[0];
+                List<ComputerScienceMachineOutputStep> output = resolve.Resolve(data);
+                ComputerScienceMachineOutputStep results = output[0];
 
                 Console.WriteLine("Poprawy we frazie:");
                 foreach (Tuple<char,char> correction in results.FixingPhrase)

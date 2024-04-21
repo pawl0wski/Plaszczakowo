@@ -2,7 +2,7 @@ using Microsoft.VisualBasic;
 
 namespace Problem.ComputerScienceMachine;
 
-public class ComputerScienceMachineOutputSteps : ProblemOutputSteps
+public class ComputerScienceMachineOutputStep : ProblemOutputStep
 {
     public List<Tuple<char, char>> FixingPhrase;
     public string FixedPhrase;
@@ -13,7 +13,7 @@ public class ComputerScienceMachineOutputSteps : ProblemOutputSteps
     public  Dictionary<char, string> HuffmanDictionary;
 
 
-    public ComputerScienceMachineOutputSteps()
+    public ComputerScienceMachineOutputStep()
     {
         this.FixingPhrase = new();
         this.FixedPhrase = "";

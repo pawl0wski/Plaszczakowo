@@ -1,9 +1,9 @@
 namespace Problem.GuardSchedule;
 
 public class GuardScheduleResolver :
-    ProblemResolver<GuardScheduleInputData, GuardScheduleOutputSteps>
+    ProblemResolver<GuardScheduleInputData, GuardScheduleOutputStep>
 {
-    public override List<GuardScheduleOutputSteps> Resolve(GuardScheduleInputData data)
+    public override List<GuardScheduleOutputStep> Resolve(GuardScheduleInputData data)
     {
         throw new NotImplementedException();
     }
