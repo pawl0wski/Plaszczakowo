@@ -1,3 +1,4 @@
+namespace GraphDrawer;
 public class GraphStateActive : GraphState
 {
 

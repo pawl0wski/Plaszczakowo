@@ -1,3 +1,4 @@
+namespace GraphDrawer;
 public class GraphEdge {
     public readonly  GraphVertex From;
 

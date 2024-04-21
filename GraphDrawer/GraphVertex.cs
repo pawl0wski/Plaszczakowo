@@ -1,4 +1,5 @@
-﻿    public class GraphVertex
+﻿namespace GraphDrawer;
+public class GraphVertex
     {
         public int  X;
         public int Y;

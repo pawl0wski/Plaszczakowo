@@ -1,3 +1,4 @@
+namespace GraphDrawer;
 public class GraphStateInactive : GraphState
 {
     public override string GetPrimaryColor() => "black";

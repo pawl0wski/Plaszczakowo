@@ -1,3 +1,4 @@
+namespace GraphDrawer;
 public abstract class GraphState {
     public abstract string GetPrimaryColor();
 

@@ -1,3 +1,5 @@
+namespace GraphDrawer;
+
 public class GraphInput
 {
     public List<GraphVertex> Vertices;
