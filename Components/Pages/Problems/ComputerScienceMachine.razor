@@ -5,4 +5,42 @@
 
 @code {
         private ComputerScienceMachineResolver resolver = new();
+        protected override void OnInitialized()
+        {
+                ComputerScienceMachineInputData data = new ComputerScienceMachineInputData("abcdet");
+                Console.WriteLine("Tekst wejściowy: {0}", data.inputPhrase);
+                ComputerScienceMachineResolver resolve = new ComputerScienceMachineResolver();
+                List<ComputerScienceMachineOutputSteps> output = resolve.Resolve(data);
+                ComputerScienceMachineOutputSteps results = output[0];
+
+                Console.WriteLine("Poprawy we frazie:");
+                foreach (Tuple<char,char> correction in results.fixingPhrase)
+                {
+                       Console.WriteLine("{0} -> {1}", correction.Item1, correction.Item2); 
+                }
+
+                Console.WriteLine("Poprawiona fraza: {0}", results.fixedPhrase);
+
+                Console.WriteLine("Wystąpienia liter:");
+                foreach (char key in results.letterAppearances.Keys)
+                {
+                        Console.WriteLine(key + " -> " + results.letterAppearances[key]);
+                }
+                Console.WriteLine("Utworzony kopiec minimum:");
+                
+
+                var arrayOfAllKeys = results.huffmanDictionary.Keys.ToArray();
+                Console.WriteLine("Alfabet Huffmana:");
+                foreach(var key in arrayOfAllKeys)
+                {
+                        Console.WriteLine("{0} -> {1}", key, results.huffmanDictionary[key]);
+                }
+                Console.WriteLine("Wynik:");
+                string codedPhrase = "";
+                foreach (var letter in results.fixedPhrase)
+                {
+                        codedPhrase += results.huffmanDictionary[letter] + "|";
+                }
+                Console.WriteLine(codedPhrase);
+        }
 }
