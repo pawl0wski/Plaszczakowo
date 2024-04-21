@@ -1,7 +1,7 @@
-namespace Problem.ComputerScienceMachine;
+namespace Problem.HuffmanCoding;
 
-public class ComputerScienceMachineResolver :
-    ProblemResolver<ComputerScienceMachineInputData, ComputerScienceMachineOutputStep>
+public class HuffmanCodingResolver :
+    ProblemResolver<HuffmanCodingInputData, HuffmanCodingOutputStep>
 {
     public Dictionary<char, int> CalculateAppearances(string phrase)
     {
@@ -19,7 +19,7 @@ public class ComputerScienceMachineResolver :
         return letterAppearances;
     }
 
-    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref List<ComputerScienceMachineOutputStep> outputSteps)
+    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref List<HuffmanCodingOutputStep> outputSteps)
     {
         HuffmanTree huffmanTree = new HuffmanTree();
         Dictionary<char, string> dict = new Dictionary<char, string>();
@@ -28,22 +28,21 @@ public class ComputerScienceMachineResolver :
         GenerateTree(ref outputSteps, huffmanTree);
     }
 
-    public void GenerateTree(ref List<ComputerScienceMachineOutputStep> output, HuffmanTree huffmanTree)
+    public void GenerateTree(ref List<HuffmanCodingOutputStep> output, HuffmanTree huffmanTree)
     {
         huffmanTree.GenerateDictionary(output[0].HuffmanTree, "", output[0].HuffmanDictionary);
     }
-    public override List<ComputerScienceMachineOutputStep> Resolve(ComputerScienceMachineInputData data)
+    public override List<HuffmanCodingOutputStep> Resolve(HuffmanCodingInputData data)
     {
-        PhraseCorrection correction = new PhraseCorrection(data.InputPhrase);
-        List<ComputerScienceMachineOutputStep> outputSteps = new List<ComputerScienceMachineOutputStep>();
-        ComputerScienceMachineOutputStep computerScienceMachineOutputStep = new ComputerScienceMachineOutputStep();
+        HuffmanCodingInputData correction = new HuffmanCodingInputData(data.InputPhrase);
+        List<HuffmanCodingOutputStep> outputSteps = new List<HuffmanCodingOutputStep>();
+        HuffmanCodingOutputStep computerScienceMachineOutputStep = new HuffmanCodingOutputStep();
         outputSteps.Add(computerScienceMachineOutputStep);
-        string fixedPhrase = "";
-        correction.FixPhrase(ref fixedPhrase, ref outputSteps);
+        
 
         Dictionary<char, int> letterAppearances = new Dictionary<char, int>();
         
-        outputSteps[0].LetterAppearances = CalculateAppearances(fixedPhrase);
+        outputSteps[0].LetterAppearances = CalculateAppearances(data.InputPhrase);
 
         GenerateHuffmanTree(outputSteps[0].LetterAppearances, ref outputSteps);
 

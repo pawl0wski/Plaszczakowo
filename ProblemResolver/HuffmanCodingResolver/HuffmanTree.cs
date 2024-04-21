@@ -1,4 +1,4 @@
-namespace Problem.ComputerScienceMachine;
+namespace Problem.HuffmanCoding;
 
 public class HuffmanTree
 {
@@ -36,7 +36,7 @@ public class HuffmanTree
         }
     }
 
-    public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<ComputerScienceMachineOutputStep> outputSteps)
+    public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
     {
         Node left, right, top;
         var MinHeap = new PriorityQueue<Node, int>();
