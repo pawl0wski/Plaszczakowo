@@ -1,7 +1,7 @@
 ﻿namespace GraphDrawer;
 public class GraphVertex
     {
-        public int  X;
+        public int X;
         public int Y;
         public int? Value;
 
