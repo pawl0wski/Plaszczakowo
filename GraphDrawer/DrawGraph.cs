@@ -53,12 +53,28 @@ public class DrawGraph
     {
         await _context.SetStrokeStyleAsync(e.State.GetPrimaryColor());
         await _context.SetLineWidthAsync(e.State.GetLineWidth());
-        
+
         await _context.BeginPathAsync();
         await _context.MoveToAsync(e.From.X, e.From.Y);
         await _context.LineToAsync(e.To.X, e.To.Y);
         await _context.ClosePathAsync();
         await _context.StrokeAsync();
+
+        if (e.Flow != null) 
+            await FillEdgeWithFlow(e);      
+    }
+    private async Task FillEdgeWithFlow(GraphEdge e)
+    {
+        if (e.Flow == null) 
+            throw new NullReferenceException();
+
+        var x = (e.From.X + e.To.X) / 2 - 15.5;
+        var y = (e.From.Y + e.To.Y) / 2 + 7;
+
+        await _context.SetFillStyleAsync("red");
+        await _context.SetFontAsync("bold 20px Cascadia Mono");
+        await _context.FillTextAsync(e.Flow.ToString(), x, y);
+
     }
 
     public async Task DrawVertex(GraphVertex v) {
@@ -106,7 +122,6 @@ public class DrawGraph
         var y = v.Y + 7;
         await _context.FillTextAsync(text, x, y);
     }
-
 
     private async Task ClearCanvas()
     {
