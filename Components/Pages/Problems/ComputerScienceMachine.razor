@@ -5,4 +5,48 @@
 
 @code {
         private ComputerScienceMachineResolver resolver = new();
+        protected override void OnInitialized()
+        {
+                ComputerScienceMachineInputData data = new ComputerScienceMachineInputData("abcdet");
+                Console.WriteLine("Tekst wejściowy: {0}", data.InputPhrase);
+                ComputerScienceMachineResolver resolve = new ComputerScienceMachineResolver();
+                List<ComputerScienceMachineOutputStep> output = resolve.Resolve(data);
+                ComputerScienceMachineOutputStep results = output[0];
+
+                Console.WriteLine("Poprawy we frazie:");
+                foreach (Tuple<char,char> correction in results.FixingPhrase)
+                {
+                       Console.WriteLine("{0} -> {1}", correction.Item1, correction.Item2); 
+                }
+
+                Console.WriteLine("Poprawiona fraza: {0}", results.FixedPhrase);
+
+                Console.WriteLine("Wystąpienia liter:");
+                foreach (char key in results.LetterAppearances.Keys)
+                {
+                        Console.WriteLine(key + " -> " + results.LetterAppearances[key]);
+                }
+                Console.WriteLine("Utworzony kopiec minimum:");
+                while(results.MinHeap.Count > 1)
+                {
+                        Node lowest = results.MinHeap.Dequeue();
+                        Console.WriteLine("{0} {1}", lowest.Character, lowest.Value);
+                }
+                Console.WriteLine("Drzewo Huffmana: ");
+                HuffmanTree tree = new();
+                tree.PrintTree(results.HuffmanTree, "");
+                var arrayOfAllKeys = results.HuffmanDictionary.Keys.ToArray();
+                Console.WriteLine("Alfabet Huffmana:");
+                foreach(var key in arrayOfAllKeys)
+                {
+                        Console.WriteLine("{0} -> {1}", key, results.HuffmanDictionary[key]);
+                }
+                Console.WriteLine("Wynik:");
+                string codedPhrase = "";
+                foreach (var letter in results.FixedPhrase)
+                {
+                        codedPhrase += results.HuffmanDictionary[letter] + "|";
+                }
+                Console.WriteLine(codedPhrase);
+        }
 }
