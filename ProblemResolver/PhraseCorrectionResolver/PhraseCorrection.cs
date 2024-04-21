@@ -1,4 +1,4 @@
-namespace Problem.ComputerScienceMachine;
+namespace Problem.PhraseCorrection;
 
 public class PhraseCorrection
 {
@@ -15,7 +15,7 @@ public class PhraseCorrection
     };
 
     string result, phrase;
-    ComputerScienceMachineOutputStep replaceSteps;
+    PhraseCorrectionOutputStep replaceSteps;
 
     public PhraseCorrection(string phrase)
     {
@@ -24,7 +24,7 @@ public class PhraseCorrection
         this.replaceSteps = new();
     }
 
-    public void FixPhrase(ref string inputPhrase,ref List<ComputerScienceMachineOutputStep> outputSteps)
+    public void FixPhrase(ref string inputPhrase,ref List<PhraseCorrectionOutputStep> outputSteps)
     {
         for (int i = 0; i<phrase.Length; i++)
         {
