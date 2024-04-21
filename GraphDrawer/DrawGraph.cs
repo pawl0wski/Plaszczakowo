@@ -7,7 +7,6 @@ public class DrawGraph
     private readonly Canvas2DContext _context;
     public List<GraphVertex> Vertices;
     public List<GraphEdge> Edges;
-    public int current_step = 0;
 
     public DrawGraph(Canvas2DContext _context, ref List<GraphVertex> vertexes, ref List<GraphEdge> edges)
     {
@@ -63,11 +62,13 @@ public class DrawGraph
     }
 
     public async Task DrawVertex(GraphVertex v) {
+            // Drawing circle outline
             await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
             await _context.BeginPathAsync();
             await _context.ArcAsync(v.X, v.Y, 30, 0, 2 * Math.PI);
             await _context.FillAsync();
 
+            // Drawing circle
             await _context.SetFillStyleAsync(v.State.GetSecondaryColor());
             await _context.BeginPathAsync();
             await _context.ArcAsync(v.X, v.Y, 25, 0, 2 * Math.PI);
@@ -90,23 +91,4 @@ public class DrawGraph
         await _context.ClearRectAsync(0, 0, 1920, 1080);
     }
 
-    // public async Task NextStep()
-    // {
-    //     if (current_step < vertex_amount)
-    //     {
-    //         current_step++;
-    //         await FillGraph(current_step);
-            
-    //     }
-    // }
-
-    // public async Task PreviousStep()
-    // {
-    //     if (current_step > 0)
-    //     {
-    //         current_step--;
-    //         await ClearGraph();
-    //         await FillGraph(current_step);
-    //     }
-    // }
 }
