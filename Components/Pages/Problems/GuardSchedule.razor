@@ -1,10 +1,12 @@
 @page "/guard_schedule"
 @rendermode InteractiveServer
-@using Drawing.Components.Pages
+@using GraphDrawer;
 @using Problem.GuardSchedule;
 
 <h1>Grafik strażników</h1>
-<BECanvas Width="1920" Height="1080" @ref="_canvasReference"></BECanvas>
+
+<BECanvas Width="1280" Height="720" @ref="_canvasReference"></BECanvas>
+
 
 @code {
     private GuardScheduleResolver resolver = new();
@@ -12,30 +14,9 @@
     private DrawGraph? graph;
     protected BECanvasComponent? _canvasReference;
 
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         this._context = await this._canvasReference.CreateCanvas2DAsync();
-
-        await this._context.TranslateAsync(0.5, 0.5);
-
-
-        var input = FenceCreator.CreateEdges(15);
-
-        graph = new DrawGraph(_context, ref input);
-
-        await graph.Draw();
-
-
-        for (int i = 1; i < 15; i++)
-        {
-            await graph.ChangeEdgeStatus(i - 1, GraphStates.Active);
-
-            await graph.ChangeVerticeStatus(i, GraphStates.Highlighted);
-            await graph.ChangeVerticeStatus(i - 1, GraphStates.Active);
-
-
-            await Task.Delay(TimeSpan.FromSeconds(1));
-        }
-
     }
 }

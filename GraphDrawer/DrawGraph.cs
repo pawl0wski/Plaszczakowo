@@ -1,6 +1,6 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
 
-namespace Drawing.Components.Pages
+namespace GraphDrawer
 {
     public class DrawGraph
     {

@@ -1,5 +1,3 @@
-using Drawing.Components.Pages;
-
 public class GraphEdge {
     public readonly  GraphVertex From;
 
