@@ -15,30 +15,24 @@ public class Node
         this.value = value;
         this.ifConnector = ifConnector;
     }
-    public void ToString(Node? other = null)
+    public void ToStringTree(Node? other = null)
     {
-        string result;
-        result = character + " " + " " + value + " " + ifConnector;
-        if (this.left != null)
+        if (this == null)
         {
-            ToString(left);
+            return;
         }
-        if (this.right != null)
+        else if (this.ifConnector == false)
         {
-            ToString(right);
+            ToStringTree(left);
+            ToStringTree(right);
+        }
+        else {
+            string result;
+            result = $"{character} {value} {ifConnector}";
+            Console.WriteLine(result);
         }
         
-    }
-}
 
-public class NodeComparer : IComparer<Node>
-{
-    public int Compare(Node? one, Node? two)
-    {
-        if (one == null || two == null)
-        {
-            return 0;
-        }
-        return one.value.CompareTo(two.value);
+        return;
     }
 }

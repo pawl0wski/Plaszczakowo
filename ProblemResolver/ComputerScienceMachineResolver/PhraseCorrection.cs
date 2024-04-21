@@ -16,32 +16,49 @@ public class PhraseCorrection
     ['j'] = 'r'
     };
 
-    public void fixPhrase(ref string phrase, ref List<ComputerScienceMachineOutputSteps> outputSteps)
+    string result, phrase;
+    ComputerScienceMachineOutputSteps replaceSteps;
+
+    public PhraseCorrection(string phrase)
     {
-        var arrayOfAllKeys = correctLetters.Keys.ToArray();
-        List<Tuple<char, char>> steps = new List<Tuple<char, char>>();
-        string result = "";
+        this.result = "";
+        this.phrase = phrase;
+        this.replaceSteps = new();
+    }
+
+    public void FixPhrase(ref string inputPhrase,ref List<ComputerScienceMachineOutputSteps> outputSteps)
+    {
         for (int i = 0; i<phrase.Length; i++)
         {
             if (correctLetters.ContainsKey(phrase[i]))
             {
-                Tuple<char, char> step = new Tuple<char,char>(phrase[i], correctLetters[phrase[i]]);
-                result += correctLetters[phrase[i]];
-                outputSteps[0].fixingPhrase.Add(step);
+                DodajIZamien(i);
             }
             else
             {
-                if (phrase[i] == ' ')
-                {
-                    continue;
-                }
-                result += phrase[i];
+                DodajBezZamiany(i);
             }
         } 
 
 
-        phrase = result;
-        outputSteps[0].fixedPhrase = result;
-        
+        inputPhrase = result;
+        outputSteps[0].FixedPhrase = result;
+        outputSteps[0].FixingPhrase = replaceSteps.FixingPhrase;
+    }
+
+    private void DodajIZamien(int i)
+    {
+        Tuple<char, char> step = new Tuple<char,char>(phrase[i], correctLetters[phrase[i]]);
+        result += correctLetters[phrase[i]];
+        replaceSteps.FixingPhrase.Add(step);
+    }
+
+    private void DodajBezZamiany(int i)
+    {
+        if (phrase[i] == ' ')
+        {
+           return;
+        }
+        result += phrase[i];
     }
 }

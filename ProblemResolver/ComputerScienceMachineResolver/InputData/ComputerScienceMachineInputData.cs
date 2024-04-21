@@ -2,10 +2,10 @@ namespace Problem.ComputerScienceMachine;
 
 public class ComputerScienceMachineInputData : ProblemInputData
 {
-    public string inputPhrase;
+    public string InputPhrase;
 
-    public ComputerScienceMachineInputData(string inputPhrase)
+    public ComputerScienceMachineInputData(string InputPhrase)
     {
-        this.inputPhrase = inputPhrase;
+        this.InputPhrase = InputPhrase;
     }
 }

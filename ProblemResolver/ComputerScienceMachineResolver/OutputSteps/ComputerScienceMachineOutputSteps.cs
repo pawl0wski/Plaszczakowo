@@ -4,21 +4,21 @@ namespace Problem.ComputerScienceMachine;
 
 public class ComputerScienceMachineOutputSteps : ProblemOutputSteps
 {
-    public List<Tuple<char, char>> fixingPhrase;
-    public string fixedPhrase;
+    public List<Tuple<char, char>> FixingPhrase;
+    public string FixedPhrase;
 
-    public Dictionary<char, int> letterAppearances;
-    public PriorityQueue<Node, int> minHeap;
-    public Node? huffmanTree;
-    public  Dictionary<char, string> huffmanDictionary;
+    public Dictionary<char, int> LetterAppearances;
+    public PriorityQueue<Node, int> MinHeap;
+    public Node? HuffmanTree;
+    public  Dictionary<char, string> HuffmanDictionary;
 
 
     public ComputerScienceMachineOutputSteps()
     {
-        this.fixingPhrase = new List<Tuple<char, char>>();
-        this.fixedPhrase = "";
-        this.letterAppearances = new Dictionary<char, int>();
-        this.minHeap = new PriorityQueue<Node, int>();
-        this.huffmanDictionary = new Dictionary<char, string>();
+        this.FixingPhrase = new();
+        this.FixedPhrase = "";
+        this.LetterAppearances = new();
+        this.MinHeap = new();
+        this.HuffmanDictionary = new();
     }
 }

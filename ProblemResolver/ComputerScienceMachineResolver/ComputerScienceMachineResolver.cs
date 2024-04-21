@@ -3,40 +3,54 @@ namespace Problem.ComputerScienceMachine;
 public class ComputerScienceMachineResolver :
     ProblemResolver<ComputerScienceMachineInputData, ComputerScienceMachineOutputSteps>
 {
-    public override List<ComputerScienceMachineOutputSteps> Resolve(ComputerScienceMachineInputData data)
+    public Dictionary<char, int> CalculateAppearances(string phrase)
     {
-        PhraseCorrection correction = new PhraseCorrection();
-        List<ComputerScienceMachineOutputSteps> outputSteps = new List<ComputerScienceMachineOutputSteps>();
-        ComputerScienceMachineOutputSteps computerScienceMachineOutputStep = new ComputerScienceMachineOutputSteps();
-        outputSteps.Add(computerScienceMachineOutputStep);
-        string fixedPhrase = data.inputPhrase;
-        correction.fixPhrase(ref fixedPhrase, ref outputSteps);
-        Dictionary<char, int> letterAppearances = new Dictionary<char, int>();
-        for (int i = 0; i < fixedPhrase.Length; i++)
+        Dictionary<char, int> letterAppearances = new();
+        for (int i = 0; i < phrase.Length; i++)
         {
-            if (letterAppearances.ContainsKey(fixedPhrase[i]))
+            if (letterAppearances.ContainsKey(phrase[i]))
             {
-                letterAppearances[fixedPhrase[i]]++;
+                letterAppearances[phrase[i]]++;
             } else
             {
-                letterAppearances.Add(fixedPhrase[i], 1);
+                letterAppearances.Add(phrase[i], 1);
             }
         }
-        outputSteps[0].letterAppearances = letterAppearances;
+        return letterAppearances;
+    }
 
+    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref List<ComputerScienceMachineOutputSteps> outputSteps)
+    {
         HuffmanTree huffmanTree = new HuffmanTree();
-
         Dictionary<char, string> dict = new Dictionary<char, string>();
 
         Node root = huffmanTree.CreateHuffmanTree(letterAppearances, ref outputSteps);
+        outputSteps[0].HuffmanTree = root;
 
-        outputSteps[0].huffmanTree = root;
+        GenerateTree(ref outputSteps, huffmanTree);
+    }
 
-        huffmanTree.GenerateDictionary(root, "", dict);
+    public void GenerateTree(ref List<ComputerScienceMachineOutputSteps> output, HuffmanTree huffmanTree)
+    {
+        huffmanTree.GenerateDictionary(output[0].HuffmanTree, "", output[0].HuffmanDictionary);
+    }
+    public override List<ComputerScienceMachineOutputSteps> Resolve(ComputerScienceMachineInputData data)
+    {
+        PhraseCorrection correction = new PhraseCorrection(data.InputPhrase);
+        List<ComputerScienceMachineOutputSteps> outputSteps = new List<ComputerScienceMachineOutputSteps>();
+        ComputerScienceMachineOutputSteps computerScienceMachineOutputStep = new ComputerScienceMachineOutputSteps();
+        outputSteps.Add(computerScienceMachineOutputStep);
 
-        outputSteps[0].huffmanDictionary = dict;
+        string fixedPhrase = "";
 
-        List<string> codedPhrase = new List<string>();
+        correction.FixPhrase(ref fixedPhrase, ref outputSteps);
+        Console.WriteLine("Poprawiona fraza: " + fixedPhrase);
+
+        Dictionary<char, int> letterAppearances = new Dictionary<char, int>();
+        
+        outputSteps[0].LetterAppearances = CalculateAppearances(fixedPhrase);
+
+        GenerateHuffmanTree(outputSteps[0].LetterAppearances, ref outputSteps);
 
         return outputSteps;
     }

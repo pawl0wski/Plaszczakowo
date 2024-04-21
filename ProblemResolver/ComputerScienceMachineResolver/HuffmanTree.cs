@@ -19,6 +19,25 @@ public class HuffmanTree
         }
     }
 
+    public void PrintTree(Node? root, string code)
+    {
+        if (root == null)
+        {
+            return;
+        }
+        if (root.ifConnector == false)
+        {
+            string result;
+            result = $"{root.character} {root.value} {root.ifConnector} Kod: {code}";
+            Console.WriteLine(result);
+        }
+        else
+        {
+            PrintTree(root.left, code + "0");
+            PrintTree(root.right, code + "1");
+        }
+    }
+
     public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<ComputerScienceMachineOutputSteps> outputSteps)
     {
         Node left, right, top;
@@ -33,7 +52,7 @@ public class HuffmanTree
         for (int i = 0; i < arrayOfAllKeys.Length; i++)
         {
             MinHeap.Enqueue(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false), arrayOfAllValues[i]);
-            outputSteps[0].minHeap.Enqueue(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false), arrayOfAllValues[i]);
+            outputSteps[0].MinHeap.Enqueue(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false), arrayOfAllValues[i]);
         }
 
 
@@ -61,6 +80,5 @@ public class HuffmanTree
             result += codes[letter];
             result += "|";
         }
-        Console.WriteLine(result);
     }
 }
