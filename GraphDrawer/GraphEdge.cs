@@ -1,8 +1,8 @@
 namespace GraphDrawer;
 public class GraphEdge {
-    public readonly  GraphVertex From;
+    public readonly GraphVertex From;
 
-    public readonly  GraphVertex To;
+    public readonly GraphVertex To;
 
     public GraphState State;
 

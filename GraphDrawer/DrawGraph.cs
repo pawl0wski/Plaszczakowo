@@ -1,5 +1,5 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
-
+using Microsoft.AspNetCore.Components;
 namespace GraphDrawer;
 
 public class DrawGraph
@@ -62,27 +62,49 @@ public class DrawGraph
     }
 
     public async Task DrawVertex(GraphVertex v) {
-            // Drawing circle outline
-            await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
-            await _context.BeginPathAsync();
-            await _context.ArcAsync(v.X, v.Y, 30, 0, 2 * Math.PI);
-            await _context.FillAsync();
 
-            // Drawing circle
-            await _context.SetFillStyleAsync(v.State.GetSecondaryColor());
-            await _context.BeginPathAsync();
-            await _context.ArcAsync(v.X, v.Y, 25, 0, 2 * Math.PI);
-            await _context.FillAsync();
+        if (v.VertexImageRef == null)
+        {
+            await DrawCircleOutline(v);
+            await DrawCircle(v);
+        } 
+        else
+        {
+            await DrawImageFromRef(v);
+        }
 
-            // Vertex value
-            await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
-            await _context.SetFontAsync("26px Cascadia Mono");
-            var text = v.Value.ToString();
-            var text_width = await _context.MeasureTextAsync(text);
-            var x = v.X - text_width.Width / 2;
-            var y = v.Y + 7;
-
-            await _context.FillTextAsync(text, x, y);
+        await FillVertexTextContent(v);
+    }
+    private async Task DrawCircleOutline(GraphVertex v)
+    {
+        await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
+        await _context.BeginPathAsync();
+        await _context.ArcAsync(v.X, v.Y, 30, 0, 2 * Math.PI);
+        await _context.FillAsync();
+    }
+    private async Task DrawCircle(GraphVertex v)
+    {
+        await _context.SetFillStyleAsync(v.State.GetSecondaryColor());
+        await _context.BeginPathAsync();
+        await _context.ArcAsync(v.X, v.Y, 25, 0, 2 * Math.PI);
+        await _context.FillAsync();
+    }
+    private async Task DrawImageFromRef(GraphVertex v)
+    {
+        if (v.VertexImageRef is null)
+            throw new NullReferenceException();
+        
+        await _context.DrawImageAsync((ElementReference)v.VertexImageRef, v.X - 15, v.Y - 16);
+    }
+    private async Task FillVertexTextContent(GraphVertex v)
+    {
+        await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
+        await _context.SetFontAsync("26px Cascadia Mono");
+        var text = v.Value.ToString();
+        var text_width = await _context.MeasureTextAsync(text);
+        var x = v.X - text_width.Width / 2;
+        var y = v.Y + 7;
+        await _context.FillTextAsync(text, x, y);
     }
 
 
