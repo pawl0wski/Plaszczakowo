@@ -60,13 +60,11 @@ public class DrawGraph
         await _context.ClosePathAsync();
         await _context.StrokeAsync();
 
-        if (e.Flow == null) return;
-        
-        await FillEdgeWithFlow(e);
+        if (e.Flow != null) await FillEdgeWithFlow(e); ;       
     }
     private async Task FillEdgeWithFlow(GraphEdge e)
     {
-        if (e.Flow == null) return;
+        if (e.Flow == null) throw new NullReferenceException();
 
         var x = (e.From.X + e.To.X) / 2 - 15.5;
         var y = (e.From.Y + e.To.Y) / 2 + 7;
