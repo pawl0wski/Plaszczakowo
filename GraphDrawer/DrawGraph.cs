@@ -66,7 +66,7 @@ public class DrawGraph
         if (v.VertexImageRef == null)
         {
             await DrawCircleOutline(v);
-            await DrawCircle(v!);
+            await DrawCircle(v);
         } 
         else
         {
