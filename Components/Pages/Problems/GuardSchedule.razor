@@ -1,29 +1,7 @@
 @page "/guard_schedule"
 @rendermode InteractiveServer
-@using GraphDrawer;
 @using Problem.GuardSchedule;
-
-<GraphCanvas Input="_input" CanvasWidth="1280" CanvasHeight="720" />
-
 
 @code {
     private GuardScheduleResolver resolver = new();
-    private GraphInput _input;
-
-    protected override void OnInitialized()
-    {
-        List<GraphVertex> vertices =
-        [
-            new GraphVertex(50, 200, 10),
-            new GraphVertex(100, 300, 23)
-        ];
-
-        List<GraphEdge> edges =
-        [
-            new GraphEdge(vertices.First(), vertices.Last())
-        ];
-
-        _input = new(vertices, edges);
-    }
-
 }

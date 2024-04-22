@@ -21,7 +21,7 @@
 @code {
 
     [Parameter]
-    public required GraphInput Input { get; set; }
+    public required GraphData Data { get; set; }
 
     [Parameter] 
     public int? CanvasWidth { get; set; }
@@ -39,16 +39,27 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await EnableCanvasZoom();
+        if (firstRender)
+        {
+            await EnableCanvasZoom();
         
-        _context = await _canvasReference.CreateCanvas2DAsync();
-        _drawer = new GraphDrawer(_context, Input);
+            _context = await _canvasReference.CreateCanvas2DAsync();
+            _drawer = new GraphDrawer(_context, Data);
         
-        await _drawer.Draw();
+            await _drawer.Draw();
+        }
     }
 
     private async Task EnableCanvasZoom()
     {
         await JsRuntime.InvokeAsync<Task>("enableCanvasZoom", null);
+    }
+
+    public async Task Redraw()
+    {
+        if (_drawer is null) 
+            return;
+
+        await _drawer.Draw();
     }
 }
