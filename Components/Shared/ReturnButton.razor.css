@@ -1,0 +1,20 @@
+div.return p {
+    background-color: #483C32;
+    padding: 5pt 5pt;
+    width: fit-content;
+    margin-top: 0pt;
+    margin-bottom: 5pt;
+    
+    /* Text */
+    text-align: left;
+    font-size: 20pt;
+    
+    /* Border */
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4pt;
+
+    cursor: pointer;
+    transition: background-color 0.5s;
+}
