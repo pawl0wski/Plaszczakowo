@@ -1,5 +1,3 @@
-using ProblemResolver.GuardScheduleResolver.InputData;
-
 namespace Problem.GuardSchedule;
 public class GuardScheduleInputData : ProblemInputData
 {
