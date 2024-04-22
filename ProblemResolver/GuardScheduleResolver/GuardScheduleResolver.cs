@@ -47,17 +47,20 @@ public class GuardScheduleResolver :
             plaszczakIndex++;
         }
     }
+
     private static void UpdatePosition(Plaszczak p, Pathway path, int i)
     {
         p.PreviousVertexValue = path.Vertices[i - 1];
         p.CurrentVertexValue = path.Vertices[i];
         p.NextVertexValue = path.Vertices[i + 1];
     }
+
     private static void MoveForward(Plaszczak p)
     {
         p.Energy -= p.CurrentVertexValue;
         p.Steps++;
     }
+
     private static void EnoughEnergyOrSteps(Plaszczak p, int maxSteps)
     {
         if (p.Energy < p.NextVertexValue || p.Steps == maxSteps)
@@ -70,11 +73,13 @@ public class GuardScheduleResolver :
             }
         }
     }
+
     private static void ListenMelody(Plaszczak p)
     {
         p.Energy = p.MaxEnergy;
         p.Melody++;
     }
+
     private static void Resting(Plaszczak p)
     {
         if (p.CurrentVertexValue <= p.PreviousVertexValue)
