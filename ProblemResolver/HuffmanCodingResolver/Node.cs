@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 namespace Problem.HuffmanCoding;
 
 public class Node: IComparable<Node>
