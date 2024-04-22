@@ -44,6 +44,9 @@ public class GraphDrawer
         await _context.LineToAsync(e.To.X, e.To.Y);
         await _context.ClosePathAsync();
         await _context.StrokeAsync();
+        
+        if (e.Flow != null)
+            await FillEdgeWithFlow(e);  
     }
     private async Task FillEdgeWithFlow(GraphEdge e)
     {

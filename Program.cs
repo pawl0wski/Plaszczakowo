@@ -1,6 +1,5 @@
 using ElectronNET.API;
 using ElectronNET.API.Entities;
-using Microsoft.AspNetCore.Builder;
 
 /* 
     Tworzenie instancji klasy odpowiedzialnej
