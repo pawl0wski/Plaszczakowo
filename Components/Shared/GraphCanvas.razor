@@ -29,19 +29,21 @@
     [Parameter] 
     public int? CanvasHeight { get; set; }
 
+    [Parameter] 
+    public bool EnableZoom { get; set; } = true;
+
     private BECanvasComponent? _canvasReference;
 
     private Canvas2DContext? _context;
     
     private GraphDrawer? _drawer;
-
-    private double _zoom = 1.0;
-
+    
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            await EnableCanvasZoom();
+            if (EnableZoom)
+                await EnableCanvasZoom();
         
             _context = await _canvasReference.CreateCanvas2DAsync();
             _drawer = new GraphDrawer(_context, Data);
