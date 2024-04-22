@@ -1,4 +1,3 @@
-using ProblemResolver.GuardScheduleResolver.InputData;
 
 namespace Problem.GuardSchedule;
 

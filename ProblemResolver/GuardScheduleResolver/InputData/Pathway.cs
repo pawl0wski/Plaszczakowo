@@ -1,5 +1,4 @@
-﻿namespace ProblemResolver.GuardScheduleResolver.InputData;
-
+﻿namespace Problem.GuardSchedule;
 public class Pathway
 {
     public List<int> Vertices;
