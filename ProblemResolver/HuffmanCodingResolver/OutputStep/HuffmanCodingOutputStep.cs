@@ -1,9 +1,7 @@
-namespace Problem.ComputerScienceMachine;
+namespace Problem.HuffmanCoding;
 
-public class ComputerScienceMachineOutputStep : ProblemOutputStep
+public class HuffmanCodingOutputStep : ProblemOutputStep
 {
-    public List<Tuple<char, char>> FixingPhrase;
-    public string FixedPhrase;
 
     public Dictionary<char, int> LetterAppearances;
     public PriorityQueue<Node, int> MinHeap;
@@ -11,10 +9,8 @@ public class ComputerScienceMachineOutputStep : ProblemOutputStep
     public  Dictionary<char, string> HuffmanDictionary;
 
 
-    public ComputerScienceMachineOutputStep()
+    public HuffmanCodingOutputStep()
     {
-        this.FixingPhrase = new();
-        this.FixedPhrase = "";
         this.LetterAppearances = new();
         this.MinHeap = new();
         this.HuffmanDictionary = new();

@@ -1,6 +1,4 @@
-using System.Drawing.Printing;
-
-namespace Problem.ComputerScienceMachine;
+namespace Problem.HuffmanCoding;
 
 public class Node
 {
