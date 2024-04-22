@@ -1,17 +1,21 @@
-using Problem;
-
 namespace ProblemDrawer;
+
+using Problem;
+using GraphDrawer;
 
 public abstract class ProblemDrawer<TOutputStep> where TOutputStep : ProblemOutputStep
 {
     protected readonly List<TOutputStep> Steps;
 
+    protected GraphDrawer GraphDrawer;
+
     protected int CurrentStep;
     
-    protected ProblemDrawer(List<TOutputStep> steps)
+    protected ProblemDrawer(List<TOutputStep> steps, GraphDrawer graphDrawer)
     {
         Steps = steps;
         CurrentStep = 0;
+        GraphDrawer = graphDrawer;
     }
 
     public virtual async void Next()

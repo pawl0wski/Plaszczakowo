@@ -1,47 +1,48 @@
 @page "/carrier_assignment"
 @using Problem.CarrierAssignment;
 @using GraphDrawer;
-
+@using CarrierAssignmentDrawer;
 <h1>Przypasowanie tragarzy</h1>
+<button type="button" class="btn btn-danger" @onclick="Next">next</button>
+<button type="button" class="btn btn-danger" @onclick="Prev">prev</button>
+<button type="button" class="btn btn-danger" @onclick="GoToEnd">GoToEnd</button>
+<button type="button" class="btn btn-danger" @onclick="GoToStart">GoToStart</button>
 
 @code {
-        private CarrierAssignmentResolver resolver = new();
+        //test input data
+        CarrierAssignmentDrawer drawer;
         private Canvas2DContext? _context;
-        private DrawGraph? graph;
-        protected BECanvasComponent? _canvasReference;
-
-        static List<int> Carriers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        static int FrontCarrierNumber = 5;
-        static int RearCarrierNumber = 5;
-        static List<Edge> Relations = new List<Edge> { new Edge(1, 5), new Edge(2, 6), new Edge(3, 7), new Edge(4, 8), new Edge(5, 6), new Edge(5, 8), new Edge(1, 8), new Edge(4, 9), new Edge(3, 10) };
-        CarrierAssignmentInputData inputData = new(Carriers, FrontCarrierNumber, RearCarrierNumber, Relations);
-        
-        protected override void OnAfterRender(bool firstRender)
+        protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-                //vertices generator
-                Random random = new Random();
-                List<GraphVertex> Vertices = new List<GraphVertex>();
-                for (int i = 0; i < 5; i++)
-                {
-                        Vertices.Add(new GraphVertex(random.Next(100, (i + 1) * 100), random.Next(100, (i + 1) * 100)));
-                }
-                for (int i = 5; i < 10; i++)
-                {
-                        Vertices.Add(new GraphVertex(random.Next(200, (i + 1) * 100), random.Next(200, (i + 1) * 100)));
-                }
-                List<GraphEdge> Edges = new();
-                foreach (var edge in Relations)
-                {
-                        Edges.Add(new GraphEdge(Vertices[edge.From - 1], Vertices[edge.To - 1]));
-                }
-                
-
                 if (firstRender)
                 {
-                List<CarrierAssignmentOutputStep> steps = resolver.Resolve(inputData);
-                _context = _canvasReference?.CreateCanvas2D();
-                graph = new DrawGraph(_context, ref Vertices, ref Edges);
-                graph.Draw();
+                        List<int> carriers = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+                        int FrontCarrier = 5;
+                        int RearCarrier = 5;
+                        List<Edge> relations = new() { new Edge(1, 9), new Edge(2, 9), new Edge(3, 9), new Edge(4, 8), new Edge(2, 6), new Edge(3, 7), new Edge(1, 8), new Edge(1, 9), new Edge(4, 10) };
+                        CarrierAssignmentInputData inputData = new(carriers, FrontCarrier, RearCarrier, relations);
+
+
+                        CarrierAssignmentResolver resolver = new();
+                        GraphDrawer graphDrawer = new(_context, new List<GraphVertex>{}, new List<GraphEdge>{});
+                        drawer = new CarrierAssignmentDrawer(resolver.Resolve(inputData), graphDrawer);
                 }
+
+        }
+        void Next()
+        {
+                drawer.Next();
+        }
+        void Prev()
+        {
+                drawer.Prev();
+        }
+        void GoToEnd()
+        {
+                drawer.GoToEnd();
+        }
+        void GoToStart()
+        {
+                drawer.GoToStart();
         }
 }

@@ -1,10 +1,13 @@
+namespace CarrierAssignmentDrawer;
+
 using Problem.CarrierAssignment;
-namespace ProblemDrawer;
+using ProblemDrawer;
+using GraphDrawer;
 
 
 public class CarrierAssignmentDrawer : ProblemDrawer<CarrierAssignmentOutputStep>
 {
-    public CarrierAssignmentDrawer(List<CarrierAssignmentOutputStep> steps) : base(steps)
+    public CarrierAssignmentDrawer(List<CarrierAssignmentOutputStep> steps, GraphDrawer graphDrawer) : base(steps, graphDrawer)
     {
     }
     protected override Task Draw()
