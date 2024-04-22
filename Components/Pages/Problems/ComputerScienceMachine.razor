@@ -1,51 +1,57 @@
 @page "/computer_science_machine"
-@using Problem.ComputerScienceMachine;
+@using Problem.HuffmanCoding;
+@using Problem.PhraseCorrection;
 
 <h1>Maszyna informatyka</h1>
 
 @code {
-        private ComputerScienceMachineResolver resolver = new();
         protected override void OnInitialized()
         {
-                ComputerScienceMachineInputData data = new ComputerScienceMachineInputData("abcdet");
-                Console.WriteLine("Tekst wejściowy: {0}", data.InputPhrase);
-                ComputerScienceMachineResolver resolve = new ComputerScienceMachineResolver();
-                List<ComputerScienceMachineOutputStep> output = resolve.Resolve(data);
-                ComputerScienceMachineOutputStep results = output[0];
+                // Bałagan tymczasowy - strona tylko do testów :) 
+                HuffmanCodingResolver hcresolver = new();
+                PhraseCorrectionResolver pcresolver = new();
+                PhraseCorrectionInputData pcdata = new("abcdet");
+                Console.WriteLine("Tekst wejściowy: {0}", pcdata.InputPhrase);
+                
+                List<PhraseCorrectionOutputStep> pcoutput = pcresolver.Resolve(pcdata);
+                PhraseCorrectionOutputStep pcresults = pcoutput[0];
+                HuffmanCodingInputData hcdata = new(pcresults.FixedPhrase);
+                List<HuffmanCodingOutputStep> hcoutput = hcresolver.Resolve(hcdata);
+                HuffmanCodingOutputStep hcresults = hcoutput[0];
 
                 Console.WriteLine("Poprawy we frazie:");
-                foreach (Tuple<char,char> correction in results.FixingPhrase)
+                foreach (Tuple<char,char> correction in pcresults.FixingPhrase)
                 {
                        Console.WriteLine("{0} -> {1}", correction.Item1, correction.Item2); 
                 }
 
-                Console.WriteLine("Poprawiona fraza: {0}", results.FixedPhrase);
+                Console.WriteLine("Poprawiona fraza: {0}", pcresults.FixedPhrase);
 
                 Console.WriteLine("Wystąpienia liter:");
-                foreach (char key in results.LetterAppearances.Keys)
+                foreach (char key in hcresults.LetterAppearances.Keys)
                 {
-                        Console.WriteLine(key + " -> " + results.LetterAppearances[key]);
+                        Console.WriteLine(key + " -> " + hcresults.LetterAppearances[key]);
                 }
                 Console.WriteLine("Utworzony kopiec minimum:");
-                while(results.MinHeap.Count > 1)
+                while(hcresults.MinHeap.Count > 1)
                 {
-                        Node lowest = results.MinHeap.Dequeue();
+                        Node lowest = hcresults.MinHeap.Dequeue();
                         Console.WriteLine("{0} {1}", lowest.Character, lowest.Value);
                 }
                 Console.WriteLine("Drzewo Huffmana: ");
                 HuffmanTree tree = new();
-                tree.PrintTree(results.HuffmanTree, "");
-                var arrayOfAllKeys = results.HuffmanDictionary.Keys.ToArray();
+                tree.PrintTree(hcresults.HuffmanTree, "");
+                var arrayOfAllKeys = hcresults.HuffmanDictionary.Keys.ToArray();
                 Console.WriteLine("Alfabet Huffmana:");
                 foreach(var key in arrayOfAllKeys)
                 {
-                        Console.WriteLine("{0} -> {1}", key, results.HuffmanDictionary[key]);
+                        Console.WriteLine("{0} -> {1}", key, hcresults.HuffmanDictionary[key]);
                 }
                 Console.WriteLine("Wynik:");
                 string codedPhrase = "";
-                foreach (var letter in results.FixedPhrase)
+                foreach (var letter in pcresults.FixedPhrase)
                 {
-                        codedPhrase += results.HuffmanDictionary[letter] + "|";
+                        codedPhrase += hcresults.HuffmanDictionary[letter] + "|";
                 }
                 Console.WriteLine(codedPhrase);
         }
