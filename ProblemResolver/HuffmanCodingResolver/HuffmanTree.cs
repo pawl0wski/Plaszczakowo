@@ -2,6 +2,8 @@ namespace Problem.HuffmanCoding;
 
 public class HuffmanTree
 {
+    public List<Node> MinHeap = new List<Node>();
+
     public void GenerateDictionary(Node? root, string code, Dictionary<char, string> dict)
     {
         if (root == null)
@@ -38,18 +40,27 @@ public class HuffmanTree
 
     public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
     {
-        Node left, right, top;
-        var MinHeap = new List<Node>();
+        GenerateMinHeap(letters, ref outputSteps);
+
+        ProccessMinHeap();
+
+        return MinHeap.First();
+    }
+
+    private void GenerateMinHeap(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
+    {
         var arrayOfAllKeys = letters.Keys.ToArray();
-        var arrayOfAllValues = letters.Values.ToArray();
         for (int i = 0; i < arrayOfAllKeys.Length; i++)
         {
-            MinHeap.Add(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false));
-            outputSteps[0].MinHeap.Add(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false));
-        }
-
+            MinHeap.Add(new Node(arrayOfAllKeys[i], letters[arrayOfAllKeys[i]], false));
+            outputSteps[0].MinHeap.Add(new Node(arrayOfAllKeys[i], letters[arrayOfAllKeys[i]], false));
+        } 
         MinHeap.Sort();
+    }
 
+    private void ProccessMinHeap()
+    {
+        Node left, right, top;
         while (MinHeap.Count > 1)
         {
             left = MinHeap.First();
@@ -62,8 +73,6 @@ public class HuffmanTree
             MinHeap.Add(top);
             MinHeap.Sort();
         }
-
-        return MinHeap.First();
     }
 
     public void HuffmanCode(Dictionary<char, string> codes, string text)
