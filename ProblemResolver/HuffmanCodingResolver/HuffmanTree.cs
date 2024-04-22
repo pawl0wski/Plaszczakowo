@@ -39,26 +39,31 @@ public class HuffmanTree
     public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
     {
         Node left, right, top;
-        var MinHeap = new PriorityQueue<Node, int>();
+        var MinHeap = new List<Node>();
         var arrayOfAllKeys = letters.Keys.ToArray();
         var arrayOfAllValues = letters.Values.ToArray();
         for (int i = 0; i < arrayOfAllKeys.Length; i++)
         {
-            MinHeap.Enqueue(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false), arrayOfAllValues[i]);
-            outputSteps[0].MinHeap.Enqueue(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false), arrayOfAllValues[i]);
+            MinHeap.Add(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false));
+            outputSteps[0].MinHeap.Add(new Node(arrayOfAllKeys[i], arrayOfAllValues[i], false));
         }
 
-        while (MinHeap.Count != 1)
+        MinHeap.Sort();
+
+        while (MinHeap.Count > 1)
         {
-            left = MinHeap.Dequeue();
-            right = MinHeap.Dequeue();
+            left = MinHeap.First();
+            MinHeap.RemoveAt(0);
+            right = MinHeap.First();
+            MinHeap.RemoveAt(0);
             top = new Node('%', left.Value + right.Value, true);
             top.Left = left;
             top.Right = right;
-            MinHeap.Enqueue(top, top.Value);
+            MinHeap.Add(top);
+            MinHeap.Sort();
         }
 
-        return MinHeap.Dequeue();
+        return MinHeap.First();
     }
 
     public void HuffmanCode(Dictionary<char, string> codes, string text)

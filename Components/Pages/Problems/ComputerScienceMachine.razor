@@ -17,7 +17,7 @@
                 // Bałagan tymczasowy - strona tylko do testów :) 
                 HuffmanCodingResolver hcresolver = new();
                 PhraseCorrectionResolver pcresolver = new();
-                PhraseCorrectionInputData pcdata = new("abcdet");
+                PhraseCorrectionInputData pcdata = new("peter piper picked a picked pepper");
                 Console.WriteLine("Tekst wejściowy: {0}", pcdata.InputPhrase);
                 
                 List<PhraseCorrectionOutputStep> pcoutput = pcresolver.Resolve(pcdata);
@@ -42,7 +42,8 @@
                 Console.WriteLine("Utworzony kopiec minimum:");
                 while(hcresults.MinHeap.Count > 1)
                 {
-                        Node lowest = hcresults.MinHeap.Dequeue();
+                        Node lowest = hcresults.MinHeap.First();
+                        hcresults.MinHeap.RemoveAt(0);
                         Console.WriteLine("{0} {1}", lowest.Character, lowest.Value);
                 }
                 Console.WriteLine("Drzewo Huffmana: ");

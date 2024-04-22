@@ -4,7 +4,7 @@ public class HuffmanCodingOutputStep : ProblemOutputStep
 {
 
     public Dictionary<char, int> LetterAppearances;
-    public PriorityQueue<Node, int> MinHeap;
+    public List<Node> MinHeap;
     public Node? HuffmanTree;
     public  Dictionary<char, string> HuffmanDictionary;
 

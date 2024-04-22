@@ -53,10 +53,6 @@ public class PhraseCorrection
 
     private void ChangeWithoutReplace(int i)
     {
-        if (phrase[i] == ' ')
-        {
-           return;
-        }
         result += phrase[i];
     }
 }
