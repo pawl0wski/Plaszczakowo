@@ -3,13 +3,12 @@
 @using GraphDrawer;
 @using CarrierAssignmentDrawer;
 <h1>Przypasowanie tragarzy</h1>
-<button type="button" class="btn btn-danger" @onclick="Next">next</button>
-<button type="button" class="btn btn-danger" @onclick="Prev">prev</button>
-<button type="button" class="btn btn-danger" @onclick="GoToEnd">GoToEnd</button>
 <button type="button" class="btn btn-danger" @onclick="GoToStart">GoToStart</button>
+<button type="button" class="btn btn-danger" @onclick="Prev">prev</button>
+<button type="button" class="btn btn-danger" @onclick="Next">next</button>
+<button type="button" class="btn btn-danger" @onclick="GoToEnd">GoToEnd</button>
 
 @code {
-        //test input data
         CarrierAssignmentDrawer drawer;
         private Canvas2DContext? _context;
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -26,6 +25,9 @@
                         CarrierAssignmentResolver resolver = new();
                         GraphDrawer graphDrawer = new(_context, new List<GraphVertex>{}, new List<GraphEdge>{});
                         drawer = new CarrierAssignmentDrawer(resolver.Resolve(inputData), graphDrawer);
+                        drawer.CreateGraphDataFromInputData(inputData);
+                        GraphData graphData = new(drawer.graphVertex, drawer.graphEdge);
+                        graphDrawer.ApplyNewGraphData(graphData);
                 }
 
         }
