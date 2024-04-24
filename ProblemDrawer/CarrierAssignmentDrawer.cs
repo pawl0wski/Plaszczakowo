@@ -28,5 +28,7 @@ public class CarrierAssignmentDrawer : ProblemDrawer<CarrierAssignmentInputData,
         {
             graphEdge.Add(new GraphEdge(graphVertex[data.Relations[i].From], graphVertex[data.Relations[i].To], null, new GraphFlow(data.Relations[i].Flow, data.Relations[i].Capacity)));
         }
+        Drawer.ApplyNewGraphData(new GraphData(graphVertex, graphEdge));
+
     }
 }

@@ -3,9 +3,6 @@ namespace ProblemDrawer;
 using Problem;
 using GraphDrawer;
 
-using GraphDrawer;
-using Problem;
-
 public abstract class ProblemDrawer<TInputData, TOutputStep>
     where TInputData : ProblemInputData
     where TOutputStep : ProblemOutputStep

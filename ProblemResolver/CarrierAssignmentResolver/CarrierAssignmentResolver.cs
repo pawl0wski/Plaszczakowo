@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace Problem.CarrierAssignment;
 
 public class CarrierAssignmentResolver :
@@ -33,35 +31,51 @@ public class CarrierAssignmentResolver :
 
     public void PairCreator(CarrierAssignmentOutputStep network, int source, int sink)
     {
+        
         while (BFS(network, source, sink))
         {
             int current = source;
-            int minCapacity = int.MaxValue;
+            int minCapacity = 1;
             while (current != sink)
             {
+                bool foundEdge = false;
                 foreach (var edge in network.Edges)
                 {
                     if (edge.From == current && edge.Capacity > edge.Flow)
                     {
                         minCapacity = Math.Min(minCapacity, edge.Capacity - edge.Flow);
                         current = edge.To;
+                        foundEdge = true;
+                        break;
                     }
+                }
+                if (!foundEdge)
+                {
+                    break;
                 }
             }
             current = source;
             while (current != sink)
             {
-                foreach (var edge in network.Edges)
+                bool foundEdge = false;
+                for (int i = 0; i < network.Edges.Count; i++)
                 {
-                    if (edge.From == current && edge.Capacity > edge.Flow)
+                    if (network.Edges[i].From == current && network.Edges[i].Capacity > network.Edges[i].Flow)
                     {
-                        edge.Flow += minCapacity;
-                        current = edge.To;
+                        network.Edges[i].Flow += minCapacity;
+                        current = network.Edges[i].To;
                         results.Add(network);
+                        foundEdge = true;
+                        break;
                     }
+                }
+                if (!foundEdge)
+                {
+                    break;
                 }
             }
         }
+            Console.WriteLine("Min capacity: ");
     }
     
     
