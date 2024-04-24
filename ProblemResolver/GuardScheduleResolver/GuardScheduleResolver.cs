@@ -9,11 +9,6 @@ public class GuardScheduleResolver :
 
         outputStep = IteratePath(data.Plaszczaki, data.Pathway, outputStep);
 
-        foreach (var o in outputStep)
-        {
-            Console.WriteLine($"{o.Index} + {o.Melody} + {o.Energy} + {o.CurrentVertexIndex}");
-        }
-
         return outputStep;
     }
 
