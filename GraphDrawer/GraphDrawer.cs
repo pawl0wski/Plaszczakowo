@@ -40,7 +40,7 @@ public class GraphDrawer
         if (_data is null)
             throw new NullReferenceException();
 
-        var currentEdge = _data.ChangeEdgeStatus(index, state);
+        var currentEdge = _data.ChangeEdgeState(index, state);
 
         await DrawEdge(currentEdge);
         await DrawVertex(currentEdge.From);

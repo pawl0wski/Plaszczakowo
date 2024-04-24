@@ -10,7 +10,7 @@ public class GraphData
         Edges = edges;
     }
 
-    public GraphEdge ChangeEdgeStatus(int index, GraphState state)
+    public GraphEdge ChangeEdgeState(int index, GraphState state)
     {
         var currentEdge = Edges[index];
         currentEdge.State = state;
@@ -32,5 +32,10 @@ public class GraphData
         currentVertex.State = state;
 
         return currentVertex;
+    }
+
+    public GraphData Copy()
+    {
+        return (GraphData)MemberwiseClone();
     }
 }
