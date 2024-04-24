@@ -21,46 +21,43 @@
                 Console.WriteLine("Tekst wejściowy: {0}", pcdata.InputPhrase);
                 
                 List<PhraseCorrectionOutputStep> pcoutput = pcresolver.Resolve(pcdata);
-                PhraseCorrectionOutputStep pcresults = pcoutput[0];
-                HuffmanCodingInputData hcdata = new(pcresults.FixedPhrase);
-                List<HuffmanCodingOutputStep> hcoutput = hcresolver.Resolve(hcdata);
-                HuffmanCodingOutputStep hcresults = hcoutput[0];
-
-                Console.WriteLine("Poprawy we frazie:");
-                foreach (Tuple<char,char> correction in pcresults.FixingPhrase)
+                Console.WriteLine("Postęp naprawy frazy:");
+                foreach (PhraseCorrectionOutputStep step in pcoutput)
                 {
-                       Console.WriteLine("{0} -> {1}", correction.Item1, correction.Item2); 
+                        Console.WriteLine("{0}", step.FixingProgress);
+                        Console.WriteLine("Change: ");
+                        if (step.FixingStep != null)
+                        {
+                                Console.WriteLine("{0} -> {1}", step.FixingStep.Item1, step.FixingStep.Item2);
+                        }
                 }
 
-                Console.WriteLine("Poprawiona fraza: {0}", pcresults.FixedPhrase);
+                PhraseCorrectionOutputStep pcresults = pcoutput[pcoutput.Count-1];
 
-                Console.WriteLine("Wystąpienia liter:");
-                foreach (char key in hcresults.LetterAppearances.Keys)
+                HuffmanCodingInputData hcinput = new(pcresults.FixingProgress);
+                List<HuffmanCodingOutputStep> hcresult = hcresolver.Resolve(hcinput);
+                Dictionary<char, string> huffDict = new();
+                Console.WriteLine("Drzewo oraz zakodowana wiadomość:");
+                HuffmanTree huf = new();
+                string result = "";
+                foreach (var step in hcresult)
                 {
-                        Console.WriteLine(key + " -> " + hcresults.LetterAppearances[key]);
+                        if (step.HuffmanTree != null)
+                        {
+                                huf.PrintTree(step.HuffmanTree, "");
+                        }
+                        if (step.HuffmanCode != null)
+                        {
+                                Console.WriteLine("Kod dla {0} : {1}", step.HuffmanCode.Item1, step.HuffmanCode.Item2);
+                                huffDict.Add(step.HuffmanCode.Item1, step.HuffmanCode.Item2);
+                        }
                 }
-                Console.WriteLine("Utworzony kopiec minimum:");
-                while(hcresults.MinHeap.Count > 1)
+
+                foreach (var letter in pcresults.FixingProgress)
                 {
-                        Node lowest = hcresults.MinHeap.First();
-                        hcresults.MinHeap.RemoveAt(0);
-                        Console.WriteLine("{0} {1}", lowest.Character, lowest.Value);
+                        result+= $"{huffDict[letter]}|";
                 }
-                Console.WriteLine("Drzewo Huffmana: ");
-                HuffmanTree tree = new();
-                tree.PrintTree(hcresults.HuffmanTree, "");
-                var arrayOfAllKeys = hcresults.HuffmanDictionary.Keys.ToArray();
-                Console.WriteLine("Alfabet Huffmana:");
-                foreach(var key in arrayOfAllKeys)
-                {
-                        Console.WriteLine("{0} -> {1}", key, hcresults.HuffmanDictionary[key]);
-                }
-                Console.WriteLine("Wynik:");
-                string codedPhrase = "";
-                foreach (var letter in pcresults.FixedPhrase)
-                {
-                        codedPhrase += hcresults.HuffmanDictionary[letter] + "|";
-                }
-                Console.WriteLine(codedPhrase);
+
+                Console.WriteLine(result);
         }
 }

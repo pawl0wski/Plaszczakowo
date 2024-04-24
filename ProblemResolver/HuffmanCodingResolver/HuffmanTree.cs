@@ -4,7 +4,7 @@ public class HuffmanTree
 {
     public List<Node> MinHeap = new List<Node>();
 
-    public void GenerateDictionary(Node? root, string code, Dictionary<char, string> dict)
+    public void GenerateDictionary(Node? root, string code, Dictionary<char, string> dict, ref List<HuffmanCodingOutputStep> outputSteps)
     {
         if (root == null)
         {
@@ -13,11 +13,14 @@ public class HuffmanTree
         if (root.IfConnector == false)
         {
             dict.Add(root.Character, code);
+            Tuple<char, string> newCode = new(root.Character, code);
+            HuffmanCodingOutputStep step = new(null, newCode);
+            outputSteps.Add(step);
         }
         else
         {
-            GenerateDictionary(root.Left, code + "0", dict);
-            GenerateDictionary(root.Right, code + "1", dict);
+            GenerateDictionary(root.Left, code + "0", dict, ref outputSteps);
+            GenerateDictionary(root.Right, code + "1", dict, ref outputSteps);
         }
     }
 
@@ -38,27 +41,25 @@ public class HuffmanTree
         }
     }
 
-    public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
+    public void CreateHuffmanTree(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
     {
-        GenerateMinHeap(letters, ref outputSteps);
+        GenerateMinHeap(letters);
 
-        ProccessMinHeap();
+        ProccessMinHeap(ref outputSteps);
 
-        return MinHeap.First();
     }
 
-    private void GenerateMinHeap(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
+    private void GenerateMinHeap(Dictionary<char, int> letters)
     {
         var arrayOfAllKeys = letters.Keys.ToArray();
         for (int i = 0; i < arrayOfAllKeys.Length; i++)
         {
             MinHeap.Add(new Node(arrayOfAllKeys[i], letters[arrayOfAllKeys[i]], false));
-            outputSteps[0].MinHeap.Add(new Node(arrayOfAllKeys[i], letters[arrayOfAllKeys[i]], false));
         } 
         MinHeap.Sort();
     }
 
-    private void ProccessMinHeap()
+    private void ProccessMinHeap(ref List<HuffmanCodingOutputStep> outputSteps)
     {
         Node left, right, top;
         while (MinHeap.Count > 1)
@@ -70,6 +71,8 @@ public class HuffmanTree
             top = new Node('%', left.Value + right.Value, true);
             top.Left = left;
             top.Right = right;
+            HuffmanCodingOutputStep step = new(top, null);
+            outputSteps.Add(step);
             MinHeap.Add(top);
             MinHeap.Sort();
         }

@@ -15,13 +15,11 @@ public class PhraseCorrection
     };
 
     string result, phrase;
-    PhraseCorrectionOutputStep replaceSteps;
 
     public PhraseCorrection(string phrase)
     {
         this.result = "";
         this.phrase = phrase;
-        this.replaceSteps = new();
     }
 
     public void FixPhrase(ref string inputPhrase,ref List<PhraseCorrectionOutputStep> outputSteps)
@@ -30,29 +28,31 @@ public class PhraseCorrection
         {
             if (correctLetters.ContainsKey(phrase[i]))
             {
-                ChangeAndReplace(i);
+                ChangeAndReplace(i, ref outputSteps);
             }
             else
             {
-                ChangeWithoutReplace(i);
+                ChangeWithoutReplace(i, ref outputSteps);
             }
         } 
 
+        PhraseCorrectionOutputStep final = new(result);
+        outputSteps.Add(final);
 
-        inputPhrase = result;
-        outputSteps[0].FixedPhrase = result;
-        outputSteps[0].FixingPhrase = replaceSteps.FixingPhrase;
     }
 
-    private void ChangeAndReplace(int i)
+    private void ChangeAndReplace(int i, ref List<PhraseCorrectionOutputStep> outputSteps)
     {
         Tuple<char, char> step = new Tuple<char,char>(phrase[i], correctLetters[phrase[i]]);
         result += correctLetters[phrase[i]];
-        replaceSteps.FixingPhrase.Add(step);
+        PhraseCorrectionOutputStep stepReplace = new(result, step);
+        outputSteps.Add(stepReplace);
     }
 
-    private void ChangeWithoutReplace(int i)
+    private void ChangeWithoutReplace(int i, ref List<PhraseCorrectionOutputStep> outputSteps)
     {
         result += phrase[i];
+        PhraseCorrectionOutputStep step = new(result);
+        outputSteps.Add(step);
     }
 }
