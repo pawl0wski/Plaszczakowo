@@ -6,10 +6,8 @@ public class PhraseCorrectionResolver :
     public override List<PhraseCorrectionOutputStep> Resolve(PhraseCorrectionInputData data)
     {
         PhraseCorrection correction = new(data.InputPhrase);
-        PhraseCorrectionOutputStep step = new();
-        List<PhraseCorrectionOutputStep> output = [step];
+        List<PhraseCorrectionOutputStep> output = new();
         correction.FixPhrase(ref data.InputPhrase, ref output);
-        output[0].InitialPhrase = data.InputPhrase;
         return output;
     }
 }
