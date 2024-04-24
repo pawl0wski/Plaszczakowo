@@ -24,8 +24,8 @@ public class GuardScheduleResolver :
             {
                 break;
             }
-            
-            for (int vertexIndex = 1; vertexIndex < path.Vertices.Count - 1; vertexIndex++)
+
+            for (int vertexIndex = 0; vertexIndex < path.Vertices.Count; vertexIndex++)
             {
                 UpdatePosition(p, path, vertexIndex);
 
@@ -46,11 +46,27 @@ public class GuardScheduleResolver :
         }
     }
 
-    private static void UpdatePosition(Plaszczak p, Pathway path, int i)
+    private static void UpdatePosition(Plaszczak p, Pathway path, int vertexIndex)
     {
-        p.PreviousVertexValue = path.Vertices[i - 1];
-        p.CurrentVertexValue = path.Vertices[i];
-        p.NextVertexValue = path.Vertices[i + 1];
+        if (vertexIndex == 0)
+        {
+            p.PreviousVertexValue = -1;
+            p.CurrentVertexValue = path.Vertices[vertexIndex];
+            p.NextVertexValue = path.Vertices[vertexIndex + 1];
+        } 
+        else if (vertexIndex == path.Vertices.Count - 1)
+        {
+            p.PreviousVertexValue = path.Vertices[vertexIndex - 1];
+            p.CurrentVertexValue = path.Vertices[vertexIndex];
+            p.NextVertexValue = -1;
+        }
+        else
+        {
+            p.PreviousVertexValue = path.Vertices[vertexIndex - 1];
+            p.CurrentVertexValue = path.Vertices[vertexIndex];
+            p.NextVertexValue = path.Vertices[vertexIndex + 1];
+        }
+        
     }
 
     private static void MoveForward(Plaszczak p)
