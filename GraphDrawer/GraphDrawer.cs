@@ -146,7 +146,7 @@ public class GraphDrawer
     {
         await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
         await _context.SetFontAsync("26px Cascadia Mono");
-        var text = v.Value.ToString();
+        var text = v.Value ?? "";
         var textWidth = await _context.MeasureTextAsync(text);
         var x = v.X - textWidth.Width / 2;
         var y = v.Y + 7;

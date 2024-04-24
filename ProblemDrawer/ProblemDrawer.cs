@@ -1,7 +1,7 @@
 namespace ProblemDrawer;
 
-using GraphDrawer;
 using Problem;
+using GraphDrawer;
 
 public abstract class ProblemDrawer<TInputData, TOutputStep>
     where TInputData : ProblemInputData
@@ -50,6 +50,10 @@ public abstract class ProblemDrawer<TInputData, TOutputStep>
         await ModifyGraphDataByCurrentStep();
     }
 
+    public async Task Draw()
+    {
+        await Drawer.Draw();
+    }
     protected abstract Task ModifyGraphDataByCurrentStep();
 
     public abstract void CreateGraphDataFromInputData(TInputData data);
