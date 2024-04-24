@@ -26,16 +26,27 @@ public class HuffmanTree
 
     public void PrintTree(Node? root, string code)
     {
+        
         if (root == null)
         {
             return;
         }
-        if (root.IfConnector == false)
+        string message = root.ToString();
+        if (code.Length == 0)
         {
-            Console.WriteLine(root.ToString());
+            message += " Root ";
+        }
+        else if (code.Last() == '0')
+        {
+            message += " Left ";
         }
         else
         {
+            message += " Right ";
+        }
+        message += code;
+        Console.WriteLine(message);
+        if (root.IfConnector == true) {
             PrintTree(root.Left, code + "0");
             PrintTree(root.Right, code + "1");
         }
