@@ -7,18 +7,24 @@ public class GuardScheduleResolver :
     {
         List<GuardScheduleOutputStep> outputStep = new();
 
-        IteratePath(data.Plaszczaki, data.Pathway);
+        outputStep = IteratePath(data.Plaszczaki, data.Pathway, outputStep);
+
+        foreach (var o in outputStep)
+        {
+            Console.WriteLine($"{o.Index} + {o.Melody} + {o.Energy} + {o.CurrentVertexIndex}");
+        }
 
         return outputStep;
     }
 
-    private static void IteratePath(List<Plaszczak> plaszczaki, Pathway path)
+    private List<GuardScheduleOutputStep> IteratePath(List<Plaszczak> plaszczaki, Pathway path, List<GuardScheduleOutputStep> outputStep)
     {
-        List<GuardScheduleOutputStep> outputStep = new();
+        plaszczaki.Sort();
         int plaszczakIndex = 0;
 
         foreach (var p in plaszczaki)
         {
+            p.Index = plaszczakIndex;
 
             if (p.IsGuard(path.MaxVertexValue) == false)
             {
@@ -35,15 +41,13 @@ public class GuardScheduleResolver :
 
                 Resting(p);
 
-                p.Index = plaszczakIndex;
                 p.CurrentVertexIndex = vertexIndex;
-
-                GuardScheduleOutputStep plaszczakOutput = new GuardScheduleOutputStep(p);
-                outputStep.Add(plaszczakOutput);
+                outputStep.Add(new GuardScheduleOutputStep(p.Index, p.CurrentVertexIndex, p.Energy, p.Melody, p.Steps));
             }
-
             plaszczakIndex++;
         }
+
+        return outputStep;
     }
 
     private static void UpdatePosition(Plaszczak p, Pathway path, int vertexIndex)
@@ -66,7 +70,6 @@ public class GuardScheduleResolver :
             p.CurrentVertexValue = path.Vertices[vertexIndex];
             p.NextVertexValue = path.Vertices[vertexIndex + 1];
         }
-        
     }
 
     private static void MoveForward(Plaszczak p)
