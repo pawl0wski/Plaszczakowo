@@ -21,7 +21,7 @@
                 List<int> carriers = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
                 int FrontCarrier = 5;
                 int RearCarrier = 5;
-                List<Edge> relations = new() { new Edge(1, 9), new Edge(2, 9), new Edge(3, 9), new Edge(4, 8), new Edge(2, 6), new Edge(3, 7), new Edge(1, 8), new Edge(1, 9), new Edge(4, 10) };
+                List<Edge> relations = new() { new Edge(1, 9), new Edge(2, 9), new Edge(3, 9), new Edge(4, 8), new Edge(2, 6), new Edge(3, 7), new Edge(1, 8), new Edge(1, 6), new Edge(4, 9) };
                 CarrierAssignmentInputData inputData = new(carriers, FrontCarrier, RearCarrier, relations);
 
 
@@ -29,14 +29,9 @@
                 GraphDrawer graphDrawer = new(_context, new List<GraphVertex>{}, new List<GraphEdge>{});
                 
                 var test = resolver.Resolve(inputData);
-                Console.WriteLine(test);
                 CarrierAssignmentDrawer testDrawer = new CarrierAssignmentDrawer(test, graphDrawer);
                 testDrawer.CreateGraphDataFromInputData(inputData);
-                GraphData graphData = new(testDrawer.graphVertex, testDrawer.graphEdge);
-                graphDrawer.ApplyNewGraphData(graphData);
-                await graphDrawer.Draw();
-                drawer = new CarrierAssignmentDrawer(test, graphDrawer);
-
+                await testDrawer.Draw();
         }
         void GoToStart()
         {

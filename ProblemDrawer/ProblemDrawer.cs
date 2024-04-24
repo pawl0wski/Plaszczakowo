@@ -11,8 +11,6 @@ public abstract class ProblemDrawer<TInputData, TOutputStep>
 
     protected readonly List<TOutputStep> Steps;
 
-    protected GraphDrawer GraphDrawer;
-
     protected int CurrentStep;
 
     protected ProblemDrawer(List<TOutputStep> steps, GraphDrawer drawer)
@@ -52,6 +50,10 @@ public abstract class ProblemDrawer<TInputData, TOutputStep>
         await ModifyGraphDataByCurrentStep();
     }
 
+    public async Task Draw()
+    {
+        await Drawer.Draw();
+    }
     protected abstract Task ModifyGraphDataByCurrentStep();
 
     public abstract void CreateGraphDataFromInputData(TInputData data);

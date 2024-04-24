@@ -35,7 +35,7 @@ public class CarrierAssignmentResolver :
         while (BFS(network, source, sink))
         {
             int current = source;
-            int minCapacity = 1;
+            int minCapacity = 3;
             while (current != sink)
             {
                 bool foundEdge = false;
@@ -75,7 +75,6 @@ public class CarrierAssignmentResolver :
                 }
             }
         }
-            Console.WriteLine("Min capacity: ");
     }
     
     
@@ -86,7 +85,7 @@ public class CarrierAssignmentResolver :
         int SetSize2 = data.RearCarrierNumber;
         int TotalNodes = SetSize1 + SetSize2 + 2; // +2 for source and sink
         List<Edge> Relations = data.Relations;
-        int Source = 0;
+        int Source = TotalNodes - 2;
         int Sink = TotalNodes - 1;
         Verticies.Add(Source);
         Verticies.Add(Sink);
