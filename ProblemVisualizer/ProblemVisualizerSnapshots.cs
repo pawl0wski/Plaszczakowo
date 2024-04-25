@@ -9,19 +9,15 @@ public class ProblemVisualizerSnapshots<TDrawerData>
     public TDrawerData Next()
     {
         if (_currentSnapshot < Count - 1)
-        {
             _currentSnapshot++;
-            return this[_currentSnapshot];
-        }
+        return this[_currentSnapshot];
     }
 
     public TDrawerData Back()
     {
         if (_currentSnapshot > 0)
-        {
             _currentSnapshot--;
-            return this[_currentSnapshot];
-        }
+        return this[_currentSnapshot];
     }
 
     public TDrawerData GoStart()
