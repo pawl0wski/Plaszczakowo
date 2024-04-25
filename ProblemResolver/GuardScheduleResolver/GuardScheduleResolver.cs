@@ -36,10 +36,8 @@ public class GuardScheduleResolver :
 
                 Resting(p);
 
-                if (p.NextVertexValue != int.MinValue)
-                {
-                    p.Energy -= p.NextVertexValue;
-                }
+                p.Energy -= p.NextVertexValue;
+                
 
                 p.CurrentVertexIndex = vertexIndex;
                 outputStep.Add(new GuardScheduleOutputStep(p.Index, p.CurrentVertexIndex, p.Energy, p.Melody, p.Steps));
@@ -54,7 +52,7 @@ public class GuardScheduleResolver :
     {
         if (vertexIndex == 0)
         {
-            p.PreviousVertexValue = int.MaxValue;
+            p.PreviousVertexValue = path.Vertices[path.Vertices.Count - 1];
             p.CurrentVertexValue = path.Vertices[vertexIndex];
             p.NextVertexValue = path.Vertices[vertexIndex + 1];
         } 
@@ -62,7 +60,7 @@ public class GuardScheduleResolver :
         {
             p.PreviousVertexValue = path.Vertices[vertexIndex - 1];
             p.CurrentVertexValue = path.Vertices[vertexIndex];
-            p.NextVertexValue = int.MinValue;
+            p.NextVertexValue = path.Vertices[0]; ;
         }
         else
         {
