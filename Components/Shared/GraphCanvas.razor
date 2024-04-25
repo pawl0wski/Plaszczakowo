@@ -52,6 +52,15 @@
         }
     }
 
+    protected override async void OnParametersSet()
+    {
+        if (_drawer != null && _drawer.GetData() != Data)
+        {
+            _drawer.ApplyNewGraphData(Data);
+            await _drawer.Draw();
+        }
+    }
+
     private async Task EnableCanvasZoom()
     {
         await JsRuntime.InvokeAsync<Task>("enableCanvasZoom", null);

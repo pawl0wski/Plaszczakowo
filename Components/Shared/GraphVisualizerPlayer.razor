@@ -1,0 +1,34 @@
+@using ProblemResolver
+@using ProblemVisualizer
+@using GraphDrawer
+
+<GraphCanvas EnableZoom="true" Data="_snapshots.GetCurrentSnapshot()" />
+
+@code {
+    /*
+     * FIXME: BLAZOR BUG
+     * ProblemVisualizer.ProblemVisualizerCommandsQueue<GraphDrawer.GraphData>[]'
+     * is not assignable to parameter type
+     * 'ProblemVisualizer.ProblemVisualizerCommandsQueue<GraphData>[]'
+     */
+    [Parameter] 
+    public required object Commands { get; set; }
+
+    [Parameter] 
+    public required ProblemInputData InputData { get; set; }
+
+    [Parameter] 
+    public required FirstSnapshotCreator<ProblemInputData, GraphData> FirstSnapshotCreator { get; set; }
+
+    private ProblemVisualizerExecutor<ProblemInputData, GraphData>? _executor;
+
+    private ProblemVisualizerSnapshots<GraphData>? _snapshots;
+
+    protected override void OnInitialized()
+    {
+        var commandsQueues = (ProblemVisualizerCommandsQueue<GraphData>[])Commands;
+        _snapshots = new ProblemVisualizerSnapshots<GraphData>();
+        _executor = new ProblemVisualizerExecutor<ProblemInputData, GraphData>(_snapshots, commandsQueues , FirstSnapshotCreator);
+    }
+
+}

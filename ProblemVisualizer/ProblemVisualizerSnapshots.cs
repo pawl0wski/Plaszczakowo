@@ -4,33 +4,35 @@ public class ProblemVisualizerSnapshots<TDrawerData>
     : List<TDrawerData>
     where TDrawerData : ICloneable
 {
-    private int _currentSnapshot;
+    private int _currentSnapshotId;
 
     public TDrawerData Next()
     {
-        if (_currentSnapshot < Count - 1)
-            _currentSnapshot++;
-        return this[_currentSnapshot];
+        if (_currentSnapshotId < Count - 1)
+            _currentSnapshotId++;
+        return this[_currentSnapshotId];
     }
 
     public TDrawerData Back()
     {
-        if (_currentSnapshot > 0)
-            _currentSnapshot--;
-        return this[_currentSnapshot];
+        if (_currentSnapshotId > 0)
+            _currentSnapshotId--;
+        return this[_currentSnapshotId];
     }
 
     public TDrawerData GoStart()
     {
-        _currentSnapshot = 0;
-        return this[_currentSnapshot];
+        _currentSnapshotId = 0;
+        return this[_currentSnapshotId];
     }
 
     public TDrawerData GoEnd()
     {
-        _currentSnapshot = Count - 1;
-        return this[_currentSnapshot];
+        _currentSnapshotId = Count - 1;
+        return this[_currentSnapshotId];
     }
 
-    public int GetCurrentSnapshot() => _currentSnapshot;
+    public int GetCurrentSnapshotId() => _currentSnapshotId;
+
+    public TDrawerData GetCurrentSnapshot() => this[_currentSnapshotId];
 }

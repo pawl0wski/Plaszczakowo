@@ -1,66 +1,66 @@
-@page "/computer_science_machine"
-@using Problem.HuffmanCoding;
-@using Problem.PhraseCorrection;
-
-<div class="csm-page">
-        <ReturnButton></ReturnButton>
-       <div class="title">
-                <h1>Maszyna informatyka</h1>
-       </div> 
-       
-</div>
-
-
-@code {
-        protected override void OnInitialized()
-        {
-                // Bałagan tymczasowy - strona tylko do testów :) 
-                HuffmanCodingResolver hcresolver = new();
-                PhraseCorrectionResolver pcresolver = new();
-                PhraseCorrectionInputData pcdata = new("peter piper picked a picked pepper");
-                Console.WriteLine("Tekst wejściowy: {0}", pcdata.InputPhrase);
-                
-                List<PhraseCorrectionResults> pcoutput = pcresolver.Resolve(pcdata);
-                PhraseCorrectionResults pcresults = pcoutput[0];
-                HuffmanCodingInputData hcdata = new(pcresults.FixedPhrase);
-                List<HuffmanCodingResults> hcoutput = hcresolver.Resolve(hcdata);
-                HuffmanCodingResults hcresults = hcoutput[0];
-
-                Console.WriteLine("Poprawy we frazie:");
-                foreach (Tuple<char,char> correction in pcresults.FixingPhrase)
-                {
-                       Console.WriteLine("{0} -> {1}", correction.Item1, correction.Item2); 
-                }
-
-                Console.WriteLine("Poprawiona fraza: {0}", pcresults.FixedPhrase);
-
-                Console.WriteLine("Wystąpienia liter:");
-                foreach (char key in hcresults.LetterAppearances.Keys)
-                {
-                        Console.WriteLine(key + " -> " + hcresults.LetterAppearances[key]);
-                }
-                Console.WriteLine("Utworzony kopiec minimum:");
-                while(hcresults.MinHeap.Count > 1)
-                {
-                        Node lowest = hcresults.MinHeap.First();
-                        hcresults.MinHeap.RemoveAt(0);
-                        Console.WriteLine("{0} {1}", lowest.Character, lowest.Value);
-                }
-                Console.WriteLine("Drzewo Huffmana: ");
-                HuffmanTree tree = new();
-                tree.PrintTree(hcresults.HuffmanTree, "");
-                var arrayOfAllKeys = hcresults.HuffmanDictionary.Keys.ToArray();
-                Console.WriteLine("Alfabet Huffmana:");
-                foreach(var key in arrayOfAllKeys)
-                {
-                        Console.WriteLine("{0} -> {1}", key, hcresults.HuffmanDictionary[key]);
-                }
-                Console.WriteLine("Wynik:");
-                string codedPhrase = "";
-                foreach (var letter in pcresults.FixedPhrase)
-                {
-                        codedPhrase += hcresults.HuffmanDictionary[letter] + "|";
-                }
-                Console.WriteLine(codedPhrase);
-        }
-}
+@* @page "/computer_science_machine" *@
+@* @using Problem.HuffmanCoding; *@
+@* @using Problem.PhraseCorrection; *@
+@* *@
+@* <div class="csm-page"> *@
+@*         <ReturnButton></ReturnButton> *@
+@*        <div class="title"> *@
+@*                 <h1>Maszyna informatyka</h1> *@
+@*        </div>  *@
+@*         *@
+@* </div> *@
+@* *@
+@* *@
+@* @code { *@
+@*         protected override void OnInitialized() *@
+@*         { *@
+@*                 // Bałagan tymczasowy - strona tylko do testów :)  *@
+@*                 HuffmanCodingResolver hcresolver = new(); *@
+@*                 PhraseCorrectionResolver pcresolver = new(); *@
+@*                 PhraseCorrectionInputData pcdata = new("peter piper picked a picked pepper"); *@
+@*                 Console.WriteLine("Tekst wejściowy: {0}", pcdata.InputPhrase); *@
+@*                  *@
+@*                 List<PhraseCorrectionOutput> pcoutput = pcresolver.Resolve(pcdata); *@
+@*                 PhraseCorrectionOutput pcresults = pcoutput[0]; *@
+@*                 HuffmanCodingInputData hcdata = new(pcresults.FixedPhrase); *@
+@*                 List<HuffmanCodingOutput> hcoutput = hcresolver.Resolve(hcdata); *@
+@*                 HuffmanCodingOutput hcresults = hcoutput[0]; *@
+@* *@
+@*                 Console.WriteLine("Poprawy we frazie:"); *@
+@*                 foreach (Tuple<char,char> correction in pcresults.FixingPhrase) *@
+@*                 { *@
+@*                        Console.WriteLine("{0} -> {1}", correction.Item1, correction.Item2);  *@
+@*                 } *@
+@* *@
+@*                 Console.WriteLine("Poprawiona fraza: {0}", pcresults.FixedPhrase); *@
+@* *@
+@*                 Console.WriteLine("Wystąpienia liter:"); *@
+@*                 foreach (char key in hcresults.LetterAppearances.Keys) *@
+@*                 { *@
+@*                         Console.WriteLine(key + " -> " + hcresults.LetterAppearances[key]); *@
+@*                 } *@
+@*                 Console.WriteLine("Utworzony kopiec minimum:"); *@
+@*                 while(hcresults.MinHeap.Count > 1) *@
+@*                 { *@
+@*                         Node lowest = hcresults.MinHeap.First(); *@
+@*                         hcresults.MinHeap.RemoveAt(0); *@
+@*                         Console.WriteLine("{0} {1}", lowest.Character, lowest.Value); *@
+@*                 } *@
+@*                 Console.WriteLine("Drzewo Huffmana: "); *@
+@*                 HuffmanTree tree = new(); *@
+@*                 tree.PrintTree(hcresults.HuffmanTree, ""); *@
+@*                 var arrayOfAllKeys = hcresults.HuffmanDictionary.Keys.ToArray(); *@
+@*                 Console.WriteLine("Alfabet Huffmana:"); *@
+@*                 foreach(var key in arrayOfAllKeys) *@
+@*                 { *@
+@*                         Console.WriteLine("{0} -> {1}", key, hcresults.HuffmanDictionary[key]); *@
+@*                 } *@
+@*                 Console.WriteLine("Wynik:"); *@
+@*                 string codedPhrase = ""; *@
+@*                 foreach (var letter in pcresults.FixedPhrase) *@
+@*                 { *@
+@*                         codedPhrase += hcresults.HuffmanDictionary[letter] + "|"; *@
+@*                 } *@
+@*                 Console.WriteLine(codedPhrase); *@
+@*         } *@
+@* } *@

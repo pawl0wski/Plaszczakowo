@@ -1,0 +1,33 @@
+@page "/demo"
+@using Problem.Demo
+@using ProblemResolver
+@using ProblemVisualizer
+@using GraphDrawer
+<GraphVisualizerPlayer Commands="GetCommandsQueueArray()" InputData="_inputData" />
+
+@code {
+
+    private FirstDemoSnapshotCreator _snapshotCreator = new();
+
+    private DemoResolver _resolver = new();
+
+    private ProblemRecreationCommands<GraphData> _recreationCommands = new();
+
+    private DemoProblemOutput? _output;
+
+    private DemoInputData? _inputData;
+    
+    protected override void OnInitialized()
+    {
+        
+        _inputData = new DemoInputData(5);
+        _output = _resolver.Resolve(_inputData, ref _recreationCommands);
+        base.OnInitialized();
+    }
+
+    private ProblemVisualizerCommandsQueue<GraphData>[] GetCommandsQueueArray()
+    {
+        return _recreationCommands.Commands.ToArray();
+    }
+
+}

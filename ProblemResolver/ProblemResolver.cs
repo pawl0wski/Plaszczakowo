@@ -1,11 +1,13 @@
-namespace Problem;
+namespace ProblemResolver;
 
 /*
     Klasa odpowiedzialna za rozwiązanie problemu.
 */
-public abstract class ProblemResolver<InputData, OutputSteps>
-    where InputData : ProblemInputData
-    where OutputSteps : ProblemResults
+public abstract class ProblemResolver<TInputData, TOutputData ,TDrawerData>
+    where TInputData : ProblemInputData
+    where TOutputData : ProblemOutput
+    where TDrawerData : ICloneable
+    
 {
-    public abstract OutputSteps Resolve(InputData data);
+    public abstract ProblemOutput Resolve(TInputData data, ref ProblemRecreationCommands<TDrawerData> commands);
 }

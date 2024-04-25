@@ -1,24 +1,24 @@
-@page "/guard_schedule"
-@rendermode InteractiveServer
-@using GraphDrawer;
-@using Problem.GuardSchedule;
-
-<h1>Grafik strażników</h1>
-<img @ref="GraphEdge_image" hidden id="GraphEdge_image" src="test.png" />
-
-<BECanvas Width="1280" Height="720" @ref="_canvasReference"></BECanvas>
-
-
-@code {
-    private GuardScheduleResolver resolver = new();
-    private Canvas2DContext? _context;
-    private GraphDrawer? graph;
-    protected BECanvasComponent? _canvasReference;
-    ElementReference GraphEdge_image;
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        this._context = await this._canvasReference.CreateCanvas2DAsync();
-        
-    }
-}
+@* @page "/guard_schedule" *@
+@* @rendermode InteractiveServer *@
+@* @using GraphDrawer; *@
+@* @using Problem.GuardSchedule; *@
+@* *@
+@* <h1>Grafik strażników</h1> *@
+@* <img @ref="GraphEdge_image" hidden id="GraphEdge_image" src="test.png" /> *@
+@* *@
+@* <BECanvas Width="1280" Height="720" @ref="_canvasReference"></BECanvas> *@
+@* *@
+@* *@
+@* @code { *@
+@*     private GuardScheduleResolver resolver = new(); *@
+@*     private Canvas2DContext? _context; *@
+@*     private GraphDrawer? graph; *@
+@*     protected BECanvasComponent? _canvasReference; *@
+@*     ElementReference GraphEdge_image; *@
+@* *@
+@*     protected override async Task OnAfterRenderAsync(bool firstRender) *@
+@*     { *@
+@*         this._context = await this._canvasReference.CreateCanvas2DAsync(); *@
+@*          *@
+@*     } *@
+@* } *@

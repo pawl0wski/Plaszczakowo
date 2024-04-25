@@ -25,6 +25,11 @@ public class GraphDrawer
         _data = data;
     }
 
+    public GraphData? GetData()
+    {
+        return _data;
+    }
+
     public async Task ChangeVertexStatusAndRedraw(int index, GraphState state)
     {
         if (_data is null)
