@@ -20,11 +20,11 @@
                 PhraseCorrectionInputData pcdata = new("peter piper picked a picked pepper");
                 Console.WriteLine("Tekst wejściowy: {0}", pcdata.InputPhrase);
                 
-                List<PhraseCorrectionOutputStep> pcoutput = pcresolver.Resolve(pcdata);
-                PhraseCorrectionOutputStep pcresults = pcoutput[0];
+                List<PhraseCorrectionResults> pcoutput = pcresolver.Resolve(pcdata);
+                PhraseCorrectionResults pcresults = pcoutput[0];
                 HuffmanCodingInputData hcdata = new(pcresults.FixedPhrase);
-                List<HuffmanCodingOutputStep> hcoutput = hcresolver.Resolve(hcdata);
-                HuffmanCodingOutputStep hcresults = hcoutput[0];
+                List<HuffmanCodingResults> hcoutput = hcresolver.Resolve(hcdata);
+                HuffmanCodingResults hcresults = hcoutput[0];
 
                 Console.WriteLine("Poprawy we frazie:");
                 foreach (Tuple<char,char> correction in pcresults.FixingPhrase)

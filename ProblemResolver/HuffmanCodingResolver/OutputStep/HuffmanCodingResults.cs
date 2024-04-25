@@ -1,6 +1,6 @@
 namespace Problem.HuffmanCoding;
 
-public class HuffmanCodingOutputStep : ProblemOutputStep
+public class HuffmanCodingResults : ProblemResults
 {
 
     public Dictionary<char, int> LetterAppearances;
@@ -9,7 +9,7 @@ public class HuffmanCodingOutputStep : ProblemOutputStep
     public  Dictionary<char, string> HuffmanDictionary;
 
 
-    public HuffmanCodingOutputStep()
+    public HuffmanCodingResults()
     {
         this.LetterAppearances = new();
         this.MinHeap = new();

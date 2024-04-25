@@ -38,7 +38,7 @@ public class HuffmanTree
         }
     }
 
-    public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
+    public Node CreateHuffmanTree(Dictionary<char, int> letters, ref List<HuffmanCodingResults> outputSteps)
     {
         GenerateMinHeap(letters, ref outputSteps);
 
@@ -47,7 +47,7 @@ public class HuffmanTree
         return MinHeap.First();
     }
 
-    private void GenerateMinHeap(Dictionary<char, int> letters, ref List<HuffmanCodingOutputStep> outputSteps)
+    private void GenerateMinHeap(Dictionary<char, int> letters, ref List<HuffmanCodingResults> outputSteps)
     {
         var arrayOfAllKeys = letters.Keys.ToArray();
         for (int i = 0; i < arrayOfAllKeys.Length; i++)

@@ -1,7 +1,7 @@
 namespace Problem.HuffmanCoding;
 
 public class HuffmanCodingResolver :
-    ProblemResolver<HuffmanCodingInputData, HuffmanCodingOutputStep>
+    ProblemResolver<HuffmanCodingInputData, HuffmanCodingResults>
 {
     public Dictionary<char, int> CalculateAppearances(string phrase)
     {
@@ -19,7 +19,7 @@ public class HuffmanCodingResolver :
         return letterAppearances;
     }
 
-    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref List<HuffmanCodingOutputStep> outputSteps)
+    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref List<HuffmanCodingResults> outputSteps)
     {
         HuffmanTree huffmanTree = new HuffmanTree();
         Dictionary<char, string> dict = new Dictionary<char, string>();
@@ -28,16 +28,16 @@ public class HuffmanCodingResolver :
         GenerateTree(ref outputSteps, huffmanTree);
     }
 
-    public void GenerateTree(ref List<HuffmanCodingOutputStep> output, HuffmanTree huffmanTree)
+    public void GenerateTree(ref List<HuffmanCodingResults> output, HuffmanTree huffmanTree)
     {
         huffmanTree.GenerateDictionary(output[0].HuffmanTree, "", output[0].HuffmanDictionary);
     }
-    public override List<HuffmanCodingOutputStep> Resolve(HuffmanCodingInputData data)
+    public override List<HuffmanCodingResults> Resolve(HuffmanCodingInputData data)
     {
         HuffmanCodingInputData correction = new HuffmanCodingInputData(data.InputPhrase);
-        List<HuffmanCodingOutputStep> outputSteps = new List<HuffmanCodingOutputStep>();
-        HuffmanCodingOutputStep computerScienceMachineOutputStep = new HuffmanCodingOutputStep();
-        outputSteps.Add(computerScienceMachineOutputStep);
+        List<HuffmanCodingResults> outputSteps = new List<HuffmanCodingResults>();
+        HuffmanCodingResults computerScienceMachineResults = new HuffmanCodingResults();
+        outputSteps.Add(computerScienceMachineResults);
         
 
         Dictionary<char, int> letterAppearances = new Dictionary<char, int>();

@@ -1,9 +1,9 @@
 namespace Problem.FenceTransport;
 
 public class FenceTransportResolver :
-    ProblemResolver<FenceTransportInputData, FenceTransportOutputStep>
+    ProblemResolver<FenceTransportInputData, FenceTransportResults>
 {
-    public override List<FenceTransportOutputStep> Resolve(FenceTransportInputData data)
+    public override List<FenceTransportResults> Resolve(FenceTransportInputData data)
     {
         throw new NotImplementedException();
     }

@@ -1,14 +1,14 @@
 namespace Problem.CarrierAssignment;
 
 public class CarrierAssignmentResolver :
-    ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentOutputStep>
+    ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentResults>
 {
-    List<CarrierAssignmentOutputStep> results = new();
+    List<CarrierAssignmentResults> results = new();
     public Edge Connect(int from, int to)
     {
         return new Edge(from, to, 0, 1);
     }
-    private bool BFS(CarrierAssignmentOutputStep network, int source, int sink)
+    private bool BFS(CarrierAssignmentResults network, int source, int sink)
     {
         bool[] visited = new bool[network.Vertices.Count];
         Queue<int> queue = new();
@@ -29,7 +29,7 @@ public class CarrierAssignmentResolver :
         return visited[sink];
     }
 
-    public void PairCreator(CarrierAssignmentOutputStep network, int source, int sink)
+    public void PairCreator(CarrierAssignmentResults network, int source, int sink)
     {
         
         while (BFS(network, source, sink))
@@ -78,7 +78,7 @@ public class CarrierAssignmentResolver :
     }
     
     
-    public override List<CarrierAssignmentOutputStep> Resolve(CarrierAssignmentInputData data)
+    public override List<CarrierAssignmentResults> Resolve(CarrierAssignmentInputData data)
     {
         List<int> Verticies = data.Carriers;
         int SetSize1 = data.FrontCarrierNumber;
@@ -102,7 +102,7 @@ public class CarrierAssignmentResolver :
         {
             Edges.Add(Connect(i, Verticies[TotalNodes - 1]));
         }
-        CarrierAssignmentOutputStep network = new(Verticies, Edges);
+        CarrierAssignmentResults network = new(Verticies, Edges);
         results.Add(network);
         PairCreator(network, Source, Sink);
         return results;

@@ -1,11 +1,11 @@
 namespace Problem.GuardSchedule;
 
 public class GuardScheduleResolver :
-    ProblemResolver<GuardScheduleInputData, GuardScheduleOutputStep>
+    ProblemResolver<GuardScheduleInputData, GuardScheduleResults>
 {
-    public override List<GuardScheduleOutputStep> Resolve(GuardScheduleInputData data)
+    public override List<GuardScheduleResults> Resolve(GuardScheduleInputData data)
     {
-        List<GuardScheduleOutputStep> outputStep = new();
+        List<GuardScheduleResults> outputStep = new();
 
         IteratePath(data.Plaszczaki, data.Pathway);
 
@@ -14,7 +14,7 @@ public class GuardScheduleResolver :
 
     private static void IteratePath(List<Plaszczak> plaszczaki, Pathway path)
     {
-        List<GuardScheduleOutputStep> outputStep = new();
+        List<GuardScheduleResults> outputStep = new();
         int plaszczakIndex = 0;
 
         foreach (var p in plaszczaki)
@@ -38,7 +38,7 @@ public class GuardScheduleResolver :
                 p.Index = plaszczakIndex;
                 p.CurrentVertexIndex = vertexIndex;
 
-                GuardScheduleOutputStep plaszczakOutput = new GuardScheduleOutputStep(p);
+                GuardScheduleResults plaszczakOutput = new GuardScheduleResults(p);
                 outputStep.Add(plaszczakOutput);
             }
 

@@ -1,13 +1,13 @@
 namespace Problem.PhraseCorrection;
 
 public class PhraseCorrectionResolver :
-    ProblemResolver<PhraseCorrectionInputData, PhraseCorrectionOutputStep>
+    ProblemResolver<PhraseCorrectionInputData, PhraseCorrectionResults>
 {
-    public override List<PhraseCorrectionOutputStep> Resolve(PhraseCorrectionInputData data)
+    public override List<PhraseCorrectionResults> Resolve(PhraseCorrectionInputData data)
     {
         PhraseCorrection correction = new(data.InputPhrase);
-        PhraseCorrectionOutputStep step = new();
-        List<PhraseCorrectionOutputStep> output = [step];
+        PhraseCorrectionResults step = new();
+        List<PhraseCorrectionResults> output = [step];
         correction.FixPhrase(ref data.InputPhrase, ref output);
         output[0].InitialPhrase = data.InputPhrase;
         return output;

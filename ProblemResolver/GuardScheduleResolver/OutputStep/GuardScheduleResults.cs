@@ -1,11 +1,11 @@
 
 namespace Problem.GuardSchedule;
 
-public class GuardScheduleOutputStep : ProblemOutputStep
+public class GuardScheduleResults : ProblemResults
 {
     public readonly Plaszczak Plaszczak;
 
-    public GuardScheduleOutputStep(Plaszczak plaszczak)
+    public GuardScheduleResults(Plaszczak plaszczak)
     {
         this.Plaszczak = plaszczak;
     }
