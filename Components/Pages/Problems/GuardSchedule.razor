@@ -4,7 +4,7 @@
 @using Problem.GuardSchedule;
 
 <h1>Grafik strażników</h1>
-<img @ref="GraphEdge_image" hidden id="GraphEdge_image" src="test.png" />
+<!--<img @ref="GraphEdge_image" hidden id="GraphEdge_image" src="test.png" />-->
 
 <BECanvas Width="1280" Height="720" @ref="_canvasReference"></BECanvas>
 
@@ -19,6 +19,20 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         this._context = await this._canvasReference.CreateCanvas2DAsync();
-        
+
+        List<Plaszczak> plaszczaki = new();
+        List<int> vertices = new();
+
+        for (int i = 0; i < 15; i++)
+        {
+            plaszczaki.Add(new Plaszczak(30));
+            vertices.Add(i / 2);
+        }
+
+        Pathway path = new(vertices, 3);
+
+        GuardScheduleInputData data = new(plaszczaki, path);
+
+        resolver.Resolve(data);
     }
 }
