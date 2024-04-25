@@ -1,6 +1,6 @@
 namespace GraphDrawer;
 
-public class GraphData
+public class GraphData : ICloneable
 {
     public List<GraphVertex> Vertices;
     public List<GraphEdge> Edges;
@@ -34,8 +34,8 @@ public class GraphData
         return currentVertex;
     }
 
-    public GraphData Copy()
+    public object Clone()
     {
-        return (GraphData)MemberwiseClone();
+        return MemberwiseClone();
     }
 }
