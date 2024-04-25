@@ -30,11 +30,16 @@ public class GuardScheduleResolver :
             {
                 UpdatePosition(p, path, vertexIndex);
 
-                MoveForward(p);
+                p.Steps++;
 
                 EnoughEnergyOrSteps(p, path.MaxPossibleSteps);
 
                 Resting(p);
+
+                if (p.NextVertexValue != int.MinValue)
+                {
+                    p.Energy -= p.NextVertexValue;
+                }
 
                 p.CurrentVertexIndex = vertexIndex;
                 outputStep.Add(new GuardScheduleOutputStep(p.Index, p.CurrentVertexIndex, p.Energy, p.Melody, p.Steps));
@@ -49,7 +54,7 @@ public class GuardScheduleResolver :
     {
         if (vertexIndex == 0)
         {
-            p.PreviousVertexValue = -1;
+            p.PreviousVertexValue = int.MaxValue;
             p.CurrentVertexValue = path.Vertices[vertexIndex];
             p.NextVertexValue = path.Vertices[vertexIndex + 1];
         } 
@@ -57,7 +62,7 @@ public class GuardScheduleResolver :
         {
             p.PreviousVertexValue = path.Vertices[vertexIndex - 1];
             p.CurrentVertexValue = path.Vertices[vertexIndex];
-            p.NextVertexValue = -1;
+            p.NextVertexValue = int.MinValue;
         }
         else
         {
@@ -67,34 +72,27 @@ public class GuardScheduleResolver :
         }
     }
 
-    private static void MoveForward(Plaszczak p)
-    {
-        p.Energy -= p.CurrentVertexValue;
-        p.Steps++;
-    }
-
     private static void EnoughEnergyOrSteps(Plaszczak p, int maxSteps)
     {
         if (p.Energy < p.NextVertexValue || p.Steps == maxSteps)
         {
-            p.Steps = 0;
-
-            if (p.CurrentVertexValue > p.PreviousVertexValue)
+            if (!(p.CurrentVertexValue < p.PreviousVertexValue))
             {
                 ListenMelody(p);
-            }
+            } 
         }
     }
 
     private static void ListenMelody(Plaszczak p)
     {
+        p.Steps = 0;
         p.Energy = p.MaxEnergy;
         p.Melody++;
     }
 
     private static void Resting(Plaszczak p)
     {
-        if (p.CurrentVertexValue <= p.PreviousVertexValue)
+        if (p.CurrentVertexValue < p.PreviousVertexValue)
         {
             p.Steps = 0;
             p.Energy = p.MaxEnergy;
