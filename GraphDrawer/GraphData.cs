@@ -5,7 +5,8 @@ public class GraphData : ICloneable
     public List<GraphVertex> Vertices;
     public List<GraphEdge> Edges;
 
-    public GraphData(List<GraphVertex> vertices, List<GraphEdge> edges) {
+    public GraphData(List<GraphVertex> vertices, List<GraphEdge> edges)
+    {
         Vertices = vertices;
         Edges = edges;
     }
@@ -17,7 +18,7 @@ public class GraphData : ICloneable
 
         return currentEdge;
     }
-    
+
     public GraphEdge ChangeEdgeFlow(int index, GraphFlow flow)
     {
         var currentEdge = Edges[index];
@@ -25,7 +26,7 @@ public class GraphData : ICloneable
 
         return currentEdge;
     }
-    
+
     public GraphVertex ChangeVertexStatus(int index, GraphState state)
     {
         var currentVertex = Vertices[index];
@@ -36,6 +37,9 @@ public class GraphData : ICloneable
 
     public object Clone()
     {
-        return MemberwiseClone();
+        return new GraphData(
+            Vertices.Select(vertex => (GraphVertex)vertex.Clone()).ToList(),
+            Edges.Select(edge => (GraphEdge)edge.Clone()).ToList()
+        );
     }
 }

@@ -1,34 +1,51 @@
-@using ProblemResolver
 @using ProblemVisualizer
-@using GraphDrawer
 
-<GraphCanvas EnableZoom="true" Data="_snapshots.GetCurrentSnapshot()" />
+
+<div class="graph_visualizer_player">
+    <GraphCanvas 
+        CanvasHeight="1920"
+        CanvasWidth="1080"
+        EnableZoom="true"
+        Data="Snapshots.GetCurrentSnapshot()"
+        @ref="_canvas" />
+    
+    <div class="graph_visualizer_player__buttons">
+        <button @onclick="OnStartClick">Start</button>
+        <button @onclick="OnPrevClick">Prev</button>
+        <button @onclick="OnNextClick">Next</button>
+        <button @onclick="OnEndClick">End</button>
+    </div>
+</div>
+
 
 @code {
-    /*
-     * FIXME: BLAZOR BUG
-     * ProblemVisualizer.ProblemVisualizerCommandsQueue<GraphDrawer.GraphData>[]'
-     * is not assignable to parameter type
-     * 'ProblemVisualizer.ProblemVisualizerCommandsQueue<GraphData>[]'
-     */
     [Parameter] 
-    public required object Commands { get; set; }
+    public required ProblemVisualizerSnapshots<GraphDrawer.GraphData> Snapshots { get; set; }
 
-    [Parameter] 
-    public required ProblemInputData InputData { get; set; }
-
-    [Parameter] 
-    public required FirstSnapshotCreator<ProblemInputData, GraphData> FirstSnapshotCreator { get; set; }
-
-    private ProblemVisualizerExecutor<ProblemInputData, GraphData>? _executor;
-
-    private ProblemVisualizerSnapshots<GraphData>? _snapshots;
-
+    private GraphCanvas? _canvas;
+    
     protected override void OnInitialized()
     {
-        var commandsQueues = (ProblemVisualizerCommandsQueue<GraphData>[])Commands;
-        _snapshots = new ProblemVisualizerSnapshots<GraphData>();
-        _executor = new ProblemVisualizerExecutor<ProblemInputData, GraphData>(_snapshots, commandsQueues , FirstSnapshotCreator);
+    }
+
+    private void OnStartClick()
+    {
+        _canvas!.Data = Snapshots.GoStart();
+    }
+
+    private void OnPrevClick()
+    {
+        _canvas!.Data = Snapshots.Back();
+    }
+
+    private void OnNextClick()
+    {
+        _canvas!.Data = Snapshots.Next();
+    }
+
+    private void OnEndClick()
+    {
+        _canvas!.Data = Snapshots.GoEnd();
     }
 
 }

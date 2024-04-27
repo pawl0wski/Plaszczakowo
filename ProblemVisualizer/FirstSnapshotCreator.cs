@@ -1,14 +1,8 @@
-using ProblemResolver;
-
 namespace ProblemVisualizer;
 
-public abstract class FirstSnapshotCreator<TProblemInputData, TDrawerData>
-    where TDrawerData : ICloneable
-    where TProblemInputData : ProblemInputData
+public abstract class FirstSnapshotCreator<TProblemInputData, TDrawerData>(TProblemInputData inputData)
 {
-    public FirstSnapshotCreator()
-    {
-        
-    }
-    public abstract TDrawerData CreateFirstSnapshot(TProblemInputData inputData);
+    public readonly TProblemInputData InputData = inputData;
+
+    public abstract TDrawerData CreateFirstSnapshot();
 }

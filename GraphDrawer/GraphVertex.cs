@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 namespace GraphDrawer;
 
-public class GraphVertex
+public class GraphVertex : ICloneable
     {
         public int X;
         public int Y;
@@ -17,4 +17,8 @@ public class GraphVertex
             this.VertexImageRef = vertexImageRef;
         }
 
+        public object Clone()
+        {
+            return new GraphVertex(X, Y, Value, State, VertexImageRef);
+        }
     }

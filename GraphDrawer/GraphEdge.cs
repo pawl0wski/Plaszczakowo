@@ -1,5 +1,5 @@
 namespace GraphDrawer;
-public class GraphEdge {
+public class GraphEdge : ICloneable {
     public readonly GraphVertex From;
 
     public readonly GraphVertex To;
@@ -8,12 +8,16 @@ public class GraphEdge {
 
     public GraphFlow? Flow;
 
-    public GraphEdge(GraphVertex From, GraphVertex To, GraphState? state = null, GraphFlow? flow = null)
+    public GraphEdge(GraphVertex from, GraphVertex to, GraphState? state = null, GraphFlow? flow = null)
     {
-        this.From = From;
-        this.To = To;
+        From = from;
+        To = to;
         State = state ?? GraphStates.Inactive;
         Flow = flow;
     }
 
+    public object Clone()
+    {
+        return new GraphEdge(From, To, State, Flow);
+    }
 }

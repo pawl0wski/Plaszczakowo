@@ -1,4 +1,3 @@
-@using GraphDrawer
 @inject IJSRuntime JsRuntime;
 @rendermode InteractiveServer
 
@@ -8,9 +7,6 @@
 
 <style>
     div.canvas_wrapper {
-        position: absolute;
-        z-index: 1;
-
         width: 100vw;
         height: 100vh;
         
@@ -21,7 +17,7 @@
 @code {
 
     [Parameter]
-    public required GraphData Data { get; set; }
+    public required GraphDrawer.GraphData Data { get; set; }
 
     [Parameter] 
     public int? CanvasWidth { get; set; }
@@ -36,7 +32,7 @@
 
     private Canvas2DContext? _context;
     
-    private GraphDrawer? _drawer;
+    private GraphDrawer.GraphDrawer? _drawer;
     
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -46,7 +42,7 @@
                 await EnableCanvasZoom();
         
             _context = await _canvasReference.CreateCanvas2DAsync();
-            _drawer = new GraphDrawer(_context, Data);
+            _drawer = new GraphDrawer.GraphDrawer(_context, Data);
         
             await _drawer.Draw();
         }

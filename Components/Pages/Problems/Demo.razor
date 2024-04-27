@@ -2,32 +2,33 @@
 @using Problem.Demo
 @using ProblemResolver
 @using ProblemVisualizer
-@using GraphDrawer
-<GraphVisualizerPlayer Commands="GetCommandsQueueArray()" InputData="_inputData" />
+
+<GraphVisualizerPlayer Snapshots="_executor.GetSnapshots()"/>
 
 @code {
 
-    private FirstDemoSnapshotCreator _snapshotCreator = new();
-
     private DemoResolver _resolver = new();
 
-    private ProblemRecreationCommands<GraphData> _recreationCommands = new();
+    private ProblemRecreationCommands<GraphDrawer.GraphData> _recreationCommands = new();
 
     private DemoProblemOutput? _output;
+
+    private ProblemVisualizerExecutor<DemoInputData, GraphDrawer.GraphData> _executor;
 
     private DemoInputData? _inputData;
     
     protected override void OnInitialized()
     {
-        
         _inputData = new DemoInputData(5);
+        
         _output = _resolver.Resolve(_inputData, ref _recreationCommands);
+
+        _executor = new(_recreationCommands.Commands, new FirstDemoSnapshotCreator(_inputData));        
+        
+        _executor.CreateFirstSnapshot();
+        
+        _executor.ExecuteCommands();
+        
         base.OnInitialized();
     }
-
-    private ProblemVisualizerCommandsQueue<GraphData>[] GetCommandsQueueArray()
-    {
-        return _recreationCommands.Commands.ToArray();
-    }
-
 }

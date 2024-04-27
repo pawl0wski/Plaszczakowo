@@ -7,26 +7,25 @@ public class ProblemVisualizerExecutor<TInputData, TDrawerData>
     where TInputData : ProblemInputData
     where TDrawerData : ICloneable
 {
-    private ProblemVisualizerSnapshots<TDrawerData> _snapshots;
+    private ProblemVisualizerSnapshots<TDrawerData> _snapshots = new();
 
-    private ProblemVisualizerCommandsQueue<TDrawerData>[] _listOfCommands;
+    private List<ProblemVisualizerCommandsQueue<TDrawerData>> _listOfCommands;
 
     private FirstSnapshotCreator<TInputData, TDrawerData> _firstSnapshotCreator;
 
     public ProblemVisualizerExecutor(
-        ProblemVisualizerSnapshots<TDrawerData> snapshots,
-        ProblemVisualizerCommandsQueue<TDrawerData>[] listOfCommands,
+        List<ProblemVisualizerCommandsQueue<TDrawerData>> listOfCommands,
         FirstSnapshotCreator<TInputData, TDrawerData> firstSnapshotCreator)
     {
-        _snapshots = snapshots;
         _listOfCommands = listOfCommands;
         _firstSnapshotCreator = firstSnapshotCreator;
     }
 
-    public void CreateFirstSnapshot(TInputData inputData)
+    public void CreateFirstSnapshot()
     {
-        _snapshots.Add(_firstSnapshotCreator.CreateFirstSnapshot(inputData));
+        _snapshots.Add((TDrawerData)_firstSnapshotCreator.CreateFirstSnapshot());
     }
+    
     public void ExecuteCommands()
     {
         foreach (var commands in _listOfCommands)
@@ -34,6 +33,8 @@ public class ProblemVisualizerExecutor<TInputData, TDrawerData>
             ExecuteAllCommands(commands);
         }
     }
+
+    public ProblemVisualizerSnapshots<TDrawerData> GetSnapshots() => _snapshots;
     private void ExecuteAllCommands(ProblemVisualizerCommandsQueue<TDrawerData> commandsQueue)
     {
         var drawerData = CreateCloneOfLastDrawerData();

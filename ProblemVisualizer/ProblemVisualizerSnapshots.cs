@@ -1,3 +1,5 @@
+using GraphDrawer;
+
 namespace ProblemVisualizer;
 
 public class ProblemVisualizerSnapshots<TDrawerData> 
