@@ -67,6 +67,8 @@ public class GraphDrawer
         if (_data is null)
             throw new NullReferenceException();
 
+        await _context.BeginBatchAsync();
+        
         await ClearCanvas();
 
         foreach (var edge in _data.Edges)
@@ -78,6 +80,8 @@ public class GraphDrawer
         {
             await DrawVertex(vertex);
         }
+
+        await _context.EndBatchAsync();
     }
 
     private async Task DrawEdge(GraphEdge e)

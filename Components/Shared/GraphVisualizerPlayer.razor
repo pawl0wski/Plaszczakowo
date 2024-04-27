@@ -10,10 +10,23 @@
         @ref="_canvas" />
     
     <div class="graph_visualizer_player__buttons">
-        <button @onclick="OnStartClick">Start</button>
-        <button @onclick="OnPrevClick">Prev</button>
-        <button @onclick="OnNextClick">Next</button>
-        <button @onclick="OnEndClick">End</button>
+        <button @onclick="OnStartClick">
+            <Icon Name="fa-backward-step" />
+        </button>
+        <button @onclick="OnPrevClick">
+            <Icon Name="fa-backward" />
+        </button>
+        <div class="graph_visualizer_player__buttons__stats">
+            <p>
+                Slajd @(Snapshots.GetCurrentSnapshotId() + 1) na @Snapshots.Count
+            </p>
+        </div>        
+        <button @onclick="OnNextClick">
+            <Icon Name="fa-forward" />
+        </button>
+        <button @onclick="OnEndClick">
+            <Icon Name="fa-forward-step" />
+        </button>
     </div>
 </div>
 
