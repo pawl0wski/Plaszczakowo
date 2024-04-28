@@ -20,52 +20,20 @@ public class GraphDrawer
         _data = data;
     }
 
-    public void ApplyNewGraphData(GraphData data)
-    {
-        _data = data;
-    }
-
     public GraphData? GetData()
     {
         return _data;
     }
 
-    public async Task ChangeVertexStatusAndRedraw(int index, GraphState state)
+    public void UpdateGraphData(GraphData newData)
     {
-        if (_data is null)
-            throw new NullReferenceException();
-
-        var currentVertex = _data.ChangeVertexStatus(index, state);
-
-        await DrawVertex(currentVertex);
+        _data = newData;
     }
-
-    public async Task ChangeEdgeStatusAndRedraw(int index, GraphState state)
-    {
-        if (_data is null)
-            throw new NullReferenceException();
-
-        var currentEdge = _data.ChangeEdgeState(index, state);
-
-        await DrawEdge(currentEdge);
-        await DrawVertex(currentEdge.From);
-        await DrawVertex(currentEdge.To);
-    }
-
-    public async Task ChangeEdgeFlowAndRedraw(int index, GraphFlow newFlow)
-    {
-        if (_data is null)
-            throw new NullReferenceException();
-
-        var currentEdge = _data.ChangeEdgeFlow(index, newFlow);
-        await DrawEdge(currentEdge);
-    }
-
 
     public async Task Draw()
     {
         if (_data is null)
-            throw new NullReferenceException();
+            throw new NullReferenceException("GraphDrawer cannot draw if GraphData is not set.");
 
         await _context.BeginBatchAsync();
         

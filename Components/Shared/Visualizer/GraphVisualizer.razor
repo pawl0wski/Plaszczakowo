@@ -1,0 +1,36 @@
+@using GraphDrawer
+@inherits VisualizerComponentBase<GraphData>
+
+<div class="visualizer_player">
+    <GraphCanvas
+        CanvasHeight="1920"
+        CanvasWidth="1080"
+        EnableZoom="true"
+        Data="_currentGraphData"
+        @ref="_graphCanvas"
+        />
+
+    <VisualizerButtons
+        TDrawerData="GraphData"
+        Snapshots="Snapshots"
+        OnSnapshotChange="OnSnaphotChange"
+        />
+
+</div>
+
+@code {
+
+    private GraphData? _currentGraphData;
+
+    private GraphCanvas? _graphCanvas;
+
+    protected override void OnInitialized()
+    {
+        _currentGraphData = Snapshots.GetCurrentSnapshot();
+    }
+
+    protected override void OnSnaphotChange(GraphData newDrawerData)
+    {
+        _graphCanvas!.ChangeGraphData(newDrawerData);
+    }
+}

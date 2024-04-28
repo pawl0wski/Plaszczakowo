@@ -1,3 +1,4 @@
+@using GraphDrawer
 @inject IJSRuntime JsRuntime;
 @rendermode InteractiveServer
 
@@ -5,19 +6,10 @@
     <BECanvas Width="CanvasWidth ?? 1280" Height="CanvasHeight ?? 720" @ref="_canvasReference" />
 </div>
 
-<style>
-    div.canvas_wrapper {
-        width: 100vw;
-        height: 100vh;
-        
-        overflow: hidden;
-    }
-</style>
-
 @code {
 
     [Parameter]
-    public required GraphDrawer.GraphData Data { get; set; }
+    public required GraphData Data { get; set; }
 
     [Parameter] 
     public int? CanvasWidth { get; set; }
@@ -32,8 +24,8 @@
 
     private Canvas2DContext? _context;
     
-    private GraphDrawer.GraphDrawer? _drawer;
-    
+    private GraphDrawer? _drawer;
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -42,19 +34,12 @@
                 await EnableCanvasZoom();
         
             _context = await _canvasReference.CreateCanvas2DAsync();
-            _drawer = new GraphDrawer.GraphDrawer(_context, Data);
-        
-            await _drawer.Draw();
+            _drawer = new GraphDrawer(_context, Data);
+            
+            await _drawer!.Draw();
         }
-    }
 
-    protected override async void OnParametersSet()
-    {
-        if (_drawer != null && _drawer.GetData() != Data)
-        {
-            _drawer.ApplyNewGraphData(Data);
-            await _drawer.Draw();
-        }
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task EnableCanvasZoom()
@@ -62,11 +47,9 @@
         await JsRuntime.InvokeAsync<Task>("enableCanvasZoom", null);
     }
 
-    public async Task Redraw()
+    public async void ChangeGraphData(GraphData newGraphData)
     {
-        if (_drawer is null) 
-            return;
-
-        await _drawer.Draw();
+        _drawer!.UpdateGraphData(newGraphData);
+        await _drawer!.Draw();
     }
 }

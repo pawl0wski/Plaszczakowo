@@ -15,7 +15,7 @@ public class ProblemVisualizerSnapshots<TDrawerData>
         return this[_currentSnapshotId];
     }
 
-    public TDrawerData Back()
+    public TDrawerData Prev()
     {
         if (_currentSnapshotId > 0)
             _currentSnapshotId--;
