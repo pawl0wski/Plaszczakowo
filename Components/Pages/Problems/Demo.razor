@@ -1,6 +1,7 @@
 @page "/demo"
 @using Problem.Demo
 @using ProblemResolver
+@using ProblemResolver.Graph
 @using ProblemVisualizer
 
 <GraphVisualizer Snapshots="_executor.GetSnapshots()"/>
@@ -16,19 +17,32 @@
     private ProblemVisualizerExecutor<DemoInputData, GraphDrawer.GraphData> _executor;
 
     private DemoInputData? _inputData;
-    
+
     protected override void OnInitialized()
     {
-        _inputData = new DemoInputData(5);
-        
+        _inputData = new DemoInputData(
+        [
+            new ProblemVertex(0, 50, 100),
+            new ProblemVertex(1, 150, 250),
+            new ProblemVertex(2, 500, 300),
+            new ProblemVertex(3, 600, 400),
+            new ProblemVertex(4, 700, 200),
+        ], [
+            new ProblemEdge(0, 0, 1),
+            new ProblemEdge(1, 1, 2),
+            new ProblemEdge(2, 2, 3),
+            new ProblemEdge(3, 2, 4),
+        ]);
+
         _output = _resolver.Resolve(_inputData, ref _recreationCommands);
 
-        _executor = new(_recreationCommands.Commands, new FirstDemoSnapshotCreator(_inputData));        
-        
+        _executor = new(_recreationCommands.Commands, new FirstDemoSnapshotCreator(_inputData));
+
         _executor.CreateFirstSnapshot();
-        
+
         _executor.ExecuteCommands();
-        
+
         base.OnInitialized();
     }
+
 }

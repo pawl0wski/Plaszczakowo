@@ -8,18 +8,15 @@ public class FirstDemoSnapshotCreator(DemoInputData inputData) : FirstSnapshotCr
     {
         List<GraphVertex> vertices = [];
         List<GraphEdge> edges = [];
-        var x = 100;
-        const int y = 200;
-
-        for (var i = 0; i < InputData.Edges+1; i++)
+        
+        foreach(var vertex in inputData.Vertices)
         {
-            vertices.Add(new GraphVertex(x, y));
-            x += 150;
+            vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0));
         }
 
-        for (var i = 1; i < vertices.Count; i++)
+        foreach (var edge in inputData.Edges)
         {
-            edges.Add(new GraphEdge(vertices[i-1], vertices[i]));
+            edges.Add(new GraphEdge(vertices[edge.From], vertices[edge.To]));
         }
 
         return new GraphData(vertices, edges);

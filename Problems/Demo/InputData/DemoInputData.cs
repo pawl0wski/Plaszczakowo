@@ -1,12 +1,12 @@
+using GraphDrawer;
+using ProblemResolver.Graph;
+
 namespace Problem.Demo;
 using ProblemResolver;
 
-public record DemoInputData : ProblemInputData
+public record DemoInputData(List<ProblemVertex> vertices, List<ProblemEdge> edges) : ProblemInputData
 {
-    public int Edges;
+    public List<ProblemVertex> Vertices = vertices;
 
-    public DemoInputData(int edges)
-    {
-        Edges = edges;
-    }
+    public List<ProblemEdge> Edges = edges;
 }
