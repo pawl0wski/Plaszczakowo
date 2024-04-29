@@ -6,5 +6,5 @@ public class GraphStateActive : GraphState
 
     public override string GetSecondaryColor() => "white";
     
-    public override int GetLineWidth() => 3;
+    public override int GetLineWidth() => 5;
 }
