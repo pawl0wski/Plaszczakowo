@@ -1,18 +1,16 @@
 // namespace Problem.HuffmanCoding;
 //
-// public class HuffmanCodingOutput : ProblemOutput
+// public class HuffmanCodingOutputStep : ProblemOutputStep
 // {
-//
-//     public Dictionary<char, int> LetterAppearances;
-//     public List<Node> MinHeap;
 //     public Node? HuffmanTree;
-//     public  Dictionary<char, string> HuffmanDictionary;
+//     public  Tuple<char, string>? HuffmanCode;
+//
+//     public Dictionary<char, string> HuffmanDictionary = new();
 //
 //
-//     public HuffmanCodingOutput()
+//     public HuffmanCodingOutputStep(Node? HuffmanTree, Tuple<char, string>? code)
 //     {
-//         this.LetterAppearances = new();
-//         this.MinHeap = new();
-//         this.HuffmanDictionary = new();
+//         this.HuffmanTree = HuffmanTree;
+//         this.HuffmanCode = code;
 //     }
 // }

@@ -1,24 +1,25 @@
 // namespace Problem.GuardSchedule;
 //
 // public class GuardScheduleResolver :
-//     ProblemResolver<GuardScheduleInputData, GuardScheduleOutput>
+//     ProblemResolver<GuardScheduleInputData, GuardScheduleOutputStep>
 // {
-//     public override List<GuardScheduleOutput> Resolve(GuardScheduleInputData data)
+//     public override List<GuardScheduleOutputStep> Resolve(GuardScheduleInputData data)
 //     {
-//         List<GuardScheduleOutput> outputStep = new();
+//         List<GuardScheduleOutputStep> outputStep = new();
 //
-//         IteratePath(data.Plaszczaki, data.Pathway);
+//         outputStep = IteratePath(data.Plaszczaki, data.Pathway, outputStep);
 //
 //         return outputStep;
 //     }
 //
-//     private static void IteratePath(List<Plaszczak> plaszczaki, Pathway path)
+//     private List<GuardScheduleOutputStep> IteratePath(List<Plaszczak> plaszczaki, Pathway path, List<GuardScheduleOutputStep> outputStep)
 //     {
-//         List<GuardScheduleOutput> outputStep = new();
+//         plaszczaki.Sort();
 //         int plaszczakIndex = 0;
 //
 //         foreach (var p in plaszczaki)
 //         {
+//             p.Index = plaszczakIndex;
 //
 //             if (p.IsGuard(path.MaxVertexValue) == false)
 //             {
@@ -29,28 +30,29 @@
 //             {
 //                 UpdatePosition(p, path, vertexIndex);
 //
-//                 MoveForward(p);
+//                 p.Steps++;
 //
 //                 EnoughEnergyOrSteps(p, path.MaxPossibleSteps);
 //
 //                 Resting(p);
 //
-//                 p.Index = plaszczakIndex;
+//                 p.Energy -= p.NextVertexValue;
+//                 
+//
 //                 p.CurrentVertexIndex = vertexIndex;
-//
-//                 GuardScheduleOutput plaszczakOutput = new GuardScheduleOutput(p);
-//                 outputStep.Add(plaszczakOutput);
+//                 outputStep.Add(new GuardScheduleOutputStep(p.Index, p.CurrentVertexIndex, p.Energy, p.Melody, p.Steps));
 //             }
-//
 //             plaszczakIndex++;
 //         }
+//
+//         return outputStep;
 //     }
 //
 //     private static void UpdatePosition(Plaszczak p, Pathway path, int vertexIndex)
 //     {
 //         if (vertexIndex == 0)
 //         {
-//             p.PreviousVertexValue = -1;
+//             p.PreviousVertexValue = path.Vertices[path.Vertices.Count - 1];
 //             p.CurrentVertexValue = path.Vertices[vertexIndex];
 //             p.NextVertexValue = path.Vertices[vertexIndex + 1];
 //         } 
@@ -58,7 +60,7 @@
 //         {
 //             p.PreviousVertexValue = path.Vertices[vertexIndex - 1];
 //             p.CurrentVertexValue = path.Vertices[vertexIndex];
-//             p.NextVertexValue = -1;
+//             p.NextVertexValue = path.Vertices[0]; ;
 //         }
 //         else
 //         {
@@ -66,37 +68,29 @@
 //             p.CurrentVertexValue = path.Vertices[vertexIndex];
 //             p.NextVertexValue = path.Vertices[vertexIndex + 1];
 //         }
-//         
-//     }
-//
-//     private static void MoveForward(Plaszczak p)
-//     {
-//         p.Energy -= p.CurrentVertexValue;
-//         p.Steps++;
 //     }
 //
 //     private static void EnoughEnergyOrSteps(Plaszczak p, int maxSteps)
 //     {
 //         if (p.Energy < p.NextVertexValue || p.Steps == maxSteps)
 //         {
-//             p.Steps = 0;
-//
-//             if (p.CurrentVertexValue > p.PreviousVertexValue)
+//             if (!(p.CurrentVertexValue < p.PreviousVertexValue))
 //             {
 //                 ListenMelody(p);
-//             }
+//             } 
 //         }
 //     }
 //
 //     private static void ListenMelody(Plaszczak p)
 //     {
+//         p.Steps = 0;
 //         p.Energy = p.MaxEnergy;
 //         p.Melody++;
 //     }
 //
 //     private static void Resting(Plaszczak p)
 //     {
-//         if (p.CurrentVertexValue <= p.PreviousVertexValue)
+//         if (p.CurrentVertexValue < p.PreviousVertexValue)
 //         {
 //             p.Steps = 0;
 //             p.Energy = p.MaxEnergy;

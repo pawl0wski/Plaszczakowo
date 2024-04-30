@@ -29,8 +29,14 @@ public class Plaszczak : IComparable<Plaszczak>
         {
             return 0;
         }
-
-        return Energy.CompareTo(other.Energy);
+        else if (other.Energy > Energy)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
     }
     public bool IsGuard(int maxEnergy)
     {

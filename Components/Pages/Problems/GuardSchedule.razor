@@ -1,10 +1,10 @@
 @* @page "/guard_schedule" *@
 @* @rendermode InteractiveServer *@
-@* @using Drawer.GraphDrawer; *@
+@* @using GraphDrawer; *@
 @* @using Problem.GuardSchedule; *@
 @* *@
 @* <h1>Grafik strażników</h1> *@
-@* <img @ref="GraphEdge_image" hidden id="GraphEdge_image" src="test.png" /> *@
+@* <!--<img @ref="GraphEdge_image" hidden id="GraphEdge_image" src="test.png" />--> *@
 @* *@
 @* <BECanvas Width="1280" Height="720" @ref="_canvasReference"></BECanvas> *@
 @* *@
@@ -19,6 +19,156 @@
 @*     protected override async Task OnAfterRenderAsync(bool firstRender) *@
 @*     { *@
 @*         this._context = await this._canvasReference.CreateCanvas2DAsync(); *@
-@*          *@
+@* *@
+@*         List<Plaszczak> plaszczaki = new(); *@
+@*         List<int> vertices = new(); *@
+@*         List<int> vertices1 = new(); *@
+@*         List<int> vertices2 = new(); *@
+@*         List<int> vertices3 = new(); *@
+@*         List<int> vertices4 = new(); *@
+@*         List<int> vertices0 = new(); *@
+@* *@
+@*         for (int i = 0; i < 30; i++) *@
+@*         { *@
+@*             plaszczaki.Add(new Plaszczak(40)); *@
+@*         } *@
+@* *@
+@*         vertices0.Add(10); *@
+@*         vertices0.Add(8); *@
+@*         vertices0.Add(7); *@
+@*         vertices0.Add(6); *@
+@*         vertices0.Add(6); *@
+@*         vertices0.Add(5); *@
+@*         vertices0.Add(4); *@
+@*         vertices0.Add(3); *@
+@*         vertices0.Add(1); *@
+@*         vertices0.Add(1); *@
+@* *@
+@*         vertices.Add(1); *@
+@*         vertices.Add(1); *@
+@*         vertices.Add(3); *@
+@*         vertices.Add(4); *@
+@*         vertices.Add(5); *@
+@*         vertices.Add(6); *@
+@*         vertices.Add(6); *@
+@*         vertices.Add(7); *@
+@*         vertices.Add(8); *@
+@*         vertices.Add(10); *@
+@* *@
+@*         vertices1.Add(6); *@
+@*         vertices1.Add(1); *@
+@*         vertices1.Add(4); *@
+@*         vertices1.Add(7); *@
+@*         vertices1.Add(8); *@
+@*         vertices1.Add(3); *@
+@*         vertices1.Add(1); *@
+@*         vertices1.Add(6); *@
+@*         vertices1.Add(10); *@
+@*         vertices1.Add(5); *@
+@* *@
+@* *@
+@*         vertices2.Add(1); *@
+@*         vertices2.Add(4); *@
+@*         vertices2.Add(7); *@
+@*         vertices2.Add(8); *@
+@*         vertices2.Add(3); *@
+@*         vertices2.Add(1); *@
+@*         vertices2.Add(6); *@
+@*         vertices2.Add(10); *@
+@*         vertices2.Add(5); *@
+@*         vertices2.Add(6); *@
+@* *@
+@* *@
+@*         vertices3.Add(4); *@
+@*         vertices3.Add(7); *@
+@*         vertices3.Add(8); *@
+@*         vertices3.Add(3); *@
+@*         vertices3.Add(1); *@
+@*         vertices3.Add(6); *@
+@*         vertices3.Add(10); *@
+@*         vertices3.Add(5); *@
+@*         vertices3.Add(6); *@
+@*         vertices3.Add(1); *@
+@* *@
+@* *@
+@*         vertices4.Add(7); *@
+@*         vertices4.Add(8); *@
+@*         vertices4.Add(3); *@
+@*         vertices4.Add(1); *@
+@*         vertices4.Add(6); *@
+@*         vertices4.Add(10); *@
+@*         vertices4.Add(5); *@
+@*         vertices4.Add(6); *@
+@*         vertices4.Add(1); *@
+@*         vertices4.Add(4); *@
+@* *@
+@* *@
+@*         Pathway path0 = new(vertices0, 3); *@
+@*         Pathway path = new(vertices, 3); *@
+@*         Pathway path1 = new(vertices1, 3); *@
+@*         Pathway path2 = new(vertices2, 3); *@
+@*         Pathway path3 = new(vertices3, 3); *@
+@*         Pathway path4 = new(vertices4, 3); *@
+@* *@
+@* *@
+@*         GuardScheduleInputData data0 = new(plaszczaki, path0); *@
+@*         GuardScheduleInputData data = new(plaszczaki, path); *@
+@*         GuardScheduleInputData data1 = new(plaszczaki, path1); *@
+@*         GuardScheduleInputData data2 = new(plaszczaki, path2); *@
+@*         GuardScheduleInputData data3 = new(plaszczaki, path3); *@
+@*         GuardScheduleInputData data4 = new(plaszczaki, path4); *@
+@* *@
+@*         resolver.Resolve(data0); *@
+@*         for (int i = 0; i < 30; i++) *@
+@*         { *@
+@*             plaszczaki[i].Melody = 0; *@
+@*             plaszczaki[i].Energy = plaszczaki[i].MaxEnergy; *@
+@*             plaszczaki[i].Steps = 0; *@
+@*         } *@
+@*         Console.WriteLine("----"); *@
+@*         resolver.Resolve(data); *@
+@*         for (int i = 0; i < 30; i++) *@
+@*         { *@
+@*             plaszczaki[i].Melody = 0; *@
+@*             plaszczaki[i].Energy = plaszczaki[i].MaxEnergy; *@
+@*             plaszczaki[i].Steps = 0; *@
+@* *@
+@*         } *@
+@*         Console.WriteLine("----"); *@
+@*         resolver.Resolve(data1); *@
+@*         for (int i = 0; i < 30; i++) *@
+@*         { *@
+@*             plaszczaki[i].Melody = 0; *@
+@*             plaszczaki[i].Energy = plaszczaki[i].MaxEnergy; *@
+@*             plaszczaki[i].Steps = 0; *@
+@* *@
+@*         } *@
+@*         Console.WriteLine("----"); *@
+@*         resolver.Resolve(data2); *@
+@*         for (int i = 0; i < 30; i++) *@
+@*         { *@
+@*             plaszczaki[i].Melody = 0; *@
+@*             plaszczaki[i].Energy = plaszczaki[i].MaxEnergy; *@
+@*             plaszczaki[i].Steps = 0; *@
+@* *@
+@* *@
+@*         } *@
+@*         Console.WriteLine("----"); *@
+@*         resolver.Resolve(data3); *@
+@*         for (int i = 0; i < 30; i++) *@
+@*         { *@
+@*             plaszczaki[i].Melody = 0; *@
+@*             plaszczaki[i].Energy = plaszczaki[i].MaxEnergy; *@
+@*             plaszczaki[i].Steps = 0; *@
+@* *@
+@*         } *@
+@*         Console.WriteLine("----"); *@
+@*         resolver.Resolve(data4); *@
+@*         for (int i = 0; i < 30; i++) *@
+@*         { *@
+@*             plaszczaki[i].Melody = 0; *@
+@*             plaszczaki[i].Energy = plaszczaki[i].MaxEnergy; *@
+@*             plaszczaki[i].Steps = 0; *@
+@*         } *@
 @*     } *@
 @* } *@

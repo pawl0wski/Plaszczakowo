@@ -1,7 +1,4 @@
 @page "/"
-@using System.Text.Json
-@using Problem.Demo
-@using ProblemResolver.Graph
 @using ProjektZaliczeniowy_AiSD2.Components.Pages.Welcome.Components
 @rendermode InteractiveServer
 
@@ -11,30 +8,28 @@
             <h1>Płaszczakowo</h1>
         </div>
         <div class="main-menu__buttons">
-            <ul>
-                <NavLink class="white-link" href="/text_input_choice/computer_science_machine">
-                    <li>Maszyna informatyka</li>
-                </NavLink>
-                <NavLink class="white-link" href="/graph_input_choice/guard_schedule">
-                    <li>Grafik strażników</li>
-                </NavLink>
-                <NavLink class="white-link" href="/graph_input_choice/carrier_assignment">
-                    <li>Transport płotu</li>
-                </NavLink>
-                <NavLink class="white-link" href="/graph_input_choice/demo">
-                    <li>Demo</li>
-                </NavLink>
-            </ul>
+            <NavLink class="white-link" href="/text_input_choice/computer_science_machine">
+                <WelcomeButton>Maszyna informatyka</WelcomeButton>
+            </NavLink>
+            <NavLink class="white-link" href="/graph_input_choice/guard_schedule">
+                <WelcomeButton>Grafik strażników</WelcomeButton>
+            </NavLink>
+            <NavLink class="white-link" href="/graph_input_choice/carrier_assignment">
+                <WelcomeButton>Transportowanie płotu</WelcomeButton>
+            </NavLink>
+            <NavLink class="white-link" href="/graph_input_choice/demo">
+                <WelcomeButton>Demo</WelcomeButton>
+            </NavLink>
         </div>
         <div class="main-menu__bottom">
             <ul>
                 <NavLink class="white-link" href="authors">
-                <li>
-                    <Icon Name="fa-info" />
-                </li>
+                    <li>
+                        <Icon Name="fa-info"/>
+                    </li>
                 </NavLink>
             </ul>
         </div>
     </div>
-    <WelcomeBackground />
+    <WelcomeBackground/>
 </div>

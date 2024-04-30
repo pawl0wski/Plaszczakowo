@@ -1,16 +1,14 @@
 // namespace Problem.PhraseCorrection;
 //
-// public class PhraseCorrectionOutput : ProblemOutput
+// public class PhraseCorrectionOutputStep : ProblemOutputStep
 // {
-//     public string InitialPhrase;
-//     public List<Tuple<char, char>> FixingPhrase;
-//     public string FixedPhrase;
+//     public Tuple<char, char>? FixingStep;
+//     public string FixingProgress;
 //
 //
-//     public PhraseCorrectionOutput()
+//     public PhraseCorrectionOutputStep(string progress = "", Tuple<char, char>? Step = null)
 //     {
-//         this.FixingPhrase = new();
-//         this.FixedPhrase = "";
-//         this.InitialPhrase = "";
+//         this.FixingStep = Step;
+//         this.FixingProgress = progress;
 //     }
 // }

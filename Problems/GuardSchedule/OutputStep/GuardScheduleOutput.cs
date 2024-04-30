@@ -1,12 +1,19 @@
-//
 // namespace Problem.GuardSchedule;
 //
-// public class GuardScheduleOutput : ProblemOutput
+// public class GuardScheduleOutputStep : ProblemOutputStep
 // {
-//     public readonly Plaszczak Plaszczak;
+//     public readonly int Index;
+//     public readonly int CurrentVertexIndex;
+//     public readonly int Energy;
+//     public readonly int Melody;
+//     public readonly int Steps;
 //
-//     public GuardScheduleOutput(Plaszczak plaszczak)
+//     public GuardScheduleOutputStep(int index, int currentVertexIndex, int energy, int melody, int steps)
 //     {
-//         this.Plaszczak = plaszczak;
+//         this.Index = index;
+//         this.CurrentVertexIndex = currentVertexIndex;
+//         this.Energy = energy;
+//         this.Melody = melody;
+//         this.Steps = steps;
 //     }
 // }
