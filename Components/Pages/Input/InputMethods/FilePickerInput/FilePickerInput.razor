@@ -1,4 +1,5 @@
 @page "/input/file/{ProblemName}"
+@inherits InputMethodBase;
 @using ElectronNET.API
 @using ElectronNET.API.Entities
 @using ProjektZaliczeniowy_AiSD2.Components.States
@@ -17,17 +18,15 @@
 </div>
 
 <button @onclick="GetFile">Wybierz plik</button>
-<button @onclick="ReadFileAndGoToProblemPage" disabled="@(SelectedFile == null)">Wczytaj</button>
+<button @onclick="ReadFileAndGoToProblemPage" disabled="@(_selectedFile == null)">Wczytaj</button>
 
-@if (SelectedFile is not null)
+@if (_selectedFile is not null)
 {
-    <p>SelectedFile: @SelectedFile</p>
+    <p>SelectedFile: @_selectedFile</p>
 }
 
 @code {
-    [Parameter] public required string ProblemName { get; set; }
-
-    private string? SelectedFile;
+    private string? _selectedFile;
 
     protected override void OnInitialized()
     {
@@ -48,7 +47,7 @@
 
     private void OnFileSelect(string selectedFile)
     {
-        SelectedFile = selectedFile;
+        _selectedFile = selectedFile;
     }
 
     private async void GetFile()
@@ -63,7 +62,7 @@
         var files = await Electron.Dialog.ShowOpenDialogAsync(currentBrowserWindow, dialogOptions);
         if (files is null || files.Length == 0)
             return;
-        SelectedFile = files.Last();
+        _selectedFile = files.Last();
     }
 
     private async Task ReadFileAndGoToProblemPage()
@@ -71,13 +70,13 @@
         await ReadFile();
         GoToProblemPage();
     }
-    
+
     private async Task ReadFile()
     {
-        if (SelectedFile is null)
+        if (_selectedFile is null)
             throw new NullReferenceException("SelectedFile can't be null");
-        
-        var fileContent = await File.ReadAllTextAsync(SelectedFile);
+
+        var fileContent = await File.ReadAllTextAsync(_selectedFile);
         await ProblemState.SetProblemJsonInputData(fileContent);
     }
 
@@ -85,5 +84,5 @@
     {
         Navigator.NavigateTo($"/{ProblemName}");
     }
- 
+
 }
