@@ -8,7 +8,6 @@ using ProjektZaliczeniowy_AiSD2.Components.States;
 */
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Dodawanie komponentów Razora, Electrona do backendu naszej aplikacji.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

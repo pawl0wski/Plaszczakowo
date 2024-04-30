@@ -1,0 +1,19 @@
+@page "/graph_input_choice/{ProblemName}"
+@inherits InputChoicePageBase
+
+<h1 class="center">
+    Wybierz sposób wprowadzenia grafu
+</h1>
+
+<div class="horizontal_centered_row">
+    <NavLink href="@GetFromFileLink()">
+        <InputChoice
+            Title="Z pliku"
+            Description="Wprowadź graf z pliku json"/>
+    </NavLink>
+    <NavLink href="@GetGraphCreatorLink()">
+        <InputChoice
+            Title="Kreator grafów"
+            Description="Wprowadź graf z kreatora grafów"/>
+    </NavLink>
+</div>

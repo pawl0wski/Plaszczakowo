@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using ProblemResolver;
 
@@ -7,6 +8,8 @@ public class ProblemState : IProblemState
 {
     private readonly ProtectedSessionStorage? _sessionStore;
 
+    private const string DataKey = "problemInputData"; 
+    
     public ProblemState(ProtectedSessionStorage sessionStorage)
     {
         _sessionStore = sessionStorage;
@@ -16,28 +19,30 @@ public class ProblemState : IProblemState
         where TInputData : ProblemInputData
     {
         var sessionStore = CheckSessionStoreIfNull();
-        var inputData = await sessionStore.GetAsync<TInputData>("problemInputData");
-
+        var inputData = await sessionStore.GetAsync<string>(DataKey);
         if (!inputData.Success || inputData.Value is null)
-            throw new Exception("Can't get ProblemInputData. You need to set it first!");
+            throw new Exception("Can't get JSON inputData. You need to set it first!");
+        
+        var deserializedInputData = JsonSerializer.Deserialize<TInputData>(inputData.Value);
+        if (deserializedInputData is null)
+            throw new Exception("Can't deserialize InputData");
 
-        return inputData.Value;
+        return deserializedInputData;
     }
 
+    public async Task SetProblemJsonInputData(string inputData)
+    {
+        var sessionStore = CheckSessionStoreIfNull();
+
+        await sessionStore.SetAsync(DataKey, inputData);
+    }
+    
     public async Task SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData
     {
         var sessionStore = CheckSessionStoreIfNull();
 
-        await sessionStore.SetAsync("problemInputData", inputData);
-    }
-
-    public async Task<bool> IsProblemInputDataSet()
-    {
-        var sessionStore = CheckSessionStoreIfNull();
-
-        var result = await sessionStore.GetAsync<object>("problemInputData");
-        return result.Value != null;
+        await sessionStore.SetAsync(DataKey, JsonSerializer.Serialize(inputData));
     }
     
     private ProtectedBrowserStorage CheckSessionStoreIfNull()
