@@ -1,8 +1,8 @@
 @page "/input/file/{ProblemName}"
-@inherits InputMethodBase;
 @using ElectronNET.API
 @using ElectronNET.API.Entities
 @using ProjektZaliczeniowy_AiSD2.Components.States
+@inherits InputMethodBase;
 @inject NavigationManager Navigator
 @inject IProblemState ProblemState;
 
@@ -34,16 +34,25 @@
             Directory.CreateDirectory(GetProblemPath());
     }
 
-    private bool CheckIfDirectoryExists() => Path.Exists(GetProblemPath());
+    private bool CheckIfDirectoryExists()
+    {
+        return Path.Exists(GetProblemPath());
+    }
 
-    private string[] GetAllProblemFiles() => Directory.GetFiles(GetProblemPath())
-        .Where(file => file.EndsWith(".json"))
-        .ToArray();
+    private string[] GetAllProblemFiles()
+    {
+        return Directory.GetFiles(GetProblemPath())
+            .Where(file => file.EndsWith(".json"))
+            .ToArray();
+    }
 
-    private string GetProblemPath() => Path.Join(
-        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-        "Plaszczakowo",
-        ProblemName);
+    private string GetProblemPath()
+    {
+        return Path.Join(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "Plaszczakowo",
+            ProblemName);
+    }
 
     private void OnFileSelect(string selectedFile)
     {

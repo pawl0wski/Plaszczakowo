@@ -1,8 +1,8 @@
-namespace ProblemVisualizer.Commands;
-
 using Drawer.GraphDrawer;
 
-public class ChangeEdgeStateCommand(int id, GraphState state) 
+namespace ProblemVisualizer.Commands;
+
+public class ChangeEdgeStateCommand(int id, GraphState state)
     : ProblemVisualizerCommand<GraphData>
 {
     private readonly int Id = id;
@@ -13,4 +13,3 @@ public class ChangeEdgeStateCommand(int id, GraphState state)
         data.ChangeEdgeState(Id, State);
     }
 }
-

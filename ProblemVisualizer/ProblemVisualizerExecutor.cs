@@ -1,17 +1,15 @@
-using Drawer.GraphDrawer;
 using ProblemResolver;
 
 namespace ProblemVisualizer;
 
-public class ProblemVisualizerExecutor<TInputData, TDrawerData> 
+public class ProblemVisualizerExecutor<TInputData, TDrawerData>
     where TInputData : ProblemInputData
     where TDrawerData : ICloneable
 {
-    private ProblemVisualizerSnapshots<TDrawerData> _snapshots = new();
+    private readonly FirstSnapshotCreator<TInputData, TDrawerData> _firstSnapshotCreator;
 
-    private List<ProblemVisualizerCommandsQueue<TDrawerData>> _listOfCommands;
-
-    private FirstSnapshotCreator<TInputData, TDrawerData> _firstSnapshotCreator;
+    private readonly List<ProblemVisualizerCommandsQueue<TDrawerData>> _listOfCommands;
+    private readonly ProblemVisualizerSnapshots<TDrawerData> _snapshots = new();
 
     public ProblemVisualizerExecutor(
         List<ProblemVisualizerCommandsQueue<TDrawerData>> listOfCommands,
@@ -25,28 +23,26 @@ public class ProblemVisualizerExecutor<TInputData, TDrawerData>
     {
         _snapshots.Add((TDrawerData)_firstSnapshotCreator.CreateFirstSnapshot());
     }
-    
+
     public void ExecuteCommands()
     {
-        foreach (var commands in _listOfCommands)
-        {
-            ExecuteAllCommands(commands);
-        }
+        foreach (var commands in _listOfCommands) ExecuteAllCommands(commands);
     }
 
-    public ProblemVisualizerSnapshots<TDrawerData> GetSnapshots() => _snapshots;
+    public ProblemVisualizerSnapshots<TDrawerData> GetSnapshots()
+    {
+        return _snapshots;
+    }
+
     private void ExecuteAllCommands(ProblemVisualizerCommandsQueue<TDrawerData> commandsQueue)
     {
         var drawerData = CreateCloneOfLastDrawerData();
-        while (commandsQueue.Count > 0)
-        {
-            commandsQueue.Dequeue().Execute(ref drawerData);
-        }
+        while (commandsQueue.Count > 0) commandsQueue.Dequeue().Execute(ref drawerData);
         _snapshots.Add(drawerData);
     }
+
     private TDrawerData CreateCloneOfLastDrawerData()
     {
         return (TDrawerData)_snapshots.Last().Clone();
     }
-    
 }

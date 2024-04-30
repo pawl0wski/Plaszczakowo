@@ -1,8 +1,8 @@
-namespace ProblemVisualizer.Commands;
-
 using Drawer.GraphDrawer;
 
-public class ChangeVertexStateCommand(int id, GraphState state) 
+namespace ProblemVisualizer.Commands;
+
+public class ChangeVertexStateCommand(int id, GraphState state)
     : ProblemVisualizerCommand<GraphData>
 {
     private readonly int Id = id;

@@ -1,5 +1,7 @@
 namespace Drawer.GraphDrawer;
-public static class GraphStates {
+
+public static class GraphStates
+{
     public static readonly GraphStateActive Active = new();
 
     public static readonly GraphStateHighlighted Highlighted = new();

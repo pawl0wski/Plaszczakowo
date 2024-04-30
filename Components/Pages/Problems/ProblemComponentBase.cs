@@ -10,20 +10,19 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
     where TOutputData : ProblemOutput
     where TDrawData : ICloneable
 {
-    [Inject] 
-    private IProblemState? ProblemState { get; set; }
+    protected ProblemVisualizerExecutor<TInputData, TDrawData>? Executor;
+
+    protected FirstSnapshotCreator<TInputData, TDrawData>? FirstSnapshotCreator;
 
     public TInputData? InputData;
 
     protected TOutputData? OutputData;
 
-    protected ProblemResolver<TInputData, TOutputData, TDrawData>? Resolver;
-    
     protected ProblemRecreationCommands<TDrawData> RecreationCommands = new();
 
-    protected ProblemVisualizerExecutor<TInputData, TDrawData>? Executor;
+    protected ProblemResolver<TInputData, TOutputData, TDrawData>? Resolver;
 
-    protected FirstSnapshotCreator<TInputData, TDrawData>? FirstSnapshotCreator;
+    [Inject] private IProblemState? ProblemState { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,12 +44,12 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
         ResolveProblem();
         CreateDrawerDataSnapshots();
     }
-    
+
     protected void ResolveProblem()
     {
         if (Resolver is null)
             throw new NullReferenceException("You need to initialize Resolver before resolving problem.");
-        
+
         OutputData = Resolver.Resolve(InputData!, ref RecreationCommands);
     }
 
@@ -59,7 +58,8 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
         if (FirstSnapshotCreator is null)
             throw new NullReferenceException(
                 "You need to initialize FirstSnapshotCreator before creating drawer snapshots.");
-        Executor = new(RecreationCommands.Commands, FirstSnapshotCreator);
+        Executor = new ProblemVisualizerExecutor<TInputData, TDrawData>(RecreationCommands.Commands,
+            FirstSnapshotCreator);
         Executor.CreateFirstSnapshot();
         Executor.ExecuteCommands();
     }
@@ -71,5 +71,5 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
     protected ProblemVisualizerSnapshots<TDrawData> GetSnapshots()
     {
         return Executor!.GetSnapshots();
-    }    
+    }
 }

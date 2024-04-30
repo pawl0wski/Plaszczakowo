@@ -1,18 +1,17 @@
 namespace ProblemResolver.CarrierAssignment;
 
-public class Edge 
+public class Edge
 {
+    public int Capacity;
+    public int Flow;
     public int From;
     public int To;
-    public int Flow;
-    public int Capacity;
 
-    public Edge(int from, int to, int flow = 0, int capacity = 1) {
-        this.From = from;
-        this.To = to;
-        this.Flow = flow;
-        this.Capacity = capacity;
+    public Edge(int from, int to, int flow = 0, int capacity = 1)
+    {
+        From = from;
+        To = to;
+        Flow = flow;
+        Capacity = capacity;
     }
-    
-
 }

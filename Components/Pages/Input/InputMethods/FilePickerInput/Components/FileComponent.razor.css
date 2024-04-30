@@ -2,12 +2,12 @@ div.file {
     width: 100vw;
     height: 3rem;
     padding: 0 2rem;
-    
+
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 1rem;
-    
+
     cursor: pointer;
 }
 

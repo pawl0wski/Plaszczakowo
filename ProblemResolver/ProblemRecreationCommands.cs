@@ -6,7 +6,7 @@ public class ProblemRecreationCommands<TDrawData>
     where TDrawData : ICloneable
 {
     public List<ProblemVisualizerCommandsQueue<TDrawData>> Commands;
-    
+
     public ProblemRecreationCommands()
     {
         Commands = [new ProblemVisualizerCommandsQueue<TDrawData>()];

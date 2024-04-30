@@ -5,5 +5,4 @@ namespace ProblemResolver;
 */
 public abstract record ProblemInputData
 {
-
 };

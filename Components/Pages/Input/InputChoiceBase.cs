@@ -4,12 +4,20 @@ namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input;
 
 public class InputChoiceBase : ComponentBase
 {
-    [Parameter] 
-    public required string ProblemName { get; set; }
+    [Parameter] public required string ProblemName { get; set; }
 
-    protected string GetFromFileLink() => $"/input/file/{ProblemName}";
+    protected string GetFromFileLink()
+    {
+        return $"/input/file/{ProblemName}";
+    }
 
-    protected string GetFromKeyboardLink() => $"/input/keyboard/{ProblemName}";
+    protected string GetFromKeyboardLink()
+    {
+        return $"/input/keyboard/{ProblemName}";
+    }
 
-    protected string GetGraphCreatorLink() => $"/input/graphcreator/{ProblemName}";
+    protected string GetGraphCreatorLink()
+    {
+        return $"/input/graphcreator/{ProblemName}";
+    }
 }

@@ -1,10 +1,10 @@
 div.files {
     display: flex;
     flex-direction: column;
-    
+
     width: 100vw;
     height: 80vh;
-    
+
     border-style: solid;
     border-left: none;
     border-right: none;

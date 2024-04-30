@@ -36,18 +36,12 @@ public class GraphDrawer : Drawer
             throw new NullReferenceException("GraphDrawer cannot draw if GraphData is not set.");
 
         await _context.BeginBatchAsync();
-        
+
         await ClearCanvas();
 
-        foreach (var edge in _data.Edges)
-        {
-            await DrawEdge(edge);
-        }
+        foreach (var edge in _data.Edges) await DrawEdge(edge);
 
-        foreach (var vertex in _data.Vertices)
-        {
-            await DrawVertex(vertex);
-        }
+        foreach (var vertex in _data.Vertices) await DrawVertex(vertex);
 
         await _context.EndBatchAsync();
     }

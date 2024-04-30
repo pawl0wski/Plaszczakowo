@@ -7,14 +7,12 @@
         CanvasWidth="1080"
         EnableZoom="true"
         Data="_currentGraphData"
-        @ref="_graphCanvas"
-        />
+        @ref="_graphCanvas"/>
 
     <VisualizerButtons
         TDrawerData="GraphData"
         Snapshots="Snapshots"
-        OnSnapshotChange="OnSnaphotChange"
-        />
+        OnSnapshotChange="OnSnaphotChange"/>
 
 </div>
 
@@ -33,4 +31,5 @@
     {
         _graphCanvas!.ChangeGraphData(newDrawerData);
     }
+
 }

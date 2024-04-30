@@ -2,13 +2,21 @@ namespace Drawer.GraphDrawer;
 
 public class GraphData : ICloneable
 {
-    public List<GraphVertex> Vertices;
     public List<GraphEdge> Edges;
+    public List<GraphVertex> Vertices;
 
     public GraphData(List<GraphVertex> vertices, List<GraphEdge> edges)
     {
         Vertices = vertices;
         Edges = edges;
+    }
+
+    public object Clone()
+    {
+        return new GraphData(
+            Vertices.Select(vertex => (GraphVertex)vertex.Clone()).ToList(),
+            Edges.Select(edge => (GraphEdge)edge.Clone()).ToList()
+        );
     }
 
     public GraphEdge ChangeEdgeState(int index, GraphState state)
@@ -33,13 +41,5 @@ public class GraphData : ICloneable
         currentVertex.State = state;
 
         return currentVertex;
-    }
-
-    public object Clone()
-    {
-        return new GraphData(
-            Vertices.Select(vertex => (GraphVertex)vertex.Clone()).ToList(),
-            Edges.Select(edge => (GraphEdge)edge.Clone()).ToList()
-        );
     }
 }

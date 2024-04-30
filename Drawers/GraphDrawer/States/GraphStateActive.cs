@@ -1,10 +1,19 @@
 namespace Drawer.GraphDrawer;
+
 public class GraphStateActive : GraphState
 {
+    public override string GetPrimaryColor()
+    {
+        return "green";
+    }
 
-    public override string GetPrimaryColor() => "green";
+    public override string GetSecondaryColor()
+    {
+        return "white";
+    }
 
-    public override string GetSecondaryColor() => "white";
-    
-    public override int GetLineWidth() => 5;
+    public override int GetLineWidth()
+    {
+        return 5;
+    }
 }

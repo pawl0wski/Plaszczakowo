@@ -8,13 +8,13 @@ div.welcome-button {
     display: flex;
     justify-content: center;
     align-content: center;
-    
+
     transition: 0.5s background;
 }
 
-div.welcome-button p{
+div.welcome-button p {
     font-size: 1.5rem;
-    
+
     color: black;
     display: flex;
     align-items: center;

@@ -1,14 +1,15 @@
 ﻿namespace ProblemResolver.GuardSchedule;
+
 public class Pathway
 {
-    public List<int> Vertices;
-    public int MaxVertexValue;
     public int MaxPossibleSteps;
+    public int MaxVertexValue;
+    public List<int> Vertices;
 
     public Pathway(List<int> vertices, int maxPossibleSteps)
     {
-        this.Vertices = vertices;
-        this.MaxVertexValue = this.Vertices.Max();
-        this.MaxPossibleSteps = maxPossibleSteps;
+        Vertices = vertices;
+        MaxVertexValue = Vertices.Max();
+        MaxPossibleSteps = maxPossibleSteps;
     }
 }

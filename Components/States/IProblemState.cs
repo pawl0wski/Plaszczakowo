@@ -8,6 +8,7 @@ public interface IProblemState
         where TInputData : ProblemInputData;
 
     public Task SetProblemJsonInputData(string inputData);
+
     public Task SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData;
 }

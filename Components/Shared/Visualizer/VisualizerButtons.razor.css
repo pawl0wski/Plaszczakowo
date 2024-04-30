@@ -13,13 +13,13 @@ div.visualizer_buttons {
     flex-direction: row;
 }
 
-div.visualizer_buttons button{
+div.visualizer_buttons button {
     width: 5rem;
 
     border: none;
 }
 
-div.visualizer_stats{
+div.visualizer_stats {
     width: 100%;
 
     text-align: center;

@@ -2,12 +2,11 @@
 
 @code {
 
-    [Parameter] 
-    public required string Name { get; set; }
+    [Parameter] public required string Name { get; set; }
 
     private string ReturnPreparedHtmlClass()
     {
         return $"fas {Name}";
     }
-    
+
 }

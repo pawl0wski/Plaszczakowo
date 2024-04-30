@@ -1,8 +1,7 @@
-using Drawer.GraphDrawer;
+using ProblemResolver;
 using ProblemResolver.Graph;
 
 namespace Problem.Demo;
-using ProblemResolver;
 
 public record DemoInputData(List<ProblemVertex> Vertices, List<ProblemEdge> Edges) : ProblemInputData
 {

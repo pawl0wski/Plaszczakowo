@@ -4,11 +4,11 @@ div.return-button p {
     width: fit-content;
     margin-top: 0pt;
     margin-bottom: 5pt;
-    
+
     /* Text */
     text-align: left;
     font-size: 20pt;
-    
+
     /* Border */
     border-color: black;
     border-width: 2px;

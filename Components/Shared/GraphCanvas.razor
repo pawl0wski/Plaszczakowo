@@ -3,27 +3,23 @@
 @rendermode InteractiveServer
 
 <div class="canvas_wrapper">
-    <BECanvas Width="CanvasWidth ?? 1280" Height="CanvasHeight ?? 720" @ref="_canvasReference" />
+    <BECanvas Width="CanvasWidth ?? 1280" Height="CanvasHeight ?? 720" @ref="_canvasReference"/>
 </div>
 
 @code {
 
-    [Parameter]
-    public required GraphData Data { get; set; }
+    [Parameter] public required GraphData Data { get; set; }
 
-    [Parameter] 
-    public int? CanvasWidth { get; set; }
+    [Parameter] public int? CanvasWidth { get; set; }
 
-    [Parameter] 
-    public int? CanvasHeight { get; set; }
+    [Parameter] public int? CanvasHeight { get; set; }
 
-    [Parameter] 
-    public bool EnableZoom { get; set; } = true;
+    [Parameter] public bool EnableZoom { get; set; } = true;
 
     private BECanvasComponent? _canvasReference;
 
     private Canvas2DContext? _context;
-    
+
     private GraphDrawer? _drawer;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -32,10 +28,10 @@
         {
             if (EnableZoom)
                 await EnableCanvasZoom();
-        
+
             _context = await _canvasReference.CreateCanvas2DAsync();
             _drawer = new GraphDrawer(_context, Data);
-            
+
             await _drawer!.Draw();
         }
 
@@ -52,4 +48,5 @@
         _drawer!.UpdateGraphData(newGraphData);
         await _drawer!.Draw();
     }
+
 }

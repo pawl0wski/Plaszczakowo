@@ -12,3 +12,4 @@
 //         this.FixingProgress = progress;
 //     }
 // }
+

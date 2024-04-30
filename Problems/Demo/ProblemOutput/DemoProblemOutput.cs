@@ -1,7 +1,8 @@
-namespace Problem.Demo;
 using ProblemResolver;
+
+namespace Problem.Demo;
+
 public record DemoProblemOutput : ProblemOutput
 {
-   public int HighlightedEdges;
-
+    public int HighlightedEdges;
 }

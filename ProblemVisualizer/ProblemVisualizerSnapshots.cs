@@ -1,8 +1,6 @@
-using Drawer.GraphDrawer;
-
 namespace ProblemVisualizer;
 
-public class ProblemVisualizerSnapshots<TDrawerData> 
+public class ProblemVisualizerSnapshots<TDrawerData>
     : List<TDrawerData>
     where TDrawerData : ICloneable
 {
@@ -34,7 +32,13 @@ public class ProblemVisualizerSnapshots<TDrawerData>
         return this[_currentSnapshotId];
     }
 
-    public int GetCurrentSnapshotId() => _currentSnapshotId;
+    public int GetCurrentSnapshotId()
+    {
+        return _currentSnapshotId;
+    }
 
-    public TDrawerData GetCurrentSnapshot() => this[_currentSnapshotId];
+    public TDrawerData GetCurrentSnapshot()
+    {
+        return this[_currentSnapshotId];
+    }
 }

@@ -9,7 +9,7 @@ div.main-menu {
 
     width: 100vw;
     height: 100vh;
-    
+
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -21,7 +21,7 @@ div.main-menu__buttons {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     gap: 0.5rem;
 }
 
@@ -36,7 +36,7 @@ div.main-menu__title {
 
 div.main-menu__title h1 {
     margin: 0;
-    font-family: 'PixelifySans', sans-serif; 
+    font-family: 'PixelifySans', sans-serif;
     text-align: center;
 
     color: white;
@@ -59,15 +59,14 @@ ul {
 }
 
 li {
-    background-color: #483C32
-    ;
+    background-color: #483C32;
     padding: 10pt 40pt;
     margin-bottom: 15pt;
 
     /* Text */
     text-align: center;
     font-size: 16pt;
-    
+
     /* Border */
     border-color: black;
     border-width: 3px;
@@ -88,7 +87,7 @@ div.main-menu__bottom {
     flex-direction: row;
     justify-content: end;
     align-items: end;
-    
+
 
 }
 

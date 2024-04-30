@@ -8,6 +8,7 @@
 }
 
 @code {
+
     protected override void InitializeResolver()
     {
         Resolver = new DemoResolver();
@@ -17,4 +18,5 @@
     {
         FirstSnapshotCreator = new FirstDemoSnapshotCreator(inputData);
     }
+
 }
