@@ -10,7 +10,7 @@ public class ProblemVisualizerExecutor<TInputData, TDrawerData>
     private readonly FirstSnapshotCreator<TInputData, TDrawerData> _firstSnapshotCreator;
 
     private readonly List<ProblemVisualizerCommandsQueue<TDrawerData>> _listOfCommands;
-    private readonly ProblemVisualizerSnapshots<TDrawerData> _snapshots = new();
+    private readonly ProblemVisualizerSnapshots<TDrawerData> _snapshots = [];
 
     public ProblemVisualizerExecutor(
         List<ProblemVisualizerCommandsQueue<TDrawerData>> listOfCommands,
@@ -22,7 +22,7 @@ public class ProblemVisualizerExecutor<TInputData, TDrawerData>
 
     public void CreateFirstSnapshot()
     {
-        _snapshots.Add((TDrawerData)_firstSnapshotCreator.CreateFirstSnapshot());
+        _snapshots.Add(_firstSnapshotCreator.CreateFirstSnapshot());
     }
 
     public void ExecuteCommands()
