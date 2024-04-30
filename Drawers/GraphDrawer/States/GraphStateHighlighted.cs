@@ -1,4 +1,4 @@
-namespace GraphDrawer;
+namespace Drawer.GraphDrawer;
 public class GraphStateHighlighted : GraphState
 {
     public override string GetPrimaryColor() => "blue";

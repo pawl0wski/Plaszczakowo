@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
-namespace GraphDrawer;
+namespace Drawer.GraphDrawer;
 
 public class GraphVertex : ICloneable
     {

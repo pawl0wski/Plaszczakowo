@@ -1,4 +1,4 @@
-namespace GraphDrawer;
+namespace Drawer.GraphDrawer;
 public class GraphEdge : ICloneable {
     public readonly GraphVertex From;
 

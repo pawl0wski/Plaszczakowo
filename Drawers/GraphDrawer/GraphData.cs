@@ -1,4 +1,4 @@
-namespace GraphDrawer;
+namespace Drawer.GraphDrawer;
 
 public class GraphData : ICloneable
 {

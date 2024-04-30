@@ -1,6 +1,6 @@
 namespace Problem.Demo;
 using ProblemVisualizer;
-using GraphDrawer;
+using Drawer.GraphDrawer;
 
 public class FirstDemoSnapshotCreator(DemoInputData inputData) : FirstSnapshotCreator<DemoInputData, GraphData>(inputData)
 {

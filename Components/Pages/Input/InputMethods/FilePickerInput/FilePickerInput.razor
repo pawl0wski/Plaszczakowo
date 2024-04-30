@@ -36,7 +36,7 @@
 
     private bool CheckIfDirectoryExists() => Path.Exists(GetProblemPath());
 
-    public string[] GetAllProblemFiles() => Directory.GetFiles(GetProblemPath())
+    private string[] GetAllProblemFiles() => Directory.GetFiles(GetProblemPath())
         .Where(file => file.EndsWith(".json"))
         .ToArray();
 

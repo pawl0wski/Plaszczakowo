@@ -1,6 +1,6 @@
 namespace ProblemVisualizer.Commands;
 
-using GraphDrawer;
+using Drawer.GraphDrawer;
 
 public class ChangeEdgeFlowCommand(int id, GraphFlow flow)
     : ProblemVisualizerCommand<GraphData>

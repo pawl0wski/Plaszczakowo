@@ -3,7 +3,7 @@ using ProblemVisualizer.Commands;
 
 namespace Problem.Demo;
 
-using GraphDrawer;
+using Drawer.GraphDrawer;
 using ProblemResolver;
 
 

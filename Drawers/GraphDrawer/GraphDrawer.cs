@@ -1,9 +1,9 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
 using Microsoft.AspNetCore.Components;
 
-namespace GraphDrawer;
+namespace Drawer.GraphDrawer;
 
-public class GraphDrawer
+public class GraphDrawer : Drawer
 {
     private readonly Canvas2DContext _context;
     private GraphData? _data;
@@ -30,7 +30,7 @@ public class GraphDrawer
         _data = newData;
     }
 
-    public async Task Draw()
+    public override async Task Draw()
     {
         if (_data is null)
             throw new NullReferenceException("GraphDrawer cannot draw if GraphData is not set.");
@@ -50,6 +50,13 @@ public class GraphDrawer
         }
 
         await _context.EndBatchAsync();
+    }
+
+    public override void ChangeDrawerData(ICloneable drawerData)
+    {
+        if (drawerData is not GraphData newGraphData)
+            throw new InvalidCastException("DrawerData should be GraphData");
+        UpdateGraphData(newGraphData);
     }
 
     private async Task DrawEdge(GraphEdge e)

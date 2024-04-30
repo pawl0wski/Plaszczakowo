@@ -1,4 +1,4 @@
-using GraphDrawer;
+using Drawer.GraphDrawer;
 
 namespace ProblemVisualizer;
 
