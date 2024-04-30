@@ -1,6 +1,10 @@
 @page "/"
+@using Problem.Demo
+@using ProblemResolver.Graph
 @using ProjektZaliczeniowy_AiSD2.Components.Pages.Welcome.Components
+@using ProjektZaliczeniowy_AiSD2.Components.States
 @rendermode InteractiveServer
+@inject IProblemState ProblemState;
 
 <div class="welcome">
     <div class="main-menu">
@@ -39,4 +43,24 @@
 
 
 @code {
+
+    protected override void OnInitialized()
+    {
+        var _inputData = new DemoInputData(
+        [
+            new ProblemVertex(0, 50, 100),
+            new ProblemVertex(1, 150, 250),
+            new ProblemVertex(2, 500, 300),
+            new ProblemVertex(3, 600, 400),
+            new ProblemVertex(4, 700, 200),
+        ], [
+            new ProblemEdge(0, 0, 1),
+            new ProblemEdge(1, 1, 2),
+            new ProblemEdge(2, 2, 3),
+            new ProblemEdge(3, 2, 4),
+        ]);
+        
+        ProblemState.SetProblemInputData(_inputData);
+    }
+
 }

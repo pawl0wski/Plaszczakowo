@@ -9,5 +9,5 @@ public abstract class ProblemResolver<TInputData, TOutputData ,TDrawerData>
     where TDrawerData : ICloneable
     
 {
-    public abstract ProblemOutput Resolve(TInputData data, ref ProblemRecreationCommands<TDrawerData> commands);
+    public abstract TOutputData Resolve(TInputData data, ref ProblemRecreationCommands<TDrawerData> commands);
 }

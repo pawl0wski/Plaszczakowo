@@ -2,9 +2,9 @@ namespace ProblemResolver.Graph;
 
 public record ProblemVertex(int Id, int? X, int? Y)
 {
-    public readonly int Id = Id;
+    public int Id { get; set; } = Id;
 
-    public readonly int? X = X;
+    public int? X { get; set; } = X;
 
-    public readonly int? Y = Y;
+    public int? Y { get; set; } = Y;
 }

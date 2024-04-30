@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using ProblemResolver;
 
@@ -6,13 +5,18 @@ namespace ProjektZaliczeniowy_AiSD2.Components.States;
 
 public class ProblemState : IProblemState
 {
-    [Inject] 
-    private ProtectedSessionStorage? ProtectedSessionStore { get; set; }
+    private readonly ProtectedSessionStorage? _sessionStore;
 
-    public async ValueTask<ProblemInputData> GetProblemInputData<TProblemInputData>() where TProblemInputData : ProblemInputData
+    public ProblemState(ProtectedSessionStorage sessionStorage)
+    {
+        _sessionStore = sessionStorage;
+    }
+    
+    public async ValueTask<TInputData> GetProblemInputData<TInputData>()
+        where TInputData : ProblemInputData
     {
         var sessionStore = CheckSessionStoreIfNull();
-        var inputData = await sessionStore.GetAsync<TProblemInputData>("problemInputData");
+        var inputData = await sessionStore.GetAsync<TInputData>("problemInputData");
 
         if (!inputData.Success || inputData.Value is null)
             throw new Exception("Can't get ProblemInputData. You need to set it first!");
@@ -20,7 +24,8 @@ public class ProblemState : IProblemState
         return inputData.Value;
     }
 
-    public async Task SetProblemInputData(ProblemInputData inputData)
+    public async Task SetProblemInputData<TInputData>(TInputData inputData)
+        where TInputData : ProblemInputData
     {
         var sessionStore = CheckSessionStoreIfNull();
 
@@ -37,8 +42,8 @@ public class ProblemState : IProblemState
     
     private ProtectedBrowserStorage CheckSessionStoreIfNull()
     {
-        if (ProtectedSessionStore is null)
+        if (_sessionStore is null)
             throw new NullReferenceException("ProtectedSessionStore is null.");
-        return ProtectedSessionStore;
+        return _sessionStore;
     }
 }

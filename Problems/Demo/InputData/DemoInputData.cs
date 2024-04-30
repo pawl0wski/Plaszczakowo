@@ -4,9 +4,9 @@ using ProblemResolver.Graph;
 namespace Problem.Demo;
 using ProblemResolver;
 
-public record DemoInputData(List<ProblemVertex> vertices, List<ProblemEdge> edges) : ProblemInputData
+public record DemoInputData(List<ProblemVertex> Vertices, List<ProblemEdge> Edges) : ProblemInputData
 {
-    public List<ProblemVertex> Vertices = vertices;
+    public List<ProblemVertex> Vertices { get; set; } = Vertices;
 
-    public List<ProblemEdge> Edges = edges;
+    public List<ProblemEdge> Edges { get; set; } = Edges;
 }

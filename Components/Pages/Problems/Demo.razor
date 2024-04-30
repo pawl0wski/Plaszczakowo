@@ -1,48 +1,20 @@
 @page "/demo"
 @using Problem.Demo
-@using ProblemResolver
-@using ProblemResolver.Graph
-@using ProblemVisualizer
+@inherits ProblemComponentBase<DemoInputData, DemoProblemOutput, GraphDrawer.GraphData>
 
-<GraphVisualizer Snapshots="_executor.GetSnapshots()"/>
+@if (Executor is not null)
+{
+    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+}
 
 @code {
-
-    private DemoResolver _resolver = new();
-
-    private ProblemRecreationCommands<GraphDrawer.GraphData> _recreationCommands = new();
-
-    private DemoProblemOutput? _output;
-
-    private ProblemVisualizerExecutor<DemoInputData, GraphDrawer.GraphData> _executor;
-
-    private DemoInputData? _inputData;
-
-    protected override void OnInitialized()
+    protected override void InitializeResolver()
     {
-        _inputData = new DemoInputData(
-        [
-            new ProblemVertex(0, 50, 100),
-            new ProblemVertex(1, 150, 250),
-            new ProblemVertex(2, 500, 300),
-            new ProblemVertex(3, 600, 400),
-            new ProblemVertex(4, 700, 200),
-        ], [
-            new ProblemEdge(0, 0, 1),
-            new ProblemEdge(1, 1, 2),
-            new ProblemEdge(2, 2, 3),
-            new ProblemEdge(3, 2, 4),
-        ]);
-
-        _output = _resolver.Resolve(_inputData, ref _recreationCommands);
-
-        _executor = new(_recreationCommands.Commands, new FirstDemoSnapshotCreator(_inputData));
-
-        _executor.CreateFirstSnapshot();
-
-        _executor.ExecuteCommands();
-
-        base.OnInitialized();
+        Resolver = new DemoResolver();
     }
 
+    protected override void InitializeFirstSnapshotCreator(DemoInputData inputData)
+    {
+        FirstSnapshotCreator = new FirstDemoSnapshotCreator(inputData);
+    }
 }
