@@ -1,5 +1,6 @@
 using ElectronNET.API;
 using ElectronNET.API.Entities;
+using ProjektZaliczeniowy_AiSD2.Components.States;
 
 /* 
     Tworzenie instancji klasy odpowiedzialnej
@@ -13,6 +14,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddElectron();
+
+builder.Services.AddScoped<IProblemState, ProblemState>();
 
 // Dodawanie Electrona do projektu.
 builder.WebHost.UseElectron(args);
