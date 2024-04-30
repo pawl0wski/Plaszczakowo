@@ -13,7 +13,6 @@ div.main-menu {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 div.main-menu__buttons {
@@ -22,6 +21,8 @@ div.main-menu__buttons {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
+    gap: 0.5rem;
 }
 
 div.main-menu__title {

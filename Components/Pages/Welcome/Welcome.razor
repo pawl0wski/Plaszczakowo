@@ -8,32 +8,25 @@
             <h1>Płaszczakowo</h1>
         </div>
         <div class="main-menu__buttons">
-            <ul>
-                <NavLink class="white-link" href="/computer_science_machine">
-                    <li>Maszyna informatyka</li>
-                </NavLink>
-                <NavLink class="white-link" href="/guard_schedule">
-                    <li>Grafik strażników</li>
-                </NavLink>
-                <NavLink class="white-link" href="/carrier_assignment">
-                    <li>Transport płotu</li>
-                </NavLink>
-            </ul>
+            <NavLink class="white-link" href="/computer_science_machine">
+                <WelcomeButton>Maszyna informatyka</WelcomeButton>
+            </NavLink>
+            <NavLink class="white-link" href="/guard_schedule">
+                <WelcomeButton>Grafik strażników</WelcomeButton>
+            </NavLink>
+            <NavLink class="white-link" href="/carrier_assignment">
+                <WelcomeButton>Transportowanie płotu</WelcomeButton>
+            </NavLink>
         </div>
         <div class="main-menu__bottom">
             <ul>
                 <NavLink class="white-link" href="authors">
-                <li>
-                    <Icon Name="fa-info" />
-                </li>
+                    <li>
+                        <Icon Name="fa-info"/>
+                    </li>
                 </NavLink>
             </ul>
         </div>
     </div>
-    <WelcomeBackground />
+    <WelcomeBackground/>
 </div>
-
-
-
-@code {
-}
