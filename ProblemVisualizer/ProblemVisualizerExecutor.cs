@@ -1,10 +1,11 @@
+using Drawer;
 using ProblemResolver;
 
 namespace ProblemVisualizer;
 
 public class ProblemVisualizerExecutor<TInputData, TDrawerData>
     where TInputData : ProblemInputData
-    where TDrawerData : ICloneable
+    where TDrawerData : DrawerData
 {
     private readonly FirstSnapshotCreator<TInputData, TDrawerData> _firstSnapshotCreator;
 

@@ -1,3 +1,5 @@
+using Drawer;
+
 namespace ProblemResolver;
 
 /*
@@ -6,7 +8,7 @@ namespace ProblemResolver;
 public abstract class ProblemResolver<TInputData, TOutputData, TDrawerData>
     where TInputData : ProblemInputData
     where TOutputData : ProblemOutput
-    where TDrawerData : ICloneable
+    where TDrawerData : DrawerData
 
 {
     public abstract TOutputData Resolve(TInputData data, ref ProblemRecreationCommands<TDrawerData> commands);

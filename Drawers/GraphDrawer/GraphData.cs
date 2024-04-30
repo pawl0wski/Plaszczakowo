@@ -1,6 +1,6 @@
 namespace Drawer.GraphDrawer;
 
-public class GraphData : ICloneable
+public class GraphData : DrawerData
 {
     public List<GraphEdge> Edges;
     public List<GraphVertex> Vertices;
@@ -11,7 +11,7 @@ public class GraphData : ICloneable
         Edges = edges;
     }
 
-    public object Clone()
+    public override object Clone()
     {
         return new GraphData(
             Vertices.Select(vertex => (GraphVertex)vertex.Clone()).ToList(),
@@ -19,27 +19,21 @@ public class GraphData : ICloneable
         );
     }
 
-    public GraphEdge ChangeEdgeState(int index, GraphState state)
+    public void ChangeEdgeState(int index, GraphState state)
     {
         var currentEdge = Edges[index];
         currentEdge.State = state;
-
-        return currentEdge;
     }
 
-    public GraphEdge ChangeEdgeFlow(int index, GraphFlow flow)
+    public void ChangeEdgeFlow(int index, GraphFlow flow)
     {
         var currentEdge = Edges[index];
         currentEdge.Flow = flow;
-
-        return currentEdge;
     }
 
-    public GraphVertex ChangeVertexStatus(int index, GraphState state)
+    public void ChangeVertexStatus(int index, GraphState state)
     {
         var currentVertex = Vertices[index];
         currentVertex.State = state;
-
-        return currentVertex;
     }
 }

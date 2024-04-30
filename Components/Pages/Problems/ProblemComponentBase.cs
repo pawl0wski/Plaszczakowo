@@ -1,3 +1,4 @@
+using Drawer;
 using Microsoft.AspNetCore.Components;
 using ProblemResolver;
 using ProblemVisualizer;
@@ -8,7 +9,7 @@ namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Problems;
 public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> : ComponentBase
     where TInputData : ProblemInputData
     where TOutputData : ProblemOutput
-    where TDrawData : ICloneable
+    where TDrawData : DrawerData
 {
     protected ProblemVisualizerExecutor<TInputData, TDrawData>? Executor;
 

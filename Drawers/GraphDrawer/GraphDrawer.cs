@@ -46,7 +46,7 @@ public class GraphDrawer : Drawer
         await _context.EndBatchAsync();
     }
 
-    public override void ChangeDrawerData(ICloneable drawerData)
+    public override void ChangeDrawerData(DrawerData drawerData)
     {
         if (drawerData is not GraphData newGraphData)
             throw new InvalidCastException("DrawerData should be GraphData");

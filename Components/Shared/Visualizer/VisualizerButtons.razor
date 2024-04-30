@@ -1,5 +1,6 @@
 @using ProblemVisualizer
-@typeparam TDrawerData where TDrawerData : ICloneable
+@using Drawer
+@typeparam TDrawerData where TDrawerData : DrawerData
 
 <div class="visualizer_buttons">
     <button @onclick="OnStartClick">

@@ -1,16 +1,12 @@
+using Drawer;
 using ProblemVisualizer;
 
 namespace ProblemResolver;
 
 public class ProblemRecreationCommands<TDrawData>
-    where TDrawData : ICloneable
+    where TDrawData : DrawerData
 {
-    public List<ProblemVisualizerCommandsQueue<TDrawData>> Commands;
-
-    public ProblemRecreationCommands()
-    {
-        Commands = [new ProblemVisualizerCommandsQueue<TDrawData>()];
-    }
+    public List<ProblemVisualizerCommandsQueue<TDrawData>> Commands = [new ProblemVisualizerCommandsQueue<TDrawData>()];
 
     public void NextStep()
     {
