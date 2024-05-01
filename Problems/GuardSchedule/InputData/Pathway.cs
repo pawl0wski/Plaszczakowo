@@ -1,15 +1,8 @@
-﻿// namespace ProblemResolver.GuardSchedule;
-//
-// public class Pathway
-// {
-//     public int MaxPossibleSteps;
-//     public int MaxVertexValue;
-//     public List<int> Vertices;
-//
-//     public Pathway(List<int> vertices, int maxPossibleSteps)
-//     {
-//         Vertices = vertices;
-//         MaxVertexValue = Vertices.Max();
-//         MaxPossibleSteps = maxPossibleSteps;
-//     }
-// }
+﻿namespace Problem.GuardSchedule;
+
+public record Pathway(List<int> Vertices, int MaxPossibleSteps)
+{
+    public int MaxPossibleSteps { get; set; } = MaxPossibleSteps;
+    public int MaxVertexValue { get; set; } = Vertices.Max();
+    public List<int> Vertices { get; set; } = Vertices;
+}
