@@ -1,0 +1,54 @@
+@using ProblemVisualizer
+@using Drawer
+@typeparam TDrawerData where TDrawerData : DrawerData
+
+<div class="visualizer_buttons">
+    <button @onclick="OnStartClick">
+        <Icon Name="fa-backward-step"/>
+    </button>
+    <button @onclick="OnPrevClick">
+        <Icon Name="fa-backward"/>
+    </button>
+    <div class="visualizer_stats">
+        <p>
+            Slajd
+            @(Snapshots.GetCurrentSnapshotId() + 1)
+            na
+            @(Snapshots.Count)
+        </p>
+    </div>
+    <button @onclick="OnNextClick">
+        <Icon Name="fa-forward"/>
+    </button>
+    <button @onclick="OnEndClick">
+        <Icon Name="fa-forward-step"/>
+    </button>
+</div>
+
+@code {
+
+    [Parameter] public required ProblemVisualizerSnapshots<TDrawerData> Snapshots { get; set; }
+
+    [Parameter] public required Action<TDrawerData> OnSnapshotChange { get; set; }
+
+    private void OnStartClick()
+    {
+        OnSnapshotChange(Snapshots.GoStart());
+    }
+
+    private void OnNextClick()
+    {
+        OnSnapshotChange(Snapshots.Next());
+    }
+
+    private void OnPrevClick()
+    {
+        OnSnapshotChange(Snapshots.Prev());
+    }
+
+    private void OnEndClick()
+    {
+        OnSnapshotChange(Snapshots.GoEnd());
+    }
+
+}

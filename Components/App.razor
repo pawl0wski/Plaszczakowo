@@ -2,21 +2,21 @@
 <html lang="pl">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="ProjektZaliczeniowy-AiSD2.styles.css" rel="stylesheet">
-    <link href="fonts/fonts.css" rel="stylesheet">
-    <link href="app.css" rel="stylesheet">
-    <base href="/" />
-    <HeadOutlet @rendermode="InteractiveServer" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="/ProjektZaliczeniowy-AiSD2.styles.css" rel="stylesheet">
+    <link href="/fonts/fonts.css" rel="stylesheet">
+    <link href="/app.css" rel="stylesheet">
+    <base href="/"/>
+    <HeadOutlet @rendermode="InteractiveServer"/>
 </head>
 
 <body>
-    <Routes @rendermode="InteractiveServer" />
-    <script>process = undefined;</script> @* Hotfix for .NET 8.0 *@
-    <script src="_framework/blazor.web.js"></script>
-    <script src="dependencies/JsDependencies.js"></script>
-    <script src="_content/Blazor.Extensions.Canvas/blazor.extensions.canvas.js"></script>
+<Routes @rendermode="InteractiveServer"/>
+<script>process = undefined;</script> @* Hotfix for .NET 8.0 *@
+<script src="_framework/blazor.web.js"></script>
+<script src="dependencies/JsDependencies.js"></script>
+<script src="_content/Blazor.Extensions.Canvas/blazor.extensions.canvas.js"></script>
 </body>
 
 </html>

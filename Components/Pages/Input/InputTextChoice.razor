@@ -1,0 +1,19 @@
+@page "/text_input_choice/{ProblemName}"
+@inherits InputChoiceBase
+
+<h1 class="center">
+    Wybierz sposób wprowadzenia tekstu
+</h1>
+
+<div class="horizontal_centered_row">
+    <NavLink href="@GetFromFileLink()">
+        <InputChoice
+            Title="Z pliku"
+            Description="Wprowadź tekst z pliku"/>
+    </NavLink>
+    <NavLink href="@GetFromKeyboardLink()">
+        <InputChoice
+            Title="Z klawiatury"
+            Description="Wprowadź tekst z klawiatury"/>
+    </NavLink>
+</div>

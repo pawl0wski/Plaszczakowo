@@ -1,0 +1,17 @@
+<div class="file">
+    <Icon Name="fa-file"/>
+    <p>
+        @GetFileName()
+    </p>
+</div>
+
+@code {
+
+    [Parameter] public required string FilePath { get; set; }
+
+    private string GetFileName()
+    {
+        return Path.GetFileName(FilePath);
+    }
+
+}

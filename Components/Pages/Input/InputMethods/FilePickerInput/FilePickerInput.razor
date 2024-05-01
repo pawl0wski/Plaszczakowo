@@ -1,0 +1,97 @@
+@page "/input/file/{ProblemName}"
+@using ElectronNET.API
+@using ElectronNET.API.Entities
+@using ProjektZaliczeniowy_AiSD2.Components.States
+@inherits InputMethodBase;
+@inject NavigationManager Navigator
+@inject IProblemState ProblemState;
+
+<h1>Wybierz plik</h1>
+<div class="files">
+    @foreach (var problemInputFile in GetAllProblemFiles())
+    {
+        <span @onclick="() => OnFileSelect(problemInputFile)">
+            <FileComponent
+                FilePath="@problemInputFile"/>
+        </span>
+    }
+</div>
+
+<button @onclick="GetFile">Wybierz plik</button>
+<button @onclick="ReadFileAndGoToProblemPage" disabled="@(_selectedFile == null)">Wczytaj</button>
+
+@if (_selectedFile is not null)
+{
+    <p>SelectedFile: @_selectedFile</p>
+}
+
+@code {
+    private string? _selectedFile;
+
+    protected override void OnInitialized()
+    {
+        if (!CheckIfDirectoryExists())
+            Directory.CreateDirectory(GetProblemPath());
+    }
+
+    private bool CheckIfDirectoryExists()
+    {
+        return Path.Exists(GetProblemPath());
+    }
+
+    private string[] GetAllProblemFiles()
+    {
+        return Directory.GetFiles(GetProblemPath())
+            .Where(file => file.EndsWith(".json"))
+            .ToArray();
+    }
+
+    private string GetProblemPath()
+    {
+        return Path.Join(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "Plaszczakowo",
+            ProblemName);
+    }
+
+    private void OnFileSelect(string selectedFile)
+    {
+        _selectedFile = selectedFile;
+    }
+
+    private async void GetFile()
+    {
+        var currentBrowserWindow = Electron.WindowManager.BrowserWindows.First();
+        var dialogOptions = new OpenDialogOptions
+        {
+            Properties = [OpenDialogProperty.openFile],
+            Filters = [new FileFilter { Name = "Pliki problemu", Extensions = ["json"] }]
+        };
+
+        var files = await Electron.Dialog.ShowOpenDialogAsync(currentBrowserWindow, dialogOptions);
+        if (files is null || files.Length == 0)
+            return;
+        _selectedFile = files.Last();
+    }
+
+    private async Task ReadFileAndGoToProblemPage()
+    {
+        await ReadFile();
+        GoToProblemPage();
+    }
+
+    private async Task ReadFile()
+    {
+        if (_selectedFile is null)
+            throw new NullReferenceException("SelectedFile can't be null");
+
+        var fileContent = await File.ReadAllTextAsync(_selectedFile);
+        await ProblemState.SetProblemJsonInputData(fileContent);
+    }
+
+    private void GoToProblemPage()
+    {
+        Navigator.NavigateTo($"/{ProblemName}");
+    }
+
+}

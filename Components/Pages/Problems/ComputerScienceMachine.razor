@@ -1,64 +1,64 @@
-@page "/computer_science_machine"
-@using Problem.HuffmanCoding;
-@using Problem.PhraseCorrection;
-
-<div class="csm-page">
-        <ReturnButton></ReturnButton>
-       <div class="title">
-                <h1>Maszyna informatyka</h1>
-       </div> 
-       
-</div>
-
-
-@code {
-        protected override void OnInitialized()
-        {
-                // Bałagan tymczasowy - strona tylko do testów :) 
-                HuffmanCodingResolver hcresolver = new();
-                PhraseCorrectionResolver pcresolver = new();
-                PhraseCorrectionInputData pcdata = new("peter piper picked a picked pepper");
-                Console.WriteLine("Tekst wejściowy: {0}", pcdata.InputPhrase);
-                
-                List<PhraseCorrectionOutputStep> pcoutput = pcresolver.Resolve(pcdata);
-                Console.WriteLine("Postęp naprawy frazy:");
-                foreach (PhraseCorrectionOutputStep step in pcoutput)
-                {
-                        Console.WriteLine("{0}", step.FixingProgress);
-                        Console.WriteLine("Change: ");
-                        if (step.FixingStep != null)
-                        {
-                                Console.WriteLine("{0} -> {1}", step.FixingStep.Item1, step.FixingStep.Item2);
-                        }
-                }
-
-                PhraseCorrectionOutputStep pcresults = pcoutput[pcoutput.Count-1];
-
-                HuffmanCodingInputData hcinput = new(pcresults.FixingProgress);
-                List<HuffmanCodingOutputStep> hcresult = hcresolver.Resolve(hcinput);
-                Dictionary<char, string> huffDict = new();
-                Console.WriteLine("Drzewo oraz zakodowana wiadomość:");
-                HuffmanTree huf = new();
-                string result = "";
-                foreach (var step in hcresult)
-                {
-                        if (step.HuffmanTree != null)
-                        {
-                                huf.PrintTree(step.HuffmanTree, "");
-                                Console.WriteLine("----");
-                        }
-                        if (step.HuffmanCode != null)
-                        {
-                                Console.WriteLine("Kod dla {0} : {1}", step.HuffmanCode.Item1, step.HuffmanCode.Item2);
-                                huffDict.Add(step.HuffmanCode.Item1, step.HuffmanCode.Item2);
-                        }
-                }
-
-                foreach (var letter in pcresults.FixingProgress)
-                {
-                        result+= $"{huffDict[letter]}|";
-                }
-
-                Console.WriteLine(result);
-        }
-}
+@* @page "/computer_science_machine" *@
+@* @using Problem.HuffmanCoding; *@
+@* @using Problem.PhraseCorrection; *@
+@* *@
+@* <div class="csm-page"> *@
+@*         <ReturnButton></ReturnButton> *@
+@*        <div class="title"> *@
+@*                 <h1>Maszyna informatyka</h1> *@
+@*        </div>  *@
+@*         *@
+@* </div> *@
+@* *@
+@* *@
+@* @code { *@
+@*         protected override void OnInitialized() *@
+@*         { *@
+@*                 // Bałagan tymczasowy - strona tylko do testów :)  *@
+@*                 HuffmanCodingResolver hcresolver = new(); *@
+@*                 PhraseCorrectionResolver pcresolver = new(); *@
+@*                 PhraseCorrectionInputData pcdata = new("peter piper picked a picked pepper"); *@
+@*                 Console.WriteLine("Tekst wejściowy: {0}", pcdata.InputPhrase); *@
+@*                  *@
+@*                 List<PhraseCorrectionOutputStep> pcoutput = pcresolver.Resolve(pcdata); *@
+@*                 Console.WriteLine("Postęp naprawy frazy:"); *@
+@*                 foreach (PhraseCorrectionOutputStep step in pcoutput) *@
+@*                 { *@
+@*                         Console.WriteLine("{0}", step.FixingProgress); *@
+@*                         Console.WriteLine("Change: "); *@
+@*                         if (step.FixingStep != null) *@
+@*                         { *@
+@*                                 Console.WriteLine("{0} -> {1}", step.FixingStep.Item1, step.FixingStep.Item2); *@
+@*                         } *@
+@*                 } *@
+@* *@
+@*                 PhraseCorrectionOutputStep pcresults = pcoutput[pcoutput.Count-1]; *@
+@* *@
+@*                 HuffmanCodingInputData hcinput = new(pcresults.FixingProgress); *@
+@*                 List<HuffmanCodingOutputStep> hcresult = hcresolver.Resolve(hcinput); *@
+@*                 Dictionary<char, string> huffDict = new(); *@
+@*                 Console.WriteLine("Drzewo oraz zakodowana wiadomość:"); *@
+@*                 HuffmanTree huf = new(); *@
+@*                 string result = ""; *@
+@*                 foreach (var step in hcresult) *@
+@*                 { *@
+@*                         if (step.HuffmanTree != null) *@
+@*                         { *@
+@*                                 huf.PrintTree(step.HuffmanTree, ""); *@
+@*                                 Console.WriteLine("----"); *@
+@*                         } *@
+@*                         if (step.HuffmanCode != null) *@
+@*                         { *@
+@*                                 Console.WriteLine("Kod dla {0} : {1}", step.HuffmanCode.Item1, step.HuffmanCode.Item2); *@
+@*                                 huffDict.Add(step.HuffmanCode.Item1, step.HuffmanCode.Item2); *@
+@*                         } *@
+@*                 } *@
+@* *@
+@*                 foreach (var letter in pcresults.FixingProgress) *@
+@*                 { *@
+@*                         result+= $"{huffDict[letter]}|"; *@
+@*                 } *@
+@* *@
+@*                 Console.WriteLine(result); *@
+@*         } *@
+@* } *@

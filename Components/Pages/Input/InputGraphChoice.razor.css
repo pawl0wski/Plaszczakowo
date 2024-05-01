@@ -1,0 +1,4 @@
+div.input_choices {
+    display: flex;
+    gap: 2rem;
+}

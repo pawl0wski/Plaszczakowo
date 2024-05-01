@@ -1,0 +1,27 @@
+
+div.visualizer_buttons {
+    background-color: white;
+
+    width: 100vw;
+
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+div.visualizer_buttons button {
+    width: 5rem;
+
+    border: none;
+}
+
+div.visualizer_stats {
+    width: 100%;
+
+    text-align: center;
+}
+

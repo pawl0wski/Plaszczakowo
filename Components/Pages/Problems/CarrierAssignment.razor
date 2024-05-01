@@ -1,52 +1,52 @@
-@page "/carrier_assignment"
-@using Problem.CarrierAssignment;
-@using GraphDrawer;
-@using CarrierAssignmentDrawer;
-<h1>Przypasowanie tragarzy</h1>
-<button type="button" class="btn btn-danger" @onclick="GoToStart">GoToStart</button>
-<button type="button" class="btn btn-danger" @onclick="Prev">prev</button>
-<button type="button" class="btn btn-danger" @onclick="Next">next</button>
-<button type="button" class="btn btn-danger" @onclick="GoToEnd">GoToEnd</button>
-<BECanvas Width="1920" Height="1080" @ref="_canvasReference"></BECanvas>
-
-@code {
-        private CarrierAssignmentDrawer drawer;
-        private Canvas2DContext? _context;
-        protected BECanvasComponent? _canvasReference;
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-                this._context = await this._canvasReference.CreateCanvas2DAsync();
-                await this._context.TranslateAsync(0.5, 0.5);
-
-                List<int> carriers = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-                int FrontCarrier = 5;
-                int RearCarrier = 5;
-                List<Edge> relations = new() { new Edge(1, 9), new Edge(2, 9), new Edge(3, 9), new Edge(4, 8), new Edge(2, 6), new Edge(3, 7), new Edge(1, 8), new Edge(1, 6), new Edge(4, 9) };
-                CarrierAssignmentInputData inputData = new(carriers, FrontCarrier, RearCarrier, relations);
-
-
-                CarrierAssignmentResolver resolver = new();
-                GraphDrawer graphDrawer = new(_context, new List<GraphVertex>{}, new List<GraphEdge>{});
-                
-                var test = resolver.Resolve(inputData);
-                CarrierAssignmentDrawer testDrawer = new CarrierAssignmentDrawer(test, graphDrawer);
-                testDrawer.CreateGraphDataFromInputData(inputData);
-                await testDrawer.Draw();
-        }
-        void GoToStart()
-        {
-                drawer.GoToStart();
-        }
-        void Prev()
-        {
-                drawer.Prev();
-        }
-        void Next()
-        {
-                drawer.Next();
-        }
-        void GoToEnd()
-        {
-                drawer.GoToEnd();
-        }
-}
+@* @page "/carrier_assignment" *@
+@* @using Problem.CarrierAssignment; *@
+@* @using Drawer.GraphDrawer; *@
+@* @using CarrierAssignmentDrawer; *@
+@* <h1>Przypasowanie tragarzy</h1> *@
+@* <button type="button" class="btn btn-danger" @onclick="GoToStart">GoToStart</button> *@
+@* <button type="button" class="btn btn-danger" @onclick="Prev">prev</button> *@
+@* <button type="button" class="btn btn-danger" @onclick="Next">next</button> *@
+@* <button type="button" class="btn btn-danger" @onclick="GoToEnd">GoToEnd</button> *@
+@* <BECanvas Width="1920" Height="1080" @ref="_canvasReference"></BECanvas> *@
+@* *@
+@* @code { *@
+@*         private CarrierAssignmentDrawer drawer; *@
+@*         private Canvas2DContext? _context; *@
+@*         protected BECanvasComponent? _canvasReference; *@
+@*         protected override async Task OnAfterRenderAsync(bool firstRender) *@
+@*         { *@
+@*                 this._context = await this._canvasReference.CreateCanvas2DAsync(); *@
+@*                 await this._context.TranslateAsync(0.5, 0.5); *@
+@* *@
+@*                 List<int> carriers = new() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10}; *@
+@*                 int FrontCarrier = 5; *@
+@*                 int RearCarrier = 5; *@
+@*                 List<Edge> relations = new() { new Edge(1, 9), new Edge(2, 9), new Edge(3, 9), new Edge(4, 8), new Edge(2, 6), new Edge(3, 7), new Edge(1, 8), new Edge(1, 6), new Edge(4, 9) }; *@
+@*                 CarrierAssignmentInputData inputData = new(carriers, FrontCarrier, RearCarrier, relations); *@
+@* *@
+@* *@
+@*                 CarrierAssignmentResolver resolver = new(); *@
+@*                 GraphDrawer graphDrawer = new(_context, new List<GraphVertex>{}, new List<GraphEdge>{}); *@
+@*                  *@
+@*                 var test = resolver.Resolve(inputData); *@
+@*                 CarrierAssignmentDrawer testDrawer = new CarrierAssignmentDrawer(test, graphDrawer); *@
+@*                 testDrawer.CreateGraphDataFromInputData(inputData); *@
+@*                 await testDrawer.Draw(); *@
+@*         } *@
+@*         void GoToStart() *@
+@*         { *@
+@*                 drawer.GoToStart(); *@
+@*         } *@
+@*         void Prev() *@
+@*         { *@
+@*                 drawer.Prev(); *@
+@*         } *@
+@*         void Next() *@
+@*         { *@
+@*                 drawer.Next(); *@
+@*         } *@
+@*         void GoToEnd() *@
+@*         { *@
+@*                 drawer.GoToEnd(); *@
+@*         } *@
+@* } *@

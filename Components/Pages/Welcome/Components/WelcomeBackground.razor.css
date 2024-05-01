@@ -6,15 +6,15 @@ div.welcome-background {
     width: 100vw;
     height: 100vh;
 
-    background: linear-gradient(180deg, rgba(0,97,209,1) 0%, rgba(0,212,255,1) 47%, rgba(0,147,5,1) 100%); 
+    background: linear-gradient(180deg, rgba(0, 97, 209, 1) 0%, rgba(0, 212, 255, 1) 47%, rgba(0, 147, 5, 1) 100%);
 }
 
-div.welcome-background__layer{
+div.welcome-background__layer {
     width: 100vw;
-    
+
     display: flex;
     flex-direction: row;
-    
+
     overflow: hidden;
     position: absolute;
 }
@@ -27,7 +27,7 @@ div.welcome-background__layer img {
     min-width: 100vw;
 }
 
-div#first-layer { 
+div#first-layer {
     bottom: 0px;
     z-index: 6;
 }
@@ -37,7 +37,7 @@ div#first-layer img {
 
 }
 
-div#second-layer { 
+div#second-layer {
     bottom: 0px;
     z-index: 5;
 }
@@ -46,7 +46,7 @@ div#second-layer img {
     animation-duration: 10s;
 }
 
-div#third-layer { 
+div#third-layer {
     bottom: 0px;
     z-index: 4;
 }
@@ -55,7 +55,7 @@ div#third-layer img {
     animation-duration: 14s;
 }
 
-div#fourth-layer { 
+div#fourth-layer {
     bottom: 0px;
     z-index: 3;
 }
@@ -64,17 +64,17 @@ div#fourth-layer img {
     animation-duration: 18s;
 }
 
-div#fifth-layer { 
+div#fifth-layer {
     bottom: 0px;
     z-index: 2;
-    
+
 }
 
 div#fifth-layer img {
     animation-duration: 22s;
 }
 
-div#sixth-layer { 
+div#sixth-layer {
     top: 0px;
     z-index: 7;
 }
@@ -83,7 +83,7 @@ div#sixth-layer img {
     animation-duration: 15s;
 }
 
-div#seventh-layer { 
+div#seventh-layer {
     top: 0px;
     z-index: 1;
 }

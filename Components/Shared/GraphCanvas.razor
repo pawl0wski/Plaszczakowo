@@ -1,55 +1,41 @@
-@using GraphDrawer
+@using Drawer.GraphDrawer
 @inject IJSRuntime JsRuntime;
 @rendermode InteractiveServer
 
 <div class="canvas_wrapper">
-    <BECanvas Width="CanvasWidth ?? 1280" Height="CanvasHeight ?? 720" @ref="_canvasReference" />
+    <BECanvas Width="CanvasWidth ?? 1280" Height="CanvasHeight ?? 720" @ref="_canvasReference"/>
 </div>
-
-<style>
-    div.canvas_wrapper {
-        position: absolute;
-        z-index: 1;
-
-        width: 100vw;
-        height: 100vh;
-        
-        overflow: hidden;
-    }
-</style>
 
 @code {
 
-    [Parameter]
-    public required GraphData Data { get; set; }
+    [Parameter] public required GraphData Data { get; set; }
 
-    [Parameter] 
-    public int? CanvasWidth { get; set; }
+    [Parameter] public int? CanvasWidth { get; set; }
 
-    [Parameter] 
-    public int? CanvasHeight { get; set; }
+    [Parameter] public int? CanvasHeight { get; set; }
 
-    [Parameter] 
-    public bool EnableZoom { get; set; } = true;
+    [Parameter] public bool EnableZoom { get; set; } = true;
 
     private BECanvasComponent? _canvasReference;
 
     private Canvas2DContext? _context;
-    
+
     private GraphDrawer? _drawer;
-    
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             if (EnableZoom)
                 await EnableCanvasZoom();
-        
+
             _context = await _canvasReference.CreateCanvas2DAsync();
             _drawer = new GraphDrawer(_context, Data);
-        
-            await _drawer.Draw();
+
+            await _drawer!.Draw();
         }
+
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private async Task EnableCanvasZoom()
@@ -57,11 +43,10 @@
         await JsRuntime.InvokeAsync<Task>("enableCanvasZoom", null);
     }
 
-    public async Task Redraw()
+    public async void ChangeGraphData(GraphData newGraphData)
     {
-        if (_drawer is null) 
-            return;
-
-        await _drawer.Draw();
+        _drawer!.UpdateGraphData(newGraphData);
+        await _drawer!.Draw();
     }
+
 }

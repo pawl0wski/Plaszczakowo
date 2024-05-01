@@ -1,9 +1,8 @@
-namespace Problem;
+namespace ProblemResolver;
 
 /*
     Dane wejściowa dla ProblemResolver
 */
-public abstract class ProblemInputData
+public abstract record ProblemInputData
 {
-
 };

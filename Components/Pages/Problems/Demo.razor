@@ -1,0 +1,22 @@
+@page "/demo"
+@using Problem.Demo
+@inherits ProblemComponentBase<DemoInputData, DemoProblemOutput, Drawer.GraphDrawer.GraphData>
+
+@if (Executor is not null)
+{
+    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+}
+
+@code {
+
+    protected override void InitializeResolver()
+    {
+        Resolver = new DemoResolver();
+    }
+
+    protected override void InitializeFirstSnapshotCreator(DemoInputData inputData)
+    {
+        FirstSnapshotCreator = new FirstDemoSnapshotCreator(inputData);
+    }
+
+}

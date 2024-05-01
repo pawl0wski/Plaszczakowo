@@ -6,3 +6,15 @@ a.white-link {
 body {
     margin: 0;
 }
+
+.horizontal_centered_row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.center {
+    text-align: center;
+}

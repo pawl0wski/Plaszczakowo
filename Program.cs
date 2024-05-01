@@ -1,12 +1,13 @@
+using BlazorTransitionableRoute;
 using ElectronNET.API;
-using ElectronNET.API.Entities;
+using ProjektZaliczeniowy_AiSD2.Components.States;
+using App = ProjektZaliczeniowy_AiSD2.Components.App;
 
-/* 
+/*
     Tworzenie instancji klasy odpowiedzialnej
     za inicjalizacje naszej aplikacji.
 */
 var builder = WebApplication.CreateBuilder(args);
-
 
 // Dodawanie komponentów Razora, Electrona do backendu naszej aplikacji.
 builder.Services.AddRazorComponents()
@@ -14,19 +15,19 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddElectron();
 
+// Dodawanie ProblemState który przechowuje wejście problemu między stronami
+builder.Services.AddScoped<IProblemState, ProblemState>();
+
 // Dodawanie Electrona do projektu.
 builder.WebHost.UseElectron(args);
 
-builder.Services.AddScoped<BlazorTransitionableRoute.IRouteTransitionInvoker, BlazorTransitionableRoute.DefaultRouteTransitionInvoker>();
+builder.Services.AddScoped<IRouteTransitionInvoker, DefaultRouteTransitionInvoker>();
 
 // Inicjalizacja naszej aplikacji wraz z dodanymi komponentami.
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error", createScopeForErrors: true);
-}
+if (!app.Environment.IsDevelopment()) app.UseExceptionHandler("/Error", true);
 
 /*
     Dodawanie plików statycznych. Czyli np. obrazków.
@@ -36,7 +37,7 @@ app.UseStaticFiles();
 
 app.UseAntiforgery();
 
-app.MapRazorComponents<ProjektZaliczeniowy_AiSD2.Components.App>()
+app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 

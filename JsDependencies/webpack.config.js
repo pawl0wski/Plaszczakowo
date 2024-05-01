@@ -4,7 +4,7 @@ module.exports = {
     entry: './index.js',
     output: {
         path: path.resolve(__dirname, '../wwwroot/dependencies'),
-        filename: 'JsDependencies.js', 
+        filename: 'JsDependencies.js',
     },
     module: {
         rules: [
