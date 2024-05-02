@@ -27,7 +27,7 @@ public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
             x = (int)(centerX + radiusX * Math.Cos(angle));
             y = (int)(centerY + radiusY * Math.Sin(angle));
 
-            vertices.Add(new GraphVertex(x, y, r.Next(1, 30).ToString()));
+            vertices.Add(new GraphVertex(x, y, inputData.Pathway.Vertices[vertexIndex].ToString()));
         }
 
         for (int vertexIndex = 0; vertexIndex < verticeAmount; vertexIndex++)
