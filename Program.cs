@@ -2,7 +2,9 @@ using BlazorTransitionableRoute;
 using ElectronNET.API;
 using ProblemInput;
 using ProjektZaliczeniowy_AiSD2.Components.States;
+using Problem.GuardSchedule;
 using App = ProjektZaliczeniowy_AiSD2.Components.App;
+using ProblemResolver.Graph;
 
 /*
     Tworzenie instancji klasy odpowiedzialnej
@@ -56,7 +58,7 @@ window.SetMenuBarVisibility(false);
 window.SetTitle("Świat Płaszczaków");
 
 // Stworzenie testowych .json dla podproblemów
-string[] problemNames = { "guard_schedule", "computer_science_machine", "fence_transport"};
+string[] problemNames = {"guard_schedule", "computer_science_machine", "fence_transport"};
 DefaultProblemInputProvider problemFiles = new();
 problemFiles.CreateDefaultFilesForProblems(problemNames);
 
