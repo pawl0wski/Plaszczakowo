@@ -1,5 +1,7 @@
 using BlazorTransitionableRoute;
 using ElectronNET.API;
+using ProblemInput;
+using ProjektZaliczeniowy_AiSD2.Components.Pages.Problems;
 using ProjektZaliczeniowy_AiSD2.Components.States;
 using App = ProjektZaliczeniowy_AiSD2.Components.App;
 
@@ -53,6 +55,10 @@ window.SetContentSize(1280, 720);
 window.SetMenuBarVisibility(false);
 // Ustawienie tytułu okna
 window.SetTitle("Świat Płaszczaków");
+
+// Stworzenie testowych .json dla podproblemów
+string[] problemPaths = { "guard_schedule", "computer_science_machine", "fence_transport"};
+ProblemInputStart demoFiles = new(problemPaths);
 
 // Oczekiwanie na zakończenie okna Electron.
 app.WaitForShutdown();
