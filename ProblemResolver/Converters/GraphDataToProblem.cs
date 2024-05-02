@@ -13,7 +13,7 @@ public static class GraphDataToProblem
         for (var i = 0; i < data.Vertices.Count; i++)
         {
             var currentVertex = data.Vertices[i];
-            vertices.Add(new ProblemVertex(i, currentVertex.X, currentVertex.Y));
+            vertices.Add(ProblemVertex.FromGraphVertex(i, currentVertex));
         }
 
         for (var i = 0; i < data.Edges.Count; i++)

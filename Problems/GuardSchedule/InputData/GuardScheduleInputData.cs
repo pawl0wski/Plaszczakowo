@@ -1,11 +1,16 @@
 using ProblemResolver;
+using ProblemResolver.Graph;
 
 namespace Problem.GuardSchedule;
 
-public record GuardScheduleInputData(List<Plaszczak> Plaszczaki, Pathway Pathway) : ProblemInputData
+public record GuardScheduleInputData(
+    List<Plaszczak> Plaszczaki,
+    List<ProblemVertex> Vertices,
+    List<ProblemEdge> Edges,
+    int MaxPossibleSteps)
+    : ProblemGraphInputData(Vertices, Edges)
 {
     public List<Plaszczak> Plaszczaki { get; set; } = Plaszczaki;
 
-    public Pathway Pathway { get; set; } = Pathway;
+    public int MaxPossibleSteps { get; set; } = MaxPossibleSteps;
 }
-
