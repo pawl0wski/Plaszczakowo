@@ -1,0 +1,23 @@
+<div class="toolbox">
+    <GraphCreatorTool
+        ToolName="Dodaj wierzchołek"
+        Mode="GraphCreatorMode.AddVertex"
+        Selected="SelectedMode is GraphCreatorMode.AddVertex"
+        OnSelect="OnToolSelect"/>
+    <GraphCreatorTool
+        ToolName="Połącz wierzchołki"
+        Mode="GraphCreatorMode.ConnectFirstEdge"
+        Selected="SelectedMode is GraphCreatorMode.ConnectFirstEdge or GraphCreatorMode.ConnectSecondEdge"
+        OnSelect="OnToolSelect"/>
+    <GraphCreatorTool
+        ToolName="Usuń wierzchołek" 
+        Mode="GraphCreatorMode.Remove"
+        Selected="SelectedMode is GraphCreatorMode.Remove"
+        OnSelect="OnToolSelect"/>
+</div>
+
+@code {
+    [Parameter] public required Action<GraphCreatorMode> OnToolSelect { get; set; }
+
+    [Parameter] public GraphCreatorMode SelectedMode { get; set; }
+}

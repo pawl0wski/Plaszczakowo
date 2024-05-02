@@ -1,0 +1,8 @@
+button.continue {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    
+    height: 4rem;
+    width: 8rem;
+}

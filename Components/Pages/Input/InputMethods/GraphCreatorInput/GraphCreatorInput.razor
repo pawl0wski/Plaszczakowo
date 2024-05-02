@@ -1,4 +1,118 @@
 @page "/input/graphcreator/{ProblemName}"
+@using Drawer.GraphDrawer
+@using ProblemResolver.Converters
+@using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Components
+@using ProjektZaliczeniowy_AiSD2.Components.States
 @inherits InputMethodBase;
+@inject IProblemState ProblemState;
+@inject NavigationManager Navigator;
 
-@* TODO: Zaimplementuj *@
+<div class="click_handler" @onclick="OnCreatorClick">
+    <GraphCanvas EnableZoom="false" Data="_currentData" @ref="_canvas"/>
+</div>
+<GraphCreatorToolbox OnToolSelect="OnToolSelect" SelectedMode="_currentMode"/>
+<GraphCreatorToolContinue OnContinue="OnContinue" />
+
+@code {
+
+    private GraphData _currentData = new();
+
+    private GraphCreatorMode _currentMode = GraphCreatorMode.AddVertex;
+
+    private GraphVertex? _selectedVertex;
+
+    private GraphCanvas? _canvas;
+
+    private void OnCreatorClick(MouseEventArgs obj)
+    {
+        var mouseX = Convert.ToInt32(obj.ClientX);
+        var mouseY = Convert.ToInt32(obj.ClientY);
+
+        if (_canvas is null)
+            return;
+
+        switch (_currentMode)
+        {
+            case GraphCreatorMode.AddVertex:
+                OnAddVertex(mouseX, mouseY);
+                break;
+            case GraphCreatorMode.ConnectFirstEdge:
+                OnConnectFirstEdge(mouseX, mouseY);
+                break;
+            case GraphCreatorMode.ConnectSecondEdge:
+                OnConnectSecondEdge(mouseX, mouseY);
+                break;
+            case GraphCreatorMode.Remove:
+                OnRemoveVertex(mouseX, mouseY);
+                break;
+        }
+
+        _canvas.ChangeGraphData(_currentData);
+    }
+
+    private void OnAddVertex(in int mouseX, in int mouseY)
+    {
+        _currentData.AddVertex(
+            new GraphVertex(mouseX, mouseY));
+    }
+
+    private void OnConnectFirstEdge(in int mouseX, in int mouseY)
+    {
+        _selectedVertex = GetSelectedVertex(mouseX, mouseY);
+        
+        if (_selectedVertex is null) return;
+        
+        _selectedVertex.State = GraphStates.Highlighted;
+        _currentMode = GraphCreatorMode.ConnectSecondEdge;
+    }
+
+    private void OnConnectSecondEdge(in int mouseX, in int mouseY)
+    {
+        var anotherSelectedVertex = GetSelectedVertex(mouseX, mouseY);
+
+        if (anotherSelectedVertex is null || _selectedVertex is null) return;
+
+        _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex));
+        _currentMode = GraphCreatorMode.ConnectFirstEdge;
+        _selectedVertex.State = GraphStates.Inactive;
+        _selectedVertex = null;
+    }
+
+    private void OnRemoveVertex(in int mouseX, in int mouseY)
+    {
+        _selectedVertex = GetSelectedVertex(mouseX, mouseY);
+        if (_selectedVertex is not null)
+            _currentData.DeleteVertexAndAssociatedEdges(_selectedVertex);
+    }
+
+    private GraphVertex? GetSelectedVertex(int mouseX, int mouseY)
+    {
+        return _currentData.Vertices.FirstOrDefault(vertex =>
+            CheckVertexXCoordinates(mouseX, vertex) && CheckVertexYCoordinates(mouseY, vertex));
+    }
+
+    private bool CheckVertexXCoordinates(int mouseX, GraphVertex vertex)
+    {
+        return (mouseX < (vertex.X + 25)) && (mouseX > (vertex.X - 25));
+    }
+
+    private bool CheckVertexYCoordinates(int mouseY, GraphVertex vertex)
+    {
+        return (mouseY < (vertex.Y + 25)) && (mouseY > (vertex.Y - 25));
+    }
+
+    private void OnToolSelect(GraphCreatorMode newMode)
+    {
+        _selectedVertex = null;
+        _currentMode = newMode;
+        StateHasChanged();
+    }
+
+    private async void OnContinue()
+    {
+        var problemInput = GraphDataToProblem.Convert(_currentData);
+        await ProblemState.SetProblemInputData(problemInput);
+        Navigator.NavigateTo($"/{ProblemName}");
+    }
+
+}
