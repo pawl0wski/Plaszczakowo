@@ -6,6 +6,11 @@ public class TextReplaceStateCorrected : TextReplaceState
         return "green";
     }
 
+    public override string GetBackgroundColor()
+    {
+        return "#9ee69e";
+    }
+
     public override bool IsBold()
     {
         return true;

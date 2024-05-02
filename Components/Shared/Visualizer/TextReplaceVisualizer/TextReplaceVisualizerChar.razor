@@ -10,7 +10,8 @@
     private string GetStyle() {
         var state = Content.State;
         return $"border-color: {state.GetFontColor()};" +
-                $"color: {state.GetFontColor()};" +
-                $"font-weight: {(state.IsBold() ? "bold" : "normal")};";
+               $"color: {state.GetFontColor()};" +
+               $"background-color: {state.GetBackgroundColor()};" +
+               $"font-weight: {(state.IsBold() ? "bold" : "normal")};";
     }
 }

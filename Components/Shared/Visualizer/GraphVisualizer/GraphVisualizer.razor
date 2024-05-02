@@ -27,7 +27,7 @@
         _currentGraphData = Snapshots.GetCurrentSnapshot();
     }
 
-    protected override void OnSnaphotChange(GraphData newDrawerData)
+    protected override void OnSnapshotChange(GraphData newDrawerData)
     {
         _graphCanvas!.ChangeGraphData(newDrawerData);
     }

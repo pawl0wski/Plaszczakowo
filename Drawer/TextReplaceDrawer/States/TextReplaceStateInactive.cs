@@ -4,7 +4,12 @@ public class TextReplaceStateInactive : TextReplaceState
 {
     public override string GetFontColor()
     {
-        return "gray";
+        return "black";
+    }
+
+    public override string GetBackgroundColor()
+    {
+        return "white";
     }
 
     public override bool IsBold()

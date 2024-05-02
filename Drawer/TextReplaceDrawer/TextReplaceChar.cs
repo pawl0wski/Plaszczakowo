@@ -2,8 +2,13 @@ using Drawer.TextReplaceDrawer.States;
 
 namespace Drawer.TextReplaceDrawer;
 
-public record TextReplaceChar (char Content, TextReplaceState? State = null) {
-    public char Content = Content;
+public class TextReplaceChar (char content, TextReplaceState? state = null) : ICloneable {
+    public char Content = content;
 
-    public TextReplaceState State = State ?? new TextReplaceStateInactive();
+    public TextReplaceState State = state ?? new TextReplaceStateInactive();
+    
+    public object Clone()
+    {
+        return new TextReplaceChar(Content, State);
+    }
 }

@@ -7,6 +7,11 @@ public class TextReplaceStateIncorrect : TextReplaceState
         return "red";
     }
 
+    public override string GetBackgroundColor()
+    {
+        return "#ffb3b3";
+    }
+
 
     public override bool IsBold()
     {

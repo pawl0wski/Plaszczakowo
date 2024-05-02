@@ -29,15 +29,18 @@ public class PhraseCorrection
     public void FixPhrase(string inputPhrase, ref PhraseCorrectionOutput output, ref ProblemRecreationCommands<TextReplaceData> commands)
     {
         phrase = inputPhrase;
-        for (int i = 0; i<phrase.Length; i++)
+        for (var i = 0; i < phrase.Length; i++)
         {
             commands.Add(new ChangeCharState(i, new TextReplaceStateHighlighted()));
+            commands.NextStep();
             if (correctLetters.ContainsKey(phrase[i]))
             {
                 commands.Add(new ChangeCharState(i, new TextReplaceStateIncorrect()));
                 ChangeAndReplace(i);
                 commands.Add(new ChangeCharCommand(i, correctLetters[phrase[i]]));
+                commands.NextStep();
                 commands.Add(new ChangeCharState(i, new TextReplaceStateCorrected()));
+                commands.NextStep();
             }
             else
             {

@@ -1,16 +1,22 @@
 @using Drawer.TextReplaceDrawer
-@using ProjektZaliczeniowy_AiSD2.Components.Shared.Visualizer
 @inherits VisualizerComponentBase<TextReplaceData>;
+@inject IJSRuntime JsRuntime;
 
-<div class="text-list">
-    @foreach(var currentChar in _currentTextReplaceData.Chars) {
-        <TextReplaceVisualizerChar Content="@currentChar" />
-    }
+<div class="text-list-wrapper">
+    <div class="text-list">
+        @if (_currentTextReplaceData is not null)
+        {
+            @foreach (var currentChar in _currentTextReplaceData.Chars)
+            {
+                <TextReplaceVisualizerChar Content="@currentChar"/>
+            }
+        }
+    </div>
 </div>
-    <VisualizerButtons
-        TDrawerData="TextReplaceData"
-        Snapshots="Snapshots"
-        OnSnapshotChange="OnSnapshotChange"/>
+<VisualizerButtons
+    TDrawerData="TextReplaceData"
+    Snapshots="Snapshots"
+    OnSnapshotChange="OnSnapshotChange"/>
 
 @code {
     private TextReplaceData? _currentTextReplaceData;
@@ -18,6 +24,13 @@
     protected override void OnInitialized()
     {
         _currentTextReplaceData = Snapshots.GetCurrentSnapshot();
+    }
+
+    protected override void OnSnapshotChange(TextReplaceData newDrawerData)
+    {
+        _currentTextReplaceData = newDrawerData;
+        JsRuntime.InvokeAsync<Task>("scrollTextList", (_currentTextReplaceData.Offset - 9) * 100);
+        StateHasChanged();
     }
 
 }
