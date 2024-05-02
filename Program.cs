@@ -56,8 +56,9 @@ window.SetMenuBarVisibility(false);
 window.SetTitle("Świat Płaszczaków");
 
 // Stworzenie testowych .json dla podproblemów
-string[] problemPaths = { "guard_schedule", "computer_science_machine", "fence_transport"};
-ProblemInputStart demoFiles = new(problemPaths);
+string[] problemNames = { "guard_schedule", "computer_science_machine", "fence_transport"};
+DefaultProblemInputProvider problemFiles = new();
+problemFiles.CreateDefaultFilesForProblems(problemNames);
 
 // Oczekiwanie na zakończenie okna Electron.
 app.WaitForShutdown();

@@ -1,8 +1,8 @@
 ﻿namespace ProblemInput;
 
-public class ProblemInputStart
+public class DefaultProblemInputProvider
 {
-    public ProblemInputStart(string[] problems)
+    public void CreateDefaultFilesForProblems(string[] problems)
     {
         foreach (var p in problems)
         {
@@ -12,13 +12,9 @@ public class ProblemInputStart
             }
             if (!CheckIfFileExists(p))
             {
-                string fileToCopy = $"./ProblemInputStart/DemoInputs/0DEMO{p}.json";
                 string destinationDirectory = GetProblemPath(p);
 
-                if (File.Exists(fileToCopy))
-                {
-                    CopyFile(fileToCopy, destinationDirectory, p);
-                }
+                
             }
         }
     }
