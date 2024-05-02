@@ -28,6 +28,7 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
     protected override async Task OnInitializedAsync()
     {
         await ResolveInputDataFromSessionStorage();
+        UpdateInputData();
         InitializeResolver();
         InitializeFirstSnapshotCreator(InputData!);
         ResolveAndCreateSnapshots();
@@ -40,6 +41,11 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
         InputData = await ProblemState.GetProblemInputData<TInputData>();
     }
 
+    protected virtual void UpdateInputData()
+    {
+        
+    }
+    
     protected void ResolveAndCreateSnapshots()
     {
         ResolveProblem();

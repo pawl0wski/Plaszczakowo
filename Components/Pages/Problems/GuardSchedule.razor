@@ -9,11 +9,24 @@
 
 @code {
 
+    protected override void UpdateInputData()
+    {
+        foreach(var vertex in InputData.Vertices)
+        {
+            vertex.Value = Random.Shared.Next() % 21;
+        }
+        
+        InputData.Plaszczaki = [];
+        
+        for (int i = 0; i < 30; i++)
+            InputData.Plaszczaki.Add(new Plaszczak(40));
+    }
+
     protected override void InitializeResolver()
     {
         Resolver = new GuardScheduleResolver();
     }
-
+    
     protected override void InitializeFirstSnapshotCreator(GuardScheduleInputData inputData)
     {
         FirstSnapshotCreator = new FirstGuardScheduleSnapshotCreator(inputData);
