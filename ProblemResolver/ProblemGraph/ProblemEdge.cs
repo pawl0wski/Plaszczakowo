@@ -1,3 +1,5 @@
+using Drawer.GraphDrawer;
+
 namespace ProblemResolver.Graph;
 
 public record ProblemEdge(int Id, int From, int To)
@@ -6,4 +8,5 @@ public record ProblemEdge(int Id, int From, int To)
 
     public int From { get; set; } = From;
     public int To { get; set; } = To;
+
 }

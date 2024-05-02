@@ -1,0 +1,20 @@
+<div class="@GetHtmlClass()" @onclick="OnToolClick" >
+    <p>@ToolName</p>
+</div>
+
+@code {
+
+    [Parameter] public required string ToolName { get; set; }
+
+    [Parameter] public required Action<GraphCreatorMode> OnSelect { get; set; }
+
+    [Parameter] public required GraphCreatorMode Mode { get; set; }
+
+    [Parameter] public bool Selected { get; set; }
+
+
+    private string GetHtmlClass() => $"tool {(Selected ? "tool__selected" : "")}";
+
+    private void OnToolClick() => OnSelect(Mode);
+
+}

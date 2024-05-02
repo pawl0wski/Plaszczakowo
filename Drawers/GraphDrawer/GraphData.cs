@@ -10,6 +10,12 @@ public class GraphData : DrawerData
         Vertices = vertices;
         Edges = edges;
     }
+    
+    public GraphData()
+    {
+        Vertices = [];
+        Edges = [];
+    }
 
     public override object Clone()
     {
@@ -35,5 +41,22 @@ public class GraphData : DrawerData
     {
         var currentVertex = Vertices[index];
         currentVertex.State = state;
+    }
+
+    public void AddVertex(GraphVertex vertex)
+    {
+        Vertices.Add(vertex);
+    }
+
+    public void AddEdge(GraphEdge edge)
+    {
+        Edges.Add(edge);
+    }
+
+    public void DeleteVertexAndAssociatedEdges(GraphVertex vertex)
+    {
+        Vertices.Remove(vertex);
+
+        Edges.RemoveAll((edge) => edge.From == vertex || edge.To == vertex);
     }
 }

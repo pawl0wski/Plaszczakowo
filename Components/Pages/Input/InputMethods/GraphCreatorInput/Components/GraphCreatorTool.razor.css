@@ -1,0 +1,10 @@
+div.tool {
+    width: 100%;
+    height: 3rem;
+
+    cursor: pointer;
+}
+
+div.tool__selected {
+    background-color: gray;
+}

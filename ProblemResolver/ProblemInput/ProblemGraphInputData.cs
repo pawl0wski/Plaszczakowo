@@ -4,8 +4,8 @@ namespace ProblemResolver;
 
 public record ProblemGraphInputData(List<ProblemVertex> Vertices, List<ProblemEdge> Edges) : ProblemInputData
 {
-    public readonly List<ProblemVertex> Vertices = Vertices;
-    
-    public readonly List<ProblemEdge> Edges = Edges;
+    public List<ProblemVertex> Vertices { get; set; } = Vertices;
+
+    public List<ProblemEdge> Edges { get; set; } = Edges;
 }
  
