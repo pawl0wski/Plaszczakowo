@@ -1,5 +1,6 @@
 using Drawer.GraphDrawer;
 using ProblemResolver;
+using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;
 
 namespace Problem.GuardSchedule;
@@ -14,30 +15,33 @@ public class GuardScheduleResolver
         GuardScheduleOutput output = new();
         problemRecreationCommands = commands;
 
-        output = IteratePath(data.Plaszczaki, data.Pathway, output);
+        output = IteratePath(data, output);
 
         return output;
     }
 
-    private GuardScheduleOutput IteratePath(List<Plaszczak> plaszczaki, Pathway path, GuardScheduleOutput output)
+    private GuardScheduleOutput IteratePath(in GuardScheduleInputData inputData, GuardScheduleOutput output)
     {
+        var maxVertexValue = inputData.Vertices.Max((v) => v.Value)!.Value;
+        var plaszczaki = inputData.Plaszczaki;
+        
         plaszczaki.Sort();
-        int plaszczakIndex = 0;
+        var plaszczakIndex = 0;
 
         foreach (var p in plaszczaki)
         {
             p.Index = plaszczakIndex;
 
-            if (p.IsGuard(path.MaxVertexValue) == false) 
+            if (p.IsGuard(maxVertexValue) == false) 
                 break;
 
-            for (int vertexIndex = 0; vertexIndex < path.Vertices.Count; vertexIndex++)
+            for (int vertexIndex = 0; vertexIndex < inputData.Vertices.Count; vertexIndex++)
             {
-                UpdatePosition(p, path, vertexIndex);
+                UpdatePosition(p, inputData.Vertices, vertexIndex);
 
                 problemRecreationCommands?.NextStep();
 
-                EnoughEnergyOrSteps(p, path.MaxPossibleSteps);
+                EnoughEnergyOrSteps(p, inputData.MaxPossibleSteps);
 
                 Resting(p);
 
@@ -56,25 +60,25 @@ public class GuardScheduleResolver
         return output;
     }
 
-    private static void UpdatePosition(Plaszczak p, Pathway path, int vertexIndex)
+    private static void UpdatePosition(Plaszczak p, List<ProblemVertex> vertices, int vertexIndex)
     {
         if (vertexIndex == 0)
         {
-            p.PreviousVertexValue = path.Vertices[path.Vertices.Count - 1];
-            p.CurrentVertexValue = path.Vertices[vertexIndex];
-            p.NextVertexValue = path.Vertices[vertexIndex + 1];
+            p.PreviousVertexValue = vertices[vertices.Count - 1].Id;
+            p.CurrentVertexValue = vertices[vertexIndex].Id;
+            p.NextVertexValue = vertices[vertexIndex + 1].Id;
         }
-        else if (vertexIndex == path.Vertices.Count - 1)
+        else if (vertexIndex == vertices.Count - 1)
         {
-            p.PreviousVertexValue = path.Vertices[vertexIndex - 1];
-            p.CurrentVertexValue = path.Vertices[vertexIndex];
-            p.NextVertexValue = path.Vertices[0];
+            p.PreviousVertexValue = vertices[vertexIndex - 1].Id;
+            p.CurrentVertexValue = vertices[vertexIndex].Id;
+            p.NextVertexValue = vertices[0].Id;
         }
         else
         {
-            p.PreviousVertexValue = path.Vertices[vertexIndex - 1];
-            p.CurrentVertexValue = path.Vertices[vertexIndex];
-            p.NextVertexValue = path.Vertices[vertexIndex + 1];
+            p.PreviousVertexValue = vertices[vertexIndex - 1].Id;
+            p.CurrentVertexValue = vertices[vertexIndex].Id;
+            p.NextVertexValue = vertices[vertexIndex + 1].Id;
         }
     }
 
