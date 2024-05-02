@@ -1,0 +1,23 @@
+@using Drawer.TextReplaceDrawer
+@using ProjektZaliczeniowy_AiSD2.Components.Shared.Visualizer
+@inherits VisualizerComponentBase<TextReplaceData>;
+
+<div class="text-list">
+    @foreach(var currentChar in _currentTextReplaceData.Chars) {
+        <TextReplaceVisualizerChar Content="@currentChar" />
+    }
+</div>
+    <VisualizerButtons
+        TDrawerData="TextReplaceData"
+        Snapshots="Snapshots"
+        OnSnapshotChange="OnSnapshotChange"/>
+
+@code {
+    private TextReplaceData? _currentTextReplaceData;
+
+    protected override void OnInitialized()
+    {
+        _currentTextReplaceData = Snapshots.GetCurrentSnapshot();
+    }
+
+}

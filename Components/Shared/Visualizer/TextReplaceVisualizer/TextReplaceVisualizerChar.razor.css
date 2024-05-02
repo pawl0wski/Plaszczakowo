@@ -1,0 +1,12 @@
+div.letter {
+    width: 2rem;
+    height: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+}

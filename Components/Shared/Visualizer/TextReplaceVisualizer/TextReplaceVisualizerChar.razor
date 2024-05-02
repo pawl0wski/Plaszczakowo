@@ -1,0 +1,16 @@
+@using Drawer.TextReplaceDrawer
+<div class="letter" style="@GetStyle()">
+    @Content.Content
+</div>
+
+@code {
+    [Parameter]
+    public required TextReplaceChar Content { get; set; }
+
+    private string GetStyle() {
+        var state = Content.State;
+        return $"border-color: {state.GetFontColor()};" +
+                $"color: {state.GetFontColor()};" +
+                $"font-weight: {(state.IsBold() ? "bold" : "normal")};";
+    }
+}
