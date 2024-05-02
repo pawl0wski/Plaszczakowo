@@ -1,6 +1,4 @@
-﻿using Problem.Demo;
-
-namespace ProblemInput;
+﻿namespace ProblemInput;
 
 public class ProblemInputStart
 {
@@ -28,6 +26,7 @@ public class ProblemInputStart
     {
         return Path.Exists(GetProblemPath(ProblemName));
     }
+
     private string GetProblemPath(string ProblemName)
     {
         return Path.Join(
