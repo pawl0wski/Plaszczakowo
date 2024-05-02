@@ -1,6 +1,31 @@
 @page "/input/keyboard/{ProblemName}"
+@using ElectronNET.API
+@using ElectronNET.API.Entities
+@using Problem.PhraseCorrection
+@using ProjektZaliczeniowy_AiSD2.Components.States
 @inherits InputMethodBase;
+@inject NavigationManager Navigator
+@inject IProblemState ProblemState;
 
 <h1>Klawiaturka</h1>
+<p>Wprowadź wejściową frazę.</p>
+<input @bind = "inputText" />
+<button @onclick = "PrepareInputData">Wczytaj</button>
 
-@* TODO: Zaimplementuj *@
+@code {
+    string inputText = "";
+
+    private async Task PrepareInputData()
+    {
+        Console.WriteLine(inputText);
+        string input = "";
+        input += "{\"InputPhrase\":" + "\"" + inputText +  "\"}";
+        await ProblemState.SetProblemJsonInputData(input);
+        GoToProblemPage();
+    }
+
+    private void GoToProblemPage()
+    {
+        Navigator.NavigateTo($"/{ProblemName}");
+    }
+}    using Problem.PhraseCorrection;
