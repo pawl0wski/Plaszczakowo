@@ -2,9 +2,7 @@ using BlazorTransitionableRoute;
 using ElectronNET.API;
 using ProblemInput;
 using ProjektZaliczeniowy_AiSD2.Components.States;
-using Problem.GuardSchedule;
 using App = ProjektZaliczeniowy_AiSD2.Components.App;
-using ProblemResolver.Graph;
 
 /*
     Tworzenie instancji klasy odpowiedzialnej
