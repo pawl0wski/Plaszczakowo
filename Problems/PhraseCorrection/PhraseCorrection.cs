@@ -28,26 +28,27 @@ public class PhraseCorrection
 
     public void FixPhrase(string inputPhrase, ref PhraseCorrectionOutput output, ref ProblemRecreationCommands<TextReplaceData> commands)
     {
+        
         phrase = inputPhrase;
         for (var i = 0; i < phrase.Length; i++)
         {
-            commands.Add(new ChangeCharState(i, new TextReplaceStateHighlighted()));
+            commands.Add(new ChangeCharStateCommand(i, TextReplaceStates.Highlighted));
             commands.NextStep();
             if (correctLetters.ContainsKey(phrase[i]))
             {
-                commands.Add(new ChangeCharState(i, new TextReplaceStateIncorrect()));
+                commands.Add(new ChangeCharStateCommand(i, TextReplaceStates.Incorrect));
                 ChangeAndReplace(i);
                 commands.Add(new ChangeCharCommand(i, correctLetters[phrase[i]]));
                 commands.NextStep();
-                commands.Add(new ChangeCharState(i, new TextReplaceStateCorrected()));
+                commands.Add(new ChangeCharStateCommand(i, TextReplaceStates.Corrected));
                 commands.NextStep();
             }
             else
             {
                 ChangeWithoutReplace(i);
-                commands.Add(new ChangeCharState(i, new TextReplaceStateInactive()));
+                commands.Add(new ChangeCharStateCommand(i, TextReplaceStates.Inactive));
             }
-            commands.Add(new MoveRightCommand());
+            commands.Add(new MoveTextToRightCommand());
         } 
 
         output.FixedPhrase = result;

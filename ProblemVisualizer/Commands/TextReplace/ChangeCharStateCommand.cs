@@ -3,7 +3,7 @@ using Drawer.TextReplaceDrawer.States;
 
 namespace ProblemVisualizer.Commands;
 
-public class ChangeCharState(int id, TextReplaceState newState) 
+public class ChangeCharStateCommand(int id, TextReplaceState newState) 
     : ProblemVisualizerCommand<TextReplaceData>
 { 
     public readonly int Id = id;

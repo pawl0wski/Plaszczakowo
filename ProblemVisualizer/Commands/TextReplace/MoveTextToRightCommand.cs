@@ -2,7 +2,7 @@ using Drawer.TextReplaceDrawer;
 
 namespace ProblemVisualizer.Commands;
 
-public class MoveRightCommand :
+public class MoveTextToRightCommand :
     ProblemVisualizerCommand<TextReplaceData>
 {
     public override void Execute(ref TextReplaceData data)
