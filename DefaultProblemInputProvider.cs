@@ -2,8 +2,6 @@
 using ProblemResolver.Graph;
 using System.Text.Json;
 
-namespace ProblemInput;
-
 public static class DefaultProblemInputProvider
 {
     private static string _demoFileName = "Przykladowy problem.json";
