@@ -9,6 +9,8 @@ public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
 {
     public override GraphData CreateFirstSnapshot()
     {
-        return ProblemToGraphData.Convert(inputData);
+        var outputData = ProblemToGraphData.Convert(inputData);
+        outputData.ChangeVertexStatus(0, GraphStates.Special);
+        return outputData;
     }
 }

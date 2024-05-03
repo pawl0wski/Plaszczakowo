@@ -54,5 +54,8 @@ window.SetMenuBarVisibility(false);
 // Ustawienie tytułu okna
 window.SetTitle("Świat Płaszczaków");
 
+// Stworzenie testowych .json dla podproblemów
+DefaultProblemInputProvider.CreateDefaultFilesForProblems();
+
 // Oczekiwanie na zakończenie okna Electron.
 app.WaitForShutdown();

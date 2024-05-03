@@ -26,6 +26,14 @@ public record Plaszczak : IComparable<Plaszczak>
         Steps = 0;
     }
 
+    public Plaszczak (int energy, int melody = 0, int steps = 0)
+    {
+        MaxEnergy = energy;
+        Energy = energy;
+        Melody = melody;
+        Steps = steps;
+    }
+
     [JsonConstructorAttribute]
     public Plaszczak(int CurrentVertexIndex, int CurrentVertexValue, int Energy, int Index, 
         int MaxEnergy, int Melody, int NextVertexValue, int PreviousVertexValue, int Steps)
