@@ -4,53 +4,43 @@ using System.Text.Json;
 
 namespace ProblemInput;
 
-public class DefaultProblemInputProvider
+public static class DefaultProblemInputProvider
 {
-    public void CreateDefaultFilesForProblems(string[] problems)
+    private static string _demoFileName = "Przykladowy problem.json";
+    public static void CreateDefaultFilesForProblems()
     {
-        foreach (var p in problems)
-        {
-            if (!CheckIfDirectoryExists(p))
-            {
-                Directory.CreateDirectory(GetProblemPath(p));
-            }
-            if (!CheckIfFileExists(p))
-            {
-                string destinationFilePath = Path.Join(GetProblemPath(p), $"0DEMO{p}.json");
-
-                switch (p)
-                {
-                    case "guard_schedule":
-                        GenerateGuardScheduleFile(destinationFilePath);
-                        break;
-                    case "computer_science_machine":
-                        break;
-                    case "fence_transport":
-                        break;
-                }
-            }
-        }
-    }
-    private bool CheckIfDirectoryExists(string ProblemName)
-    {
-        return Path.Exists(GetProblemPath(ProblemName));
+        Directory.CreateDirectory(GetProblemPath(""));
+        Directory.CreateDirectory(GetProblemPath("guard_schedule"));
+        Directory.CreateDirectory(GetProblemPath("computer_science_machine"));
+        Directory.CreateDirectory(GetProblemPath("fence_transport"));
+        
+        if (!CheckIfFileExists("guard_schedule"))
+            GenerateGuardScheduleFile();
+        
+        if (!CheckIfFileExists("computer_science_machine"))
+            GenerateComputerScienceMachineFile();
+        
+        if (!CheckIfFileExists("fence_transport"))
+            GenerateFenceTransportFile();
     }
 
-    private string GetProblemPath(string ProblemName)
+    private static string GetProblemPath(string problemName)
     {
         return Path.Join(
             Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
             "Plaszczakowo",
-            ProblemName);
+            problemName);
     }
 
-    private bool CheckIfFileExists(string ProblemName)
+    private static bool CheckIfFileExists(string problemName)
     {
-        return File.Exists(GetProblemPath(Path.Join(ProblemName, $"0DEMO{ProblemName}.json")));
+        return File.Exists(GetProblemPath(Path.Join(problemName, _demoFileName)));
     }
 
-    private void GenerateGuardScheduleFile(string destinationFilePath)
+    private static void GenerateGuardScheduleFile()
     {
+        string destinationFilePath = Path.Join(GetProblemPath("guard_schedule"), _demoFileName);
+
         List<ProblemVertex> problemVertices = 
         [
             new ProblemVertex(0, 390, 200, 4),
@@ -88,5 +78,16 @@ public class DefaultProblemInputProvider
         GuardScheduleInputData guard_schedule = new(plaszczaki, problemVertices, problemEdges, 0);
         string jsonGuardSchedule = JsonSerializer.Serialize(guard_schedule);
         File.WriteAllText(destinationFilePath, jsonGuardSchedule);
+    }
+
+    private static void GenerateComputerScienceMachineFile()
+    {
+        string destinationFilePath = Path.Join(GetProblemPath("computer_science_machine"), _demoFileName);
+
+    }
+    private static void GenerateFenceTransportFile()
+    {
+        string destinationFilePath = Path.Join(GetProblemPath("fence_transport"), _demoFileName);
+
     }
 }
