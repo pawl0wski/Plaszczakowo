@@ -1,3 +1,4 @@
+using Blazored.Modal;
 using BlazorTransitionableRoute;
 using ElectronNET.API;
 using ProjektZaliczeniowy_AiSD2.Components.States;
@@ -8,6 +9,7 @@ using App = ProjektZaliczeniowy_AiSD2.Components.App;
     za inicjalizacje naszej aplikacji.
 */
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Dodawanie komponentów Razora, Electrona do backendu naszej aplikacji.
 builder.Services.AddRazorComponents()
@@ -20,6 +22,8 @@ builder.Services.AddScoped<IProblemState, ProblemState>();
 
 // Dodawanie Electrona do projektu.
 builder.WebHost.UseElectron(args);
+
+builder.Services.AddBlazoredModal();
 
 builder.Services.AddScoped<IRouteTransitionInvoker, DefaultRouteTransitionInvoker>();
 

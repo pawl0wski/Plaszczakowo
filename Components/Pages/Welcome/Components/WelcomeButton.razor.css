@@ -10,6 +10,8 @@ div.welcome-button {
     align-content: center;
 
     transition: 0.5s background;
+    
+    color: white;
 }
 
 div.welcome-button p {

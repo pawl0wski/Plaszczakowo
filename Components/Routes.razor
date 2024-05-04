@@ -1,12 +1,14 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
-    <Found Context="routeData">
-        <LayoutView Layout="@typeof(MainLayout)">
-            <TransitionableRoutePrimary RouteData="@routeData" ForgetStateOnTransition="true">
-                <TransitionableRouteView DefaultLayout="@typeof(ViewLayout)"/>
-            </TransitionableRoutePrimary>
-            <TransitionableRouteSecondary RouteData="@routeData" ForgetStateOnTransition="true">
-                <TransitionableRouteView DefaultLayout="@typeof(ViewLayout)"/>
-            </TransitionableRouteSecondary>
-        </LayoutView>
-    </Found>
-</Router>
+﻿<CascadingBlazoredModal Size="ModalSize.Custom" SizeCustomClass="full-modal">
+    <Router AppAssembly="typeof(Program).Assembly">
+        <Found Context="routeData">
+            <LayoutView Layout="@typeof(MainLayout)">
+                <TransitionableRoutePrimary RouteData="@routeData" ForgetStateOnTransition="true">
+                    <TransitionableRouteView DefaultLayout="@typeof(ViewLayout)"/>
+                </TransitionableRoutePrimary>
+                <TransitionableRouteSecondary RouteData="@routeData" ForgetStateOnTransition="true">
+                    <TransitionableRouteView DefaultLayout="@typeof(ViewLayout)"/>
+                </TransitionableRouteSecondary>
+            </LayoutView>
+        </Found>
+    </Router>
+</CascadingBlazoredModal>
