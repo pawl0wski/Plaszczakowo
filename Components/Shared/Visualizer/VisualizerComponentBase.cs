@@ -9,5 +9,5 @@ public abstract class VisualizerComponentBase<TDrawerData> : ComponentBase
 {
     [Parameter] public required ProblemVisualizerSnapshots<TDrawerData> Snapshots { get; set; }
 
-    protected abstract void OnSnaphotChange(TDrawerData newDrawerData);
+    protected abstract void OnSnapshotChange(TDrawerData newDrawerData);
 }

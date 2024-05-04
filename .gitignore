@@ -1,9 +1,15 @@
+# MacOS desktop service files
+.DS_Store
+
+# Build files
 bin/
 obj/
 
+# IDE configuratio folders
 .idea/
 .code/
 .vscode/
 .vs/
 
+# NodeJS Dependencies downloaded via npm
 wwwroot/dependencies

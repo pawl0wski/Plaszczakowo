@@ -11,3 +11,9 @@ window.enableCanvasZoom = function () {
         minZoom: 0.5,
     });
 }
+
+window.scrollTextList = function(scrollBy) {
+    let element = document.querySelector("div.text-list");
+    console.log(element);
+    element.scrollLeft = scrollBy;
+}

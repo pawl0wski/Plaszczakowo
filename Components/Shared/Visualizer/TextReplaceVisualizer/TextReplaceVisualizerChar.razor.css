@@ -1,0 +1,15 @@
+div.letter {
+    min-width: 100px;
+    height: 100px;
+    box-sizing: border-box;
+    
+    font-size: xx-large;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-width: 3px;
+    border-color: black;
+    border-style: solid;
+}
