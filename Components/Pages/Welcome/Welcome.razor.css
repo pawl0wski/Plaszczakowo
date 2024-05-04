@@ -60,8 +60,7 @@ ul {
 
 .icon {
     background-color: #483C32;
-    padding: 10pt 40pt;
-    margin-bottom: 15pt;
+    padding: 0.5rem 1.5rem;
 
     /* Text */
     text-align: center;
@@ -92,8 +91,8 @@ div.main-menu__bottom {
 }
 
 div.main-menu__bottom .icon {
-    padding: 6pt 6pt;
     margin: 0;
+    color: lightgray;
     width: 24pt;
 
     margin-right: 20pt;
