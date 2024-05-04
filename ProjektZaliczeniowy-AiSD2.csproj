@@ -18,9 +18,6 @@
         <PackageReference Include="ElectronNET.API" Version="23.6.2" />
     </ItemGroup>
     <ItemGroup>
-      <Folder Include="Components\Pages\Authors\" />
-    </ItemGroup>
-    <ItemGroup>
       <AdditionalFiles Include="Components\Modals\Authors\Components\AuthorEntry.razor" />
     </ItemGroup>
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

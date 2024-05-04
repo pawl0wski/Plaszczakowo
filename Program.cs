@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// builder.Services.AddElectron();
+builder.Services.AddElectron();
 
 // Dodawanie ProblemState który przechowuje wejście problemu między stronami
 builder.Services.AddScoped<IProblemState, ProblemState>();

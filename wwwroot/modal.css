@@ -1,0 +1,15 @@
+.blazored-modal {
+    background-color: #483C32 !important;
+    border-style: none !important;
+}
+
+.bm-header {
+    padding-bottom: 0 !important;
+}
+
+.bm-header button {
+    font-size: xx-large !important;
+    transform: translateY(-1rem);
+    color: white !important;
+}
+
