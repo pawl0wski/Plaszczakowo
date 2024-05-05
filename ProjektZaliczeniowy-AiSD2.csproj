@@ -20,6 +20,9 @@
     <ItemGroup>
       <AdditionalFiles Include="Components\Modals\Authors\Components\AuthorEntry.razor" />
     </ItemGroup>
+    <ItemGroup>
+      <None Include="wwwroot\background\modal_background.png" />
+    </ItemGroup>
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm install" WorkingDirectory="JsDependencies/" />
         <Exec Command="npm run build" WorkingDirectory="JsDependencies/" />
