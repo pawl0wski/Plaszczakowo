@@ -4,28 +4,74 @@
 @using Problem.PhraseCorrection
 @using ProjektZaliczeniowy_AiSD2.Components.States
 @inherits InputMethodBase;
-@inject NavigationManager Navigator
+@inject NavigationManager Navigator;
 @inject IProblemState ProblemState;
 
+<ReturnButton></ReturnButton>
 <h1>Klawiaturka</h1>
 <p>Wprowadź wejściową frazę.</p>
 <input @bind = "inputText" />
-<button @onclick = "PrepareInputData">Wczytaj</button>
+<button @onclick = "GoToProblemPage">Wczytaj</button>
+<br />
+<p>Wprowadź nową nazwę pliku</p>
+<input @bind = "newFileName" />
+<button @onclick = "SaveInputToFile">Zapisz do pliku</button>
 
 @code {
     string inputText = "";
+    string newFileName = "";
 
-    private async Task PrepareInputData()
+    private string PrepareInputData()
     {
         Console.WriteLine(inputText);
         string input = "";
         input += "{\"InputPhrase\":" + "\"" + inputText +  "\"}";
-        await ProblemState.SetProblemJsonInputData(input);
-        GoToProblemPage();
+        return input;
+    }    
+    private string GetProblemPath()
+    {
+        return Path.Join(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "Plaszczakowo",
+            ProblemName);
     }
 
-    private void GoToProblemPage()
+    private async void SaveInputToFile()
     {
+        string inputText = PrepareInputData();
+        if (newFileName.Length == 0 || inputText.Length == 0)
+        {
+            return;
+        }
+        string path = GetProblemPath();
+        path += "/" + newFileName;
+        Console.WriteLine(path);
+        if (File.Exists(path))
+        {
+            var currentBrowserWindow = Electron.WindowManager.BrowserWindows.First();
+            var options = new MessageBoxOptions("Podany plik istnieje, czy chcesz go nadpisać?")
+            {
+                Buttons = ["Nie", "Tak"],
+                Title = "Plik istnieje"
+            };
+            var messageBoxResult = await Electron.Dialog.ShowMessageBoxAsync(currentBrowserWindow, options);
+            if (messageBoxResult.Response == 0)
+            {
+                Console.WriteLine("Odrzucono nadpisanie!");
+                return;
+            }
+        }
+
+        await File.WriteAllLinesAsync(path, [inputText]);
+
+        Navigator.NavigateTo("/");
+
+    }
+
+    private async void GoToProblemPage()
+    {
+        string input = PrepareInputData();
+        await ProblemState.SetProblemJsonInputData(input);
         Navigator.NavigateTo($"/{ProblemName}");
     }
-}    using Problem.PhraseCorrection;
+}   
