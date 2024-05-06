@@ -15,6 +15,6 @@ public class FirstDemoSnapshotCreator(DemoInputData inputData)
 
         foreach (var edge in inputData.Edges) edges.Add(new GraphEdge(vertices[edge.From], vertices[edge.To]));
 
-        return new GraphData(vertices, edges);
+        return new (vertices, edges, []);
     }
 }
