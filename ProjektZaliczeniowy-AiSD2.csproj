@@ -18,10 +18,14 @@
         <PackageReference Include="ElectronNET.API" Version="23.6.2" />
     </ItemGroup>
     <ItemGroup>
-      <AdditionalFiles Include="Components\Modals\Authors\Components\AuthorEntry.razor" />
+      <None Include="wwwroot\background\modal_background.png" />
     </ItemGroup>
     <ItemGroup>
-      <None Include="wwwroot\background\modal_background.png" />
+      <_ContentIncludedByDefault Remove="Components\Modals\Authors\Authors.razor" />
+      <_ContentIncludedByDefault Remove="Components\Modals\Authors\Components\AuthorEntry.razor" />
+    </ItemGroup>
+    <ItemGroup>
+      <AdditionalFiles Include="Components\Pages\Authors\Authors.razor" />
     </ItemGroup>
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm install" WorkingDirectory="JsDependencies/" />

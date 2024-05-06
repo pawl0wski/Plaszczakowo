@@ -1,5 +1,4 @@
 @page "/"
-@using ProjektZaliczeniowy_AiSD2.Components.Modals.Authors
 @using ProjektZaliczeniowy_AiSD2.Components.Modals.Documentation
 @using ProjektZaliczeniowy_AiSD2.Components.Pages.Welcome.Components
 @rendermode InteractiveServer
@@ -24,12 +23,14 @@
             </NavLink>
         </div>
         <div class="main-menu__bottom">
-                <p class="icon" @onclick="ShowAuthors">
+            <NavLink href="/authors">
+                <p class="icon">
                     <Icon Name="fa-info"/>
                 </p>
-                <p class="icon" @onclick="ShowDocumentation">
-                    <Icon Name="fa-book"/>
-                </p>
+            </NavLink>
+            <p class="icon" @onclick="ShowDocumentation">
+                <Icon Name="fa-book"/>
+            </p>
         </div>
     </div>
     <WelcomeBackground/>
@@ -43,10 +44,4 @@
     {
         Modal.Show<Documentation>();
     }
-
-    private void ShowAuthors()
-    {
-        Modal.Show<Authors>(new ModalOptions(){Size = ModalSize.Large});
-    }
-
 }

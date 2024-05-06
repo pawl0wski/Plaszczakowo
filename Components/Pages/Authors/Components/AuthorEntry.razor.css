@@ -6,6 +6,10 @@ div.authors__entry {
     justify-content: center;
 }
 
+div.authors__entry:nth-child(even) {
+    margin-top: 7rem;
+}
+
 div.authors__entry__image {
     width: 100%;
 }

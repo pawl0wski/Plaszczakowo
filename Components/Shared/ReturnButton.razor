@@ -1,5 +1,33 @@
-<div class="return-button">
-    <NavLink class="white-link" href="/">
-        <p>Powrót</p>
-    </NavLink>
+@inject NavigationManager Navigator
+
+<div class="return-button @GetHtmlPositionClass()" @onclick="OnReturnButtonClick">
+    <img class="return-button__top" src="buttons/return-button-top.png" alt="Button top"/>
+    <div class="return-button__bottom">
+        <span>
+            Powrót
+        </span>
+    </div>
 </div>
+
+
+@code {
+    public enum ReturnButtonPosition
+    {
+        Left = 0,
+        Right = 1
+    }
+    
+    [Parameter] public ReturnButtonPosition? ButtonPosition { get; set; }
+
+    private string GetHtmlPositionClass()
+    {
+        var position = ButtonPosition ?? ReturnButtonPosition.Left;
+        return position == ReturnButtonPosition.Left ? "return-button__left" : "return-button__right";
+    }
+
+    private void OnReturnButtonClick()
+    {
+        Navigator.NavigateTo("/");
+    }
+
+}
