@@ -1,12 +1,16 @@
+// using Drawer.GraphDrawer;
+// using ProblemResolver;
+// using ProblemResolver.Graph;
+// using ProblemVisualizer.Commands;
+
 // namespace Problem.CarrierAssignment;
-//
-// public class CarrierAssignmentResolver :
-//     ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentOutput>
+
+// public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentOutput, GraphData>
 // {
 //     List<CarrierAssignmentOutput> results = new();
 //     public Edge Connect(int from, int to)
 //     {
-//         return new Edge(from, to, 0, 1);
+//         return new Edge(from, to);
 //     }
 //     private bool BFS(CarrierAssignmentOutput network, int source, int sink)
 //     {
@@ -28,10 +32,10 @@
 //         }
 //         return visited[sink];
 //     }
-//
+
 //     public void PairCreator(CarrierAssignmentOutput network, int source, int sink)
 //     {
-//         
+        
 //         while (BFS(network, source, sink))
 //         {
 //             int current = source;
@@ -76,8 +80,8 @@
 //             }
 //         }
 //     }
-//     
-//     
+    
+    
 //     public override List<CarrierAssignmentOutput> Resolve(CarrierAssignmentInputData data)
 //     {
 //         List<int> Verticies = data.Carriers;

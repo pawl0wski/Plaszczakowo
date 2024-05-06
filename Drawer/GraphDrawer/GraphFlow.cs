@@ -1,18 +1,18 @@
 ﻿namespace Drawer.GraphDrawer;
 
-public class GraphFlow
+public class GraphThroughput
 {
-    public int First;
-    public int Second;
+    public int Flow;
+    public int Capacity;
 
-    public GraphFlow(int first, int second)
+    public GraphThroughput(int flow, int capacity)
     {
-        First = first;
-        Second = second;
+        Flow = flow;
+        Capacity = capacity;
     }
 
     public override string ToString()
     {
-        return $"{First}|{Second}";
+        return $"{Flow}|{Capacity}";
     }
 }
