@@ -8,7 +8,7 @@ namespace Problem.GuardSchedule;
 public class GuardScheduleResolver
     : ProblemResolver<GuardScheduleInputData, GuardScheduleOutput, GraphData>
 {
-    private static ProblemRecreationCommands<GraphData>? problemRecreationCommands;
+    private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
 
     public override GuardScheduleOutput Resolve(GuardScheduleInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
@@ -51,7 +51,7 @@ public class GuardScheduleResolver
                 p.CurrentVertexIndex = vertexIndex;
             }
 
-            ResetGraphColor(verticesCount);
+            problemRecreationCommands?.Add(new ResetGraphStateCommand());
 
             output.Plaszczaki.Add(p);
             plaszczakIndex++;
@@ -82,7 +82,7 @@ public class GuardScheduleResolver
         }
     }
 
-    private static void EnoughEnergyOrSteps(Plaszczak p, int maxSteps)
+    private void EnoughEnergyOrSteps(Plaszczak p, int maxSteps)
     {
         if (p.Energy < p.NextVertexValue || p.Steps == maxSteps - 1)
         {
@@ -93,14 +93,14 @@ public class GuardScheduleResolver
         }
     }
 
-    private static void ListenMelody(Plaszczak p)
+    private void ListenMelody(Plaszczak p)
     {
         p.Steps = 0;
         p.Energy = p.MaxEnergy;
         p.Melody++;
     }
 
-    private static void Resting(Plaszczak p)
+    private void Resting(Plaszczak p)
     {
         if (p.CurrentVertexValue < p.PreviousVertexValue)
         {
@@ -108,21 +108,13 @@ public class GuardScheduleResolver
             p.Energy = p.MaxEnergy;
         }
     }
-    private static void ChangeGraphColor(int vertexIndex)
+    private void ChangeGraphColor(int vertexIndex)
     {
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Highlighted));
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Highlighted));
         problemRecreationCommands?.NextStep();
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Active));
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Active));
-    }
-    private static void ResetGraphColor(int verticesCount) 
-    {
-        for (int vertexIndex = 0; vertexIndex < verticesCount; vertexIndex++)
-        {
-            problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Inactive));
-            problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Inactive));
-        }
     }
 }
 
