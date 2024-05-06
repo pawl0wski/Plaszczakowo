@@ -1,4 +1,5 @@
 using Drawer.GraphDrawer;
+using Microsoft.AspNetCore.Components.Forms;
 using ProblemResolver;
 using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;
@@ -8,7 +9,7 @@ namespace Problem.GuardSchedule;
 public class GuardScheduleResolver
     : ProblemResolver<GuardScheduleInputData, GuardScheduleOutput, GraphData>
 {
-    private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
+    private static ProblemRecreationCommands<GraphData>? problemRecreationCommands;
 
     public override GuardScheduleOutput Resolve(GuardScheduleInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
@@ -24,6 +25,7 @@ public class GuardScheduleResolver
     {
         var maxVertexValue = inputData.Vertices.Max((v) => v.Value)!.Value;
         var plaszczaki = inputData.Plaszczaki;
+        int verticesCount = inputData.Vertices.Count;
         
         plaszczaki.Sort();
         var plaszczakIndex = 0;
@@ -35,23 +37,22 @@ public class GuardScheduleResolver
             if (p.IsGuard(maxVertexValue) == false) 
                 break;
 
-            for (int vertexIndex = 0; vertexIndex < inputData.Vertices.Count; vertexIndex++)
+            for (int vertexIndex = 0; vertexIndex < verticesCount; vertexIndex++)
             {
                 UpdatePosition(p, inputData.Vertices, vertexIndex);
-
-                problemRecreationCommands?.NextStep();
 
                 EnoughEnergyOrSteps(p, inputData.MaxPossibleSteps);
 
                 Resting(p);
 
-                problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Active));
-                problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Active));
+                ChangeGraphColor(vertexIndex);
 
                 p.Steps++;
                 p.Energy -= p.NextVertexValue;
                 p.CurrentVertexIndex = vertexIndex;
             }
+
+            ResetGraphColor(verticesCount);
 
             output.Plaszczaki.Add(p);
             plaszczakIndex++;
@@ -106,6 +107,22 @@ public class GuardScheduleResolver
         {
             p.Steps = 0;
             p.Energy = p.MaxEnergy;
+        }
+    }
+    private static void ChangeGraphColor(int vertexIndex)
+    {
+        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Highlighted));
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Highlighted));
+        problemRecreationCommands?.NextStep();
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Active));
+        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Active));
+    }
+    private static void ResetGraphColor(int verticesCount) 
+    {
+        for (int vertexIndex = 0; vertexIndex < verticesCount; vertexIndex++)
+        {
+            problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Inactive));
+            problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Inactive));
         }
     }
 }
