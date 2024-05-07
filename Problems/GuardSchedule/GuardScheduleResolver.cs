@@ -25,7 +25,8 @@ public class GuardScheduleResolver
         var maxVertexValue = inputData.Vertices.Max((v) => v.Value)!.Value;
         var plaszczaki = inputData.Plaszczaki;
         int verticesCount = inputData.Vertices.Count;
-        
+        int xCoordinateForText = inputData.Vertices[inputData.Vertices.Count / 3].X + 150 ?? 0;
+
         plaszczaki.Sort();
         var plaszczakIndex = 0;
 
@@ -43,6 +44,8 @@ public class GuardScheduleResolver
                 EnoughEnergyOrSteps(p, inputData.MaxPossibleSteps);
 
                 Resting(p);
+
+                ChangePlaszczakText(p, xCoordinateForText);
 
                 ChangeGraphColor(vertexIndex);
 
@@ -115,6 +118,12 @@ public class GuardScheduleResolver
         problemRecreationCommands?.NextStep();
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Active));
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Active));
+    }
+    private void ChangePlaszczakText(Plaszczak p, int xCoordinateForText)
+    {
+        problemRecreationCommands?.Add(new ChangeTextCommand(0, "Energia", p.Energy.ToString(), xCoordinateForText, 200));
+        problemRecreationCommands?.Add(new ChangeTextCommand(1, "Melodia", p.Melody.ToString(), xCoordinateForText, 300));
+        problemRecreationCommands?.Add(new ChangeTextCommand(2, "Kroki", p.Steps.ToString(), xCoordinateForText, 400));
     }
 }
 
