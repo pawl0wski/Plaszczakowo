@@ -39,8 +39,10 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
                     if (edge.From == network.Vertices[u] && edge.To == network.Vertices[v])
                     {
                         pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
+                        problemRecreationCommands?.NextStep();
                         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Special));
                         problemRecreationCommands?.Add(new ChangeVertexStateCommand(u, GraphStates.Special));
+                        problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge), new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
                         break;
                     }
                 }
@@ -75,7 +77,8 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
         {
             int current = queue.Dequeue();
 
-            problemRecreationCommands?.Add(new ChangeVertexStateCommand(current, GraphStates.Highlighted));
+            // problemRecreationCommands?.NextStep();
+            // problemRecreationCommands?.Add(new ChangeVertexStateCommand(current, GraphStates.Highlighted));
 
             foreach (GraphEdge edge in network.Edges)
             {
@@ -86,8 +89,9 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
                     parent[to] = current;
                     visited[to] = true;
 
-                    problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
-                    problemRecreationCommands?.Add(new ChangeVertexStateCommand(to, GraphStates.Active));
+                    // problemRecreationCommands?.NextStep();
+                    // problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
+                    // problemRecreationCommands?.Add(new ChangeVertexStateCommand(to, GraphStates.Active));
                 }
             }
         }
