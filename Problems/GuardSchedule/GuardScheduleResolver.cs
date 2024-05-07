@@ -67,21 +67,21 @@ public class GuardScheduleResolver
     {
         if (vertexIndex == 0)
         {
-            p.PreviousVertexValue = vertices[vertices.Count - 1].Id;
-            p.CurrentVertexValue = vertices[vertexIndex].Id;
-            p.NextVertexValue = vertices[vertexIndex + 1].Id;
+            p.PreviousVertexValue = vertices[vertices.Count - 1].Value ?? 0;
+            p.CurrentVertexValue = vertices[vertexIndex].Value ?? 0;
+            p.NextVertexValue = vertices[vertexIndex + 1].Value ?? 0;
         }
         else if (vertexIndex == vertices.Count - 1)
         {
-            p.PreviousVertexValue = vertices[vertexIndex - 1].Id;
-            p.CurrentVertexValue = vertices[vertexIndex].Id;
-            p.NextVertexValue = vertices[0].Id;
+            p.PreviousVertexValue = vertices[vertexIndex - 1].Value ?? 0;
+            p.CurrentVertexValue = vertices[vertexIndex].Value ?? 0;
+            p.NextVertexValue = vertices[0].Value ?? 0;
         }
         else
         {
-            p.PreviousVertexValue = vertices[vertexIndex - 1].Id;
-            p.CurrentVertexValue = vertices[vertexIndex].Id;
-            p.NextVertexValue = vertices[vertexIndex + 1].Id;
+            p.PreviousVertexValue = vertices[vertexIndex - 1].Value ?? 0;
+            p.CurrentVertexValue = vertices[vertexIndex].Value ?? 0;
+            p.NextVertexValue = vertices[vertexIndex + 1].Value ?? 0;
         }
     }
 

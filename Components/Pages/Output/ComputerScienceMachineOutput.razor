@@ -1,0 +1,16 @@
+﻿@page "/computer_science_machine_output"
+<!--@using Problem.ComputerScienceMachine-->
+@using States
+@using ProblemResolver
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+
+@inject IProblemState ProblemState
+
+@code {
+    // ComputerScienceMachineInputData outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // outputData = await ProblemState.GetProblemInputData<ComputerMachineInputData>();
+    }
+}

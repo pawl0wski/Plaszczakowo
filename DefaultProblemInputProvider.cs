@@ -81,7 +81,6 @@ public static class DefaultProblemInputProvider
     private static void GenerateComputerScienceMachineFile()
     {
         string destinationFilePath = Path.Join(GetProblemPath("computer_science_machine"), _demoFileName);
-
     }
     private static void GenerateFenceTransportFile()
     {

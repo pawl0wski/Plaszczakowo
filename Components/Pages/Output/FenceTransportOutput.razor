@@ -1,0 +1,16 @@
+﻿@page "/fence_transport_output"
+<!--@using Problem.FenceTransport-->
+@using States
+@using ProblemResolver
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+
+@inject IProblemState ProblemState
+
+@code {
+    // FenceTransportInputData outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // outputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
+    }
+}

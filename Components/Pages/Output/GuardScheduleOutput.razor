@@ -1,0 +1,43 @@
+﻿@page "/guard_schedule_output"
+@using Problem.GuardSchedule
+@using States
+@using ProblemResolver
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+
+@inject IProblemState ProblemState
+
+<h2>Grafik strażników:</h2>
+<table>
+    
+    <thead>
+        <tr>
+            <th>Energia</th>
+            <th>Melodia</th>
+            <th>CzyStrażnik?</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (outputData != null)
+        {
+            var maxVertexValue = outputData.Vertices.Max((v) => v.Value)!.Value;
+            @foreach (var p in outputData.Plaszczaki)
+            {
+                <tr>
+                    <td>@p.MaxEnergy</td>
+                    <td>@p.Melody</td>
+                    <td>@p.IsGuard(maxVertexValue)</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    GuardScheduleInputData outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        outputData = await ProblemState.GetProblemInputData<GuardScheduleInputData>();
+        outputData.Plaszczaki.Sort();
+    }
+}

@@ -2,25 +2,18 @@
 @using Problem.GuardSchedule
 @inherits ProblemComponentBase<GuardScheduleInputData, GuardScheduleOutput, Drawer.GraphDrawer.GraphData>
 
+<div>
+    <NavLink href="/guard_schedule_output">
+        Grafik stra¿ników
+    </NavLink>
+</div>
+
 @if (Executor is not null)
 {
     <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
 }
 
 @code {
-
-    protected override void UpdateInputData()
-    {
-        foreach(var vertex in InputData.Vertices)
-        {
-            vertex.Value = Random.Shared.Next() % 21;
-        }
-        
-        InputData.Plaszczaki = [];
-        
-        for (int i = 0; i < 30; i++)
-            InputData.Plaszczaki.Add(new Plaszczak(40));
-    }
 
     protected override void InitializeResolver()
     {
