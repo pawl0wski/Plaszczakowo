@@ -1,6 +1,87 @@
 @page "/input/keyboard/{ProblemName}"
+@using ElectronNET.API
+@using ElectronNET.API.Entities
+@using System.Text.Json 
+@using Problem.PhraseCorrection
+@using ProjektZaliczeniowy_AiSD2.Components.States
 @inherits InputMethodBase;
+@inject NavigationManager Navigator;
+@inject IProblemState ProblemState;
 
+<ReturnButton></ReturnButton>
 <h1>Klawiaturka</h1>
+<p>Wprowadź wejściową frazę.</p>
+<input @bind = "inputText" />
+<button @onclick = "GoToProblemPage">Wczytaj</button>
+<br />
+<p>Wprowadź nową nazwę pliku</p>
+<input @bind = "newFileName" />
+<button @onclick = "SaveInputToFile">Zapisz do pliku</button>
 
-@* TODO: Zaimplementuj *@
+@code {
+    string inputText = "";
+    string newFileName = "";
+
+    protected override void OnInitialized()
+    {
+        if (!CheckIfDirectoryExists())
+            Directory.CreateDirectory(GetProblemPath());
+    }
+
+    private bool CheckIfDirectoryExists()
+    {
+        return Path.Exists(GetProblemPath());
+    }
+    private string PrepareInputData()
+    {
+        string input = "";
+        PhraseCorrectionInputData data = new(inputText);
+        input = JsonSerializer.Serialize(data);
+        return input;
+    }    
+    private string GetProblemPath()
+    {
+        return Path.Join(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "Plaszczakowo",
+            ProblemName);
+    }
+
+    private async void SaveInputToFile()
+    {
+
+        string inputText = PrepareInputData();
+        if (newFileName.Length == 0 || inputText.Length == 0)
+        {
+            return;
+        }
+        string path = GetProblemPath();
+        path = Path.Join(path, newFileName);
+        if (File.Exists(path))
+        {
+            var currentBrowserWindow = Electron.WindowManager.BrowserWindows.First();
+            var options = new MessageBoxOptions("Podany plik istnieje, czy chcesz go nadpisać?")
+            {
+                Buttons = ["Nie", "Tak"],
+                Title = "Plik istnieje"
+            };
+            var messageBoxResult = await Electron.Dialog.ShowMessageBoxAsync(currentBrowserWindow, options);
+            if (messageBoxResult.Response == 0)
+            {
+                return;
+            }
+        }
+
+        File.WriteAllText(path, inputText);
+
+        Navigator.NavigateTo("/");
+
+    }
+
+    private async void GoToProblemPage()
+    {
+        string input = PrepareInputData();
+        await ProblemState.SetProblemJsonInputData(input);
+        Navigator.NavigateTo($"/{ProblemName}");
+    }
+}   
