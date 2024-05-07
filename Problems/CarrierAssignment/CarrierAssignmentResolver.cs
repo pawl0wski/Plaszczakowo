@@ -33,21 +33,21 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
             int pathFlow = int.MaxValue;
             for (int v = sink; v != source; v = parent[v])
             {
+
                 int u = parent[v];
                 foreach (GraphEdge edge in network.Edges)
                 {
                     if (edge.From == network.Vertices[u] && edge.To == network.Vertices[v])
                     {
                         pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
-                        problemRecreationCommands?.NextStep();
-                        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Special));
-                        problemRecreationCommands?.Add(new ChangeVertexStateCommand(u, GraphStates.Special));
+                        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
+                        problemRecreationCommands?.Add(new ChangeVertexStateCommand(u, GraphStates.Active));
                         problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge), new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
+                        problemRecreationCommands?.NextStep();
                         break;
                     }
                 }
             }
-
             for (int v = sink; v != source; v = parent[v])
             {
                 int u = parent[v];
@@ -77,9 +77,6 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
         {
             int current = queue.Dequeue();
 
-            // problemRecreationCommands?.NextStep();
-            // problemRecreationCommands?.Add(new ChangeVertexStateCommand(current, GraphStates.Highlighted));
-
             foreach (GraphEdge edge in network.Edges)
             {
                 if (edge.From == network.Vertices[current] && edge.Throughput.Capacity > edge.Throughput.Flow && !visited[network.Vertices.IndexOf(edge.To)])
@@ -88,10 +85,6 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
                     queue.Enqueue(to);
                     parent[to] = current;
                     visited[to] = true;
-
-                    // problemRecreationCommands?.NextStep();
-                    // problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
-                    // problemRecreationCommands?.Add(new ChangeVertexStateCommand(to, GraphStates.Active));
                 }
             }
         }
