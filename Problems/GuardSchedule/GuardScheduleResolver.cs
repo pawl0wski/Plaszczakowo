@@ -131,7 +131,7 @@ public class GuardScheduleResolver
             problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: {p.Energy}", xCoordinateForText, 300, GraphStates.Inactive));
         
         if (previousMelody < p.Melody)
-            problemRecreationCommands?.Add(new ChangeTextCommand(3, $"Melodia: +🎵", xCoordinateForText, 350, GraphStates.Active));
+            problemRecreationCommands?.Add(new ChangeTextCommand(3, $"Melodia: {p.Melody} +🎵", xCoordinateForText, 350, GraphStates.Active));
         else
             problemRecreationCommands?.Add(new ChangeTextCommand(3, $"Melodia: {p.Melody}", xCoordinateForText, 350, GraphStates.Inactive));
 
