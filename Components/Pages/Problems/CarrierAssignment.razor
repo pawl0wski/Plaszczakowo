@@ -1,15 +1,16 @@
-@* @page "/carrier_assignment" *@
-@* @using Problem.CarrierAssignment; *@
-@* @using Drawer.GraphDrawer; *@
-@* @using CarrierAssignmentDrawer; *@
-@* <h1>Przypasowanie tragarzy</h1> *@
-@* <button type="button" class="btn btn-danger" @onclick="GoToStart">GoToStart</button> *@
-@* <button type="button" class="btn btn-danger" @onclick="Prev">prev</button> *@
-@* <button type="button" class="btn btn-danger" @onclick="Next">next</button> *@
-@* <button type="button" class="btn btn-danger" @onclick="GoToEnd">GoToEnd</button> *@
-@* <BECanvas Width="1920" Height="1080" @ref="_canvasReference"></BECanvas> *@
-@* *@
-@* @code { *@
+@page "/carrier_assignment"
+@using Problem.CarrierAssignment;
+@inherits ProblemComponentBase<CarrierAssignmentInputData, CarrierAssignmentOutput, Drawer.GraphDrawer.GraphData>
+
+<h1>Przypasowanie tragarzy</h1>
+
+@if (Executor is not null)
+{
+    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+}
+
+
+@code {
 @*         private CarrierAssignmentDrawer drawer; *@
 @*         private Canvas2DContext? _context; *@
 @*         protected BECanvasComponent? _canvasReference; *@
@@ -33,20 +34,13 @@
 @*                 testDrawer.CreateGraphDataFromInputData(inputData); *@
 @*                 await testDrawer.Draw(); *@
 @*         } *@
-@*         void GoToStart() *@
-@*         { *@
-@*                 drawer.GoToStart(); *@
-@*         } *@
-@*         void Prev() *@
-@*         { *@
-@*                 drawer.Prev(); *@
-@*         } *@
-@*         void Next() *@
-@*         { *@
-@*                 drawer.Next(); *@
-@*         } *@
-@*         void GoToEnd() *@
-@*         { *@
-@*                 drawer.GoToEnd(); *@
-@*         } *@
-@* } *@
+    protected override void InitializeResolver()
+    {
+        Resolver = new CarrierAssignmentResolver();
+    }
+
+    protected override void InitializeFirstSnapshotCreator(CarrierAssignmentInputData inputData)
+    {
+        FirstSnapshotCreator = new FirstCarrierAssignmentSnapshotCreator(inputData);
+    }
+}

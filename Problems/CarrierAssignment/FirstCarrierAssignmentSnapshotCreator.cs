@@ -31,6 +31,6 @@ public class FirstCarrierAssignmentSnapshotCreator(CarrierAssignmentInputData in
             edges.Add(new GraphEdge(vertices[inputData.FrontCarrierNumber + i], vertices[inputData.FrontCarrierNumber + inputData.RearCarrierNumber + 1], null, new GraphThroughput(0, 1)));
         }
 
-        return new GraphData(vertices, edges);
+        return new GraphData(vertices, edges, []);
     }
 }
