@@ -8,12 +8,6 @@ public class GraphDrawer : Drawer
     private readonly Canvas2DContext _context;
     private GraphData? _data;
 
-    public GraphDrawer(Canvas2DContext context, List<GraphVertex> vertexes, List<GraphEdge> edges)
-    {
-        _context = context;
-        _data = new GraphData(vertexes, edges);
-    }
-
     public GraphDrawer(Canvas2DContext context, GraphData? data = null)
     {
         _context = context;
@@ -42,6 +36,8 @@ public class GraphDrawer : Drawer
         foreach (var edge in _data.Edges) await DrawEdge(edge);
 
         foreach (var vertex in _data.Vertices) await DrawVertex(vertex);
+
+        foreach (var text in _data.Texts) await DrawText(text);
 
         await _context.EndBatchAsync();
     }
@@ -134,5 +130,15 @@ public class GraphDrawer : Drawer
     private async Task ClearCanvas()
     {
         await _context.ClearRectAsync(0, 0, 1920, 1080);
+    }
+
+    private async Task DrawText(GraphText graphText)
+    {
+        var text = graphText.Text;
+        var x = graphText.X;
+        var y = graphText.Y;
+
+        await _context.SetFillStyleAsync(graphText.State.GetPrimaryColor());
+        await _context.FillTextAsync(text, x, y);
     }
 }

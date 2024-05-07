@@ -11,6 +11,7 @@ public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
     {
         var outputData = ProblemToGraphData.Convert(inputData);
         outputData.ChangeVertexStatus(0, GraphStates.Special);
+        outputData.Texts.Add(new GraphText("Test", 100, 300, GraphStates.Active));
         return outputData;
     }
 }

@@ -21,6 +21,6 @@ public static class ProblemToGraphData
             edges.Add(new GraphEdge(vertices[problemEdge.From], vertices[problemEdge.To]));
         }
 
-        return new (vertices, edges);
+        return new (vertices, edges, []);
     }
 }

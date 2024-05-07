@@ -4,24 +4,28 @@ public class GraphData : DrawerData
 {
     public List<GraphEdge> Edges;
     public List<GraphVertex> Vertices;
+    public List<GraphText> Texts;
 
-    public GraphData(List<GraphVertex> vertices, List<GraphEdge> edges)
+    public GraphData(List<GraphVertex> vertices, List<GraphEdge> edges, List<GraphText> texts)
     {
         Vertices = vertices;
         Edges = edges;
+        Texts = texts;
     }
-    
+
     public GraphData()
     {
         Vertices = [];
         Edges = [];
+        Texts = [];
     }
 
     public override object Clone()
     {
         return new GraphData(
             Vertices.Select(vertex => (GraphVertex)vertex.Clone()).ToList(),
-            Edges.Select(edge => (GraphEdge)edge.Clone()).ToList()
+            Edges.Select(edge => (GraphEdge)edge.Clone()).ToList(),
+            Texts.Select(text => (GraphText)text.Clone()).ToList()
         );
     }
 
