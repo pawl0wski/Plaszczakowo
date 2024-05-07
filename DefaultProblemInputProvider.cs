@@ -73,7 +73,7 @@ public static class DefaultProblemInputProvider
             new Plaszczak(44, 0, 0),
         ];
 
-        GuardScheduleInputData guard_schedule = new(plaszczaki, problemVertices, problemEdges, 0);
+        GuardScheduleInputData guard_schedule = new(plaszczaki, problemVertices, problemEdges, 3);
         string jsonGuardSchedule = JsonSerializer.Serialize(guard_schedule);
         File.WriteAllText(destinationFilePath, jsonGuardSchedule);
     }
