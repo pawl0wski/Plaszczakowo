@@ -121,9 +121,9 @@ public class GuardScheduleResolver
     }
     private void ChangePlaszczakText(Plaszczak p, int xCoordinateForText)
     {
-        problemRecreationCommands?.Add(new ChangeTextCommand(0, "Energia", p.Energy.ToString(), xCoordinateForText, 200));
-        problemRecreationCommands?.Add(new ChangeTextCommand(1, "Melodia", p.Melody.ToString(), xCoordinateForText, 300));
-        problemRecreationCommands?.Add(new ChangeTextCommand(2, "Kroki", p.Steps.ToString(), xCoordinateForText, 400));
+        problemRecreationCommands?.Add(new ChangeTextCommand(0, $"Energia: {p.Energy}", xCoordinateForText, 200));
+        problemRecreationCommands?.Add(new ChangeTextCommand(1, $"Melodia: {p.Melody}", xCoordinateForText, 300));
+        problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Kroki: {p.Steps}", xCoordinateForText, 400));
     }
 }
 
