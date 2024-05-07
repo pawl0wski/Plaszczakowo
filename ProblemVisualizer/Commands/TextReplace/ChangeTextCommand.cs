@@ -6,8 +6,8 @@ public class ChangeTextCommand(int index, string title, string value, int x, int
     : ProblemVisualizerCommand<GraphData>
 {
     public readonly int Index = index;
-    public readonly string Title = title ?? "";
-    public readonly string Value = value ?? "";
+    public readonly string Title = title;
+    public readonly string Value = value;
     public readonly int X = x;
     public readonly int Y = y;
 
