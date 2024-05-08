@@ -22,11 +22,10 @@ public class HuffmanCodingResolver :
         return letterAppearances;
     }
 
-    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref HuffmanCodingOutput output, ref ProblemRecreationCommands<GraphData> commands)
+    public void GenerateHuffmanTree(HuffmanCodingInputData data, Dictionary<char, int> letterAppearances, ref HuffmanCodingOutput output, ref ProblemRecreationCommands<GraphData> commands)
     {
         HuffmanTree huffmanTree = new HuffmanTree();
-        Dictionary<char, string> dict = new Dictionary<char, string>();
-        huffmanTree.CreateHuffmanTree(letterAppearances, ref output, ref commands);
+        huffmanTree.CreateHuffmanTree(data, letterAppearances, ref output, ref commands);
         GenerateTree(ref output, huffmanTree);
     }
 
@@ -41,7 +40,7 @@ public class HuffmanCodingResolver :
         
         Dictionary<char, int> letterAppearances = CalculateAppearances(data.InputPhrase);
 
-        GenerateHuffmanTree(letterAppearances, ref output, ref commands);
+        GenerateHuffmanTree(data, letterAppearances, ref output, ref commands);
 
         return output;
     }
