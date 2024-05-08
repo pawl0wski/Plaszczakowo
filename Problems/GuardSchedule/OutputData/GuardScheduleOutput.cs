@@ -4,6 +4,6 @@ namespace Problem.GuardSchedule;
 
 public record GuardScheduleOutput : ProblemOutput
 {
-    public readonly List<Plaszczak> Plaszczaki = [];
+    public List<Plaszczak> Plaszczaki { get; set; } = [];
 }
 

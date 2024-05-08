@@ -32,6 +32,7 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
         InitializeResolver();
         InitializeFirstSnapshotCreator(InputData!);
         ResolveAndCreateSnapshots();
+        await InsertOutputDataIntoProblemState();
     }
 
     protected async Task ResolveInputDataFromSessionStorage()
@@ -69,6 +70,10 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
             FirstSnapshotCreator);
         Executor.CreateFirstSnapshot();
         Executor.ExecuteCommands();
+    }
+    protected async Task InsertOutputDataIntoProblemState()
+    {
+        await ProblemState.SetProblemOutputData(OutputData);
     }
 
     protected abstract void InitializeResolver();
