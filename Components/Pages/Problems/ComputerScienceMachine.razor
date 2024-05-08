@@ -1,24 +1,29 @@
 @page "/computer_science_machine"
 @using Drawer.TextReplaceDrawer
 @using Problem.PhraseCorrection
+@using Drawer.GraphDrawer
+@using ProblemResolver
+@using ProblemVisualizer
 @using ProjektZaliczeniowy_AiSD2.Components.Shared.Visualizer.TextReplaceVisualizer
-@inherits ProblemComponentBase<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
+@using ProjektZaliczeniowy_AiSD2.Components.Shared.Visualizer.GraphVisualizer
+@using Problem.HuffmanCoding
+@inherits ProblemComponentBase<HuffmanCodingInputData, HuffmanCodingOutput, GraphData>
 
 @if (Executor is not null)
 {
-    <TextReplaceVisualizer Snapshots="Executor.GetSnapshots()" />
+    <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
 }
 
 @code {
 
     protected override void InitializeResolver()
     {
-        Resolver = new PhraseCorrectionResolver();
+        Resolver = new HuffmanCodingResolver();
     }
 
-    protected override void InitializeFirstSnapshotCreator(PhraseCorrectionInputData inputData)
+    protected override void InitializeFirstSnapshotCreator(HuffmanCodingInputData inputData)
     {
-        FirstSnapshotCreator = new FirstPhraseCorrectionSnapshotCreator(inputData);
+        FirstSnapshotCreator = new FirstHuffmanCodingSnapshotCreator(inputData);
     }
-
 }
+
