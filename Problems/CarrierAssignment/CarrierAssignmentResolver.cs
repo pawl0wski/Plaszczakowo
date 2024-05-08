@@ -1,6 +1,5 @@
 using Drawer.GraphDrawer;
 using ProblemResolver;
-using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;
 
 namespace Problem.CarrierAssignment;
@@ -13,20 +12,17 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
     {
         FirstCarrierAssignmentSnapshotCreator creator = new(data);
         GraphData graphData = creator.CreateFirstSnapshot();
-        var output = new CarrierAssignmentOutput();
         problemRecreationCommands = commands;
-
-        PairCreator(graphData, graphData.Vertices.Count - 2, graphData.Vertices.Count - 1, out List<GraphEdge> pairs);
-        output.Pairs = pairs;
-        return output;
+        int verticesCount = graphData.Vertices.Count;
+        return PairCreator(graphData, verticesCount - 2, verticesCount - 1);
     }
 
-    public void PairCreator(GraphData network, int source, int sink, out List<GraphEdge> pairs)
+    public CarrierAssignmentOutput PairCreator(GraphData network, int source, int sink)
     {
+        var pairs = new CarrierAssignmentOutput();
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(source, GraphStates.Special));
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(sink, GraphStates.Special));
         int[] parent = new int[network.Vertices.Count];
-        pairs = new();
         while (BFS(network, source, sink, parent))
         {
             int pathFlow = int.MaxValue;
@@ -49,16 +45,18 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
                 int previousIndex = parent[vertexIndex];
                 foreach (GraphEdge edge in network.Edges)
                 {
-                    if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
+                    if (edge.From == network.Vertices[previousIndex]
+                     && edge.To == network.Vertices[vertexIndex])
                     {
                         edge.Throughput.Flow += pathFlow;
                         if (pathFlow == 1)
-                            pairs.Add(edge);
+                            pairs.Pairs.Add(edge);
                         break;
                     }
                 }
             }
         }
+        return pairs;
     }
     private bool BFS(GraphData network, int source, int sink, int[] parent)
     {
@@ -73,7 +71,7 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
 
             foreach (GraphEdge edge in network.Edges)
             {
-                if (edge.From == network.Vertices[current] && edge.Throughput.Capacity > edge.Throughput.Flow && !visited[network.Vertices.IndexOf(edge.To)])
+                if (IsValidEdge(edge, current, visited, network))
                 {
                     int to = network.Vertices.IndexOf(edge.To);
                     queue.Enqueue(to);
@@ -89,6 +87,13 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
         problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge), new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
         problemRecreationCommands?.NextStep();
+    }
+
+    private bool IsValidEdge(GraphEdge edge, int current, bool[] visited, GraphData network)
+    {
+        return edge.From == network.Vertices[current] 
+        && edge.Throughput.Capacity > edge.Throughput.Flow 
+        && !visited[network.Vertices.IndexOf(edge.To)];
     }
 }
 
