@@ -2,10 +2,10 @@ using Drawer.GraphDrawer;
 
 namespace ProblemVisualizer.Commands;
 
-public class ChangeEdgeFlowCommand(int id, GraphFlow flow)
+public class ChangeEdgeFlowCommand(int id, GraphThroughput flow)
     : ProblemVisualizerCommand<GraphData>
 {
-    public readonly GraphFlow Flow = flow;
+    public readonly GraphThroughput Flow = flow;
     public readonly int Id = id;
 
     public override void Execute(ref GraphData data)

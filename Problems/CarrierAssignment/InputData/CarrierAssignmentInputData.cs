@@ -1,18 +1,10 @@
-// namespace Problem.CarrierAssignment;
-//
-// public class CarrierAssignmentInputData : ProblemInputData
-// {
-//     public List<int> Carriers;
-//     public int FrontCarrierNumber;
-//     public int RearCarrierNumber;
-//     public List<Edge> Relations;
-//
-//     public CarrierAssignmentInputData(List<int> carriers, int frontCarrierNumber, int rearCarrierNumber, List<Edge> relations)
-//     {
-//         this.Carriers = carriers;
-//         this.FrontCarrierNumber = frontCarrierNumber;
-//         this.RearCarrierNumber = rearCarrierNumber;
-//         this.Relations = relations;
-//     }
-// }
+using ProblemResolver;
 
+namespace Problem.CarrierAssignment;
+
+public record CarrierAssignmentInputData(int FrontCarrierNumber, int RearCarrierNumber, List<Edge> Relations) : ProblemInputData
+{
+    public int FrontCarrierNumber { get; set; } = FrontCarrierNumber;
+    public int RearCarrierNumber { get; set; } = RearCarrierNumber;
+    public List<Edge> Relations { get; set; } = Relations;
+}

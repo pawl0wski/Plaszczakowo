@@ -1,111 +1,99 @@
-// namespace Problem.CarrierAssignment;
-//
-// public class CarrierAssignmentResolver :
-//     ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentOutput>
-// {
-//     List<CarrierAssignmentOutput> results = new();
-//     public Edge Connect(int from, int to)
-//     {
-//         return new Edge(from, to, 0, 1);
-//     }
-//     private bool BFS(CarrierAssignmentOutput network, int source, int sink)
-//     {
-//         bool[] visited = new bool[network.Vertices.Count];
-//         Queue<int> queue = new();
-//         queue.Enqueue(source);
-//         visited[source] = true;
-//         while (queue.Count > 0)
-//         {
-//             int current = queue.Dequeue();
-//             foreach (var edge in network.Edges)
-//             {
-//                 if (edge.From == current && edge.Capacity > edge.Flow && !visited[edge.To])
-//                 {
-//                     queue.Enqueue(edge.To);
-//                     visited[edge.To] = true;
-//                 }
-//             }
-//         }
-//         return visited[sink];
-//     }
-//
-//     public void PairCreator(CarrierAssignmentOutput network, int source, int sink)
-//     {
-//         
-//         while (BFS(network, source, sink))
-//         {
-//             int current = source;
-//             int minCapacity = 3;
-//             while (current != sink)
-//             {
-//                 bool foundEdge = false;
-//                 foreach (var edge in network.Edges)
-//                 {
-//                     if (edge.From == current && edge.Capacity > edge.Flow)
-//                     {
-//                         minCapacity = Math.Min(minCapacity, edge.Capacity - edge.Flow);
-//                         current = edge.To;
-//                         foundEdge = true;
-//                         break;
-//                     }
-//                 }
-//                 if (!foundEdge)
-//                 {
-//                     break;
-//                 }
-//             }
-//             current = source;
-//             while (current != sink)
-//             {
-//                 bool foundEdge = false;
-//                 for (int i = 0; i < network.Edges.Count; i++)
-//                 {
-//                     if (network.Edges[i].From == current && network.Edges[i].Capacity > network.Edges[i].Flow)
-//                     {
-//                         network.Edges[i].Flow += minCapacity;
-//                         current = network.Edges[i].To;
-//                         results.Add(network);
-//                         foundEdge = true;
-//                         break;
-//                     }
-//                 }
-//                 if (!foundEdge)
-//                 {
-//                     break;
-//                 }
-//             }
-//         }
-//     }
-//     
-//     
-//     public override List<CarrierAssignmentOutput> Resolve(CarrierAssignmentInputData data)
-//     {
-//         List<int> Verticies = data.Carriers;
-//         int SetSize1 = data.FrontCarrierNumber;
-//         int SetSize2 = data.RearCarrierNumber;
-//         int TotalNodes = SetSize1 + SetSize2 + 2; // +2 for source and sink
-//         List<Edge> Relations = data.Relations;
-//         int Source = TotalNodes - 2;
-//         int Sink = TotalNodes - 1;
-//         Verticies.Add(Source);
-//         Verticies.Add(Sink);
-//         List<Edge> Edges = new List<Edge>();
-//         foreach (var relation in Relations)
-//         {
-//             Edges.Add(Connect(relation.From, relation.To));
-//         }
-//         for (int i = 0; i < SetSize1; i++)
-//         {
-//             Edges.Add(Connect(Verticies[TotalNodes - 2], i));
-//         }
-//         for (int i = SetSize1; i < SetSize1 + SetSize2; i++)
-//         {
-//             Edges.Add(Connect(i, Verticies[TotalNodes - 1]));
-//         }
-//         CarrierAssignmentOutput network = new(Verticies, Edges);
-//         results.Add(network);
-//         PairCreator(network, Source, Sink);
-//         return results;
-//     }
-// }
+using Drawer.GraphDrawer;
+using ProblemResolver;
+using ProblemVisualizer.Commands;
+
+namespace Problem.CarrierAssignment;
+
+public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentOutput, GraphData>
+{
+    private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
+    
+    public override CarrierAssignmentOutput Resolve(CarrierAssignmentInputData data, ref ProblemRecreationCommands<GraphData> commands)
+    {
+        FirstCarrierAssignmentSnapshotCreator creator = new(data);
+        GraphData graphData = creator.CreateFirstSnapshot();
+        problemRecreationCommands = commands;
+        int verticesCount = graphData.Vertices.Count;
+        return PairCreator(graphData, verticesCount - 2, verticesCount - 1);
+    }
+
+    public CarrierAssignmentOutput PairCreator(GraphData network, int source, int sink)
+    {
+        var pairs = new CarrierAssignmentOutput();
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(source, GraphStates.Special));
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(sink, GraphStates.Special));
+        int[] parent = new int[network.Vertices.Count];
+        while (BFS(network, source, sink, parent))
+        {
+            int pathFlow = int.MaxValue;
+            for (int vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
+            {
+
+                int previousIndex = parent[vertexIndex];
+                foreach (GraphEdge edge in network.Edges)
+                {
+                    if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
+                    {
+                        pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
+                        ChangeGraphState(network, edge, previousIndex, pathFlow);
+                        break;
+                    }
+                }
+            }
+            for (int vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
+            {
+                int previousIndex = parent[vertexIndex];
+                foreach (GraphEdge edge in network.Edges)
+                {
+                    if (edge.From == network.Vertices[previousIndex]
+                     && edge.To == network.Vertices[vertexIndex])
+                    {
+                        edge.Throughput.Flow += pathFlow;
+                        if (pathFlow == 1)
+                            pairs.Pairs.Add(edge);
+                        break;
+                    }
+                }
+            }
+        }
+        return pairs;
+    }
+    private bool BFS(GraphData network, int source, int sink, int[] parent)
+    {
+        bool[] visited = new bool[network.Vertices.Count];
+        Queue<int> queue = new();
+        queue.Enqueue(source);
+        visited[source] = true;
+        parent[source] = -1;
+        while (queue.Count > 0)
+        {
+            int current = queue.Dequeue();
+
+            foreach (GraphEdge edge in network.Edges)
+            {
+                if (IsValidEdge(edge, current, visited, network))
+                {
+                    int to = network.Vertices.IndexOf(edge.To);
+                    queue.Enqueue(to);
+                    parent[to] = current;
+                    visited[to] = true;
+                }
+            }
+        }
+        return visited[sink];
+    }
+    public void ChangeGraphState(GraphData network, GraphEdge edge, int index, int pathFlow){
+        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
+        problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge), new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
+        problemRecreationCommands?.NextStep();
+    }
+
+    private bool IsValidEdge(GraphEdge edge, int current, bool[] visited, GraphData network)
+    {
+        return edge.From == network.Vertices[current] 
+        && edge.Throughput.Capacity > edge.Throughput.Flow 
+        && !visited[network.Vertices.IndexOf(edge.To)];
+    }
+}
 

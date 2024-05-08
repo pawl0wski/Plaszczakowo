@@ -35,10 +35,10 @@ public class GraphData : DrawerData
         currentEdge.State = state;
     }
 
-    public void ChangeEdgeFlow(int index, GraphFlow flow)
+    public void ChangeEdgeFlow(int index, GraphThroughput flow)
     {
         var currentEdge = Edges[index];
-        currentEdge.Flow = flow;
+        currentEdge.Throughput = flow;
     }
 
     public void ChangeVertexStatus(int index, GraphState state)
