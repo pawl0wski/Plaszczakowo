@@ -1,4 +1,5 @@
 @page "/"
+@using ProjektZaliczeniowy_AiSD2.Components.Modals.Documentation
 @using ProjektZaliczeniowy_AiSD2.Components.Pages.Welcome.Components
 @rendermode InteractiveServer
 
@@ -22,14 +23,25 @@
             </NavLink>
         </div>
         <div class="main-menu__bottom">
-            <ul>
-                <NavLink class="white-link" href="authors">
-                    <li>
-                        <Icon Name="fa-info"/>
-                    </li>
-                </NavLink>
-            </ul>
+            <NavLink href="/authors">
+                <p class="icon">
+                    <Icon Name="fa-info"/>
+                </p>
+            </NavLink>
+            <p class="icon" @onclick="ShowDocumentation">
+                <Icon Name="fa-book"/>
+            </p>
         </div>
     </div>
     <WelcomeBackground/>
 </div>
+
+@code {
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    private void ShowDocumentation()
+    {
+        Modal.Show<Documentation>();
+    }
+}

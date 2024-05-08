@@ -6,20 +6,20 @@ public class GraphEdge : ICloneable
 
     public readonly GraphVertex To;
 
-    public GraphFlow? Flow;
+    public GraphThroughput? Throughput;
 
     public GraphState State;
 
-    public GraphEdge(GraphVertex from, GraphVertex to, GraphState? state = null, GraphFlow? flow = null)
+    public GraphEdge(GraphVertex from, GraphVertex to, GraphState? state = null, GraphThroughput? throughput = null)
     {
         From = from;
         To = to;
         State = state ?? GraphStates.Inactive;
-        Flow = flow;
+        Throughput = throughput;
     }
 
     public object Clone()
     {
-        return new GraphEdge(From, To, State, Flow);
+        return new GraphEdge(From, To, State, Throughput);
     }
 }

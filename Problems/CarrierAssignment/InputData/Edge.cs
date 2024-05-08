@@ -1,17 +1,9 @@
-// namespace ProblemResolver.CarrierAssignment;
-//
-// public class Edge
-// {
-//     public int Capacity;
-//     public int Flow;
-//     public int From;
-//     public int To;
-//
-//     public Edge(int from, int to, int flow = 0, int capacity = 1)
-//     {
-//         From = from;
-//         To = to;
-//         Flow = flow;
-//         Capacity = capacity;
-//     }
-// }
+namespace Problem.CarrierAssignment;
+
+public record Edge(int From, int To)
+{
+    public int From { get; set; } = From;
+    public int To { get; set; } = To;
+    public int Flow { get; set; } = 0;
+    public int Capacity { get; set; } = 1;
+}
