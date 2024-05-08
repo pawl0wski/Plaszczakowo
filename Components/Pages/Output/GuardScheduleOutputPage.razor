@@ -1,8 +1,6 @@
 ﻿@page "/guard_schedule_output"
 @using Problem.GuardSchedule
 @using States
-@using ProblemResolver
-@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 @inject IProblemState ProblemState
 
@@ -16,9 +14,9 @@
         </tr>
     </thead>
     <tbody>
-        @if (outputData != null)
+        @if (_outputData != null)
         {
-            @foreach (var p in outputData.Plaszczaki)
+            @foreach (var p in _outputData.Plaszczaki)
             {
                 <tr>
                     <td>@p.MaxEnergy</td>
@@ -30,11 +28,10 @@
 </table>
 
 @code {
-    GuardScheduleOutput outputData;
+    GuardScheduleOutput? _outputData;
 
     protected override async Task OnInitializedAsync()
     {
-        outputData = await ProblemState.GetProblemOutputData<GuardScheduleOutput>();
-        Console.WriteLine(outputData.Plaszczaki.Count);
+        _outputData = await ProblemState.GetProblemOutputData<GuardScheduleOutput>();
     }
 }

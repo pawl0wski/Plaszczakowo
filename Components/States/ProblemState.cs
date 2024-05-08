@@ -17,19 +17,12 @@ public class ProblemState : IProblemState
         _sessionStore = sessionStorage;
     }
 
-    public async ValueTask<TInputData> GetProblemInputData<TInputData>()
+    public async Task SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData
     {
         var sessionStore = CheckSessionStoreIfNull();
-        var inputData = await sessionStore.GetAsync<string>(InputDataKey);
-        if (!inputData.Success || inputData.Value is null)
-            throw new Exception("Can't get JSON inputData. You need to set it first!");
 
-        var deserializedInputData = JsonSerializer.Deserialize<TInputData>(inputData.Value);
-        if (deserializedInputData is null)
-            throw new Exception("Can't deserialize InputData");
-
-        return deserializedInputData;
+        await sessionStore.SetAsync(InputDataKey, JsonSerializer.Serialize(inputData));
     }
 
     public async Task SetProblemJsonInputData(string inputData)
@@ -39,26 +32,18 @@ public class ProblemState : IProblemState
         await sessionStore.SetAsync(InputDataKey, inputData);
     }
 
-    public async Task SetProblemInputData<TInputData>(TInputData inputData)
+    public async ValueTask<TInputData> GetProblemInputData<TInputData>()
         where TInputData : ProblemInputData
     {
-        var sessionStore = CheckSessionStoreIfNull();
-
-        await sessionStore.SetAsync(InputDataKey, JsonSerializer.Serialize(inputData));
+        var serializedInputData = await GetDataFromStorage(InputDataKey);
+        return DeserializeData<TInputData>(serializedInputData);
     }
 
-    public async ValueTask<TOutputData> GetProblemOutputData<TOutputData>() where TOutputData : ProblemOutput
+    public async Task SetProblemOutputData<TOutputData>(TOutputData outputData) where TOutputData : ProblemOutput
     {
         var sessionStore = CheckSessionStoreIfNull();
-        var outputData = await sessionStore.GetAsync<string>(OutputDataKey);
-        if (!outputData.Success || outputData.Value is null)
-            throw new Exception("Can't get JSON inputData. You need to set it first!");
 
-        var deserializedOutputData = JsonSerializer.Deserialize<TOutputData>(outputData.Value);
-        if (deserializedOutputData is null)
-            throw new Exception("Can't deserialize InputData");
-
-        return deserializedOutputData;
+        await sessionStore.SetAsync(OutputDataKey, JsonSerializer.Serialize(outputData));
     }
 
     public async Task SetProblemJsonOutputData(string outputData)
@@ -68,11 +53,30 @@ public class ProblemState : IProblemState
         await sessionStore.SetAsync(OutputDataKey, outputData);
     }
 
-    public async Task SetProblemOutputData<TOutputData>(TOutputData outputData) where TOutputData : ProblemOutput
+    public async ValueTask<TOutputData> GetProblemOutputData<TOutputData>() where TOutputData : ProblemOutput
+    {
+        var serializedOutputData = await GetDataFromStorage(OutputDataKey);
+        return DeserializeData<TOutputData>(serializedOutputData);
+    }
+
+    private async ValueTask<string> GetDataFromStorage(string storageKey)
     {
         var sessionStore = CheckSessionStoreIfNull();
 
-        await sessionStore.SetAsync(OutputDataKey, JsonSerializer.Serialize(outputData));
+        var outputData = await sessionStore.GetAsync<string>(storageKey);
+        if (!outputData.Success || outputData.Value is null)
+            throw new Exception("Can't get JSON inputData. You need to set it first!");
+
+        return outputData.Value;
+    }
+
+    private TData DeserializeData<TData>(string serializedData)
+    {
+        var deserializedData = JsonSerializer.Deserialize<TData>(serializedData);
+        if (deserializedData is null)
+            throw new Exception("Can't deserialize InputData");
+
+        return deserializedData;
     }
 
     private ProtectedBrowserStorage CheckSessionStoreIfNull()
