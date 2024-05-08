@@ -26,44 +26,38 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(source, GraphStates.Special));
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(sink, GraphStates.Special));
         int[] parent = new int[network.Vertices.Count];
-        int maxFlow = 0;
         pairs = new();
         while (BFS(network, source, sink, parent))
         {
             int pathFlow = int.MaxValue;
-            for (int v = sink; v != source; v = parent[v])
+            for (int vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
             {
 
-                int u = parent[v];
+                int previousIndex = parent[vertexIndex];
                 foreach (GraphEdge edge in network.Edges)
                 {
-                    if (edge.From == network.Vertices[u] && edge.To == network.Vertices[v])
+                    if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
                     {
                         pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
-                        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
-                        problemRecreationCommands?.Add(new ChangeVertexStateCommand(u, GraphStates.Active));
-                        problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge), new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
-                        problemRecreationCommands?.NextStep();
+                        ChangeGraphState(network, edge, previousIndex, pathFlow);
                         break;
                     }
                 }
             }
-            for (int v = sink; v != source; v = parent[v])
+            for (int vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
             {
-                int u = parent[v];
+                int previousIndex = parent[vertexIndex];
                 foreach (GraphEdge edge in network.Edges)
                 {
-                    if (edge.From == network.Vertices[u] && edge.To == network.Vertices[v])
+                    if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
                     {
                         edge.Throughput.Flow += pathFlow;
                         if (pathFlow == 1)
-                            pairs.Add(edge); // Add edge with flow of 1
+                            pairs.Add(edge);
                         break;
                     }
                 }
             }
-
-            maxFlow += pathFlow;
         }
     }
     private bool BFS(GraphData network, int source, int sink, int[] parent)
@@ -89,6 +83,12 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
             }
         }
         return visited[sink];
+    }
+    public void ChangeGraphState(GraphData network, GraphEdge edge, int index, int pathFlow){
+        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
+        problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge), new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
+        problemRecreationCommands?.NextStep();
     }
 }
 
