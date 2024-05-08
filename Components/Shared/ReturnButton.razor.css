@@ -1,20 +1,41 @@
-div.return-button p {
-    background-color: #483C32;
-    padding: 5pt 5pt;
-    width: fit-content;
-    margin-top: 0pt;
-    margin-bottom: 5pt;
 
-    /* Text */
-    text-align: left;
-    font-size: 20pt;
+div.return-button {
+    display: flex;
+    flex-direction: column;
+    
+    position: absolute;
+    top: 0;
+    
+    width: 8rem;
+    height: 6rem;
+}
 
-    /* Border */
-    border-color: black;
-    border-width: 2px;
-    border-style: solid;
-    border-radius: 4pt;
+div.return-button__left {
+    left: 2rem;
+}
 
+div.return-button__right {
+    right: 2rem;
+    transform: translateX(-8rem);
+}
+
+.return-button__top {
+    width: 100%;
+    height: 1.5rem;
+}
+
+div.return-button__bottom {
+    background-image: url("buttons/return-button-bottom.png");
+    background-size: cover;
+    height: 3rem;
+    
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    transition: background-color 0.5s;
+}
+
+div.return-button__bottom span {
+    transform: rotateZ(-3deg);
 }
