@@ -1,0 +1,37 @@
+﻿@page "/guard_schedule_output"
+@using Problem.GuardSchedule
+@using States
+
+@inject IProblemState ProblemState
+
+<h2>Grafik strażników:</h2>
+<table>
+    
+    <thead>
+        <tr>
+            <th>Energia</th>
+            <th>Melodia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_outputData != null)
+        {
+            @foreach (var p in _outputData.Plaszczaki)
+            {
+                <tr>
+                    <td>@p.MaxEnergy</td>
+                    <td>@p.Melody</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    GuardScheduleOutput? _outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _outputData = await ProblemState.GetProblemOutputData<GuardScheduleOutput>();
+    }
+}
