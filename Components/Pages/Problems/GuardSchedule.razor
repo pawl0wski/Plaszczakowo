@@ -2,15 +2,13 @@
 @using Problem.GuardSchedule
 @inherits ProblemComponentBase<GuardScheduleInputData, GuardScheduleOutput, Drawer.GraphDrawer.GraphData>
 
-<div>
-    <NavLink href="/guard_schedule_output">
-        Grafik stra¿ników
-    </NavLink>
-</div>
-
 @if (Executor is not null)
 {
-    <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
+    <div class="custom-overflow">
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
+        <ReturnButton/>
+        <OutputButton ButtonPosition="OutputButton.OutputButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.GuardSchedule"/>
+    </div>
 }
 
 @code {

@@ -1,0 +1,48 @@
+@using System.ComponentModel
+@inject NavigationManager Navigator
+
+<div class="return-button @GetHtmlPositionClass()" @onclick="OnOutputButtonClick">
+    <img class="return-button__top" src="buttons/return-button-top.png" alt="Button top"/>
+    <div class="return-button__bottom">
+        <span>
+            Output
+        </span>
+    </div>
+</div>
+
+
+@code {
+    public enum OutputButtonPosition
+    {
+        Left = 0,
+        Right = 1
+    }
+
+    public enum OutputButtonProblem
+    {
+        [Description("guard_schedule_output")]
+        GuardSchedule,
+
+        [Description("fence_transport_output")]
+        FenceTransport,
+
+        [Description("computer_science_machine_output")]
+        ComputerMachine
+    }
+
+    [Parameter] public OutputButtonPosition? ButtonPosition { get; set; }
+    [Parameter] public OutputButtonProblem ButtonProblem { get; set; }
+
+    private string GetHtmlPositionClass()
+    {
+        var position = ButtonPosition ?? OutputButtonPosition.Left;
+        return position == OutputButtonPosition.Left ? "return-button__left" : "return-button__right";
+    }
+
+    private void OnOutputButtonClick()
+    {
+        var problem = ButtonProblem.GetDescription();
+        Navigator.NavigateTo(problem);
+    }
+
+}
