@@ -15,12 +15,12 @@ public class GuardScheduleResolver
         GuardScheduleOutput output = new();
         problemRecreationCommands = commands;
 
-        output = IteratePath(data, output);
+        IteratePath(data, ref output);
 
         return output;
     }
 
-    private GuardScheduleOutput IteratePath(in GuardScheduleInputData inputData, GuardScheduleOutput output)
+    private void IteratePath(in GuardScheduleInputData inputData, ref GuardScheduleOutput output)
     {
         var maxVertexValue = inputData.Vertices.Max((v) => v.Value)!.Value;
         var plaszczaki = inputData.Plaszczaki;
@@ -60,8 +60,6 @@ public class GuardScheduleResolver
             output.Plaszczaki.Add(p);
             plaszczakIndex++;
         }
-
-        return output;
     }
 
     private static void UpdatePosition(Plaszczak p, List<ProblemVertex> vertices, int vertexIndex)

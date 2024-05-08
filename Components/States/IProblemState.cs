@@ -11,4 +11,12 @@ public interface IProblemState
 
     public Task SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData;
+
+    public ValueTask<TOutputData> GetProblemOutputData<TOutputData>()
+    where TOutputData : ProblemOutput;
+
+    public Task SetProblemJsonOutputData(string outputData);
+
+    public Task SetProblemOutputData<TOutputData>(TOutputData outputData)
+        where TOutputData : ProblemOutput;
 }
