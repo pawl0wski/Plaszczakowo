@@ -61,16 +61,16 @@ public class GraphDrawer : Drawer
         await _context.StrokeAsync();
 
         if (e.Throughput != null)
-            await FillEdgeWithFlow(e);
+            await FillEdgeWithThroughput(e);
     }
 
-    private async Task FillEdgeWithFlow(GraphEdge e)
+    private async Task FillEdgeWithThroughput(GraphEdge e)
     {
         if (e.Throughput == null)
             throw new NullReferenceException();
 
-        var x = (e.From.X + e.To.X) / 2 - 15.5;
-        var y = (e.From.Y + e.To.Y) / 2 + 7;
+        var x = e.From.X + (e.To.X - e.From.X) / 1.3 - 20;
+        var y = e.From.Y + (e.To.Y - e.From.Y) / 1.3 + 7.5;
 
         await _context.SetFillStyleAsync("red");
         await _context.SetFontAsync("bold 20px Cascadia Mono");
