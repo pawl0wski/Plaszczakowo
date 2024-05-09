@@ -2,12 +2,12 @@ using Drawer.GraphDrawer;
 
 namespace Problem.HuffmanCoding;
 
-using Microsoft.Extensions.Configuration.CommandLine;
 using ProblemResolver;
 using ProblemVisualizer.Commands;
 public class HuffmanTree
 {
     List <Node> MinHeap = new();
+    private int currentId = -1;
 
     public Node GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref ProblemRecreationCommands<GraphData> commands)
     {
@@ -47,28 +47,39 @@ public class HuffmanTree
             MinHeap.Add(top);
             commands.Add(new ClearGraphCommand());
             DrawVertices(top, ref commands);
-            MinHeap.Sort();
             commands.NextStep();
+            currentId = -1;
+            MinHeap.Sort();
         }
     }
 
-    private void DrawVertices(Node? root, ref ProblemRecreationCommands<GraphData> commands, int X = 600, int Y = 200, int level = 0)
+    private void DrawVertices(Node? root,
+        ref ProblemRecreationCommands<GraphData> commands,
+        int x = 600,
+        int y = 200,
+        int level = 0,
+        int? parentId = null)
     {
         if (root == null)
         {
             return;
         }
+        var id = ++currentId;
 
-        commands.Add(new AddNewVertexCommand(X, Y, root.Character, null));
+        commands.Add(new AddNewVertexCommand(x, y, root.Character, null));
+        if (parentId != null)
+        {
+            commands.Add(new ConnectVertexCommand(parentId ?? 0, currentId));
+        }
         if (level == 0)
         {
-            DrawVertices(root.Left, ref commands, X-195, Y+60, level+1);
-            DrawVertices(root.Right, ref commands, X+205, Y+60, level+1);
+            DrawVertices(root.Right, ref commands, x+205, y+60, level+1, id);
+            DrawVertices(root.Left, ref commands, x-195, y+60, level+1, id);
         }
         else
         {
-            DrawVertices(root.Left, ref commands, X-(80-level*12), Y+60, level+1);
-            DrawVertices(root.Right, ref commands, X+(100+level*10), Y+60, level+1);
+            DrawVertices(root.Right, ref commands, x+(100+level*10), y+60, level+1, id);
+            DrawVertices(root.Left, ref commands, x-(80-level*12), y+60, level+1, id);
         }
     }
 
