@@ -2,10 +2,10 @@
 div.return-button {
     display: flex;
     flex-direction: column;
-    
+
     position: absolute;
     top: 0;
-    
+
     width: 8rem;
     height: 6rem;
 }
@@ -28,7 +28,7 @@ div.return-button__bottom {
     background-image: url("buttons/return-button-bottom.png");
     background-size: cover;
     height: 3rem;
-    
+
     text-align: center;
     display: flex;
     align-items: center;
