@@ -4,11 +4,9 @@
 
 @if (Executor is not null)
 {
-    <div class="custom-overflow">
-        <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
-        <ReturnButton/>
-        <OutputButton ButtonPosition="OutputButton.OutputButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.GuardSchedule"/>
-    </div>
+    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+    <ReturnButton/>
+    <OutputButton ButtonPosition="OutputButton.OutputButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.GuardSchedule"/>
 }
 
 @code {
@@ -17,7 +15,7 @@
     {
         Resolver = new GuardScheduleResolver();
     }
-    
+
     protected override void InitializeFirstSnapshotCreator(GuardScheduleInputData inputData)
     {
         FirstSnapshotCreator = new FirstGuardScheduleSnapshotCreator(inputData);
