@@ -7,7 +7,7 @@ using ProblemVisualizer.Commands;
 public class HuffmanTree
 {
     List <Node> MinHeap = new();
-    private int currentId = -1;
+    int test = 0;
 
     public Node GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref ProblemRecreationCommands<GraphData> commands)
     {
@@ -21,6 +21,7 @@ public class HuffmanTree
         foreach(var letter in letterAppearances.Keys)
         {
             MinHeap.Add(new(letter, letterAppearances[letter], false));
+            test++;
         }
         MinHeap.Sort();
     }
@@ -46,60 +47,75 @@ public class HuffmanTree
             Node top = MakeConnector();
             MinHeap.Add(top);
             commands.Add(new ClearGraphCommand());
-            DrawVertices(top, ref commands);
+            DrawVertices(top, ref commands, RecalculateVerticies(top));
             commands.NextStep();
-            currentId = -1;
             MinHeap.Sort();
         }
     }
 
-    private void DrawVertices(Node? root,
+    private void DrawVertices(Node root,
         ref ProblemRecreationCommands<GraphData> commands,
-        int x = 960,
-        int y = 200,
-        int level = 0,
-        int? parentId = null)
+        int HowManyVertices)
     {
-        if (root == null)
-        {
-            return;
-        }
-        var id = ++currentId;
-        
-        Stack<Node> CurrentLevel = new();
-        Stack<Node> NextLevel = new();
-        if (parentId != null)
-        {
-            CurrentLevel.Push(root);
-            //commands.Add(new ConnectVertexCommand(parentId ?? 0, currentId));
-        }
+        int level = 0;
+        int HowManyLevels = Convert.ToInt32(Math.Floor(Math.Log2(HowManyVertices))) + 1;
+        Console.WriteLine("Vert" + HowManyVertices);
+        int y = 720 / HowManyLevels / 2;
+        Queue<Node> CurrentLevel = new();
+        Queue<Node> NextLevel = new();
 
-        while (CurrentLevel.Count > 0 && NextLevel.Count > 0)
+        CurrentLevel.Enqueue(root);
+
+        int id = 0;
+        while (CurrentLevel.Count > 0 || NextLevel.Count > 0)
         {
-            var VertexSpaceWidth = 1920 / Convert.ToInt32(Math.Pow(2, level+1));
+            var VertexSpaceWidth = 1280 / Convert.ToInt32(Math.Pow(2, level));
             bool isFirstVertex = true;
             int currentx = 0;
             while (CurrentLevel.Count > 0)
             {
-                var current = CurrentLevel.Pop();
+                var current = CurrentLevel.Dequeue();
                 if (isFirstVertex)
+                {
                     currentx += VertexSpaceWidth / 2;
+                }
                 else
+                {
                     currentx += VertexSpaceWidth;
-                commands.Add(new AddNewVertexCommand(currentx, y + (level * 60), current.Character, null));
-                //commands.Add(new ConnectVertexCommand(id, ++currentId));
+                }
+                commands.Add(new AddNewVertexCommand(currentx, y, current.Character, null));
+                if (id%2 == 0)
+                    commands.Add(new ConnectVertexCommand(id, (id-1)/2));
+                else
+                    commands.Add(new ConnectVertexCommand(id, id/2));
                 if (current.Left != null)
-                    NextLevel.Push(current.Left);
-                    Console.WriteLine("Left");
+                    NextLevel.Enqueue(current.Left);
                 if (current.Right != null) 
-                    NextLevel.Push(current.Right);
-                    Console.WriteLine("Right");
+                    NextLevel.Enqueue(current.Right);
                 isFirstVertex = false;
+                id++;
             }
             (CurrentLevel, NextLevel) = (NextLevel, CurrentLevel);
             level++;
+            y += 720 / HowManyLevels;
         }
 
+    }
+    private int RecalculateVerticies(Node root)
+    {
+        Stack<Node> stack = new();
+        stack.Push(root);
+        int count = 0;
+        while (stack.Count > 0)
+        {
+            var current = stack.Pop();
+            if (current.Left != null)
+                stack.Push(current.Left);
+            if (current.Right != null)
+                stack.Push(current.Right);
+            count++;
+        }
+        return count;
     }
 
 }
