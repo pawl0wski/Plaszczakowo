@@ -55,7 +55,7 @@ public class HuffmanTree
 
     private void DrawVertices(Node? root,
         ref ProblemRecreationCommands<GraphData> commands,
-        int x = 600,
+        int x = 960,
         int y = 200,
         int level = 0,
         int? parentId = null)
@@ -65,22 +65,41 @@ public class HuffmanTree
             return;
         }
         var id = ++currentId;
-
-        commands.Add(new AddNewVertexCommand(x, y, root.Character, null));
+        
+        Stack<Node> CurrentLevel = new();
+        Stack<Node> NextLevel = new();
         if (parentId != null)
         {
-            commands.Add(new ConnectVertexCommand(parentId ?? 0, currentId));
+            CurrentLevel.Push(root);
+            //commands.Add(new ConnectVertexCommand(parentId ?? 0, currentId));
         }
-        if (level == 0)
+
+        while (CurrentLevel.Count > 0 && NextLevel.Count > 0)
         {
-            DrawVertices(root.Right, ref commands, x+205, y+60, level+1, id);
-            DrawVertices(root.Left, ref commands, x-195, y+60, level+1, id);
+            var VertexSpaceWidth = 1920 / Convert.ToInt32(Math.Pow(2, level+1));
+            bool isFirstVertex = true;
+            int currentx = 0;
+            while (CurrentLevel.Count > 0)
+            {
+                var current = CurrentLevel.Pop();
+                if (isFirstVertex)
+                    currentx += VertexSpaceWidth / 2;
+                else
+                    currentx += VertexSpaceWidth;
+                commands.Add(new AddNewVertexCommand(currentx, y + (level * 60), current.Character, null));
+                //commands.Add(new ConnectVertexCommand(id, ++currentId));
+                if (current.Left != null)
+                    NextLevel.Push(current.Left);
+                    Console.WriteLine("Left");
+                if (current.Right != null) 
+                    NextLevel.Push(current.Right);
+                    Console.WriteLine("Right");
+                isFirstVertex = false;
+            }
+            (CurrentLevel, NextLevel) = (NextLevel, CurrentLevel);
+            level++;
         }
-        else
-        {
-            DrawVertices(root.Right, ref commands, x+(100+level*10), y+60, level+1, id);
-            DrawVertices(root.Left, ref commands, x-(80-level*12), y+60, level+1, id);
-        }
+
     }
 
 }
