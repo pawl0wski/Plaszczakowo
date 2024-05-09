@@ -5,5 +5,5 @@ namespace Problem.CarrierAssignment;
 
 public record CarrierAssignmentOutput : ProblemOutput
 {
-    public List<GraphEdge>? Pairs;
+    public List<GraphEdge> Pairs = new();
 }
