@@ -1,7 +1,9 @@
-// namespace Problem.ConvexHull;
-//
-// public class ConvexHullOutput : ProblemOutput
-// {
-//     // TODO
-// }
+using ProblemResolver;
+
+namespace Problem.ConvexHull;
+
+public record ConvexHullOutput : ProblemOutput
+{
+    public List<int>? HullIndexes;
+}
 
