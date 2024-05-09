@@ -2,15 +2,11 @@
 @using Problem.GuardSchedule
 @inherits ProblemComponentBase<GuardScheduleInputData, GuardScheduleOutput, Drawer.GraphDrawer.GraphData>
 
-<div>
-    <NavLink href="/guard_schedule_output">
-        Grafik stra¿ników
-    </NavLink>
-</div>
-
 @if (Executor is not null)
 {
-    <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
+    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+    <ReturnButton/>
+    <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.GuardSchedule"/>
 }
 
 @code {
@@ -19,7 +15,7 @@
     {
         Resolver = new GuardScheduleResolver();
     }
-    
+
     protected override void InitializeFirstSnapshotCreator(GuardScheduleInputData inputData)
     {
         FirstSnapshotCreator = new FirstGuardScheduleSnapshotCreator(inputData);
