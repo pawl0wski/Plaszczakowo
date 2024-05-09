@@ -14,9 +14,13 @@ public class ConvexHullResolver : ProblemResolver<CarrierAssignmentInputData, Co
 
     public override ConvexHullOutput Resolve(CarrierAssignmentInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
+        ConvexHullOutput output = new();
         var LowestLandmark = FindLowestLandmark(data.Landmarks);
         var angles = GetAngleOfOtherLandmarks(LowestLandmark, data.Landmarks);
         SortByAngle(angles, data.Landmarks);
+        var indexes = DrawConvexHull(angles, data.Landmarks);
+        output.HullIndexes = indexes;
+        return output;
     }
     private ProblemVertex FindLowestLandmark(List<ProblemVertex> vertices)
     {
@@ -37,10 +41,7 @@ public class ConvexHullResolver : ProblemResolver<CarrierAssignmentInputData, Co
         List<float> angles = new();
         foreach (ProblemVertex vertex in vertices)
         {
-            if (vertex != lowestLandmark)
-            {
                 angles.Add(GetAngle(lowestLandmark, vertex));
-            }
         }
         return angles;
     }
@@ -67,11 +68,34 @@ public class ConvexHullResolver : ProblemResolver<CarrierAssignmentInputData, Co
             }
         }
     }
-    private void DrawConvexHull(List<float> angles, List<ProblemVertex> vertices, GraphData graphData)
+    private List<int> DrawConvexHull(List<float> angles, List<ProblemVertex> vertices)
     {
-        foreach (float angle in angles)
+        List<int> ConvexHullIndexes = new();
+        var ConvexHullStack = new Stack<ProblemVertex>();
+        ConvexHullStack.Push(vertices[0]);
+        ConvexHullStack.Push(vertices[1]);
+        for (int i = 2; i < vertices.Count; i++)
         {
-            
+            var StackTop = ConvexHullStack.Pop();
+            var StackAfterTop = ConvexHullStack.Peek();
+            while (IsClockwise(StackAfterTop, StackTop, vertices[i]))
+            {
+                StackTop = ConvexHullStack.Pop();
+                StackAfterTop = ConvexHullStack.Peek();
+            }
+            ConvexHullStack.Push(StackTop);
+            ConvexHullStack.Push(vertices[i]);
         }
+        foreach (ProblemVertex vertex in ConvexHullStack)
+        {
+            ConvexHullIndexes.Add(vertex.Id);
+            problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertex.Id, GraphStates.Special));
+        }
+        return ConvexHullIndexes;
+    }
+    private bool IsClockwise(ProblemVertex a, ProblemVertex b, ProblemVertex c)
+    {
+        //zmienic nazwy zmiennych
+        return (b.X - a.X) * (c.Y - a.Y) - (b.Y - a.Y) * (c.X - a.X) < 0;
     }
 }
