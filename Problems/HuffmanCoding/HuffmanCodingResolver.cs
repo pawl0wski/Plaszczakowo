@@ -46,8 +46,8 @@ public class HuffmanCodingResolver :
         foreach (var character in inputPhrase)
         {
             result += huffmanDictionary[character];
-            commands.Add(new ChangeTextCommand(0, result, 0, 50));
-            commands.NextStep();
+            //commands.Add(new ChangeTextCommand(0, result, 0, 50));
+            //commands.NextStep();
         }
         return result;
     }
