@@ -23,6 +23,11 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Components\Modals\Authors\Authors.razor" />
       <_ContentIncludedByDefault Remove="Components\Modals\Authors\Components\AuthorEntry.razor" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\fonts.css" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\PixelifySans-Bold.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\PixelifySans-Medium.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\PixelifySans-Regular.ttf" />
+      <_ContentIncludedByDefault Remove="wwwroot\fonts\PixelifySans-SemiBold.ttf" />
     </ItemGroup>
     <ItemGroup>
       <AdditionalFiles Include="Components\Pages\Authors\Authors.razor" />
