@@ -1,8 +1,9 @@
 using Drawer.GraphDrawer;
 
 namespace Problem.HuffmanCoding;
+
+using Microsoft.Extensions.Configuration.CommandLine;
 using ProblemResolver;
-using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;
 public class HuffmanTree
 {
