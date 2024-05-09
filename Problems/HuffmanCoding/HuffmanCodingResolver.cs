@@ -1,48 +1,68 @@
 
 using Drawer.GraphDrawer;
 using ProblemResolver;
+using ProblemVisualizer.Commands;
 namespace Problem.HuffmanCoding;
 
 public class HuffmanCodingResolver :
     ProblemResolver<HuffmanCodingInputData, HuffmanCodingOutput, GraphData>
 {
-    public Dictionary<char, int> CalculateAppearances(string phrase)
+
+    private Dictionary<char, int> CalculateCharacterAppearances(string input)
     {
-        Dictionary<char, int> letterAppearances = new();
-        for (int i = 0; i < phrase.Length; i++)
+        Dictionary<char, int> result = new();
+
+        foreach (var character in input)
         {
-            if (letterAppearances.ContainsKey(phrase[i]))
+            if (!result.ContainsKey(character))
             {
-                letterAppearances[phrase[i]]++;
-            } else
+                result.Add(character, 1);
+            }
+            else
             {
-                letterAppearances.Add(phrase[i], 1);
+                result[character]++;
             }
         }
-        return letterAppearances;
+
+        return result;
+    }
+    private void GenerateHuffmanDictionary(Node? root, ref Dictionary<char, string> huffmanDictionary, string code = "")
+    {
+        if (root == null)
+        {
+            return;
+        }
+        if (!root.IfConnector)
+        {
+            huffmanDictionary.Add(root.Character, code);
+        }
+        GenerateHuffmanDictionary(root.Left, ref huffmanDictionary, code+"0");
+        GenerateHuffmanDictionary(root.Right, ref huffmanDictionary, code+"1");
     }
 
-    public void GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref HuffmanCodingOutput output, ref ProblemRecreationCommands<GraphData> commands)
+    private string GenerateResult(string inputPhrase, Dictionary<char, string> huffmanDictionary, ref ProblemRecreationCommands<GraphData> commands)
     {
-        HuffmanTree huffmanTree = new HuffmanTree();
-        Dictionary<char, string> dict = new Dictionary<char, string>();
-        huffmanTree.CreateHuffmanTree(letterAppearances, ref output, ref commands);
-        GenerateTree(ref output, huffmanTree);
+        string result = "";
+        foreach (var character in inputPhrase)
+        {
+            result += huffmanDictionary[character];
+            commands.Add(new ChangeTextCommand(0, result, 0, 50));
+            commands.NextStep();
+        }
+        return result;
     }
-
-    public void GenerateTree(ref HuffmanCodingOutput output, HuffmanTree huffmanTree)
-    {
-        huffmanTree.GenerateDictionary(output.HuffmanTree, "", ref output.HuffmanDictionary);
-    }
+    
     public override HuffmanCodingOutput Resolve(HuffmanCodingInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
 
         HuffmanCodingOutput output = new();
-        
-        Dictionary<char, int> letterAppearances = CalculateAppearances(data.InputPhrase);
 
-        GenerateHuffmanTree(letterAppearances, ref output, ref commands);
+        Dictionary<char, int> letterAppearances = CalculateCharacterAppearances(data.InputPhrase);
+        HuffmanTree tree = new();
+        Node root = tree.GenerateHuffmanTree(letterAppearances, ref commands);
 
+        GenerateHuffmanDictionary(root, ref output.huffmanDictionary);
+        output.result = GenerateResult(data.InputPhrase, output.huffmanDictionary, ref commands);
         return output;
     }
 
