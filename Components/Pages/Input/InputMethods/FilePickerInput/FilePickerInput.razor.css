@@ -1,3 +1,7 @@
+div.file-picker h1 {
+    padding-left: 2rem;
+}
+
 div.files {
     display: flex;
     flex-direction: column;
