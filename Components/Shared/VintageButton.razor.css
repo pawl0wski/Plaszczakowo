@@ -1,0 +1,19 @@
+div.vintage_button {
+    width: 10rem;
+    height: 3.5rem;
+    
+    background-image: url("buttons/button.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    cursor: pointer;
+}
+
+div.vintage_button:hover {
+    filter: brightness(80%);
+}

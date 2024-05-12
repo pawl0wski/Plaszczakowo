@@ -1,6 +1,6 @@
-button.continue {
-    position: absolute;
-    right: 0;
+div.continue {
+    position: fixed;
+    right: 40px;
     bottom: 0;
     
     height: 4rem;
