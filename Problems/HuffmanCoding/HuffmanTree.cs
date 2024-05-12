@@ -7,7 +7,6 @@ using ProblemVisualizer.Commands;
 public class HuffmanTree
 {
     List <Node> MinHeap = new();
-    int test = 0;
 
     public Node GenerateHuffmanTree(Dictionary<char, int> letterAppearances, ref ProblemRecreationCommands<GraphData> commands)
     {
@@ -21,7 +20,6 @@ public class HuffmanTree
         foreach(var letter in letterAppearances.Keys)
         {
             MinHeap.Add(new(letter, letterAppearances[letter], false));
-            test++;
         }
         MinHeap.Sort();
     }
@@ -59,7 +57,6 @@ public class HuffmanTree
     {
         var level = 0;
         var howManyLevels = Convert.ToInt32(Math.Floor(Math.Log2(howManyVertices))) + 1;
-        Console.WriteLine("Vert" + howManyVertices);
         var y = 720 / howManyLevels / 2;
         Queue<Node> currentLevel = new();
         Queue<Node> nextLevel = new();
