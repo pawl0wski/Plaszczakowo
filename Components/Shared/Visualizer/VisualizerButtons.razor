@@ -3,12 +3,8 @@
 @typeparam TDrawerData where TDrawerData : DrawerData
 
 <div class="visualizer_buttons">
-    <button @onclick="OnStartClick">
-        <Icon Name="fa-backward-step"/>
-    </button>
-    <button @onclick="OnPrevClick">
-        <Icon Name="fa-backward"/>
-    </button>
+    <img @onclick="OnStartClick" src="visualizer/step_ll.png"/>
+    <img @onclick="OnPrevClick" src="visualizer/step_l.png"/>
     <div class="visualizer_stats">
         <p>
             Slajd
@@ -17,12 +13,8 @@
             @(Snapshots.Count)
         </p>
     </div>
-    <button @onclick="OnNextClick">
-        <Icon Name="fa-forward"/>
-    </button>
-    <button @onclick="OnEndClick">
-        <Icon Name="fa-forward-step"/>
-    </button>
+    <img @onclick="OnNextClick" src="visualizer/step_r.png"/>
+    <img @onclick="OnEndClick" src="visualizer/step_rr.png"/>
 </div>
 
 @code {
