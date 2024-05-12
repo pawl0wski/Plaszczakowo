@@ -12,6 +12,7 @@ div.old_button {
     align-items: center;
     
     cursor: pointer;
+    user-select: none;
 }
 
 div.old_button--disabled {
