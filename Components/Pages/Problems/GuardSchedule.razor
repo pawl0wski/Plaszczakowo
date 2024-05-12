@@ -2,12 +2,15 @@
 @using Problem.GuardSchedule
 @inherits ProblemComponentBase<GuardScheduleInputData, GuardScheduleOutput, Drawer.GraphDrawer.GraphData>
 
-@if (Executor is not null)
-{
-    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
-    <ReturnButton/>
-    <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.GuardSchedule"/>
-}
+<div class="guard-schedule">
+    @if (Executor is not null)
+    {
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+        <ReturnButton/>
+        <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.GuardSchedule"/>
+    }
+</div>
+
 
 @code {
 

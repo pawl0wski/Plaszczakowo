@@ -7,12 +7,15 @@
 @inject IProblemState ProblemState;
 @inject NavigationManager Navigator;
 
-<ReturnButton />
-<div class="click_handler" @onclick="OnCreatorClick">
-    <GraphCanvas EnableZoom="false" Data="_currentData" @ref="_canvas"/>
+<div class="graph-creator">
+    <ReturnButton />
+    <div class="click_handler" @onclick="OnCreatorClick">
+        <GraphCanvas EnableZoom="false" Data="_currentData" @ref="_canvas"/>
+    </div>
+    <GraphCreatorToolbox OnToolSelect="OnToolSelect" SelectedMode="_currentMode"/>
+    <GraphCreatorToolContinue OnContinue="OnContinue" />
 </div>
-<GraphCreatorToolbox OnToolSelect="OnToolSelect" SelectedMode="_currentMode"/>
-<GraphCreatorToolContinue OnContinue="OnContinue" />
+
 
 @code {
 

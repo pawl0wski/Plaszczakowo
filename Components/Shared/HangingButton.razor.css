@@ -26,8 +26,9 @@ div.return-button__right {
 
 div.return-button__bottom {
     background-image: url("buttons/return-button-bottom.png");
-    background-size: cover;
+    background-size: 100%;
     height: 3rem;
+    background-repeat: no-repeat;
 
     text-align: center;
     display: flex;
