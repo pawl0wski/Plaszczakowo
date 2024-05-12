@@ -1,6 +1,6 @@
 div.old_button {
     width: 10rem;
-    height: 3.5rem;
+    height: 3.7rem;
     
     background-image: url("buttons/button.png");
     background-size: 100%;
@@ -12,6 +12,14 @@ div.old_button {
     align-items: center;
     
     cursor: pointer;
+}
+
+div.old_button--disabled {
+    filter: contrast(50%);
+}
+
+div.old_button--disabled:hover {
+    filter: contrast(50%);
 }
 
 div.old_button:hover {

@@ -25,6 +25,7 @@ div.return-button__right {
 }
 
 div.return-button__bottom {
+    color: black;
     background-image: url("buttons/button.png");
     background-size: 100%;
     height: 3rem;
