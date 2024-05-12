@@ -55,49 +55,50 @@ public class HuffmanTree
 
     private void DrawVertices(Node root,
         ref ProblemRecreationCommands<GraphData> commands,
-        int HowManyVertices)
+        int howManyVertices)
     {
-        int level = 0;
-        int HowManyLevels = Convert.ToInt32(Math.Floor(Math.Log2(HowManyVertices))) + 1;
-        Console.WriteLine("Vert" + HowManyVertices);
-        int y = 720 / HowManyLevels / 2;
-        Queue<Node> CurrentLevel = new();
-        Queue<Node> NextLevel = new();
+        var level = 0;
+        var howManyLevels = Convert.ToInt32(Math.Floor(Math.Log2(howManyVertices))) + 1;
+        Console.WriteLine("Vert" + howManyVertices);
+        var y = 720 / howManyLevels / 2;
+        Queue<Node> currentLevel = new();
+        Queue<Node> nextLevel = new();
 
-        CurrentLevel.Enqueue(root);
+        currentLevel.Enqueue(root);
 
-        int id = 0;
-        while (CurrentLevel.Count > 0 || NextLevel.Count > 0)
+        var id = 0;
+        while (currentLevel.Count > 0 || nextLevel.Count > 0)
         {
-            var VertexSpaceWidth = 1280 / Convert.ToInt32(Math.Pow(2, level));
-            bool isFirstVertex = true;
-            int currentx = 0;
-            while (CurrentLevel.Count > 0)
+            var vertexSpaceWidth = 1280 / Convert.ToInt32(Math.Pow(2, level));
+            var isFirstVertex = true;
+            var currentx = 0;
+            while (currentLevel.Count > 0)
             {
-                var current = CurrentLevel.Dequeue();
+                var current = currentLevel.Dequeue();
                 if (isFirstVertex)
                 {
-                    currentx += VertexSpaceWidth / 2;
+                    currentx += vertexSpaceWidth / 2;
                 }
                 else
                 {
-                    currentx += VertexSpaceWidth;
+                    currentx += vertexSpaceWidth;
                 }
                 commands.Add(new AddNewVertexCommand(currentx, y, current.Character, null));
-                if (id%2 == 0)
-                    commands.Add(new ConnectVertexCommand(id, (id-1)/2));
-                else
-                    commands.Add(new ConnectVertexCommand(id, id/2));
+                
+                commands.Add(id % 2 == 0
+                    ? new ConnectVertexCommand(id, (id - 1) / 2)
+                    : new ConnectVertexCommand(id, id / 2));
+                
                 if (current.Left != null)
-                    NextLevel.Enqueue(current.Left);
+                    nextLevel.Enqueue(current.Left);
                 if (current.Right != null) 
-                    NextLevel.Enqueue(current.Right);
+                    nextLevel.Enqueue(current.Right);
                 isFirstVertex = false;
                 id++;
             }
-            (CurrentLevel, NextLevel) = (NextLevel, CurrentLevel);
+            (currentLevel, nextLevel) = (nextLevel, currentLevel);
             level++;
-            y += 720 / HowManyLevels;
+            y += 720 / howManyLevels;
         }
 
     }
@@ -105,7 +106,7 @@ public class HuffmanTree
     {
         Stack<Node> stack = new();
         stack.Push(root);
-        int count = 0;
+        var count = 0;
         while (stack.Count > 0)
         {
             var current = stack.Pop();
