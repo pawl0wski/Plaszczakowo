@@ -10,7 +10,7 @@ public record CarrierAssignmentInputData(int FrontCarrierNumber, int RearCarrier
     public int RearCarrierNumber { get; set; } = RearCarrierNumber;
     public List<Edge> Relations { get; set; } = Relations;
     
-    public List<ProblemEdge> Paths { get; set; } = Paths;
     public List<ProblemVertex> Landmarks { get; set; } = Landmarks;
+    public List<ProblemEdge> Paths { get; set; } = Paths;
     public int FactoryIndex { get; set; } = FactoryIndex;
 }

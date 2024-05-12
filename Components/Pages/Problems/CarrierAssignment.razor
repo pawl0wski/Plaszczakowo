@@ -1,6 +1,7 @@
 @page "/carrier_assignment"
 @using Problem.CarrierAssignment;
-@inherits ProblemComponentBase<CarrierAssignmentInputData, CarrierAssignmentOutput, Drawer.GraphDrawer.GraphData>
+@using Problem.ConvexHull;
+@inherits ProblemComponentBase<CarrierAssignmentInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
 
 @if (Executor is not null)
 {
@@ -12,16 +13,12 @@
 
     protected override void InitializeResolver()
     {
-        Resolver = new CarrierAssignmentResolver();
+        Resolver = new ConvexHullResolver();
     }
 
     protected override void InitializeFirstSnapshotCreator(CarrierAssignmentInputData inputData)
     {
-        FirstSnapshotCreator = new FirstCarrierAssignmentSnapshotCreator(inputData);
+        FirstSnapshotCreator = new ConvexHullFirstSnapshotCreator(inputData);
     }
 
-    private void UpdateInputData()
-    {
-        
-    }
 }
