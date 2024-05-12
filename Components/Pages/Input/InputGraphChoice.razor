@@ -1,7 +1,7 @@
 @page "/graph_input_choice/{ProblemName}"
 @inherits InputChoiceBase
 
-<LandscapeBackground />
+<LandscapeBackground/>
 <div class="input_choice_page">
     <ReturnButton/>
     <h1 class="center">
@@ -9,15 +9,13 @@
     </h1>
 
     <div class="horizontal_centered_row">
-        <NavLink href="@GetFromFileLink()">
-            <InputChoice
-                Title="Z pliku"
-                Description="Wprowadź graf z pliku json"/>
-        </NavLink>
-        <NavLink href="@GetGraphCreatorLink()">
-            <InputChoice
-                Title="Kreator grafów"
-                Description="Wprowadź graf z kreatora grafów"/>
-        </NavLink>
+        <InputChoice
+            Title="Plik"
+            Description="Wybierz plik odpowiadający zapisanemu wcześniej grafowi."
+            Href="@GetFromFileLink()"/>
+        <InputChoice
+            Title="Kreator grafów"
+            Description="Skorzystaj z kreatora grafów aby stworzyć dane wejściowe."
+            Href="@GetGraphCreatorLink()"/>
     </div>
 </div>
