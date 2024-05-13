@@ -67,17 +67,19 @@ public class HuffmanTree
         while (currentLevel.Count > 0 || nextLevel.Count > 0)
         {
             var vertexSpaceWidth = 1280 / Convert.ToInt32(Math.Pow(2, level));
-            // var isFirstVertex = true;
             var startX = vertexSpaceWidth / 2;
             while (currentLevel.Count > 0)
             {
                 var current = currentLevel.Dequeue();
       
                 commands.Add(new AddNewVertexCommand(startX + vertexSpaceWidth * current.LeftOffset, y, current.InnerNode.Character, null));
-                
+
                 if (current.ConnectTo is not null)
+                {
                     commands.Add(new ConnectVertexCommand(current.Id, current.ConnectTo ?? 0));
-                
+                    commands.Add(new ChangeLastEdgeThroughputCommand(
+                    new GraphThroughput( current.Id % 2 == 0 ? 1 : 0 )));
+                }
                 
                 if (current.InnerNode.Left is not null)
                     nextLevel.Enqueue(new HuffmanNode(
