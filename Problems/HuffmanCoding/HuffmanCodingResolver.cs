@@ -56,13 +56,13 @@ public class HuffmanCodingResolver :
     {
 
         HuffmanCodingOutput output = new();
-
+        output.InputPhrase = data.InputPhrase;
         Dictionary<char, int> letterAppearances = CalculateCharacterAppearances(data.InputPhrase);
         HuffmanTree tree = new();
         Node root = tree.GenerateHuffmanTree(letterAppearances, ref commands);
 
-        GenerateHuffmanDictionary(root, ref output.huffmanDictionary);
-        output.result = GenerateResult(data.InputPhrase, output.huffmanDictionary, ref commands);
+        GenerateHuffmanDictionary(root, ref output.HuffmanDictionary);
+        output.Result = GenerateResult(data.InputPhrase, output.HuffmanDictionary, ref commands);
         return output;
     }
 

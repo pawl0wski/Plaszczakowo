@@ -1,0 +1,24 @@
+@page "/huffman_coding"
+@using Drawer.GraphDrawer
+@using Problem.HuffmanCoding
+@inherits ProblemComponentBase<HuffmanCodingInputData, HuffmanCodingOutput, GraphData>
+
+@if (Executor is not null)
+{
+    <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
+    <ReturnButton/>
+    <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.HuffmanCoding"/>
+}
+
+@code {
+
+    protected override void InitializeResolver()
+    {
+        Resolver = new HuffmanCodingResolver();
+    }
+
+    protected override void InitializeFirstSnapshotCreator(HuffmanCodingInputData inputData)
+    {
+        FirstSnapshotCreator = new FirstHuffmanCodingSnapshotCreator(inputData);
+    }
+}

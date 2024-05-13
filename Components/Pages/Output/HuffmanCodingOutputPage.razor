@@ -1,0 +1,28 @@
+@page "/huffman_coding_output"
+
+@using States
+@using ProblemResolver
+@using Problem.HuffmanCoding;
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inherits ProblemOutputBase
+@inject NavigationManager Navigator
+@inject IProblemState ProblemState
+
+<ReturnButton/>
+<br/><br/>
+<h2>Zakodowana melodia:</h2>
+@if (_outputData != null)
+{
+    <p>@_outputData.Result</p>
+}
+
+
+
+@code {
+    HuffmanCodingOutput? _outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _outputData = await ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
+    }
+}

@@ -1,0 +1,41 @@
+@page "/phrase_correction_output"
+@using States
+@using ProblemResolver
+@using Problem.PhraseCorrection
+@using Problem.HuffmanCoding;
+@using System.Text.Json
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inherits ProblemOutputBase
+
+@inject NavigationManager Navigator;
+@inject IProblemState ProblemState
+
+<h2>Poprawiona melodia:</h2>
+@if (_outputData != null)
+{
+    <p>@_outputData.FixedPhrase</p>
+}
+
+<button @onclick=GoToNextSubproblem>Przejdź dalej</button>
+
+
+
+@code {
+    PhraseCorrectionOutput? _outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _outputData = await ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
+        Console.WriteLine(_outputData.FixedPhrase);
+    }
+
+    protected void GoToNextSubproblem()
+    {
+        if (_outputData != null)
+        {
+            HuffmanCodingInputData data = new(_outputData.FixedPhrase);
+            string huffmanInput = JsonSerializer.Serialize(data);
+            Navigator.NavigateTo($"/huffman_coding");
+        }
+    }
+}
