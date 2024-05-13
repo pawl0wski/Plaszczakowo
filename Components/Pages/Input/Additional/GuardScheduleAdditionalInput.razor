@@ -1,0 +1,162 @@
+﻿@page "/input/additional/guard_schedule"
+
+@using Problem.GuardSchedule
+@using System.Text.Json
+@using ElectronNET.API
+@using ElectronNET.API.Entities
+@inherits AdditionalInputBase<GuardScheduleInputData>
+@inject NavigationManager Navigator
+
+<h1>Płaszczaki</h1>
+<table>
+    <tr>
+        <th>Index</th>
+        <th>Energia</th>
+    </tr>
+    @if (ProblemInput is not null)
+    {
+        @foreach (var plaszczak in ProblemInput.Plaszczaki)
+        {
+            <tr>
+                <td>@plaszczak.Index</td>
+                <td>
+                    <input @bind="plaszczak.Energy"/>
+                </td>
+                <td>
+                    <button @onclick="() => RemovePlaszczak(plaszczak)">Usuń</button>
+                </td>
+            </tr>
+        }
+    }
+    <tr>
+        <td>
+            <button @onclick="AddPlaszczak">Dodaj</button>
+        </td>
+        <td>
+            <button @onclick="GenerateRandomPlaszczaki">Losuj</button>
+        </td>
+        <td>
+            @if (ProblemInput is not null)
+            {
+                <label>Max kroków: </label>
+                <input @bind="ProblemInput.MaxPossibleSteps"/>
+            }
+        </td>
+    </tr>
+</table>
+
+<br/>
+<p>Wprowadź nową nazwę pliku</p>
+<input @bind="_newFileName"/>
+<button @onclick="SaveInputToFile">Zapisz do pliku</button>
+<button @onclick="GoToProblemPage">Wczytaj</button>
+
+@code {
+    private readonly Random _random = new();
+    private string _newFileName = "";
+
+    protected override void InitializeDefaultInputProperties()
+    {
+        if (ProblemInput is not null)
+        {
+            ProblemInput.Plaszczaki = [];
+        }
+    }
+
+    void AddPlaszczak()
+    {
+        if (ProblemInput is null)
+            return;
+
+        ProblemInput.Plaszczaki.Add(new Plaszczak(0, 0, 0));
+        FixIndexing();
+    }
+
+    void RemovePlaszczak(Plaszczak plaszczak)
+    {
+        ProblemInput?.Plaszczaki.Remove(plaszczak);
+
+        FixIndexing();
+    }
+
+    void GenerateRandomPlaszczaki()
+    {
+        if (ProblemInput is null)
+            return;
+
+        var randomPlaszczakAmount = _random.Next(1, 20);
+
+        var randomMaxSteps = _random.Next(1, 6);
+        ProblemInput.MaxPossibleSteps = randomMaxSteps;
+
+        for (var i = 0; i < randomPlaszczakAmount; i++)
+        {
+            var randomPlaszczakEnergy = _random.Next(1, 50);
+            ProblemInput.Plaszczaki.Add(new Plaszczak(randomPlaszczakEnergy, 0, 0));
+        }
+
+        FixIndexing();
+    }
+
+    void FixIndexing()
+    {
+        if (ProblemInput is null) return;
+
+        var id = 0;
+        foreach (var plaszczak in ProblemInput.Plaszczaki)
+        {
+            plaszczak.Index = id;
+            id++;
+        }
+    }
+
+    private async void SaveInputToFile()
+    {
+        var output = JsonSerializer.Serialize(ProblemInput);
+        await ProblemState!.SetProblemJsonInputData(output);
+
+        if (_newFileName.Length == 0 || output.Length == 0)
+        {
+            return;
+        }
+
+        var destinationFilePath = Path.Join(GetProblemPath("guard_schedule"), $"{_newFileName}.json");
+
+        if (File.Exists(destinationFilePath))
+        {
+            var currentBrowserWindow = Electron.WindowManager.BrowserWindows.First();
+            var options = new MessageBoxOptions("Podany plik istnieje, czy chcesz go nadpisać?")
+            {
+                Buttons = ["Nie", "Tak"],
+                Title = "Plik istnieje"
+            };
+            var messageBoxResult = await Electron.Dialog.ShowMessageBoxAsync(currentBrowserWindow, options);
+            if (messageBoxResult.Response == 0)
+            {
+                return;
+            }
+        }
+
+        File.WriteAllText(destinationFilePath, output);
+
+        Navigator.NavigateTo("/guard_schedule");
+    }
+
+    private async void GoToProblemPage()
+    {
+        var output = JsonSerializer.Serialize(ProblemInput);
+        await ProblemState!.SetProblemJsonInputData(output);
+        Navigator.NavigateTo($"/guard_schedule");
+    }
+
+    private static string GetProblemPath(string problemName)
+    {
+        return Path.Join(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "Plaszczakowo",
+            problemName);
+    }
+
+
+
+}

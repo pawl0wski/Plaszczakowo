@@ -6,25 +6,27 @@
 @inject NavigationManager Navigator
 @inject IProblemState ProblemState;
 
-<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right" />
-<h1>Wybierz plik</h1>
-<div class="files">
-    @foreach (var problemInputFile in GetAllProblemFiles())
-    {
-        <span @onclick="() => OnFileSelect(problemInputFile)">
-            <FileComponent
-                FilePath="@problemInputFile"/>
-        </span>
-    }
+<div class="file-picker">
+    <div class="title">
+        <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right"/>
+        <h1>Wybierz plik</h1>
+    </div>
+    <div class="files">
+        @foreach (var problemInputFile in GetAllProblemFiles())
+        {
+            <span @onclick="() => OnFileSelect(problemInputFile)">
+                <FileComponent
+                    Selected="_selectedFile == problemInputFile"
+                    FilePath="@problemInputFile"/>
+            </span>
+        }
+    </div>
+    <div class="buttons">
+        <OldButton @onclick="GetFile">Wybierz inny plik</OldButton>
+        <OldButton Disabled="_selectedFile is null" 
+            @onclick="ReadFileAndGoToProblemPage">Wczytaj</OldButton>
+    </div>
 </div>
-
-<button @onclick="GetFile">Wybierz plik</button>
-<button @onclick="ReadFileAndGoToProblemPage" disabled="@(_selectedFile == null)">Wczytaj</button>
-
-@if (_selectedFile is not null)
-{
-    <p>SelectedFile: @_selectedFile</p>
-}
 
 @code {
     private string? _selectedFile;

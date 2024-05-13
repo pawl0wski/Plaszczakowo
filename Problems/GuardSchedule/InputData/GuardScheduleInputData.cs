@@ -4,9 +4,9 @@ using ProblemResolver.Graph;
 namespace Problem.GuardSchedule;
 
 public record GuardScheduleInputData(
-    List<Plaszczak> Plaszczaki,
     List<ProblemVertex> Vertices,
     List<ProblemEdge> Edges,
+    List<Plaszczak> Plaszczaki,
     int MaxPossibleSteps)
     : ProblemGraphInputData(Vertices, Edges)
 {

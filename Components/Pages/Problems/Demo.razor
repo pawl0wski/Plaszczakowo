@@ -2,10 +2,13 @@
 @using Problem.Demo
 @inherits ProblemComponentBase<DemoInputData, DemoProblemOutput, Drawer.GraphDrawer.GraphData>
 
-@if (Executor is not null)
-{
-    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
-}
+<div class="demo">
+    @if (Executor is not null)
+    {
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+    }
+</div>
+
 
 @code {
 

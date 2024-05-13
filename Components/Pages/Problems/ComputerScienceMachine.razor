@@ -1,15 +1,16 @@
 @page "/computer_science_machine"
 @using Drawer.TextReplaceDrawer
 @using Problem.PhraseCorrection
-@using ProjektZaliczeniowy_AiSD2.Components.Shared.Visualizer.TextReplaceVisualizer
 @inherits ProblemComponentBase<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
 
-@if (Executor is not null)
-{
-    <TextReplaceVisualizer Snapshots="Executor.GetSnapshots()" />
-    <ReturnButton/>
-    <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.PhraseCorrection"/>
-}
+<div class="map-background">
+    @if (Executor is not null)
+    {
+        <TextReplaceVisualizer Snapshots="Executor.GetSnapshots()" />
+        <ReturnButton/>
+        <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.PhraseCorrection"/>
+    }
+</div>
 
 @code {
 

@@ -1,13 +1,29 @@
 div.input_choice {
+    width: 20rem;
     text-align: center;
-    background-color: #e6e6e6;
-
+    
+    background-image: url("buttons/input-choice-button.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
     margin-top: 5rem;
     padding: 2rem;
-    border-radius: 2rem;
 
     cursor: pointer;
     transition: 0.5s background-color;
+    
+    color: white;
+}
+
+div.input_choice h3 {
+    font-size: 1.7rem;
+    margin: 0;
+}
+
+div.input_choice p {
+    opacity: 0.6;
+    margin: 0;
 }
 
 div.input_choice img {
@@ -15,6 +31,3 @@ div.input_choice img {
     aspect-ratio: 1 / 1;
 }
 
-div.input_choice:hover {
-    background-color: #b8b8b8;
-}

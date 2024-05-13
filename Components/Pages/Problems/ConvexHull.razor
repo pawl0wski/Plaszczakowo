@@ -1,8 +1,26 @@
-@* @page "/convex_hull" *@
-@* @using Problem.ConvexHull; *@
-@* *@
-@* <h1>Otoczka wypukła</h1> *@
-@* *@
-@* @code { *@
-@*         private ConvexHullResolver resolver = new(); *@
-@* } *@
+@page "/convex_hull";
+@using Problem.ConvexHull;
+@using Problem.CarrierAssignment;
+@inherits ProblemComponentBase<CarrierAssignmentInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
+
+<div class="map-background">
+    @if (Executor is not null)
+    {
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+        <ReturnButton/>
+    }
+</div>
+
+@code {
+
+    protected override void InitializeResolver()
+    {
+        Resolver = new ConvexHullResolver();
+    }
+
+    protected override void InitializeFirstSnapshotCreator(CarrierAssignmentInputData inputData)
+    {
+        FirstSnapshotCreator = new ConvexHullFirstSnapshotCreator(inputData);
+    }
+
+}

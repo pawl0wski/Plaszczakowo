@@ -2,10 +2,14 @@
 @using Problem.CarrierAssignment;
 @inherits ProblemComponentBase<CarrierAssignmentInputData, CarrierAssignmentOutput, Drawer.GraphDrawer.GraphData>
 
-@if (Executor is not null)
-{
-    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
-}
+<div class="map-background">
+    @if (Executor is not null)
+    {
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+        <ReturnButton/>
+        <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.CarrierAssignment"/>
+    }
+</div>
 
 
 @code {
@@ -17,6 +21,7 @@
 
     protected override void InitializeFirstSnapshotCreator(CarrierAssignmentInputData inputData)
     {
-        FirstSnapshotCreator = new FirstCarrierAssignmentSnapshotCreator(inputData);
+        FirstSnapshotCreator = new CarrierAssignmentFirstSnapshotCreator(inputData);
     }
+
 }

@@ -1,12 +1,38 @@
+
+div.title h1 {
+    padding-left: 2rem;
+    margin: 0;
+}
+
+div.title {
+    height: 15vh;
+    
+    display: flex;
+    align-items: center;
+    background: url("authors/background.png");
+    
+    color: white;
+    
+}
+
 div.files {
     display: flex;
     flex-direction: column;
 
     width: 100vw;
-    height: 80vh;
+    height: 75vh;
 
-    border-style: solid;
-    border-left: none;
-    border-right: none;
-    border-color: lightgray;
+    
+    background: url("background/map.png");
+    
+}
+
+div.buttons {
+    background: url("authors/background.png");
+
+    height: 10vh;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

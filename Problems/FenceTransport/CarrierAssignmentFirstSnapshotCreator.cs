@@ -3,7 +3,7 @@ using ProblemVisualizer;
 
 namespace Problem.CarrierAssignment;
 
-public class FirstCarrierAssignmentSnapshotCreator(CarrierAssignmentInputData inputData)
+public class CarrierAssignmentFirstSnapshotCreator(CarrierAssignmentInputData inputData)
     : FirstSnapshotCreator<CarrierAssignmentInputData, GraphData>(inputData)
 {
     public override GraphData CreateFirstSnapshot()

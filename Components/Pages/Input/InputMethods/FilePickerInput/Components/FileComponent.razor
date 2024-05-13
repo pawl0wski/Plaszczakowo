@@ -1,4 +1,4 @@
-<div class="file">
+<div class="@GetHtmlClass()">
     <Icon Name="fa-file"/>
     <p>
         @GetFileName()
@@ -9,9 +9,16 @@
 
     [Parameter] public required string FilePath { get; set; }
 
+    [Parameter] public bool? Selected { get; set; }
+
     private string GetFileName()
     {
         return Path.GetFileName(FilePath);
+    }
+
+    private string GetHtmlClass()
+    {
+        return "file " + (Selected ?? false ? "file--active" : "");
     }
 
 }
