@@ -72,7 +72,7 @@ public class GraphDrawer : Drawer
         var x = e.From.X + (e.To.X - e.From.X) / 1.3 - 20;
         var y = e.From.Y + (e.To.Y - e.From.Y) / 1.3 + 7.5;
 
-        await _context.SetFillStyleAsync("red");
+        await _context.SetFillStyleAsync(e.State.GetPrimaryColor());
         await _context.SetFontAsync("bold 20px Cascadia Mono");
         await _context.FillTextAsync(e.Throughput.ToString(), x, y);
     }

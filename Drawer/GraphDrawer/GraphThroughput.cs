@@ -5,7 +5,7 @@ public class GraphThroughput
     public int Flow;
     public int Capacity;
 
-    public GraphThroughput(int flow, int capacity)
+    public GraphThroughput(int flow, int capacity = -1)
     {
         Flow = flow;
         Capacity = capacity;
@@ -13,6 +13,6 @@ public class GraphThroughput
 
     public override string ToString()
     {
-        return $"{Flow}|{Capacity}";
+        return Capacity == -1 ? $"{Flow}" : $"{Flow}|{Capacity}";
     }
 }

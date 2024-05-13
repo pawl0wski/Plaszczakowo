@@ -1,11 +1,13 @@
-// namespace Problem.HuffmanCoding;
-//
-// public class HuffmanCodingInputData : ProblemInputData
-// {
-//     public string InputPhrase;
-//     public HuffmanCodingInputData(string inputPhrase)
-//     {
-//         this.InputPhrase = inputPhrase;
-//     }
-// }
+using ProblemResolver;
+namespace Problem.HuffmanCoding;
+
+public record HuffmanCodingInputData : ProblemInputData
+{
+    public string InputPhrase { get; set; }
+
+    public HuffmanCodingInputData(string inputPhrase)
+    {
+        InputPhrase = inputPhrase;
+    }
+}
 
