@@ -17,21 +17,6 @@
         <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
         <PackageReference Include="ElectronNET.API" Version="23.6.2" />
     </ItemGroup>
-    <ItemGroup>
-      <None Include="wwwroot\background\modal_background.png" />
-    </ItemGroup>
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Components\Modals\Authors\Authors.razor" />
-      <_ContentIncludedByDefault Remove="Components\Modals\Authors\Components\AuthorEntry.razor" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\fonts.css" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\PixelifySans-Bold.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\PixelifySans-Medium.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\PixelifySans-Regular.ttf" />
-      <_ContentIncludedByDefault Remove="wwwroot\fonts\PixelifySans-SemiBold.ttf" />
-    </ItemGroup>
-    <ItemGroup>
-      <AdditionalFiles Include="Components\Pages\Authors\Authors.razor" />
-    </ItemGroup>
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm install" WorkingDirectory="JsDependencies/" />
         <Exec Command="npm run build" WorkingDirectory="JsDependencies/" />
