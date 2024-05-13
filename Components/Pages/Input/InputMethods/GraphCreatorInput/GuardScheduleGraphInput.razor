@@ -1,0 +1,162 @@
+﻿@page "/input/additional_input/guard_schedule"
+
+@using ProjektZaliczeniowy_AiSD2.Components.States
+@using Problem.GuardSchedule
+@using ProblemResolver.Graph
+@using System.Text.Json
+@using ElectronNET.API
+@using ElectronNET.API.Entities
+@inherits InputMethodBase
+@inject NavigationManager Navigator
+@inject IProblemState ProblemState
+
+<h1>Płaszczaki</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Index</th>
+            <th>Energia</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (problemInputData?.Plaszczaki != null)
+        {
+            @foreach (var plaszczak in problemInputData.Plaszczaki)
+            {
+                <tr>
+                    <td>@plaszczak.Index</td>
+                    <td><input @bind="@plaszczak.Energy" /></td>
+                    <td><button @onclick="@(() => RemovePlaszczak(plaszczak))">Usuń</button></td>
+                </tr>
+            }
+        }
+        <tr>
+            <td><button @onclick="@AddPlaszczak">Dodaj</button></td>
+            <td><button @onclick="@GenerateRandomPlaszczaki">Losuj</button></td>
+            <td>
+                    @if (problemInputData?.MaxPossibleSteps != null)
+                    {
+                <label>Max kroków: </label>
+                <input @bind="@problemInputData.MaxPossibleSteps" />
+                    }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br />
+<p>Wprowadź nową nazwę pliku</p>
+<input @bind="newFileName" />
+<button @onclick="SaveInputToFile">Zapisz do pliku</button>
+<button @onclick="GoToProblemPage">Wczytaj</button>
+
+@code {
+    GuardScheduleInputData? problemInputData;
+    Random random = new Random();
+    string newFileName = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        problemInputData = await ProblemState.GetProblemInputData<GuardScheduleInputData>();
+    }
+
+    void AddPlaszczak()
+    {
+        if (problemInputData is null) 
+            return;
+
+        if (problemInputData.Plaszczaki is null)
+            problemInputData.Plaszczaki = new();
+
+        problemInputData.Plaszczaki.Add(new Plaszczak(0, 0, 0));
+        FixIndexing();
+    }
+
+    void RemovePlaszczak(Plaszczak plaszczak)
+    {
+        problemInputData?.Plaszczaki.Remove(plaszczak);
+
+        FixIndexing();
+    }
+
+    void GenerateRandomPlaszczaki()
+    {
+        if (problemInputData is null)
+            return;
+
+        problemInputData.Plaszczaki = new();
+
+        int randomPlaszczakAmount = random.Next(1, 20);
+
+        int randomMaxSteps = random.Next(1, 6);
+        problemInputData.MaxPossibleSteps = randomMaxSteps;
+
+        for (int i = 0; i < randomPlaszczakAmount; i++)
+        {
+            int randomPlaszczakEnergy = random.Next(1, 50);
+            problemInputData?.Plaszczaki.Add(new Plaszczak(randomPlaszczakEnergy, 0, 0));
+        }
+
+        FixIndexing();
+    }
+
+    void FixIndexing()
+    {
+        if (problemInputData?.Plaszczaki != null)
+        {
+            int i = 0;
+            foreach (var plaszczak in problemInputData.Plaszczaki)
+            {
+                plaszczak.Index = i;
+                i++;
+            }
+        }
+    }
+
+    private async void SaveInputToFile()
+    {
+        string output = JsonSerializer.Serialize(problemInputData);
+        await ProblemState.SetProblemJsonInputData(output);
+
+        if (newFileName.Length == 0 || output.Length == 0)
+        {
+            return;
+        }
+
+        string destinationFilePath = Path.Join(GetProblemPath("guard_schedule"), $"{newFileName}.json");
+
+        if (File.Exists(destinationFilePath))
+        {
+            var currentBrowserWindow = Electron.WindowManager.BrowserWindows.First();
+            var options = new MessageBoxOptions("Podany plik istnieje, czy chcesz go nadpisać?")
+                {
+                    Buttons = ["Nie", "Tak"],
+                    Title = "Plik istnieje"
+                };
+            var messageBoxResult = await Electron.Dialog.ShowMessageBoxAsync(currentBrowserWindow, options);
+            if (messageBoxResult.Response == 0)
+            {
+                return;
+            }
+        }
+
+        File.WriteAllText(destinationFilePath, output);
+
+        Navigator.NavigateTo("/guard_schedule");
+    }
+
+    private async void GoToProblemPage()
+    {
+        string output = JsonSerializer.Serialize(problemInputData);
+        await ProblemState.SetProblemJsonInputData(output);
+        Navigator.NavigateTo($"/guard_schedule");
+    }
+
+    private static string GetProblemPath(string problemName)
+    {
+        return Path.Join(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "Plaszczakowo",
+            problemName);
+    }
+}

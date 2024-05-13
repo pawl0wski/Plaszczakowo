@@ -1,4 +1,5 @@
 ﻿using Drawer.GraphDrawer;
+using Microsoft.AspNetCore.Components.Forms;
 using ProblemResolver;
 using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;
@@ -25,7 +26,7 @@ public class GuardScheduleResolver
         var maxVertexValue = inputData.Vertices.Max((v) => v.Value)!.Value;
         var plaszczaki = inputData.Plaszczaki;
         int verticesCount = inputData.Vertices.Count;
-        int xCoordinateForText = inputData.Vertices[inputData.Vertices.Count / 3].X + 150 ?? 0;
+        int xCoordinateForText = FindMaxXCoordinate(inputData.Vertices);
 
         plaszczaki.Sort();
         var plaszczakIndex = 0;
@@ -137,6 +138,20 @@ public class GuardScheduleResolver
             problemRecreationCommands?.Add(new ChangeTextCommand(4, $"Kroki: 💤", xCoordinateForText, 400, GraphStates.Active));
         else
             problemRecreationCommands?.Add(new ChangeTextCommand(4, $"Kroki: {p.Steps}", xCoordinateForText, 400, GraphStates.Inactive));
+    }
+    private int FindMaxXCoordinate(List<ProblemVertex> inputData)
+    {
+        int maxX = int.MinValue;
+
+        foreach (var vertex in inputData)
+        {
+            if (vertex.X > maxX)
+            {
+                maxX = (int)vertex.X;
+            }
+        }
+
+        return maxX + 150;
     }
 }
 
