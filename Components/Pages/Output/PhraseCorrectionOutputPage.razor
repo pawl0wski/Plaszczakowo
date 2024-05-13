@@ -9,7 +9,8 @@
 
 @inject NavigationManager Navigator;
 @inject IProblemState ProblemState
-
+<ReturnButton/>
+<br/><br/><br/>
 <h2>Poprawiona melodia:</h2>
 @if (_outputData != null)
 {
@@ -26,15 +27,15 @@
     protected override async Task OnInitializedAsync()
     {
         _outputData = await ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
-        Console.WriteLine(_outputData.FixedPhrase);
     }
 
-    protected void GoToNextSubproblem()
+    protected async void GoToNextSubproblem()
     {
         if (_outputData != null)
         {
             HuffmanCodingInputData data = new(_outputData.FixedPhrase);
             string huffmanInput = JsonSerializer.Serialize(data);
+            await ProblemState.SetProblemJsonInputData(huffmanInput);
             Navigator.NavigateTo($"/huffman_coding");
         }
     }

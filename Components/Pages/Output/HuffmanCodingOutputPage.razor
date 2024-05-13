@@ -9,20 +9,50 @@
 @inject IProblemState ProblemState
 
 <ReturnButton/>
-<br/><br/>
-<h2>Zakodowana melodia:</h2>
+<br/><br/><br/>
 @if (_outputData != null)
 {
+    <h2>Zakodowana melodia:</h2>
     <p>@_outputData.Result</p>
+    <h2>Kody Huffmana:</h2>
+    @foreach (var hufCode in codes)
+    {
+        <p>@hufCode</p>
+    }
 }
 
 
 
 @code {
     HuffmanCodingOutput? _outputData;
+    List<string> codes;
+
 
     protected override async Task OnInitializedAsync()
     {
         _outputData = await ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
+        codes = ExtractCodes();
+    }
+
+    protected List<string> ExtractCodes()
+    {
+        List<string> list = new();
+        if (_outputData != null)
+        {
+            foreach (var key in _outputData.HuffmanDictionary.Keys)
+            {
+                string code = "";
+                if (key != ' ')
+                {
+                    code += key + " -> " + _outputData.HuffmanDictionary[key];
+                }
+                else {
+                    code += "_ -> " + _outputData.HuffmanDictionary[key];
+                }
+                list.Add(code);
+            }
+        }
+
+        return list;
     }
 }

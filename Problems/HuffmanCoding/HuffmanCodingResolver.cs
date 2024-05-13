@@ -8,6 +8,7 @@ public class HuffmanCodingResolver :
     ProblemResolver<HuffmanCodingInputData, HuffmanCodingOutput, GraphData>
 {
 
+    Dictionary<char, string> HuffmanDictionary = new();
     private Dictionary<char, int> CalculateCharacterAppearances(string input)
     {
         Dictionary<char, int> result = new();
@@ -26,7 +27,7 @@ public class HuffmanCodingResolver :
 
         return result;
     }
-    private void GenerateHuffmanDictionary(Node? root, ref Dictionary<char, string> huffmanDictionary, string code = "")
+    private void GenerateHuffmanDictionary(Node? root, string code = "")
     {
         if (root == null)
         {
@@ -34,10 +35,10 @@ public class HuffmanCodingResolver :
         }
         if (!root.IfConnector)
         {
-            huffmanDictionary.Add(root.Character, code);
+            HuffmanDictionary.Add(root.Character, code);
         }
-        GenerateHuffmanDictionary(root.Left, ref huffmanDictionary, code+"0");
-        GenerateHuffmanDictionary(root.Right, ref huffmanDictionary, code+"1");
+        GenerateHuffmanDictionary(root.Left, code+"0");
+        GenerateHuffmanDictionary(root.Right, code+"1");
     }
 
     private string GenerateResult(string inputPhrase, Dictionary<char, string> huffmanDictionary, ref ProblemRecreationCommands<GraphData> commands)
@@ -55,13 +56,15 @@ public class HuffmanCodingResolver :
     public override HuffmanCodingOutput Resolve(HuffmanCodingInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
 
-        HuffmanCodingOutput output = new();
-        output.InputPhrase = data.InputPhrase;
+        HuffmanCodingOutput output = new()
+        {
+            InputPhrase = data.InputPhrase
+        };
         Dictionary<char, int> letterAppearances = CalculateCharacterAppearances(data.InputPhrase);
         HuffmanTree tree = new();
         Node root = tree.GenerateHuffmanTree(letterAppearances, ref commands);
-
-        GenerateHuffmanDictionary(root, ref output.HuffmanDictionary);
+        GenerateHuffmanDictionary(root);
+        output.HuffmanDictionary = HuffmanDictionary;
         output.Result = GenerateResult(data.InputPhrase, output.HuffmanDictionary, ref commands);
         return output;
     }

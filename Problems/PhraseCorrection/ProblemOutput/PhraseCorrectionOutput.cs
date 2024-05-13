@@ -6,7 +6,7 @@ public record PhraseCorrectionOutput : ProblemOutput
 {
 
     
-    public string FixedPhrase;
+    public string FixedPhrase { get; set;}
 
 
     public PhraseCorrectionOutput()
