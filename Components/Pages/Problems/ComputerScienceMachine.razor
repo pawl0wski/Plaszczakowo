@@ -1,24 +1,27 @@
 @page "/computer_science_machine"
-@using Drawer.GraphDrawer
-@using Problem.HuffmanCoding
-@inherits ProblemComponentBase<HuffmanCodingInputData, HuffmanCodingOutput, GraphData>
+@using Drawer.TextReplaceDrawer
+@using Problem.PhraseCorrection
+@inherits ProblemComponentBase<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
 
 <div class="map-background">
     @if (Executor is not null)
     {
-        <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
+        <TextReplaceVisualizer Snapshots="Executor.GetSnapshots()" />
+        <ReturnButton/>
+        <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.PhraseCorrection"/>
     }
 </div>
+
 @code {
 
     protected override void InitializeResolver()
     {
-        Resolver = new HuffmanCodingResolver();
+        Resolver = new PhraseCorrectionResolver();
     }
 
-    protected override void InitializeFirstSnapshotCreator(HuffmanCodingInputData inputData)
+    protected override void InitializeFirstSnapshotCreator(PhraseCorrectionInputData inputData)
     {
-        FirstSnapshotCreator = new FirstHuffmanCodingSnapshotCreator(inputData);
+        FirstSnapshotCreator = new FirstPhraseCorrectionSnapshotCreator(inputData);
     }
-}
 
+}
