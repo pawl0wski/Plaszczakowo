@@ -10,7 +10,7 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
     
     public override CarrierAssignmentOutput Resolve(CarrierAssignmentInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
-        FirstCarrierAssignmentSnapshotCreator creator = new(data);
+        CarrierAssignmentFirstSnapshotCreator creator = new(data);
         GraphData graphData = creator.CreateFirstSnapshot();
         problemRecreationCommands = commands;
         int verticesCount = graphData.Vertices.Count;
