@@ -6,7 +6,7 @@ div.welcome-background {
     width: 100vw;
     height: 100vh;
 
-    background: linear-gradient(180deg, rgba(0, 97, 209, 1) 0%, rgba(0, 212, 255, 1) 47%, rgba(0, 147, 5, 1) 100%);
+    background: linear-gradient(180deg, rgba(0, 97, 209, 1) 0%, rgba(0, 212, 255, 1) 60%);
 }
 
 div.welcome-background__layer {

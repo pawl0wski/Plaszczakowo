@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fontsource/caveat-brush": "^5.0.13",
+    "@fontsource/dekko": "^5.0.20",
     "@fortawesome/fontawesome-free": "^6.5.2",
     "animate.css": "^4.1.1",
     "panzoom": "^9.4.3"

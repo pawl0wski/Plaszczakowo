@@ -1,16 +1,19 @@
 <div class="toolbox">
     <GraphCreatorTool
         ToolName="Dodaj wierzchołek"
+        IconName="fa-map-pin"
         Mode="GraphCreatorMode.AddVertex"
         Selected="SelectedMode is GraphCreatorMode.AddVertex"
         OnSelect="OnToolSelect"/>
     <GraphCreatorTool
         ToolName="Połącz wierzchołki"
+        IconName="fa-circle-nodes"
         Mode="GraphCreatorMode.ConnectFirstEdge"
         Selected="SelectedMode is GraphCreatorMode.ConnectFirstEdge or GraphCreatorMode.ConnectSecondEdge"
         OnSelect="OnToolSelect"/>
     <GraphCreatorTool
-        ToolName="Usuń wierzchołek" 
+        ToolName="Usuń wierzchołek"
+        IconName="fa-trash"
         Mode="GraphCreatorMode.Remove"
         Selected="SelectedMode is GraphCreatorMode.Remove"
         OnSelect="OnToolSelect"/>

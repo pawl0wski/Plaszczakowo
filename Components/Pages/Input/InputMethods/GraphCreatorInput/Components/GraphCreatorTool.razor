@@ -1,10 +1,15 @@
 <div class="@GetHtmlClass()" @onclick="OnToolClick" >
-    <p>@ToolName</p>
+    <p>
+        <Icon Name="@IconName" Size="16" />
+        @ToolName
+    </p>
 </div>
 
 @code {
 
     [Parameter] public required string ToolName { get; set; }
+
+    [Parameter] public required string IconName { get; set; }
 
     [Parameter] public required Action<GraphCreatorMode> OnSelect { get; set; }
 

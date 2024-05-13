@@ -2,12 +2,14 @@
 @using Problem.CarrierAssignment;
 @inherits ProblemComponentBase<FenceTransportInputData, CarrierAssignmentOutput, Drawer.GraphDrawer.GraphData>
 
-@if (Executor is not null)
-{
-    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
-    <ReturnButton/>
-    <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.CarrierAssignment"/>
-}
+<div class="map-background">
+    @if (Executor is not null)
+    {
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+        <ReturnButton/>
+        <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.CarrierAssignment"/>
+    }
+</div>
 
 
 @code {

@@ -6,12 +6,12 @@ h1 {
 
 div.authors_page {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
 
     color: white;
 
-    background: url("authors/background.png");
-    background-size: cover;
+    background: url("authors/background.png") repeat;
+    background-size: 100%;
 }
 
 div.authors_page h1:first-child {

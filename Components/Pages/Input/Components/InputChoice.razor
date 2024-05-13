@@ -1,5 +1,7 @@
-<div class="input_choice" @onclick="OnChoice">
-    <img src="authors/AdamCedro.png"/>
+@inject NavigationManager Navigator;
+
+<div class="input_choice" @onclick="OnClick">
+    <img src="buttons/plate.png"/>
     <h3>
         @Title
     </h3>
@@ -13,5 +15,10 @@
 
     [Parameter] public required string Description { get; set; }
 
-    [Parameter] public required EventCallback<MouseEventArgs> OnChoice { get; set; }
+    [Parameter] public required string Href { get; set; }
+
+    private void OnClick()
+    {
+        Navigator.NavigateTo(Href);
+    }
 }

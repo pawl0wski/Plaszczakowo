@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: 'Dekko', cursive;
 }
 
 .full-modal {
@@ -26,4 +27,21 @@ body {
 
 .center {
     text-align: center;
+}
+
+.input_choice_page {
+    position: absolute;
+    z-index: 10;
+    width: 100vw;
+    min-height: 100vh;
+    background-size: cover;
+    background-image: url("background/vinnette.png");
+}
+
+.map-background {
+    width: 100vw;
+    height: 100vh;
+
+    background-image: url("background/map.png");
+    background-size: cover;
 }

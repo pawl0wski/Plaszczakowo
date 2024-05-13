@@ -4,7 +4,7 @@ using System.Text.Json;
 
 public static class DefaultProblemInputProvider
 {
-    private static string _demoFileName = "Przykladowy problem.json";
+    private const string DemoFileName = "Przykladowy problem.json";
     public static void CreateDefaultFilesForProblems()
     {
         Directory.CreateDirectory(GetProblemPath(""));
@@ -32,12 +32,12 @@ public static class DefaultProblemInputProvider
 
     private static bool CheckIfFileExists(string problemName)
     {
-        return File.Exists(GetProblemPath(Path.Join(problemName, _demoFileName)));
+        return File.Exists(GetProblemPath(Path.Join(problemName, DemoFileName)));
     }
 
     private static void GenerateGuardScheduleFile()
     {
-        string destinationFilePath = Path.Join(GetProblemPath("guard_schedule"), _demoFileName);
+        string destinationFilePath = Path.Join(GetProblemPath("guard_schedule"), DemoFileName);
 
         List<ProblemVertex> problemVertices = 
         [
@@ -73,18 +73,18 @@ public static class DefaultProblemInputProvider
             new Plaszczak(44, 0, 0),
         ];
 
-        GuardScheduleInputData guard_schedule = new(plaszczaki, problemVertices, problemEdges, 3);
-        string jsonGuardSchedule = JsonSerializer.Serialize(guard_schedule);
+        GuardScheduleInputData guardSchedule = new(problemVertices, problemEdges, plaszczaki, 3);
+        string jsonGuardSchedule = JsonSerializer.Serialize(guardSchedule);
         File.WriteAllText(destinationFilePath, jsonGuardSchedule);
     }
 
     private static void GenerateComputerScienceMachineFile()
     {
-        string destinationFilePath = Path.Join(GetProblemPath("computer_science_machine"), _demoFileName);
+        string destinationFilePath = Path.Join(GetProblemPath("computer_science_machine"), DemoFileName);
     }
     private static void GenerateFenceTransportFile()
     {
-        string destinationFilePath = Path.Join(GetProblemPath("fence_transport"), _demoFileName);
+        string destinationFilePath = Path.Join(GetProblemPath("fence_transport"), DemoFileName);
 
     }
 }

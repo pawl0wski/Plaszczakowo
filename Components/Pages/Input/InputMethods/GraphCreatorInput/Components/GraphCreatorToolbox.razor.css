@@ -1,9 +1,11 @@
 div.toolbox {
-    width: 10vw;
+    width: 12rem;
     position: absolute;
     right: 0;
     top: 0;
     
     border-width: 2px;
     border-style: solid;
+    border-right-style: none;
+    border-top-style: none;
 }

@@ -1,6 +1,8 @@
 import "animate.css"
 import "@fortawesome/fontawesome-free/css/all.css"
 import panzoom from "panzoom";
+import "@fontsource/caveat-brush";
+import "@fontsource/dekko"
 
 window.enableCanvasZoom = function () {
     let canvas = document.querySelector("canvas");
