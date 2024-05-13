@@ -58,10 +58,10 @@ public class HuffmanTree
         var level = 0;
         var howManyLevels = Convert.ToInt32(Math.Floor(Math.Log2(howManyVertices))) + 1;
         var y = 720 / howManyLevels / 2;
-        Queue<HuffmanNode> currentLevel = new();
-        Queue<HuffmanNode> nextLevel = new();
+        Queue<Node> currentLevel = new();
+        Queue<Node> nextLevel = new();
 
-        currentLevel.Enqueue(new(0, null, 0, root ));
+        currentLevel.Enqueue(root);
 
         var id = 0;
         while (currentLevel.Count > 0 || nextLevel.Count > 0)
@@ -72,7 +72,7 @@ public class HuffmanTree
             {
                 var current = currentLevel.Dequeue();
       
-                commands.Add(new AddNewVertexCommand(startX + vertexSpaceWidth * current.LeftOffset, y, current.InnerNode.Character, null));
+                commands.Add(new AddNewVertexCommand(startX + vertexSpaceWidth * current.LeftOffset, y, current.Character, null));
 
                 if (current.ConnectTo is not null)
                 {
@@ -81,20 +81,11 @@ public class HuffmanTree
                     new GraphThroughput( current.Id % 2 == 0 ? 1 : 0 )));
                 }
                 
-                if (current.InnerNode.Left is not null)
-                    nextLevel.Enqueue(new HuffmanNode(
-                        ++id,
-                        current.Id,
-                        current.LeftOffset*2,
-                        current.InnerNode.Left));
+                if (current.Left is not null)
+                    nextLevel.Enqueue( current.Left.InsertAdditionalData(++id, current.Id, current.LeftOffset*2));
                 
-                
-                if (current.InnerNode.Right is not null)
-                    nextLevel.Enqueue(new HuffmanNode(
-                        ++id,
-                        current.Id,
-                        current.LeftOffset*2+1,
-                        current.InnerNode.Right));
+                if (current.Right is not null)
+                    nextLevel.Enqueue( current.Right.InsertAdditionalData(++id, current.Id, current.LeftOffset*2+1));
             }
             (currentLevel, nextLevel) = (nextLevel, currentLevel);
             level++;
