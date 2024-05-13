@@ -3,8 +3,8 @@
 
 <div class="visualizer_player">
     <GraphCanvas
-        CanvasWidth="1280"
-        CanvasHeight="720"
+        CanvasWidth="CanvasWidth ?? 1920"
+        CanvasHeight="CanvasHeight ?? 1280"
         EnableZoom="true"
         Data="_currentGraphData"
         @ref="_graphCanvas"/>
@@ -17,6 +17,9 @@
 </div>
 
 @code {
+    [Parameter] public int? CanvasWidth { get; set; } 
+    
+    [Parameter] public int? CanvasHeight { get; set; } 
 
     private GraphData? _currentGraphData;
 
