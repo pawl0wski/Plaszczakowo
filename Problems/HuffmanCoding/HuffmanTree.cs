@@ -76,7 +76,7 @@ public class HuffmanTree
 
                 if (current.ConnectTo is not null)
                 {
-                    commands.Add(new ConnectVertexCommand(current.Id, current.ConnectTo ?? 0));
+                    commands.Add(new AddNewEdgeCommand(current.Id, current.ConnectTo ?? 0));
                     commands.Add(new ChangeLastEdgeThroughputCommand(
                     new GraphThroughput( current.Id % 2 == 0 ? 1 : 0 )));
                 }

@@ -2,7 +2,7 @@ using Drawer.GraphDrawer;
 
 namespace ProblemVisualizer.Commands;
 
-public class ConnectVertexCommand(int sourceId, int destinationId)
+public class AddNewEdgeCommand(int sourceId, int destinationId)
     : ProblemVisualizerCommand<GraphData>
 {
 
