@@ -1,6 +1,6 @@
 @page "/carrier_assignment"
 @using Problem.CarrierAssignment;
-@inherits ProblemComponentBase<CarrierAssignmentInputData, CarrierAssignmentOutput, Drawer.GraphDrawer.GraphData>
+@inherits ProblemComponentBase<FenceTransportInputData, CarrierAssignmentOutput, Drawer.GraphDrawer.GraphData>
 
 <div class="map-background">
     @if (Executor is not null)
@@ -19,7 +19,7 @@
         Resolver = new CarrierAssignmentResolver();
     }
 
-    protected override void InitializeFirstSnapshotCreator(CarrierAssignmentInputData inputData)
+    protected override void InitializeFirstSnapshotCreator(FenceTransportInputData inputData)
     {
         FirstSnapshotCreator = new CarrierAssignmentFirstSnapshotCreator(inputData);
     }

@@ -3,8 +3,8 @@ using ProblemVisualizer;
 
 namespace Problem.CarrierAssignment;
 
-public class ConvexHullFirstSnapshotCreator(CarrierAssignmentInputData inputData)
-    : FirstSnapshotCreator<CarrierAssignmentInputData, GraphData>(inputData)
+public class ConvexHullFirstSnapshotCreator(FenceTransportInputData inputData)
+    : FirstSnapshotCreator<FenceTransportInputData, GraphData>(inputData)
 {
     public override GraphData CreateFirstSnapshot()
     {

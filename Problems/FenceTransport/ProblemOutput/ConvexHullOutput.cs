@@ -4,6 +4,6 @@ namespace Problem.ConvexHull;
 
 public record ConvexHullOutput : ProblemOutput
 {
-    public List<int>? HullIndexes;
+    public List<int>? HullIndexes { get; set; } = new();
 }
 

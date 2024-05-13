@@ -1,0 +1,41 @@
+@page "/convex_hull_output"
+@using Problem.ConvexHull
+@using States
+@inherits ProblemOutputBase<ConvexHullOutput>
+
+@inject NavigationManager Navigation
+@inject IProblemState ProblemState
+
+<h2>Indeksy otoczki wypukłej:</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Indeks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_outputData != null)
+        {
+            @foreach (var i in _outputData.HullIndexes)
+            {
+                <tr>
+                    <td>@i</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<button @onclick="NextProblem">Następny problem</button>
+
+@code {
+    ConvexHullOutput? _outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _outputData = await ProblemState.GetProblemOutputData<ConvexHullOutput>();
+    }
+    private void NextProblem()
+    {
+        Navigation.NavigateTo("fence_transport");
+    }
+}

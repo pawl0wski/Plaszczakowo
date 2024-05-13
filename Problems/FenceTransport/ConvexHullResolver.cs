@@ -9,12 +9,12 @@ using ProblemVisualizer.Commands;
 
 namespace Problem.ConvexHull;
 
-public class ConvexHullResolver : ProblemResolver<CarrierAssignmentInputData, ConvexHullOutput, GraphData>
+public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, ConvexHullOutput, GraphData>
 {
     private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
     private int edgeIndex = -1;
 
-    public override ConvexHullOutput Resolve(CarrierAssignmentInputData data, ref ProblemRecreationCommands<GraphData> commands)
+    public override ConvexHullOutput Resolve(FenceTransportInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
         problemRecreationCommands = commands;
         ConvexHullOutput output = new();

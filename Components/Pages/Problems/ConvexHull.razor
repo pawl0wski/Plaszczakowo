@@ -1,15 +1,17 @@
 @page "/convex_hull";
 @using Problem.ConvexHull;
 @using Problem.CarrierAssignment;
-@inherits ProblemComponentBase<CarrierAssignmentInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
+@inherits ProblemComponentBase<FenceTransportInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
 
 <div class="map-background">
     @if (Executor is not null)
     {
-        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
-        <ReturnButton/>
+      <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+      <ReturnButton/>
+      <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.ConvexHull"/>
     }
 </div>
+
 
 @code {
 
@@ -18,7 +20,7 @@
         Resolver = new ConvexHullResolver();
     }
 
-    protected override void InitializeFirstSnapshotCreator(CarrierAssignmentInputData inputData)
+    protected override void InitializeFirstSnapshotCreator(FenceTransportInputData inputData)
     {
         FirstSnapshotCreator = new ConvexHullFirstSnapshotCreator(inputData);
     }
