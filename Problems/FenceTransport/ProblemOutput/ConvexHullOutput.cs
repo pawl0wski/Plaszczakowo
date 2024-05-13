@@ -1,6 +1,6 @@
 using ProblemResolver;
 
-namespace Problem.ConvexHull;
+namespace Problem.FenceTransport;
 
 public record ConvexHullOutput : ProblemOutput
 {

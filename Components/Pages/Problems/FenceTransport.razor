@@ -1,8 +1,27 @@
-@* @page "/fence_transport" *@
-@* @using Problem.FenceTransport; *@
-@* *@
-@* <h1>Transportowanie płotu</h1> *@
-@* *@
-@* @code { *@
-@*         private FenceTransportResolver resolver = new(); *@
-@* } *@
+@* @page "/fence_transport"
+@using Problem.FenceTransport;
+@inherits ProblemComponentBase<FenceTransportInputData, CarrierAssignmentOutput, Drawer.GraphDrawer.GraphData>
+
+<div class="map-background">
+    @if (Executor is not null)
+    {
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+        <ReturnButton/>
+        <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.FenceTransport"/>
+    }
+</div>
+
+
+@code {
+
+    protected override void InitializeResolver()
+    {
+        Resolver = new FenceTransportResolver();
+    }
+
+    protected override void InitializeFirstSnapshotCreator(FinalFenceInputData inputData)
+    {
+        FirstSnapshotCreator = new FenceTransportFirstSnapshotCreator(inputData);
+    }
+
+} *@

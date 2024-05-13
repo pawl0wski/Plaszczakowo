@@ -2,7 +2,7 @@ using Drawer.GraphDrawer;
 using ProblemResolver;
 using ProblemVisualizer.Commands;
 
-namespace Problem.CarrierAssignment;
+namespace Problem.FenceTransport;
 
 public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData, CarrierAssignmentOutput, GraphData>
 {

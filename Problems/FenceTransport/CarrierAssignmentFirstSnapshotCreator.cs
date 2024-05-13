@@ -1,7 +1,7 @@
 using Drawer.GraphDrawer;
 using ProblemVisualizer;
 
-namespace Problem.CarrierAssignment;
+namespace Problem.FenceTransport;
 
 public class CarrierAssignmentFirstSnapshotCreator(FenceTransportInputData inputData)
     : FirstSnapshotCreator<FenceTransportInputData, GraphData>(inputData)
