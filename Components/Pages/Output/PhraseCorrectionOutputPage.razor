@@ -4,9 +4,10 @@
 @using Problem.HuffmanCoding;
 @inherits ProblemOutputBase<PhraseCorrectionOutput>
 
-@inject NavigationManager Navigator;
+@inject NavigationManager Navigator
 @inject IProblemState ProblemState
-<ReturnButton/>
+
+<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right"/>
 <br/><br/><br/>
 <h2>Poprawiona melodia:</h2>
 @if (_outputData != null)
