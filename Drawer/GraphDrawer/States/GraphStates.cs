@@ -9,4 +9,6 @@ public static class GraphStates
     public static readonly GraphStateInactive Inactive = new();
 
     public static readonly GraphStateSpecial Special = new();
+
+    public static readonly GraphStateText Text = new();
 }
