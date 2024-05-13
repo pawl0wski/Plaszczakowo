@@ -18,7 +18,8 @@
 
 
 @code {
-
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+    
     private GraphData _currentData = new();
 
     private GraphCreatorMode _currentMode = GraphCreatorMode.AddVertex;
@@ -27,7 +28,7 @@
 
     private GraphCanvas? _canvas;
 
-    private void OnCreatorClick(MouseEventArgs obj)
+    private async void OnCreatorClick(MouseEventArgs obj)
     {
         var mouseX = Convert.ToInt32(obj.ClientX);
         var mouseY = Convert.ToInt32(obj.ClientY);
@@ -45,6 +46,9 @@
                 break;
             case GraphCreatorMode.ConnectSecondEdge:
                 OnConnectSecondEdge(mouseX, mouseY);
+                break;
+            case GraphCreatorMode.ChangeVertexValue:
+                await OnChangeVertexValue(mouseX, mouseY);
                 break;
             case GraphCreatorMode.Remove:
                 OnRemoveVertex(mouseX, mouseY);
@@ -80,6 +84,18 @@
         _currentMode = GraphCreatorMode.ConnectFirstEdge;
         _selectedVertex.State = GraphStates.Inactive;
         _selectedVertex = null;
+    }
+
+    private async Task OnChangeVertexValue(int mouseX, int mouseY)
+    {
+        _selectedVertex = GetSelectedVertex(mouseX, mouseY);
+        if (_selectedVertex is null)
+            return;
+        
+        var parameters = new ModalParameters().Add(nameof(ChangeVertexValueModal.Number), int.Parse(_selectedVertex.Value ?? "0"));
+        var result = await Modal.Show<ChangeVertexValueModal>(parameters, new ModalOptions{Size = ModalSize.Medium}).Result;
+
+        _selectedVertex.Value = result.Data?.ToString();
     }
 
     private void OnRemoveVertex(in int mouseX, in int mouseY)
