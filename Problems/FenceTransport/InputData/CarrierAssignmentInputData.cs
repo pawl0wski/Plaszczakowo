@@ -11,6 +11,7 @@ public record CarrierAssignmentInputData(int FrontCarrierNumber, int RearCarrier
     public List<Edge> Relations { get; set; } = Relations;
     
     public List<ProblemVertex> Landmarks { get; set; } = Landmarks;
+    
     public List<ProblemEdge> Paths { get; set; } = Paths;
     public int FactoryIndex { get; set; } = FactoryIndex;
 }
