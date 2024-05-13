@@ -11,18 +11,18 @@
     
     <thead>
         <tr>
-            <th>Przewoźnik 1</th>
-            <th>Przewoźnik 2</th>
+            <th>Ręce z przodu</th>
+            <th>Ręce z tyłu</th>
         </tr>
     </thead>
     <tbody>
         @if (_outputData != null)
         {
-            @foreach (var p in _outputData.Pairs)
+            @foreach (var pair in _outputData.Pairs)
             {
                 <tr>
-                    <td>@p.From</td>
-                    <td>@p.To</td>
+                    <td>@pair.First</td>
+                    <td>@pair.Second</td>
                 </tr>
             }
         }

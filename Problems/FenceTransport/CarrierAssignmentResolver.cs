@@ -50,7 +50,8 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
                     {
                         edge.Throughput.Flow += pathFlow;
                         if (pathFlow == 1)
-                            pairs.Pairs.Add(edge);
+                            if (previousIndex != source && vertexIndex != sink)
+                                pairs.Pairs.Add(new Pair(previousIndex, vertexIndex));
                         break;
                     }
                 }
