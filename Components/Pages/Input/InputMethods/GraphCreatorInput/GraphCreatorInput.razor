@@ -18,6 +18,7 @@
 
 
 @code {
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
     private GraphData _currentData = new();
 
@@ -115,8 +116,22 @@
     private async void OnContinue()
     {
         var problemInput = GraphDataToProblem.Convert(_currentData);
+        
+        var errors = GraphInputValidator.Validate( GraphInputValidator.Modes.EverythingConnected, problemInput);
+        if (errors.Count > 0)
+        {
+            ShowValidatorErrorModal(errors);
+            return;
+        }
+        
         await ProblemState.SetProblemInputData(problemInput);
         Navigator.NavigateTo($"/input/additional/{ProblemName}", true);
+    }
+
+    private void ShowValidatorErrorModal(List<GraphValidatorError> errors)
+    {
+        var parameters = new ModalParameters().Add(nameof(GraphValidatorErrorsModal.Errors), errors);
+        Modal.Show<GraphValidatorErrorsModal>("", parameters, new ModalOptions(){Size = ModalSize.Medium});
     }
 
 }
