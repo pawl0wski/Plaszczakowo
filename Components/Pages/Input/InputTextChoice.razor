@@ -1,20 +1,21 @@
 @page "/text_input_choice/{ProblemName}"
 @inherits InputChoiceBase
 
-<ReturnButton />
-<h1 class="center">
-    Wybierz sposób wprowadzenia tekstu
-</h1>
+<LandscapeBackground/>
+<div class="input_choice_page">
+    <ReturnButton/>
+    <InputChoiceTitle>
+        Wybierz sposób wprowadzenia tekstu
+    </InputChoiceTitle>
 
-<div class="horizontal_centered_row">
-    <NavLink href="@GetFromFileLink()">
+    <div class="horizontal_centered_row">
         <InputChoice
-            Title="Z pliku"
-            Description="Wprowadź tekst z pliku"/>
-    </NavLink>
-    <NavLink href="@GetFromKeyboardLink()">
+            Title="Plik"
+            Description="Wybierz plik z wcześniej zapisanymi danymi wejściowymi."
+            Href="@GetFromFileLink()"/>
         <InputChoice
-            Title="Z klawiatury"
-            Description="Wprowadź tekst z klawiatury"/>
-    </NavLink>
+            Title="Klawiatura"
+            Description="Wprowadź dane wejściowe z klawiatury."
+            Href="@GetFromKeyboardLink()"/>
+    </div>
 </div>

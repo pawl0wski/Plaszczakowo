@@ -1,0 +1,21 @@
+div.title {
+    width: 40rem;
+    height: 5rem;
+    background: url("background/title.png") no-repeat;
+    background-size: contain;
+    
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.title h1 {
+    text-align: center;
+    color: white;
+    margin: 0;
+}

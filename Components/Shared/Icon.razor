@@ -1,8 +1,10 @@
-<i class="@(ReturnPreparedHtmlClass())" style="font-size: 23pt"></i>
+<i class="@(ReturnPreparedHtmlClass())" style="font-size: @(Size ?? 23)pt"></i>
 
 @code {
 
     [Parameter] public required string Name { get; set; }
+    
+    [Parameter] public int? Size { get; set; }
 
     private string ReturnPreparedHtmlClass()
     {

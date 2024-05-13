@@ -7,8 +7,14 @@ div.file {
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    user-select: none;
 
     cursor: pointer;
+}
+
+div.file--active {
+    background-color: #593316;
+    color: white;
 }
 
 div.file:nth-child(even) {

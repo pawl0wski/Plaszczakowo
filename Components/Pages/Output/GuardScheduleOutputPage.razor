@@ -1,38 +1,27 @@
 ﻿@page "/guard_schedule_output"
 @using Problem.GuardSchedule
-@using States
-@inherits ProblemOutputBase
-
-@inject IProblemState ProblemState
+@inherits ProblemOutputBase<GuardScheduleOutput>
 
 <h2>Grafik strażników:</h2>
 <table>
-    
+
     <thead>
-        <tr>
-            <th>Energia</th>
-            <th>Melodia</th>
-        </tr>
+    <tr>
+        <th>Energia</th>
+        <th>Melodia</th>
+    </tr>
     </thead>
     <tbody>
-        @if (_outputData != null)
+    @if (Output is not null)
+    {
+        @foreach (var p in Output.Plaszczaki)
         {
-            @foreach (var p in _outputData.Plaszczaki)
-            {
-                <tr>
-                    <td>@p.MaxEnergy</td>
-                    <td>@p.Melody</td>
-                </tr>
-            }
+            <tr>
+                <td>@p.MaxEnergy</td>
+                <td>@p.Melody</td>
+            </tr>
         }
+    }
+
     </tbody>
 </table>
-
-@code {
-    GuardScheduleOutput? _outputData;
-
-    protected override async Task OnInitializedAsync()
-    {
-        _outputData = await ProblemState.GetProblemOutputData<GuardScheduleOutput>();
-    }
-}
