@@ -1,31 +1,32 @@
-using Blazor.Extensions.Canvas.WebGL;
-using Drawer.GraphDrawer;
 using ProblemResolver;
 using ProblemResolver.Graph;
 
+namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
+
 public static class GraphInputValidator
 {
-    [Flags]
-    public enum Modes
-    {
-        HaveLoop = 0,
-        OneEdgeFromEveryVertex = 1,
-        EverythingConnected = 2,
-    }
+
 
     public static List<GraphValidatorError> Validate(
-        Modes modes,
-        ProblemGraphInputData graphInputData)
+        GraphInputValidatorModes modes,
+        ProblemGraphInputData graphInputData,
+        bool isDirected)
     {
         List<GraphValidatorError> errors = [];
-        
-        if (modes.HasFlag(Modes.HaveLoop))
+
+        if (graphInputData.Vertices.Count == 0)
         {
-            if (!CheckLoop(graphInputData))
+            errors.Add(new GraphValidatorError("Musisz podać przyjamniej jeden wierzchołek."));
+            return errors;
+        }
+        
+        if (modes.HasFlag(GraphInputValidatorModes.HaveLoop))
+        {
+            if (!CheckLoop(graphInputData, isDirected))
                 errors.Add(new GraphValidatorError("Graf musi posiadać cykl."));
         }
 
-        if (modes.HasFlag(Modes.OneEdgeFromEveryVertex))
+        if (modes.HasFlag(GraphInputValidatorModes.OneEdgeFromEveryVertex))
         {
             if (!CheckOneEdgeFromEveryVertex(graphInputData))
             {
@@ -33,20 +34,20 @@ public static class GraphInputValidator
             }
         }
 
-        if (modes.HasFlag(Modes.EverythingConnected))
+        if (modes.HasFlag(GraphInputValidatorModes.EverythingConnected))
         {
-            if (!CheckEverythingConnected(graphInputData))
+            if (!CheckEverythingConnected(graphInputData, isDirected))
             {
-                errors.Add(new GraphValidatorError("Wszystkie wierzchołki muszą być połączone ze sobą!"));
+                errors.Add(new GraphValidatorError("Wszystkie wierzchołki muszą być połączone ze sobą."));
             }
         }
 
         return errors;
     }
 
-    private static bool CheckLoop(in ProblemGraphInputData inputData)
+    private static bool CheckLoop(in ProblemGraphInputData inputData, bool isDirected)
     {
-        return Dfs(inputData, (vertex, list) => list.Contains(vertex));
+        return Dfs(inputData, (vertex, list) => list.Contains(vertex), null, isDirected);
     }
 
     private static bool CheckOneEdgeFromEveryVertex(in ProblemGraphInputData inputData)
@@ -60,23 +61,23 @@ public static class GraphInputValidator
         return true;
     }
 
-    private static bool CheckEverythingConnected(in ProblemGraphInputData inputData)
+    private static bool CheckEverythingConnected(in ProblemGraphInputData inputData, bool isDirected)
     {
         var howManyVertices = inputData.Vertices.Count;
-        return Dfs(inputData, null, (list => list.Count == howManyVertices), false);
+        return Dfs(inputData, null, (list => list.Count == howManyVertices), isDirected);
     }
 
     private static bool Dfs(in ProblemGraphInputData inputData, 
         Func<ProblemVertex, List<ProblemVertex>, bool>? everyStepCheck = null,
         Func<List<ProblemVertex>, bool>? afterDfsCheck = null,
-        bool directedGraph = true
+        bool isDirected = true
         )
     {
         Stack<ProblemVertex> verticesToVisit = [];
         List<ProblemVertex> visitedVertices = [];
         
         var firstVertex = inputData.Vertices.First();
-        AddToStackVerticesConnectedToVertex(firstVertex.Id, ref verticesToVisit, inputData, directedGraph);
+        AddToStackVerticesConnectedToVertex(firstVertex.Id, ref verticesToVisit, inputData, isDirected);
         
         while (verticesToVisit.Count > 0)
         {
@@ -91,7 +92,7 @@ public static class GraphInputValidator
                 
             visitedVertices.Add(vertex);
             
-            AddToStackVerticesConnectedToVertex(vertex.Id, ref verticesToVisit, inputData, directedGraph);
+            AddToStackVerticesConnectedToVertex(vertex.Id, ref verticesToVisit, inputData, isDirected);
         }
 
         return afterDfsCheck?.Invoke(visitedVertices) ?? false;
@@ -124,11 +125,4 @@ public static class GraphInputValidator
                 stack.Push(vertex);
         }
     }
-    
-
-}
-
-public record GraphValidatorError(string Content)
-{
-    public readonly string Content = Content;
 }

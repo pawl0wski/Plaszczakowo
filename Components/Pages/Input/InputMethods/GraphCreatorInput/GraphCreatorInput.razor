@@ -1,19 +1,19 @@
 @page "/input/graphcreator/{ProblemName}"
 @using Drawer.GraphDrawer
 @using ProblemResolver.Converters
-@using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Components
+@using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator
 @using ProjektZaliczeniowy_AiSD2.Components.States
 @inherits InputMethodBase;
-@inject IProblemState ProblemState;
 @inject NavigationManager Navigator;
+@inject IProblemState ProblemState;
 
 <div class="graph-creator">
-    <ReturnButton />
+    <ReturnButton/>
     <div class="click_handler" @onclick="OnCreatorClick">
         <GraphCanvas EnableZoom="false" Data="_currentData" @ref="_canvas"/>
     </div>
     <GraphCreatorToolbox OnToolSelect="OnToolSelect" SelectedMode="_currentMode"/>
-    <GraphCreatorToolContinue OnContinue="OnContinue" />
+    <GraphCreatorToolContinue OnContinue="OnContinue"/>
 </div>
 
 
@@ -27,6 +27,15 @@
     private GraphVertex? _selectedVertex;
 
     private GraphCanvas? _canvas;
+
+    private GraphInputValidatorModes? _validatorModes;
+
+    private bool? _createDirectedGraph;
+
+    protected override void OnInitialized()
+    {
+        (_createDirectedGraph, _validatorModes) = GraphCreatorProblemSettings.GetSettingsForProblem(ProblemName); 
+    }
 
     private void OnCreatorClick(MouseEventArgs obj)
     {
@@ -64,9 +73,9 @@
     private void OnConnectFirstEdge(in int mouseX, in int mouseY)
     {
         _selectedVertex = GetSelectedVertex(mouseX, mouseY);
-        
+
         if (_selectedVertex is null) return;
-        
+
         _selectedVertex.State = GraphStates.Highlighted;
         _currentMode = GraphCreatorMode.ConnectSecondEdge;
     }
@@ -77,7 +86,7 @@
 
         if (anotherSelectedVertex is null || _selectedVertex is null) return;
 
-        _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex, directed:true));
+        _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex, directed: _createDirectedGraph ?? false));
         _currentMode = GraphCreatorMode.ConnectFirstEdge;
         _selectedVertex.State = GraphStates.Inactive;
         _selectedVertex = null;
@@ -116,14 +125,14 @@
     private async void OnContinue()
     {
         var problemInput = GraphDataToProblem.Convert(_currentData);
-        
-        var errors = GraphInputValidator.Validate( GraphInputValidator.Modes.EverythingConnected, problemInput);
+
+        var errors = GraphInputValidator.Validate(_validatorModes ?? 0, problemInput, _createDirectedGraph ?? false);
         if (errors.Count > 0)
         {
             ShowValidatorErrorModal(errors);
             return;
         }
-        
+
         await ProblemState.SetProblemInputData(problemInput);
         Navigator.NavigateTo($"/input/additional/{ProblemName}", true);
     }
@@ -131,7 +140,7 @@
     private void ShowValidatorErrorModal(List<GraphValidatorError> errors)
     {
         var parameters = new ModalParameters().Add(nameof(GraphValidatorErrorsModal.Errors), errors);
-        Modal.Show<GraphValidatorErrorsModal>("", parameters, new ModalOptions(){Size = ModalSize.Medium});
+        Modal.Show<GraphValidatorErrorsModal>("", parameters, new ModalOptions() { Size = ModalSize.Medium });
     }
 
 }

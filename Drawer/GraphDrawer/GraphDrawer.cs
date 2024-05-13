@@ -155,10 +155,11 @@ public class GraphDrawer : Drawer
 
     private async Task DrawDirectedArrow(GraphEdge e)
     {
+        await _context.SetFillStyleAsync(e.State.GetPrimaryColor());
         double arrowSize = 15; 
         var angle = Math.Atan2(e.To.Y - e.From.Y, e.To.X - e.From.X);
 
-        double vertexRadius = 30; 
+        double vertexRadius = e.State.GetOutlineWidth() + e.State.GetEdgeRadius(); 
         var endX = e.To.X - vertexRadius * Math.Cos(angle);
         var endY = e.To.Y - vertexRadius * Math.Sin(angle);
 

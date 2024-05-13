@@ -23,6 +23,6 @@ public class GraphEdge : ICloneable
 
     public object Clone()
     {
-        return new GraphEdge(From, To, State, Throughput);
+        return new GraphEdge(From, To, State, Throughput, Directed);
     }
 }
