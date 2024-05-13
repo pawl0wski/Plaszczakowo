@@ -1,10 +1,8 @@
 @page "/phrase_correction_output"
 @using States
-@using ProblemResolver
 @using Problem.PhraseCorrection
 @using Problem.HuffmanCoding;
 @using System.Text.Json
-@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 @inherits ProblemOutputBase
 
 @inject NavigationManager Navigator;
@@ -17,7 +15,7 @@
     <p>@_outputData.FixedPhrase</p>
 }
 
-<button @onclick=GoToNextSubproblem>Przejdź dalej</button>
+<button @onclick="GoToNextSubproblem">Przejdź dalej</button>
 
 
 
@@ -29,14 +27,12 @@
         _outputData = await ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
     }
 
-    protected async void GoToNextSubproblem()
+    private async void GoToNextSubproblem()
     {
-        if (_outputData != null)
-        {
-            HuffmanCodingInputData data = new(_outputData.FixedPhrase);
-            string huffmanInput = JsonSerializer.Serialize(data);
-            await ProblemState.SetProblemJsonInputData(huffmanInput);
-            Navigator.NavigateTo($"/huffman_coding");
-        }
+        if (_outputData == null) return;
+        
+        HuffmanCodingInputData data = new(_outputData.FixedPhrase);
+        await ProblemState.SetProblemInputData(data);
+        Navigator.NavigateTo($"/huffman_coding");
     }
 }

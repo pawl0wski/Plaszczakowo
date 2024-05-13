@@ -10,19 +10,19 @@
 @inject NavigationManager Navigator;
 @inject IProblemState ProblemState;
 
+
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
-<br/><br/><br/>
 <p>Wprowadź wejściową frazę.</p>
-<input @bind="inputText"/>
+<input @bind="_inputText"/>
 <button @onclick="GoToProblemPage">Wczytaj</button>
 <br/>
 <p>Wprowadź nową nazwę pliku</p>
-<input @bind="newFileName"/>
+<input @bind="_newFileName"/>
 <button @onclick="SaveInputToFile">Zapisz do pliku</button>
 
 @code {
-    string inputText = "";
-    string newFileName = "";
+    private string _inputText = "";
+    private string _newFileName = "";
 
     protected override void OnInitialized()
     {
@@ -38,7 +38,7 @@
     private string PrepareInputData()
     {
         string input = "";
-        PhraseCorrectionInputData data = new(inputText);
+        PhraseCorrectionInputData data = new(_inputText);
         input = JsonSerializer.Serialize(data);
         return input;
     }
@@ -54,13 +54,13 @@
     private async void SaveInputToFile()
     {
         string inputText = PrepareInputData();
-        if (newFileName.Length == 0 || inputText.Length == 0)
+        if (_newFileName.Length == 0 || inputText.Length == 0)
         {
             return;
         }
 
         string path = GetProblemPath();
-        path = Path.Join(path, newFileName);
+        path = Path.Join(path, _newFileName);
         if (File.Exists(path))
         {
             var currentBrowserWindow = Electron.WindowManager.BrowserWindows.First();

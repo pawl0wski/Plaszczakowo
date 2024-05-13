@@ -1,15 +1,11 @@
 @page "/huffman_coding_output"
 
 @using States
-@using ProblemResolver
 @using Problem.HuffmanCoding;
-@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 @inherits ProblemOutputBase
-@inject NavigationManager Navigator
 @inject IProblemState ProblemState
 
 <ReturnButton/>
-<br/><br/><br/>
 @if (_outputData != null)
 {
     <h2>Zakodowana melodia:</h2>
@@ -23,8 +19,6 @@
     }
 }
 
-
-
 @code {
     HuffmanCodingOutput? _outputData;
     List<string> codes;
@@ -36,25 +30,23 @@
         codes = ExtractCodes();
     }
 
-    protected List<string> ExtractCodes()
+    private List<string> ExtractCodes()
     {
-        List<string> list = new();
-        if (_outputData != null)
+        List<string> list = [];
+        if (_outputData == null) return list;
+        
+        foreach (var key in _outputData.HuffmanDictionary.Keys)
         {
-            foreach (var key in _outputData.HuffmanDictionary.Keys)
+            var code = "";
+            if (key != ' ')
             {
-                string code = "";
-                if (key != ' ')
-                {
-                    code += key + " -> " + _outputData.HuffmanDictionary[key];
-                }
-                else {
-                    code += "_ -> " + _outputData.HuffmanDictionary[key];
-                }
-                list.Add(code);
+                code += key + " -> " + _outputData.HuffmanDictionary[key];
             }
+            else {
+                code += "_ -> " + _outputData.HuffmanDictionary[key];
+            }
+            list.Add(code);
         }
-
         return list;
     }
 }
