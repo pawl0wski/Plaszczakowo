@@ -4,11 +4,11 @@ using ProblemVisualizer.Commands;
 
 namespace Problem.CarrierAssignment;
 
-public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputData, CarrierAssignmentOutput, GraphData>
+public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData, CarrierAssignmentOutput, GraphData>
 {
     private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
     
-    public override CarrierAssignmentOutput Resolve(CarrierAssignmentInputData data, ref ProblemRecreationCommands<GraphData> commands)
+    public override CarrierAssignmentOutput Resolve(FenceTransportInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
         CarrierAssignmentFirstSnapshotCreator creator = new(data);
         GraphData graphData = creator.CreateFirstSnapshot();

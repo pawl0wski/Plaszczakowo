@@ -1,7 +1,7 @@
 @page "/convex_hull";
 @using Problem.ConvexHull;
 @using Problem.CarrierAssignment;
-@inherits ProblemComponentBase<CarrierAssignmentInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
+@inherits ProblemComponentBase<FenceTransportInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
 
 @if (Executor is not null)
 {
@@ -18,7 +18,7 @@
         Resolver = new ConvexHullResolver();
     }
 
-    protected override void InitializeFirstSnapshotCreator(CarrierAssignmentInputData inputData)
+    protected override void InitializeFirstSnapshotCreator(FenceTransportInputData inputData)
     {
         FirstSnapshotCreator = new ConvexHullFirstSnapshotCreator(inputData);
     }
