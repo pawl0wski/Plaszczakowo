@@ -77,7 +77,7 @@
 
         if (anotherSelectedVertex is null || _selectedVertex is null) return;
 
-        _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex));
+        _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex, directed:true));
         _currentMode = GraphCreatorMode.ConnectFirstEdge;
         _selectedVertex.State = GraphStates.Inactive;
         _selectedVertex = null;
