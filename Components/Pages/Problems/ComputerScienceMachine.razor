@@ -3,11 +3,12 @@
 @using Problem.HuffmanCoding
 @inherits ProblemComponentBase<HuffmanCodingInputData, HuffmanCodingOutput, GraphData>
 
-@if (Executor is not null)
-{
-    <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
-}
-
+<div class="map-background">
+    @if (Executor is not null)
+    {
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
+    }
+</div>
 @code {
 
     protected override void InitializeResolver()

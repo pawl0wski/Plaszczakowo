@@ -3,12 +3,13 @@
 @using Problem.CarrierAssignment;
 @inherits ProblemComponentBase<CarrierAssignmentInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
 
-@if (Executor is not null)
-{
-    <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
-    <ReturnButton/>
-}
-
+<div class="map-background">
+    @if (Executor is not null)
+    {
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+        <ReturnButton/>
+    }
+</div>
 
 @code {
 

@@ -2,7 +2,7 @@
 @using Problem.GuardSchedule
 @inherits ProblemComponentBase<GuardScheduleInputData, GuardScheduleOutput, Drawer.GraphDrawer.GraphData>
 
-<div class="guard-schedule">
+<div class="map-background">
     @if (Executor is not null)
     {
         <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
