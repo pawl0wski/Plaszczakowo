@@ -61,18 +61,26 @@ public class GraphDrawer : Drawer
         await _context.StrokeAsync();
 
         if (e.Throughput != null)
-            await FillEdgeWithFlow(e);
+            await FillEdgeWithThroughput(e);
     }
 
-    private async Task FillEdgeWithFlow(GraphEdge e)
+    private async Task FillEdgeWithThroughput(GraphEdge e)
     {
         if (e.Throughput == null)
             throw new NullReferenceException();
+        double heightIndicator;
+        double xOffset;
+        double yOffset;
 
-        var x = (e.From.X + e.To.X) / 2 - 15.5;
-        var y = (e.From.Y + e.To.Y) / 2 + 7;
+        if (e.Throughput.Capacity != -1)
+            (heightIndicator, xOffset, yOffset) = (1.3, -20, 7.5);
+        else
+            (heightIndicator, xOffset, yOffset) = (2, -1, 0);   
+        
+        var x = e.From.X + (e.To.X - e.From.X) / heightIndicator + xOffset;
+        var y = e.From.Y + (e.To.Y - e.From.Y) / heightIndicator + yOffset;
 
-        await _context.SetFillStyleAsync("red");
+        await _context.SetFillStyleAsync(e.State.GetThroughputColor());
         await _context.SetFontAsync("bold 20px Cascadia Mono");
         await _context.FillTextAsync(e.Throughput.ToString(), x, y);
     }
@@ -96,7 +104,7 @@ public class GraphDrawer : Drawer
     {
         await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
         await _context.BeginPathAsync();
-        await _context.ArcAsync(v.X, v.Y, 30, 0, 2 * Math.PI);
+        await _context.ArcAsync(v.X, v.Y, v.State.GetEdgeRadius() + v.State.GetOutlineWidth(), 0, 2 * Math.PI);
         await _context.FillAsync();
     }
 
@@ -104,7 +112,7 @@ public class GraphDrawer : Drawer
     {
         await _context.SetFillStyleAsync(v.State.GetSecondaryColor());
         await _context.BeginPathAsync();
-        await _context.ArcAsync(v.X, v.Y, 25, 0, 2 * Math.PI);
+        await _context.ArcAsync(v.X, v.Y, v.State.GetEdgeRadius(), 0, 2 * Math.PI);
         await _context.FillAsync();
     }
 

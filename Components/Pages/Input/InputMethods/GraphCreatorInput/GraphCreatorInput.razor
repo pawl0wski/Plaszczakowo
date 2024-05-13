@@ -116,7 +116,7 @@
     {
         var problemInput = GraphDataToProblem.Convert(_currentData);
         await ProblemState.SetProblemInputData(problemInput);
-        Navigator.NavigateTo($"/{ProblemName}", true);
+        Navigator.NavigateTo($"/input/additional/{ProblemName}", true);
     }
 
 }

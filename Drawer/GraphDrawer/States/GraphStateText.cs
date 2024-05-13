@@ -1,6 +1,6 @@
 namespace Drawer.GraphDrawer;
 
-public class GraphStateInactive : GraphState
+public class GraphStateText : GraphState
 {
     public override string GetPrimaryColor() => "black";
 
@@ -9,4 +9,8 @@ public class GraphStateInactive : GraphState
     public override string GetThroughputColor() => "gray";
 
     public override int GetLineWidth() => 1;
+    
+    public override int GetOutlineWidth() => 1;
+
+    public override int GetEdgeRadius() => 20;
 }

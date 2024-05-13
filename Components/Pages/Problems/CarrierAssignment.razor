@@ -5,6 +5,8 @@
 @if (Executor is not null)
 {
     <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+    <ReturnButton/>
+    <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.CarrierAssignment"/>
 }
 
 
@@ -17,6 +19,7 @@
 
     protected override void InitializeFirstSnapshotCreator(CarrierAssignmentInputData inputData)
     {
-        FirstSnapshotCreator = new FirstCarrierAssignmentSnapshotCreator(inputData);
+        FirstSnapshotCreator = new CarrierAssignmentFirstSnapshotCreator(inputData);
     }
+
 }

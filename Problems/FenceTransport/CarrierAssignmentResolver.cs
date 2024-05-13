@@ -10,7 +10,7 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
     
     public override CarrierAssignmentOutput Resolve(CarrierAssignmentInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
-        FirstCarrierAssignmentSnapshotCreator creator = new(data);
+        CarrierAssignmentFirstSnapshotCreator creator = new(data);
         GraphData graphData = creator.CreateFirstSnapshot();
         problemRecreationCommands = commands;
         int verticesCount = graphData.Vertices.Count;
@@ -50,7 +50,8 @@ public class CarrierAssignmentResolver : ProblemResolver<CarrierAssignmentInputD
                     {
                         edge.Throughput.Flow += pathFlow;
                         if (pathFlow == 1)
-                            pairs.Pairs.Add(edge);
+                            if (previousIndex != source && vertexIndex != sink)
+                                pairs.Pairs.Add(new Pair(previousIndex, vertexIndex));
                         break;
                     }
                 }

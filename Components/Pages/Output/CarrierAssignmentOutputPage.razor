@@ -1,0 +1,44 @@
+@page "/carrier_assignment_output"
+@using Problem.CarrierAssignment
+@using States
+@inherits ProblemOutputBase
+
+@inject NavigationManager Navigation
+@inject IProblemState ProblemState
+
+<h2>Pary dopasowanych przewoźników:</h2>
+<table>
+    
+    <thead>
+        <tr>
+            <th>Ręce z przodu</th>
+            <th>Ręce z tyłu</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (_outputData != null)
+        {
+            @foreach (var pair in _outputData.Pairs)
+            {
+                <tr>
+                    <td>@pair.First</td>
+                    <td>@pair.Second</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+<button @onclick="NextProblem">Następny problem</button>
+
+@code {
+    CarrierAssignmentOutput? _outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
+    }
+    private void NextProblem()
+    {
+        Navigation.NavigateTo("convex_hull");
+    }
+}
