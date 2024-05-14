@@ -43,11 +43,11 @@ public class GuardScheduleResolver
 
                 UpdatePosition(p, inputData.Vertices, vertexIndex);
 
-                EnoughEnergyOrSteps(p, inputData.MaxPossibleSteps);
+                EnoughEnergyOrSteps(p, inputData.MaxPossibleSteps, vertexIndex);
 
                 Resting(p);
 
-                ChangePlaszczakText(p, xCoordinateForText, previousMelody, vertexIndex);
+                ChangePlaszczakText(p, xCoordinateForText, previousMelody, vertexIndex, inputData.MaxPossibleSteps);
                 ChangeGraphColor(vertexIndex);
 
                 p.Steps++;
@@ -84,11 +84,11 @@ public class GuardScheduleResolver
         }
     }
 
-    private void EnoughEnergyOrSteps(Plaszczak p, int maxSteps)
+    private void EnoughEnergyOrSteps(Plaszczak p, int maxSteps, int vertexIndex)
     {
-        if (p.Energy < p.NextVertexValue || p.Steps == maxSteps - 1)
+        if ((p.Energy < p.NextVertexValue || p.Steps >= maxSteps - 1) && vertexIndex != 0)
         {
-            if (!(p.CurrentVertexValue < p.PreviousVertexValue))
+            if (p.CurrentVertexValue >= p.PreviousVertexValue)
             {
                 ListenMelody(p);
             }
@@ -118,7 +118,7 @@ public class GuardScheduleResolver
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Active));
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Active));
     }
-    private void ChangePlaszczakText(Plaszczak p, int xCoordinateForText, int previousMelody, int vertexIndex)
+    private void ChangePlaszczakText(Plaszczak p, int xCoordinateForText, int previousMelody, int vertexIndex, int maxSteps)
     {
         problemRecreationCommands?.Add(new ChangeTextCommand(0, $"Index: {p.Index}", xCoordinateForText, 200, GraphStates.Inactive));
         problemRecreationCommands?.Add(new ChangeTextCommand(1, $"Max ⚡: {p.MaxEnergy}", xCoordinateForText, 250, GraphStates.Inactive));

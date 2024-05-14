@@ -7,6 +7,12 @@
         <AssemblyName>$(AssemblyName.Replace(' ', '_'))</AssemblyName>
     </PropertyGroup>
     <ItemGroup>
+      <None Remove="Components\Pages\Input\Additional\GuardScheduleAdditionalInput.razor.css" />
+    </ItemGroup>
+    <ItemGroup>
+      <Content Include="Components\Pages\Input\Additional\GuardScheduleAdditionalInput.razor.css" />
+    </ItemGroup>
+    <ItemGroup>
         <Content Update="electron.manifest.json">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
