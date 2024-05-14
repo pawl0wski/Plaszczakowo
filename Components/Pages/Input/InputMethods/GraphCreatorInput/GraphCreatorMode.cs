@@ -5,5 +5,7 @@ public enum GraphCreatorMode
     AddVertex,
     ConnectFirstEdge,
     ConnectSecondEdge,
-    Remove,
+    ChangeVertexValue,
+    SelectSpecialVertex,
+    Remove
 }

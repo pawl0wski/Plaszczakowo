@@ -43,7 +43,7 @@ public class GuardScheduleResolver
 
                 UpdatePosition(p, inputData.Vertices, vertexIndex);
 
-                EnoughEnergyOrSteps(p, inputData.MaxPossibleSteps);
+                EnoughEnergyOrSteps(p, inputData.MaxPossibleSteps, vertexIndex);
 
                 Resting(p);
 
@@ -84,9 +84,9 @@ public class GuardScheduleResolver
         }
     }
 
-    private void EnoughEnergyOrSteps(Plaszczak p, int maxSteps)
+    private void EnoughEnergyOrSteps(Plaszczak p, int maxSteps, int vertexIndex)
     {
-        if (p.Energy < p.NextVertexValue || p.Steps == maxSteps - 1)
+        if ((p.Energy < p.NextVertexValue || p.Steps >= maxSteps) && vertexIndex != 0)
         {
             if (!(p.CurrentVertexValue < p.PreviousVertexValue))
             {
@@ -104,7 +104,7 @@ public class GuardScheduleResolver
 
     private void Resting(Plaszczak p)
     {
-        if (p.CurrentVertexValue < p.PreviousVertexValue)
+        if (p.CurrentVertexValue >= p.PreviousVertexValue)
         {
             p.Steps = 0;
             p.Energy = p.MaxEnergy;
