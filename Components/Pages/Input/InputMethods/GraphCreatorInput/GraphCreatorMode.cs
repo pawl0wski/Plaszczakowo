@@ -6,5 +6,6 @@ public enum GraphCreatorMode
     ConnectFirstEdge,
     ConnectSecondEdge,
     ChangeVertexValue,
-    Remove,
+    SelectSpecialVertex,
+    Remove
 }
