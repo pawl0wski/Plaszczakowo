@@ -1,5 +1,6 @@
 ﻿using Drawer.GraphDrawer;
 using ProblemResolver.Converters;
+using ProblemResolver.Graph;
 using ProblemVisualizer;
 
 namespace Problem.GuardSchedule;
@@ -23,7 +24,7 @@ public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
 
     private int FindMaxXCoordinate()
     {
-        int maxX = int.MinValue;
+        var maxX = int.MinValue;
 
         foreach (var vertex in inputData.Vertices)
         {

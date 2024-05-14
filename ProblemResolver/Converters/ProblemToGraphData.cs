@@ -15,7 +15,7 @@ public static class ProblemToGraphData
                 throw new NullReferenceException("X or Y in ProblemVertex can't be null");
             vertices.Add(new GraphVertex(problemVertex.X ?? 0, problemVertex.Y ?? 0, problemVertex.Value.ToString()));
         }
-
+        
         foreach (var problemEdge in inputData.Edges)
         {
             edges.Add(new GraphEdge(vertices[problemEdge.From], vertices[problemEdge.To], directed: problemEdge.Directed));

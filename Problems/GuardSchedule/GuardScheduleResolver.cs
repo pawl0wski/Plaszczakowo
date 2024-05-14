@@ -1,4 +1,5 @@
 ﻿using Drawer.GraphDrawer;
+using Problem.CarrierAssignment;
 using ProblemResolver;
 using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;
@@ -13,11 +14,44 @@ public class GuardScheduleResolver
     public override GuardScheduleOutput Resolve(GuardScheduleInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
         GuardScheduleOutput output = new();
+        PrepareInputData(ref data);
         problemRecreationCommands = commands;
 
         IteratePath(data, ref output);
 
         return output;
+    }
+
+    private void PrepareInputData(ref GuardScheduleInputData data)
+    {
+        List<ProblemVertex> sortedProblemVertices = [];
+        List<ProblemEdge> sortedProblemEdges = [];
+        
+        var currentVertex = data.Vertices.First(v => v.IsSpecial);
+        ProblemEdge? currentEdge;
+        sortedProblemVertices.Add(currentVertex);
+
+        while (true)
+        {
+            currentEdge = data.Edges.First(e => e.From == currentVertex.Id);
+            sortedProblemEdges.Add(currentEdge);
+            currentVertex = data.Vertices.First(v => currentEdge.To == v.Id);
+            if (currentVertex == sortedProblemVertices[0])
+                break;
+            sortedProblemVertices.Add(currentVertex);
+        }
+        
+        for (var newVertId = 0; newVertId < sortedProblemVertices.Count; newVertId++)
+            sortedProblemVertices[newVertId].Id = newVertId;
+
+        for (var newEdgeId = 0; newEdgeId < sortedProblemEdges.Count; newEdgeId++)
+        {
+            sortedProblemEdges[newEdgeId].From = newEdgeId;
+            sortedProblemEdges[newEdgeId].To = (newEdgeId == sortedProblemEdges.Count - 1) ? 0 : newEdgeId + 1;
+        }
+
+        data.Vertices = sortedProblemVertices;
+        data.Edges = sortedProblemEdges;
     }
 
     private void IteratePath(in GuardScheduleInputData inputData, ref GuardScheduleOutput output)
