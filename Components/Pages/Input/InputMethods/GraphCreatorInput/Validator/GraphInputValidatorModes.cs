@@ -7,4 +7,6 @@ public enum GraphInputValidatorModes
     OneEdgeFromEveryVertex = 2,
     EverythingConnected = 4,
     ShouldHave3Vertices = 8,
+    ShouldHaveSpecialVertex = 16,
+    EveryVertexShouldHaveValue = 32
 }
