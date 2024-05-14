@@ -12,22 +12,26 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
     public override FenceTransportOutput Resolve(FenceTransportInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
-        for (int i = 0; i < data.ConvexHullOutput!.HullIndexes!.Count; i++)
-        {
-            int id = data.Edges.Count;
-            int from = data.ConvexHullOutput.HullIndexes[i];
-            int to = data.ConvexHullOutput.HullIndexes[(i + 1) % data.ConvexHullOutput.HullIndexes.Count];
-            data.Edges.Add(new(id, from, to, new(0, CalculateLength(data.Vertices[from], data.Vertices[to]))));
-        }
+        AddHullEdges(data.Vertices[data.FactoryIndex], data.Vertices, data.Edges, data.ConvexHullOutput!.HullIndexes!);
+
         FenceTransportOutput output = new();
         problemRecreationCommands = commands;
-
         
         ProblemVertex FactoryVertex = data.Vertices[data.FactoryIndex];
         List<int> FinishedEdges = new();
 
 
         return output;
+    }
+    private void AddHullEdges(ProblemVertex FactoryVertex, List<ProblemVertex> vertices, 
+        List<ProblemEdge> edges, List<int> HullIndexes)
+    {
+        for (int i = 0; i < HullIndexes.Count; i++)
+        {
+            int from = HullIndexes[i];
+            int to = HullIndexes[(i + 1) % HullIndexes.Count];
+            edges.Add(new(edges.Count, from, to, new(0, CalculateLength(vertices[from], vertices[to]))));
+        }
     }
     private int CalculateLength(ProblemVertex vertex1, ProblemVertex vertex2)
     {

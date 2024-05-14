@@ -18,19 +18,9 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
 
     private void CreateVertices(List<GraphVertex> graphVertices)
     {
-        if (inputData == null || inputData == null)
-        {
-            throw new ArgumentNullException(nameof(inputData), "Input data cannot be null");
-        }
-
         inputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
         foreach (var vertex in inputData.Vertices) 
         {
-            if (vertex == null)
-            {
-                continue;
-            }
-
             if (vertex.Id == inputData.FactoryIndex)
                 graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, "Fabryka", GraphStates.Special));
             else if (inputData.ConvexHullOutput!.HullIndexes!.Contains(vertex.Id))
@@ -47,7 +37,7 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
                 edges.Add(new GraphEdge(vertices[edge.From], vertices[edge.To]));
             else
                 edges.Add(new GraphEdge(vertices[edge.From],
-                vertices[edge.To],
+                vertices[edge.To], GraphStates.Active,
                 throughput: new GraphThroughput(edge.Throughput.Flow, edge.Throughput.Capacity)));
         }
     }
