@@ -16,9 +16,12 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
 
         FenceTransportOutput output = new();
         problemRecreationCommands = commands;
-        
+
         ProblemVertex FactoryVertex = data.Vertices[data.FactoryIndex];
+        List<Carrier> carriers = CreateCarriers(data.CarrierAssignmentOutput!.Pairs.Count, FactoryVertex.Id);
+        
         List<int> FinishedEdges = new();
+        CarryFence(FactoryVertex, data.Vertices, data.Edges, data.ConvexHullOutput!.HullIndexes!, FinishedEdges);
 
 
         return output;
@@ -41,21 +44,66 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         int y2 = vertex2.Y.GetValueOrDefault();
         return (int)Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
     }
+    private List<Carrier> CreateCarriers(int count, int FactoryIndex)
+    {
+        List<Carrier> carriers = new();
+        for (int i = 0; i < count; i++)
+        {
+            carriers.Add(new(i, FactoryIndex));
+        }
+        return carriers;
+    }
     private void CarryFence(ProblemVertex FactoryVertex, List<ProblemVertex> vertices, List<ProblemEdge> edges, List<int> HullIndexes, List<int> FinishedEdges)
     {
         int currentVertex = FactoryVertex.Id;
+        int carriedValue = 100;
         ProblemVertex furthestVertex = FindFurthestFenceVertex(FactoryVertex, vertices, edges, HullIndexes, FinishedEdges);
         List<int> pathIndexes = FindPathToVertex(FactoryVertex, furthestVertex, vertices, edges, HullIndexes, FinishedEdges);
-        for (int i = 0; i < pathIndexes.Count - 1; i++)
+        for (int i = 1; i < pathIndexes.Count; i++)
         {
             foreach (var edge in edges)
             {
-                if (edge.From == pathIndexes[i] && edge.To == pathIndexes[i + 1])
+                if (edge.From == pathIndexes[i - 1] && edge.To == pathIndexes[i])
                 {
+                    problemRecreationCommands?.Add(new ChangeVertexStateCommand(currentVertex, GraphStates.Inactive));
+                    problemRecreationCommands?.NextStep();
                     currentVertex = edge.To;
+                    problemRecreationCommands?.Add(new ChangeVertexStateCommand(currentVertex, GraphStates.Highlighted));
+                    problemRecreationCommands?.NextStep();
+                    if (currentVertex == furthestVertex.Id)
+                    {
+                        carriedValue = AddCarriedValueToHullEdges(edges[currentVertex], carriedValue);
+                        if (carriedValue == 0)
+                        {
+                            ReturnToFactory();
+                        }
+                    }
+
                 }
             }
         }
+    }
+    private int AddCarriedValueToHullEdges(ProblemEdge edge, int value)
+    {
+        if (edge.Throughput is null)
+        {
+            return value;
+        }
+        if (edge.Throughput!.Flow + value <= edge.Throughput.Capacity)
+        {
+            edge.Throughput!.Flow += value;
+            return 0;
+        }
+        else
+        {
+            int remaining = edge.Throughput.Capacity - edge.Throughput.Flow;
+            edge.Throughput.Flow = edge.Throughput.Capacity;
+            return value - remaining;
+        }
+    }
+    private void ReturnToFactory()
+    {
+        throw new System.NotImplementedException();
     }
     private ProblemVertex FindFurthestFenceVertex(ProblemVertex FactoryVertex, List<ProblemVertex> vertices, List<ProblemEdge> edges, List<int> HullIndexes, List<int> FinishedEdges)
     {
