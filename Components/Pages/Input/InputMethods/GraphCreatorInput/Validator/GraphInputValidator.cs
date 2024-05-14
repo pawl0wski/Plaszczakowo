@@ -16,27 +16,39 @@ public static class GraphInputValidator
 
         if (graphInputData.Vertices.Count == 0)
         {
-            errors.Add(new GraphValidatorError("Musisz podać przyjamniej jeden wierzchołek."));
+            errors.Add(new ("Musisz podać przyjamniej jeden wierzchołek."));
             return errors;
         }
 
+        if (modes.HasFlag(GraphInputValidatorModes.ShouldHaveSpecialVertex))
+        {
+            if (!CheckSpecialVertex(graphInputData)) 
+                errors.Add(new ("Musisz ustawić jeden wierzchołek jako specjalny."));
+        }
+
+        if (modes.HasFlag(GraphInputValidatorModes.EveryVertexShouldHaveValue))
+        {
+            if (!CheckEveryVertexHaveValue(graphInputData))
+                errors.Add(new ("Wszystkie wierzchołki muszą mieć ustawioną wartość."));
+        }
+        
         if (modes.HasFlag(GraphInputValidatorModes.ShouldHave3Vertices))
         {
             if (!Check3Vertices(graphInputData))
-                errors.Add(new GraphValidatorError("Graf musi posiadać conajmniej 3 wierzchołki."));
+                errors.Add(new ("Graf musi posiadać conajmniej 3 wierzchołki."));
         }
         
         if (modes.HasFlag(GraphInputValidatorModes.HaveLoop))
         {
             if (!CheckLoop(graphInputData, isDirected))
-                errors.Add(new GraphValidatorError("Graf musi posiadać cykl."));
+                errors.Add(new ("Graf musi posiadać cykl."));
         }
 
         if (modes.HasFlag(GraphInputValidatorModes.OneEdgeFromEveryVertex))
         {
             if (!CheckOneEdgeFromEveryVertex(graphInputData))
             {
-                errors.Add(new GraphValidatorError("Każdy wierzchołek powinien mieć tylko jedną krawędź incydentną."));
+                errors.Add(new ("Każdy wierzchołek powinien mieć tylko jedną krawędź incydentną."));
             }
         }
 
@@ -44,11 +56,21 @@ public static class GraphInputValidator
         {
             if (!CheckEverythingConnected(graphInputData, isDirected))
             {
-                errors.Add(new GraphValidatorError("Wszystkie wierzchołki muszą być połączone ze sobą."));
+                errors.Add(new ("Wszystkie wierzchołki muszą być połączone ze sobą."));
             }
         }
 
         return errors;
+    }
+
+    private static bool CheckEveryVertexHaveValue(ProblemGraphInputData graphInputData)
+    {
+        return graphInputData.Vertices.All((v) => v.Value is not null);
+    }
+
+    private static bool CheckSpecialVertex(ProblemGraphInputData graphInputData)
+    {
+        return graphInputData.Vertices.Exists((v) => v.IsSpecial);
     }
 
     private static bool Check3Vertices(ProblemGraphInputData graphInputData)

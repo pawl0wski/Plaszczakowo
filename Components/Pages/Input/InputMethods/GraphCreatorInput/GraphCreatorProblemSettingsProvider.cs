@@ -22,6 +22,8 @@ public static class GraphCreatorProblemSettingsProvider
                 | GraphInputValidatorModes.OneEdgeFromEveryVertex
                 | GraphInputValidatorModes.EverythingConnected
                 | GraphInputValidatorModes.ShouldHave3Vertices
+                | GraphInputValidatorModes.ShouldHaveSpecialVertex
+                | GraphInputValidatorModes.EveryVertexShouldHaveValue
     };
 
 
@@ -31,5 +33,6 @@ public static class GraphCreatorProblemSettingsProvider
         CanChangeVertexValue = false,
         Modes = GraphInputValidatorModes.EverythingConnected
                 | GraphInputValidatorModes.ShouldHave3Vertices
+                | GraphInputValidatorModes.ShouldHaveSpecialVertex
     };
 }
