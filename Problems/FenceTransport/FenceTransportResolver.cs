@@ -21,7 +21,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         List<Carrier> carriers = CreateCarriers(data.CarrierAssignmentOutput!.Pairs.Count, FactoryVertex.Id);
         
         List<int> FinishedEdges = new();
-        CarryFence(FactoryVertex, data.Vertices, data.Edges, data.ConvexHullOutput!.HullIndexes!, FinishedEdges);
+        CarryFence(FactoryVertex, data.Vertices, data.Edges, data.ConvexHullOutput!.HullIndexes!, FinishedEdges, carriers);
 
 
         return output;
@@ -33,10 +33,10 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         {
             int from = HullIndexes[i];
             int to = HullIndexes[(i + 1) % HullIndexes.Count];
-            edges.Add(new(edges.Count, from, to, new(0, CalculateLength(vertices[from], vertices[to]))));
+            edges.Add(new(edges.Count, from, to, new(0, CalculateLengthBetweenHullVerticies(vertices[from], vertices[to]))));
         }
     }
-    private int CalculateLength(ProblemVertex vertex1, ProblemVertex vertex2)
+    private int CalculateLengthBetweenHullVerticies(ProblemVertex vertex1, ProblemVertex vertex2)
     {
         int x1 = vertex1.X.GetValueOrDefault();
         int y1 = vertex1.Y.GetValueOrDefault();
@@ -53,32 +53,31 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         }
         return carriers;
     }
-    private void CarryFence(ProblemVertex FactoryVertex, List<ProblemVertex> vertices, List<ProblemEdge> edges, List<int> HullIndexes, List<int> FinishedEdges)
+    private void CarryFence(ProblemVertex FactoryVertex, List<ProblemVertex> vertices, List<ProblemEdge> edges, 
+        List<int> HullIndexes, List<int> FinishedEdges, List<Carrier> carriers)
     {
         int currentVertex = FactoryVertex.Id;
-        int carriedValue = 100;
         ProblemVertex furthestVertex = FindFurthestFenceVertex(FactoryVertex, vertices, edges, HullIndexes, FinishedEdges);
         List<int> pathIndexes = FindPathToVertex(FactoryVertex, furthestVertex, vertices, edges, HullIndexes, FinishedEdges);
-        for (int i = 1; i < pathIndexes.Count; i++)
+        for(int j = 0; j < carriers.Count; j++)
         {
-            foreach (var edge in edges)
+            for (int i = 1; i < pathIndexes.Count; i++)
             {
-                if (edge.From == pathIndexes[i - 1] && edge.To == pathIndexes[i])
+                foreach (var edge in edges)
                 {
-                    problemRecreationCommands?.Add(new ChangeVertexStateCommand(currentVertex, GraphStates.Inactive));
-                    problemRecreationCommands?.NextStep();
-                    currentVertex = edge.To;
-                    problemRecreationCommands?.Add(new ChangeVertexStateCommand(currentVertex, GraphStates.Highlighted));
-                    problemRecreationCommands?.NextStep();
-                    if (currentVertex == furthestVertex.Id)
+                    if (edge.From == pathIndexes[i - 1] && edge.To == pathIndexes[i])
                     {
-                        carriedValue = AddCarriedValueToHullEdges(edges[currentVertex], carriedValue);
-                        if (carriedValue == 0)
+                        currentVertex = edge.To;
+                        if (currentVertex == furthestVertex.Id)
                         {
-                            ReturnToFactory();
+                            carriers[j].Load = AddCarriedValueToHullEdges(edges[currentVertex], carriers[j].Load);
+                            if (carriers[j].Load == 0)
+                            {
+                                ReturnToFactory();
+                            }
                         }
-                    }
 
+                    }
                 }
             }
         }
