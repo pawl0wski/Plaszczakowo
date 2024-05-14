@@ -60,6 +60,9 @@ public class GraphDrawer : Drawer
         await _context.ClosePathAsync();
         await _context.StrokeAsync();
 
+        if (e.Directed)
+            await DrawDirectedArrow(e);
+            
         if (e.Throughput != null)
             await FillEdgeWithThroughput(e);
     }
@@ -148,5 +151,36 @@ public class GraphDrawer : Drawer
 
         await _context.SetFillStyleAsync(graphText.State.GetPrimaryColor());
         await _context.FillTextAsync(text, x, y);
+    }
+
+    private async Task DrawDirectedArrow(GraphEdge e)
+    {
+        await _context.SetFillStyleAsync(e.State.GetPrimaryColor());
+        double arrowSize = 15; 
+        var angle = Math.Atan2(e.To.Y - e.From.Y, e.To.X - e.From.X);
+
+        double vertexRadius = e.State.GetOutlineWidth() + e.State.GetEdgeRadius(); 
+        var endX = e.To.X - vertexRadius * Math.Cos(angle);
+        var endY = e.To.Y - vertexRadius * Math.Sin(angle);
+
+        var intersectX = e.To.X - vertexRadius * Math.Cos(angle - Math.PI);
+        var intersectY = e.To.Y - vertexRadius * Math.Sin(angle - Math.PI);
+
+        await _context.BeginPathAsync();
+        await _context.MoveToAsync(endX, endY);
+        await _context.LineToAsync(intersectX, intersectY);
+        await _context.StrokeAsync();
+
+        var x1 = endX - arrowSize * Math.Cos(angle - Math.PI / 6);
+        var y1 = endY - arrowSize * Math.Sin(angle - Math.PI / 6);
+        var x2 = endX - arrowSize * Math.Cos(angle + Math.PI / 6);
+        var y2 = endY - arrowSize * Math.Sin(angle + Math.PI / 6);
+
+        await _context.BeginPathAsync();
+        await _context.MoveToAsync(endX, endY);
+        await _context.LineToAsync(x1, y1);
+        await _context.LineToAsync(x2, y2);
+        await _context.ClosePathAsync();
+        await _context.FillAsync();
     }
 }
