@@ -45,3 +45,11 @@ body {
     background-image: url("background/map.png");
     background-size: cover;
 }
+
+.wall-background {
+     width: 100vw;
+     height: 100vh;
+
+     background-image: url("authors/background.png");
+     background-size: cover;
+ }
