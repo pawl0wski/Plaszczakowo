@@ -26,32 +26,36 @@ div.authors_page__authors {
     align-items: center;
     flex-wrap: wrap;
 }
+
+
 div.project_info {
-    padding-top: 1rem;
     line-height:3rem;
     text-align: center;
-    flex-wrap: wrap;
     font-size: 16pt;
-    margin:0 auto;
+    margin: auto;
     width: 60rem;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex-wrap: wrap;
 }
 
 div.link_desc {
     opacity: 75%;
-    margin:0 auto;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     text-align: center;
     align-self: center;
 }
 
-p  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+p {
+    margin: auto;
     text-align: center;
-    align-self: center;
-    border:5px;
-    border-color: white;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+p:hover {
+    background-color: #746050;
 }
