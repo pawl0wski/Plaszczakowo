@@ -19,8 +19,9 @@ public class FenceTransportFirstSnapshotCreator(FinalFenceInputData inputData)
 
     private void CreateVertices(List<GraphVertex> vertices)
     {
+        inputData.InputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
         foreach (var vertex in inputData.InputData.Vertices) {
-            if (vertex.Id == InputData.InputData.FactoryIndex)
+            if (vertex.Id == inputData.InputData.FactoryIndex)
                 vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, "Fabryka", GraphStates.Special));
             else if (InputData.ConvexHullOutput.HullIndexes!.Contains(vertex.Id))
                 vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, null, GraphStates.Active));
