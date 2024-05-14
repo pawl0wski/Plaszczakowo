@@ -86,7 +86,7 @@ public class GuardScheduleResolver
 
     private void EnoughEnergyOrSteps(Plaszczak p, int maxSteps, int vertexIndex)
     {
-        if ((p.Energy < p.NextVertexValue || p.Steps >= maxSteps - 1) && vertexIndex != 0)
+        if ((p.Energy < p.NextVertexValue || p.Steps >= maxSteps) && vertexIndex != 0)
         {
             if (p.CurrentVertexValue >= p.PreviousVertexValue)
             {
