@@ -84,8 +84,15 @@
     {
         var anotherSelectedVertex = GetSelectedVertex(mouseX, mouseY);
 
-        if (anotherSelectedVertex is null || _selectedVertex is null) return;
+        if (anotherSelectedVertex is null || _selectedVertex is null) 
+            return;
+        
+        if (_selectedVertex == anotherSelectedVertex) 
+            return;
 
+        if (_currentData.Edges.Exists((v) => v.From == _selectedVertex && v.To == anotherSelectedVertex))
+            return;
+        
         _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex, directed: _createDirectedGraph ?? false));
         _currentMode = GraphCreatorMode.ConnectFirstEdge;
         _selectedVertex.State = GraphStates.Inactive;
