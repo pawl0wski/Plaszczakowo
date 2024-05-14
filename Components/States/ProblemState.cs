@@ -4,17 +4,12 @@ using ProblemResolver;
 
 namespace ProjektZaliczeniowy_AiSD2.Components.States;
 
-public class ProblemState : IProblemState
+public class ProblemState(ProtectedSessionStorage sessionStorage) : IProblemState
 {
     private const string InputDataKey = "problemInputData";
     private const string OutputDataKey = "problemOutputData";
 
-    private readonly ProtectedSessionStorage? _sessionStore;
-
-    public ProblemState(ProtectedSessionStorage sessionStorage)
-    {
-        _sessionStore = sessionStorage;
-    }
+    private readonly ProtectedSessionStorage? _sessionStore = sessionStorage;
 
     public async Task SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData
@@ -38,7 +33,7 @@ public class ProblemState : IProblemState
         return DeserializeData<TInputData>(serializedInputData);
     }
 
-    public async Task SetProblemOutputData<TOutputData>(TOutputData outputData) where TOutputData : ProblemOutput
+    async Task IProblemState.SetProblemOutputData<TOutputData>(TOutputData outputData)
     {
         var sessionStore = CheckSessionStoreIfNull();
 

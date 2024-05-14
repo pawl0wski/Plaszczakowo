@@ -73,7 +73,7 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
     }
     protected async Task InsertOutputDataIntoProblemState()
     {
-        await ProblemState.SetProblemOutputData(OutputData);
+        if (ProblemState != null) await ProblemState.SetProblemOutputData(OutputData);
     }
 
     protected abstract void InitializeResolver();

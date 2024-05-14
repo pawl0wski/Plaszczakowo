@@ -4,7 +4,6 @@
 @inherits ProblemOutputBase<CarrierAssignmentOutput>
 
 @inject NavigationManager Navigation
-@inject IProblemState ProblemState
 
 <h2>Pary dopasowanych przewoźników:</h2>
 <table>
@@ -35,7 +34,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
+        if (ProblemState != null) _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
+        else
+        {
+            throw new NullReferenceException("ProblemState is null");
+        }
     }
     private void NextProblem()
     {

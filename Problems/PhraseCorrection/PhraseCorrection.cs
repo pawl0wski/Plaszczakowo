@@ -4,9 +4,9 @@ using ProblemResolver;
 using ProblemVisualizer.Commands;
 namespace Problem.PhraseCorrection;
 
-public class PhraseCorrection
+public class PhraseCorrection(string phrase)
 {
-    Dictionary<char, char> correctLetters = new Dictionary<char, char>()
+    Dictionary<char, char> _correctLetters = new Dictionary<char, char>()
     {
         ['p'] = 'b',
         ['q'] = 'd',
@@ -18,27 +18,21 @@ public class PhraseCorrection
         ['j'] = 'r'
     };
 
-    string result, phrase;
-
-    public PhraseCorrection(string phrase)
-    {
-        this.result = "";
-        this.phrase = phrase;
-    }
+    private string _result = "", _phrase = phrase;
 
     public void FixPhrase(string inputPhrase, ref PhraseCorrectionOutput output, ref ProblemRecreationCommands<TextReplaceData> commands)
     {
         
-        phrase = inputPhrase;
-        for (var i = 0; i < phrase.Length; i++)
+        _phrase = inputPhrase;
+        for (var i = 0; i < _phrase.Length; i++)
         {
             commands.Add(new ChangeCharStateCommand(i, TextReplaceStates.Highlighted));
             commands.NextStep();
-            if (correctLetters.ContainsKey(phrase[i]))
+            if (_correctLetters.ContainsKey(_phrase[i]))
             {
                 commands.Add(new ChangeCharStateCommand(i, TextReplaceStates.Incorrect));
                 ChangeAndReplace(i);
-                commands.Add(new ChangeCharCommand(i, correctLetters[phrase[i]]));
+                commands.Add(new ChangeCharCommand(i, _correctLetters[_phrase[i]]));
                 commands.NextStep();
                 commands.Add(new ChangeCharStateCommand(i, TextReplaceStates.Corrected));
                 commands.NextStep();
@@ -51,18 +45,18 @@ public class PhraseCorrection
             commands.Add(new MoveTextToRightCommand());
         } 
 
-        output.FixedPhrase = result;
+        output.FixedPhrase = _result;
 
     }
 
     private void ChangeAndReplace(int i)
     {
-        result += correctLetters[phrase[i]];
+        _result += _correctLetters[_phrase[i]];
     }
 
     private void ChangeWithoutReplace(int i)
     {
-        result += phrase[i];
+        _result += _phrase[i];
     }
 }
 

@@ -4,7 +4,6 @@
 @inherits ProblemOutputBase<ConvexHullOutput>
 
 @inject NavigationManager Navigation
-@inject IProblemState ProblemState
 
 <h2>Indeksy otoczki wypukłej:</h2>
 <table>
@@ -14,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (_outputData != null)
+        @if (_outputData != null && _outputData.HullIndexes != null)
         {
             @foreach (var i in _outputData.HullIndexes)
             {
@@ -32,7 +31,11 @@
 
     protected override async Task OnInitializedAsync()
     {
-        _outputData = await ProblemState.GetProblemOutputData<ConvexHullOutput>();
+        if (ProblemState != null) _outputData = await ProblemState.GetProblemOutputData<ConvexHullOutput>();
+        else
+        {
+            throw new NullReferenceException("ProblemState is null");
+        }
     }
     private void NextProblem()
     {
