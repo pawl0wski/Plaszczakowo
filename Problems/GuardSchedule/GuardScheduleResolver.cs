@@ -26,6 +26,7 @@ public class GuardScheduleResolver
         var plaszczaki = inputData.Plaszczaki;
         int verticesCount = inputData.Vertices.Count;
         int xCoordinateForText = FindMaxXCoordinate(inputData.Vertices);
+        int maxSteps = inputData.MaxPossibleSteps;
 
         plaszczaki.Sort();
         var plaszczakIndex = 0;
@@ -43,11 +44,11 @@ public class GuardScheduleResolver
 
                 UpdatePosition(p, inputData.Vertices, vertexIndex);
 
-                EnoughEnergyOrSteps(p, inputData.MaxPossibleSteps, vertexIndex);
+                EnoughEnergyOrSteps(p, maxSteps, vertexIndex);
 
                 Resting(p);
 
-                ChangePlaszczakText(p, xCoordinateForText, previousMelody, vertexIndex);
+                ChangePlaszczakText(p, xCoordinateForText, previousMelody, vertexIndex, maxSteps);
                 ChangeGraphColor(vertexIndex);
 
                 p.Steps++;
@@ -118,25 +119,27 @@ public class GuardScheduleResolver
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertexIndex, GraphStates.Active));
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(vertexIndex, GraphStates.Active));
     }
-    private void ChangePlaszczakText(Plaszczak p, int xCoordinateForText, int previousMelody, int vertexIndex)
+    private void ChangePlaszczakText(Plaszczak p, int xCoordinateForText, int previousMelody, int vertexIndex, int maxSteps)
     {
-        problemRecreationCommands?.Add(new ChangeTextCommand(0, $"Index: {p.Index}", xCoordinateForText, 200, GraphStates.Inactive));
-        problemRecreationCommands?.Add(new ChangeTextCommand(1, $"Max ⚡: {p.MaxEnergy}", xCoordinateForText, 250, GraphStates.Inactive));
+        problemRecreationCommands?.Add(new ChangeTextCommand(0, $"Id 💂: {p.Index}", xCoordinateForText, 260, GraphStates.Inactive));
+        problemRecreationCommands?.Add(new ChangeTextCommand(1, $"Max ⚡: {p.MaxEnergy}", xCoordinateForText, 310, GraphStates.Inactive));
 
         if (p.Energy == p.MaxEnergy && vertexIndex != 0)
-            problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: 💤", xCoordinateForText, 300, GraphStates.Active));
+            problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: 💤", xCoordinateForText, 360, GraphStates.Active));
         else
-            problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: {p.Energy}", xCoordinateForText, 300, GraphStates.Inactive));
+            problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: {p.Energy}", xCoordinateForText, 360, GraphStates.Inactive));
         
         if (previousMelody < p.Melody)
-            problemRecreationCommands?.Add(new ChangeTextCommand(3, $"Melodia: {p.Melody} +🎵", xCoordinateForText, 350, GraphStates.Active));
+            problemRecreationCommands?.Add(new ChangeTextCommand(3, $"Melodia: {p.Melody} +🎵", xCoordinateForText, 410, GraphStates.Active));
         else
-            problemRecreationCommands?.Add(new ChangeTextCommand(3, $"Melodia: {p.Melody}", xCoordinateForText, 350, GraphStates.Inactive));
+            problemRecreationCommands?.Add(new ChangeTextCommand(3, $"Melodia: {p.Melody}", xCoordinateForText, 410, GraphStates.Inactive));
+
+        problemRecreationCommands?.Add(new ChangeTextCommand(4, $"Max 🦶: {maxSteps}", xCoordinateForText, 460, GraphStates.Inactive));
 
         if (p.Steps == 0 && vertexIndex != 0)
-            problemRecreationCommands?.Add(new ChangeTextCommand(4, $"Kroki: 💤", xCoordinateForText, 400, GraphStates.Active));
+            problemRecreationCommands?.Add(new ChangeTextCommand(5, $"Kroki: 💤", xCoordinateForText, 510, GraphStates.Active));
         else
-            problemRecreationCommands?.Add(new ChangeTextCommand(4, $"Kroki: {p.Steps}", xCoordinateForText, 400, GraphStates.Inactive));
+            problemRecreationCommands?.Add(new ChangeTextCommand(5, $"Kroki: {p.Steps}", xCoordinateForText, 510, GraphStates.Inactive));
     }
     private int FindMaxXCoordinate(List<ProblemVertex> inputData)
     {
