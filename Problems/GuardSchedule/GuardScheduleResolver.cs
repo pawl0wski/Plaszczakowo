@@ -88,7 +88,7 @@ public class GuardScheduleResolver
     {
         if ((p.Energy < p.NextVertexValue || p.Steps >= maxSteps) && vertexIndex != 0)
         {
-            if (!(p.CurrentVertexValue < p.PreviousVertexValue))
+            if (p.CurrentVertexValue >= p.PreviousVertexValue)
             {
                 ListenMelody(p);
             }
@@ -104,7 +104,7 @@ public class GuardScheduleResolver
 
     private void Resting(Plaszczak p)
     {
-        if (p.CurrentVertexValue >= p.PreviousVertexValue)
+        if (p.CurrentVertexValue < p.PreviousVertexValue)
         {
             p.Steps = 0;
             p.Energy = p.MaxEnergy;
