@@ -19,6 +19,12 @@ public static class GraphInputValidator
             errors.Add(new GraphValidatorError("Musisz podać przyjamniej jeden wierzchołek."));
             return errors;
         }
+
+        if (modes.HasFlag(GraphInputValidatorModes.ShouldHave3Vertices))
+        {
+            if (!Check3Vertices(graphInputData))
+                errors.Add(new GraphValidatorError("Graf musi posiadać conajmniej 3 wierzchołki."));
+        }
         
         if (modes.HasFlag(GraphInputValidatorModes.HaveLoop))
         {
@@ -43,6 +49,11 @@ public static class GraphInputValidator
         }
 
         return errors;
+    }
+
+    private static bool Check3Vertices(ProblemGraphInputData graphInputData)
+    {
+        return graphInputData.Vertices.Count >= 3;
     }
 
     private static bool CheckLoop(in ProblemGraphInputData inputData, bool isDirected)

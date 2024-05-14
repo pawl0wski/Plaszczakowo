@@ -20,6 +20,8 @@ public static class GraphCreatorProblemSettings
         | GraphInputValidatorModes.EverythingConnected);
 
     private static (bool, GraphInputValidatorModes) GetSettingsForFenceTransport() =>
-        (false, GraphInputValidatorModes.EverythingConnected);
+        (false, 
+            GraphInputValidatorModes.EverythingConnected 
+            | GraphInputValidatorModes.ShouldHave3Vertices);
 }
 
