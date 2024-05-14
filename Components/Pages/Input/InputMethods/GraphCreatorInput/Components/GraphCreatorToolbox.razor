@@ -12,6 +12,18 @@
         Selected="SelectedMode is GraphCreatorMode.ConnectFirstEdge or GraphCreatorMode.ConnectSecondEdge"
         OnSelect="OnToolSelect"/>
     <GraphCreatorTool
+        ToolName="Zmień wartość"
+        IconName="fa-pen"
+        Mode="GraphCreatorMode.ChangeVertexValue"
+        Selected="SelectedMode is GraphCreatorMode.ChangeVertexValue"
+        OnSelect="OnToolSelect"/>
+    <GraphCreatorTool
+        ToolName="Ustaw specjalny"
+        IconName="fa-star"
+        Mode="GraphCreatorMode.SelectSpecialVertex"
+        Selected="SelectedMode is GraphCreatorMode.SelectSpecialVertex"
+        OnSelect="OnToolSelect"/>
+    <GraphCreatorTool
         ToolName="Usuń wierzchołek"
         IconName="fa-trash"
         Mode="GraphCreatorMode.Remove"

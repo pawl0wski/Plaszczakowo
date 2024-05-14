@@ -26,6 +26,8 @@
 
     private GraphVertex? _selectedVertex;
 
+    private GraphState? _prevSelectedState;
+
     private GraphCanvas? _canvas;
 
     private GraphInputValidatorModes? _validatorModes;
@@ -37,7 +39,7 @@
         (_createDirectedGraph, _validatorModes) = GraphCreatorProblemSettings.GetSettingsForProblem(ProblemName); 
     }
 
-    private void OnCreatorClick(MouseEventArgs obj)
+    private async void OnCreatorClick(MouseEventArgs obj)
     {
         var mouseX = Convert.ToInt32(obj.ClientX);
         var mouseY = Convert.ToInt32(obj.ClientY);
@@ -56,12 +58,30 @@
             case GraphCreatorMode.ConnectSecondEdge:
                 OnConnectSecondEdge(mouseX, mouseY);
                 break;
+            case GraphCreatorMode.ChangeVertexValue:
+                await OnChangeVertexValue(mouseX, mouseY);
+                break;
+            case GraphCreatorMode.SelectSpecialVertex:
+                SelectSpecialVertex(mouseX, mouseY);
+                break;
             case GraphCreatorMode.Remove:
                 OnRemoveVertex(mouseX, mouseY);
                 break;
         }
 
         _canvas.ChangeGraphData(_currentData);
+    }
+
+    private void SelectSpecialVertex(in int mouseX, in int mouseY)
+    {
+        _selectedVertex = GetSelectedVertex(mouseX, mouseY);
+
+        if (_selectedVertex is null) return;
+
+        foreach (var vertex in _currentData.Vertices.Where(vertex => vertex.State == GraphStates.Special))
+            vertex.State = GraphStates.Inactive;
+
+        _selectedVertex.State = GraphStates.Special;
     }
 
     private void OnAddVertex(in int mouseX, in int mouseY)
@@ -76,6 +96,8 @@
 
         if (_selectedVertex is null) return;
 
+
+        _prevSelectedState = _selectedVertex.State;
         _selectedVertex.State = GraphStates.Highlighted;
         _currentMode = GraphCreatorMode.ConnectSecondEdge;
     }
@@ -95,8 +117,20 @@
         
         _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex, directed: _createDirectedGraph ?? false));
         _currentMode = GraphCreatorMode.ConnectFirstEdge;
-        _selectedVertex.State = GraphStates.Inactive;
+        _selectedVertex.State = _prevSelectedState ?? GraphStates.Inactive;
         _selectedVertex = null;
+    }
+
+    private async Task OnChangeVertexValue(int mouseX, int mouseY)
+    {
+        _selectedVertex = GetSelectedVertex(mouseX, mouseY);
+        if (_selectedVertex is null)
+            return;
+        
+        var parameters = new ModalParameters().Add(nameof(ChangeVertexValueModal.Number), int.Parse(_selectedVertex.Value ?? "0"));
+        var result = await Modal.Show<ChangeVertexValueModal>(parameters, new ModalOptions{Size = ModalSize.Medium}).Result;
+
+        _selectedVertex.Value = result.Data?.ToString();
     }
 
     private void OnRemoveVertex(in int mouseX, in int mouseY)
