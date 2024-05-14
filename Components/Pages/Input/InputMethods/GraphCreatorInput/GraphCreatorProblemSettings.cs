@@ -17,7 +17,8 @@ public static class GraphCreatorProblemSettings
     private static (bool, GraphInputValidatorModes) GetSettingsForGuardSchedule() => (true,
         GraphInputValidatorModes.HaveLoop 
         | GraphInputValidatorModes.OneEdgeFromEveryVertex 
-        | GraphInputValidatorModes.EverythingConnected);
+        | GraphInputValidatorModes.EverythingConnected
+        | GraphInputValidatorModes.ShouldHave3Vertices);
 
     private static (bool, GraphInputValidatorModes) GetSettingsForFenceTransport() =>
         (false, 
