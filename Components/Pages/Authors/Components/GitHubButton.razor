@@ -1,0 +1,15 @@
+@inject NavigationManager Navigator
+
+<div class = "github_button">
+    <p class="icon" @onclick = "GoToRepository">
+        <Icon Name = "fa-book" />
+        </p>
+</div>
+
+
+@code {
+    protected void GoToRepository()
+    {
+        Navigator.NavigateTo("https://google.com");
+    }
+}

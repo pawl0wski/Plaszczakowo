@@ -1,0 +1,13 @@
+div.github_button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    border:5px;
+    border-color: white;
+}
+
+div.github_button img {
+    size: 50%;
+}
