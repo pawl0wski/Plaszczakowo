@@ -12,7 +12,10 @@
     <div class="click_handler" @onclick="OnCreatorClick">
         <GraphCanvas EnableZoom="false" Data="_currentData" @ref="_canvas"/>
     </div>
-    <GraphCreatorToolbox OnToolSelect="OnToolSelect" SelectedMode="_currentMode"/>
+    <GraphCreatorToolbox
+        OnToolSelect="OnToolSelect"
+        SelectedMode="_currentMode"
+        AllowVertexValueChange="_problemSettings.CanChangeVertexValue"/>
     <GraphCreatorToolContinue OnContinue="OnContinue"/>
 </div>
 
@@ -30,13 +33,11 @@
 
     private GraphCanvas? _canvas;
 
-    private GraphInputValidatorModes? _validatorModes;
-
-    private bool? _createDirectedGraph;
+    private GraphCreatorProblemSettings _problemSettings;
 
     protected override void OnInitialized()
     {
-        (_createDirectedGraph, _validatorModes) = GraphCreatorProblemSettings.GetSettingsForProblem(ProblemName); 
+        _problemSettings = GraphCreatorProblemSettingsProvider.GetSettingsForProblem(ProblemName);
     }
 
     private async void OnCreatorClick(MouseEventArgs obj)
@@ -106,16 +107,16 @@
     {
         var anotherSelectedVertex = GetSelectedVertex(mouseX, mouseY);
 
-        if (anotherSelectedVertex is null || _selectedVertex is null) 
+        if (anotherSelectedVertex is null || _selectedVertex is null)
             return;
-        
-        if (_selectedVertex == anotherSelectedVertex) 
+
+        if (_selectedVertex == anotherSelectedVertex)
             return;
 
         if (_currentData.Edges.Exists((v) => v.From == _selectedVertex && v.To == anotherSelectedVertex))
             return;
-        
-        _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex, directed: _createDirectedGraph ?? false));
+
+        _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex, directed: _problemSettings.DirectedGraph));
         _currentMode = GraphCreatorMode.ConnectFirstEdge;
         _selectedVertex.State = _prevSelectedState ?? GraphStates.Inactive;
         _selectedVertex = null;
@@ -126,9 +127,9 @@
         _selectedVertex = GetSelectedVertex(mouseX, mouseY);
         if (_selectedVertex is null)
             return;
-        
+
         var parameters = new ModalParameters().Add(nameof(ChangeVertexValueModal.Number), int.Parse(_selectedVertex.Value ?? "0"));
-        var result = await Modal.Show<ChangeVertexValueModal>(parameters, new ModalOptions{Size = ModalSize.Medium}).Result;
+        var result = await Modal.Show<ChangeVertexValueModal>(parameters, new ModalOptions { Size = ModalSize.Medium }).Result;
 
         _selectedVertex.Value = result.Data?.ToString();
     }
@@ -167,7 +168,7 @@
     {
         var problemInput = GraphDataToProblem.Convert(_currentData);
 
-        var errors = GraphInputValidator.Validate(_validatorModes ?? 0, problemInput, _createDirectedGraph ?? false);
+        var errors = GraphInputValidator.Validate(_problemSettings.Modes, problemInput, _problemSettings.DirectedGraph);
         if (errors.Count > 0)
         {
             ShowValidatorErrorModal(errors);

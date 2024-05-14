@@ -11,12 +11,15 @@
         Mode="GraphCreatorMode.ConnectFirstEdge"
         Selected="SelectedMode is GraphCreatorMode.ConnectFirstEdge or GraphCreatorMode.ConnectSecondEdge"
         OnSelect="OnToolSelect"/>
-    <GraphCreatorTool
-        ToolName="Zmień wartość"
-        IconName="fa-pen"
-        Mode="GraphCreatorMode.ChangeVertexValue"
-        Selected="SelectedMode is GraphCreatorMode.ChangeVertexValue"
-        OnSelect="OnToolSelect"/>
+    @if (AllowVertexValueChange ?? false)
+    {
+        <GraphCreatorTool
+            ToolName="Zmień wartość"
+            IconName="fa-pen"
+            Mode="GraphCreatorMode.ChangeVertexValue"
+            Selected="SelectedMode is GraphCreatorMode.ChangeVertexValue"
+            OnSelect="OnToolSelect"/>
+    }
     <GraphCreatorTool
         ToolName="Ustaw specjalny"
         IconName="fa-star"
@@ -35,4 +38,6 @@
     [Parameter] public required Action<GraphCreatorMode> OnToolSelect { get; set; }
 
     [Parameter] public GraphCreatorMode SelectedMode { get; set; }
+
+    [Parameter] public bool? AllowVertexValueChange { get; set; }
 }
