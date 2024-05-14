@@ -1,9 +1,9 @@
-@page "/authors";
-@using ProjektZaliczeniowy_AiSD2.Components.Pages.Authors.Components
-@rendermode InteractiveServer
+@page "/authors"
+@using System.Diagnostics
+@rendermode InteractiveServer 
 
 <ReturnButton />
-<div class="authors_page">
+<div class="authors_page" style = "width: 100%;">
     <h1>Autorzy</h1>
     <div class="authors_page__authors">
         <AuthorEntry Name="Jakub Pawłowski" ImgSrc="/authors/JakubPawlowski.png"/>
@@ -11,4 +11,24 @@
         <AuthorEntry Name="Bartłomiej Wiśniewski" ImgSrc="/authors/BartlomiejWisniewski.png"/>
         <AuthorEntry Name="Sajmon Koniec" ImgSrc="/authors/SajmonKoniec.png"/>
     </div>
+    <h1>O projekcie</h1>
+    <div class = "project_info">Płaszczakowo to aplikacja przygotowana w ramach przedmiotu Algorytmy i Struktury Danych II. Utworzyliśmy ją na podstawie Electron.NET, czyli wrappera który umożliwia pisanie aplikacji Electrona przy użyciu frameworku ASP.NET oraz Blazora, w języku C#. Dzięki temu projektowi wynieśliśmy dużo cennego doświadczenia w pracy zespołowej, a przede wszystkim świetnie się bawiliśmy wymyślając kolejne graficzne elementy interfejsu.</div>
+    <h1>Linki</h1>
+    <p class="icon" @onclick=GoToRepository>
+        <Icon IsBrand = "true" Size = "30" Name="fa-github"/>
+    </p>
+    <div class="link_desc">GitHub</div>
 </div>
+
+
+@code {
+    private void GoToRepository()
+    {
+        string url = "https://github.com/pawl0wski/ProjektZaliczeniowy-AiSD2";
+
+        Process.Start(new ProcessStartInfo(url)
+        {
+            UseShellExecute = true
+        });
+    }
+}

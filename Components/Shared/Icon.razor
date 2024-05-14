@@ -6,9 +6,17 @@
     
     [Parameter] public int? Size { get; set; }
 
+    [Parameter] public bool IsBrand { get; set; }
+
     private string ReturnPreparedHtmlClass()
     {
-        return $"fas {Name}";
+        if (IsBrand == true)
+        {
+            return $"fa-brands {Name}";
+        }
+        else {
+            return $"fas {Name}";
+        }
     }
 
 }
