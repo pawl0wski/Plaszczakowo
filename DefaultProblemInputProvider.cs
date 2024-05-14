@@ -43,22 +43,26 @@ public static class DefaultProblemInputProvider
 
         List<ProblemVertex> problemVertices = 
         [
-            new ProblemVertex(0, 390, 200, 4),
-            new ProblemVertex(1, 610, 170, 7),
-            new ProblemVertex(2, 690, 300, 13),
-            new ProblemVertex(3, 590, 400, 10),
-            new ProblemVertex(4, 440, 440, 8),
-            new ProblemVertex(5, 310, 349, 17),
+            new ProblemVertex(0, 250, 320, 5, true),
+            new ProblemVertex(1, 450, 220, 10, false),
+            new ProblemVertex(2, 690, 230, 12, false),
+            new ProblemVertex(3, 840, 360, 10, false),
+            new ProblemVertex(4, 800, 440, 8, false),
+            new ProblemVertex(5, 650, 525, 17, false),
+            new ProblemVertex(6, 500, 520, 3, false),
+            new ProblemVertex(7, 310, 470, 13, false),
         ];
 
         List<ProblemEdge> problemEdges = 
         [
-            new ProblemEdge(0, 0, 1),
-            new ProblemEdge(1, 1, 2),
-            new ProblemEdge(2, 2, 3),
-            new ProblemEdge(3, 3, 4),
-            new ProblemEdge(4, 4, 5),
-            new ProblemEdge(5, 5, 0),
+            new ProblemEdge(0, 0, 1, true),
+            new ProblemEdge(1, 1, 2, true),
+            new ProblemEdge(2, 2, 3, true),
+            new ProblemEdge(3, 3, 4, true),
+            new ProblemEdge(4, 4, 5, true),
+            new ProblemEdge(5, 5, 6, true),
+            new ProblemEdge(6, 6, 7, true),
+            new ProblemEdge(7, 7, 0, true),
         ];
 
         List<Plaszczak> plaszczaki =
