@@ -13,7 +13,6 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
 
         CreateVertices(vertices);
         CreateEdges(vertices, edges);
-        CreateFence(vertices, edges);
         return new (vertices, edges, []);
     }
 
@@ -34,7 +33,7 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
 
             if (vertex.Id == inputData.FactoryIndex)
                 graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, "Fabryka", GraphStates.Special));
-            else if (inputData.ConvexHullOutput.HullIndexes!.Contains(vertex.Id))
+            else if (inputData.ConvexHullOutput!.HullIndexes!.Contains(vertex.Id))
                 graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, null, GraphStates.Active));
             else
                 graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0));
@@ -42,16 +41,14 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
     }
     private void CreateEdges(List<GraphVertex> vertices, List<GraphEdge> edges)
     {
-        foreach (var edge in inputData.Edges) edges.Add(new GraphEdge(vertices[edge.From], vertices[edge.To]));
-    }
-    private void CreateFence(List<GraphVertex> vertices, List<GraphEdge> edges)
-    {
-        var count = inputData.ConvexHullOutput.HullIndexes!.Count;
-        for (int i = 0; i < count; i++)
+        foreach (var edge in inputData.Edges)
         {
-            var from = vertices[inputData.ConvexHullOutput.HullIndexes[i]];
-            var to = vertices[inputData.ConvexHullOutput.HullIndexes[(i + 1) % count]];
-            edges.Add(new GraphEdge(from, to, GraphStates.Active));
+            if (edge.Throughput is null)
+                edges.Add(new GraphEdge(vertices[edge.From], vertices[edge.To]));
+            else
+                edges.Add(new GraphEdge(vertices[edge.From],
+                vertices[edge.To],
+                throughput: new GraphThroughput(edge.Throughput.Flow, edge.Throughput.Capacity)));
         }
     }
 }
