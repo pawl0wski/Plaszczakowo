@@ -6,10 +6,10 @@ using ProblemVisualizer.Commands;
 
 namespace Problem.FenceTransport;
 
-public class FenceTransportResolver : ProblemResolver<FinalFenceInputData, FenceTransportOutput, GraphData>
+public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, FenceTransportOutput, GraphData>
 {
     private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
-    public override FenceTransportOutput Resolve(FinalFenceInputData data, ref ProblemRecreationCommands<GraphData> commands)
+    public override FenceTransportOutput Resolve(FenceTransportInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
         FenceTransportOutput output = new();
         problemRecreationCommands = commands;

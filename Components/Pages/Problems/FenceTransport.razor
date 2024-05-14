@@ -1,6 +1,6 @@
 @page "/fence_transport"
 @using Problem.FenceTransport;
-@inherits ProblemComponentBase<FinalFenceInputData, FenceTransportOutput, Drawer.GraphDrawer.GraphData>
+@inherits ProblemComponentBase<FenceTransportInputData, FenceTransportOutput, Drawer.GraphDrawer.GraphData>
 
 <div class="map-background">
     @if (Executor is not null)
@@ -19,7 +19,7 @@
         Resolver = new FenceTransportResolver();
     }
 
-    protected override void InitializeFirstSnapshotCreator(FinalFenceInputData inputData)
+    protected override void InitializeFirstSnapshotCreator(FenceTransportInputData inputData)
     {
         FirstSnapshotCreator = new FenceTransportFirstSnapshotCreator(inputData);
     }

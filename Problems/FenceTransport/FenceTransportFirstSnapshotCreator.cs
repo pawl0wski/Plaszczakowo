@@ -3,8 +3,8 @@ using ProblemVisualizer;
 
 namespace Problem.FenceTransport;
 
-public class FenceTransportFirstSnapshotCreator(FinalFenceInputData inputData)
-    : FirstSnapshotCreator<FinalFenceInputData, GraphData>(inputData)
+public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputData)
+    : FirstSnapshotCreator<FenceTransportInputData, GraphData>(inputData)
 {
     public override GraphData CreateFirstSnapshot()
     {
@@ -17,21 +17,32 @@ public class FenceTransportFirstSnapshotCreator(FinalFenceInputData inputData)
         return new (vertices, edges, []);
     }
 
-    private void CreateVertices(List<GraphVertex> vertices)
+    private void CreateVertices(List<GraphVertex> graphVertices)
     {
-        inputData.InputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
-        foreach (var vertex in inputData.InputData.Vertices) {
-            if (vertex.Id == inputData.InputData.FactoryIndex)
-                vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, "Fabryka", GraphStates.Special));
-            else if (InputData.ConvexHullOutput.HullIndexes!.Contains(vertex.Id))
-                vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, null, GraphStates.Active));
+        if (inputData == null || inputData == null)
+        {
+            throw new ArgumentNullException(nameof(inputData), "Input data cannot be null");
+        }
+
+        inputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
+        foreach (var vertex in inputData.Vertices) 
+        {
+            if (vertex == null)
+            {
+                continue;
+            }
+
+            if (vertex.Id == inputData.FactoryIndex)
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, "Fabryka", GraphStates.Special));
+            else if (inputData.ConvexHullOutput.HullIndexes!.Contains(vertex.Id))
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, null, GraphStates.Active));
             else
-                vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0));
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0));
         }
     }
     private void CreateEdges(List<GraphVertex> vertices, List<GraphEdge> edges)
     {
-        foreach (var edge in inputData.InputData.Edges) edges.Add(new GraphEdge(vertices[edge.From], vertices[edge.To]));
+        foreach (var edge in inputData.Edges) edges.Add(new GraphEdge(vertices[edge.From], vertices[edge.To]));
     }
     private void CreateFence(List<GraphVertex> vertices, List<GraphEdge> edges)
     {

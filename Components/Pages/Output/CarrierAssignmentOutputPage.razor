@@ -36,6 +36,9 @@
     protected override async Task OnInitializedAsync()
     {
         _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
+        var inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
+        inputData.CarrierAssignmentOutput = _outputData;
+        ProblemState.SetProblemInputData(inputData);
     }
     private void NextProblem()
     {

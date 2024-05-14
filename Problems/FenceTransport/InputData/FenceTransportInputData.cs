@@ -11,4 +11,6 @@ public record FenceTransportInputData(int FrontCarrierNumber, int RearCarrierNum
     public List<Edge> Relations { get; set; } = Relations;
 
     public int FactoryIndex { get; set; } = FactoryIndex;
+    public CarrierAssignmentOutput? CarrierAssignmentOutput { get; set; }
+    public ConvexHullOutput? ConvexHullOutput { get; set; }
 }
