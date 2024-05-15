@@ -24,11 +24,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (ProblemState != null) _outputData = await ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
-        else
-        {
-            throw new NullReferenceException("ProblemState is null");
-        }
+        if (ProblemState is null)
+            return;
+        
+        _outputData = await ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
     }
 
     private async void GoToNextSubproblem()
@@ -36,11 +35,11 @@
         if (_outputData == null) return;
         
         HuffmanCodingInputData data = new(_outputData.FixedPhrase);
-        if (ProblemState != null) await ProblemState.SetProblemInputData(data);
-        else
-        {
+        if (ProblemState is null)
             throw new NullReferenceException("ProblemState is null");
-        }
+        
+        await ProblemState.SetProblemInputData(data);
+
         Navigator.NavigateTo($"/huffman_coding");
     }
 }

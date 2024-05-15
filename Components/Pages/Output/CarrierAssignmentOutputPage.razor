@@ -34,11 +34,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (ProblemState != null) _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
-        else
-        {
+        if (ProblemState is null) 
             throw new NullReferenceException("ProblemState is null");
-        }
+        
+        _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
     }
     private void NextProblem()
     {
