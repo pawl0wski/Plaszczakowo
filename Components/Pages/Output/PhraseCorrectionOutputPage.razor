@@ -33,14 +33,14 @@
 
     private async void GoToNextSubproblem()
     {
-        if (_outputData == null) return;
+        if (_outputData == null)
+            throw new NullReferenceException("_outputData can't be null");
         
         HuffmanCodingInputData data = new(_outputData.FixedPhrase);
-        if (ProblemState != null) await ProblemState.SetProblemInputData(data);
+        if (ProblemState != null) 
+            await ProblemState.SetProblemInputData(data);
         else
-        {
             throw new NullReferenceException("ProblemState is null");
-        }
         Navigator.NavigateTo($"/huffman_coding");
     }
 }

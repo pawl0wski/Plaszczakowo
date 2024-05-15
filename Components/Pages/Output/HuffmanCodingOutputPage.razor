@@ -25,18 +25,18 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (ProblemState != null) _outputData = await ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
+        if (ProblemState != null) 
+            _outputData = await ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
         else
-        {
             throw new NullReferenceException("ProblemState is null");
-        }
         _codes = ExtractCodes();
     }
 
     private List<string> ExtractCodes()
     {
         List<string> list = [];
-        if (_outputData == null) return list;
+        if (_outputData is null)
+            throw new NullReferenceException("_outputData can't be null");
         
         foreach (var key in _outputData.HuffmanDictionary.Keys)
         {

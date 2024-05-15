@@ -31,11 +31,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (ProblemState != null) _outputData = await ProblemState.GetProblemOutputData<ConvexHullOutput>();
+        if (ProblemState != null) 
+            _outputData = await ProblemState.GetProblemOutputData<ConvexHullOutput>();
         else
-        {
             throw new NullReferenceException("ProblemState is null");
-        }
     }
     private void NextProblem()
     {

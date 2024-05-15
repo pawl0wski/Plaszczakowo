@@ -49,7 +49,8 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
                     if (edge.From == network.Vertices[previousIndex]
                      && edge.To == network.Vertices[vertexIndex])
                     {
-                        if (edge.Throughput != null) edge.Throughput.Flow += pathFlow;
+                        if (edge.Throughput != null) 
+                            edge.Throughput.Flow += pathFlow;
                         if (pathFlow == 1)
                             if (previousIndex != source && vertexIndex != sink)
                                 pairs.Pairs.Add(new Pair(previousIndex, vertexIndex));
