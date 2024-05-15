@@ -10,10 +10,10 @@
     <div class="board">
         <table>
             <tr>
-                <th width="10%">Dzień</th>
-                <th width="20%">ID Płaszczaka</th>
-                <th width="35%">Energia</th>
-                <th width="35%">Melodia</th>
+                <th style="width: 10%">Dzień</th>
+                <th style="width: 20%">ID Płaszczaka</th>
+                <th style="width: 35%">Energia</th>
+                <th style="width: 35%">Melodia</th>
             </tr>
                 @foreach(var (day, plaszczak) in GetBestPlaszczaki() ?? [])
                 {
