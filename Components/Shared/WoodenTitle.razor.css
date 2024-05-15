@@ -1,7 +1,7 @@
 div.title {
     width: 40rem;
     height: 5rem;
-    background: url("background/title.png") no-repeat;
+    background: url("img/title.png") no-repeat;
     background-size: contain;
     
     margin-left: auto;

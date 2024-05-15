@@ -1,5 +1,5 @@
 div.welcome-button {
-    background: url("buttons/button-frame.png");
+    background: url("img/buttons/button-frame.png");
     background-size: cover;
     height: calc(87px / 1.1);
     width: calc(389px / 1.1);
@@ -23,6 +23,6 @@ div.welcome-button p {
 }
 
 div.welcome-button:hover {
-    background: url("buttons/button-frame-hover.png");
+    background: url("img/buttons/button-frame-hover.png");
     background-size: cover;
 }

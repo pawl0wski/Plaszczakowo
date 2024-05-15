@@ -13,6 +13,6 @@ div.letter {
     border-color: black;
     border-style: solid;
     
-    background: url("background/map.png");
+    background: url("img/background/map.png");
     background-size: cover;
 }

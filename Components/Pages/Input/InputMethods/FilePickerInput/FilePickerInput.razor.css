@@ -9,7 +9,7 @@ div.title {
     
     display: flex;
     align-items: center;
-    background: url("authors/background.png");
+    background: url("img/background/wall_background.png");
     
     color: white;
     
@@ -23,12 +23,12 @@ div.files {
     height: 75vh;
 
     
-    background: url("background/map.png");
+    background: url("img/background/map.png");
     
 }
 
 div.buttons {
-    background: url("authors/background.png");
+    background: url("img/background/wall_background.png");
 
     height: 10vh;
     padding: 0 1rem;

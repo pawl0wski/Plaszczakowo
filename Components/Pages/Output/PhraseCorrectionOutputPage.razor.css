@@ -1,7 +1,7 @@
 div.phrase-correction-output {
     height: 100vh;
     width: 100vw;
-    background: url("authors/background.png");
+    background: url("img/background/wall_background.png");
     
     display: flex;
     flex-direction: column;
