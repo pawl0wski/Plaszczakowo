@@ -18,5 +18,5 @@ public interface IProblemState
     public Task SetProblemJsonOutputData(string outputData);
 
     public Task SetProblemOutputData<TOutputData>(TOutputData outputData)
-        where TOutputData : ProblemOutput?;
+        where TOutputData : ProblemOutput;
 }

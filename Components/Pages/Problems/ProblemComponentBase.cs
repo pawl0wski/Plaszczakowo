@@ -73,10 +73,9 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
     }
     protected async Task InsertOutputDataIntoProblemState()
     {
-        if (ProblemState != null)
-            await ProblemState.SetProblemOutputData(OutputData);
-        else
+        if (ProblemState is null || OutputData is null) 
             throw new NullReferenceException("ProblemState can't be null");
+        await ProblemState.SetProblemOutputData(OutputData);
     }
 
     protected abstract void InitializeResolver();
