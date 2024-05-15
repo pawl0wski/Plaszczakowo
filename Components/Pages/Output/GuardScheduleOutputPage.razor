@@ -38,7 +38,7 @@
             return null;
 
         var id = 0;
-        return Output.Plaszczaki.GetRange(0, 7).Select((p) => (++id, p));
+        return Output.Plaszczaki.Take(7).Select((p) => (++id, p));
     }
 
     private void ReturnBack() => Navigator.NavigateTo("/");
