@@ -1,0 +1,60 @@
+div.guard_schedule {
+    width: 100vw;
+    height: 100vh;
+    background: url("authors/background.png");
+    
+    padding-top: 2rem;
+    
+}
+
+div.board {
+    width: 60rem;
+    height: 35rem;
+
+    padding: 4rem 5rem;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
+    background: url("img/board.png");
+    background-position: center;
+    background-size: contain;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.board table {
+    width: 90%;
+    height: 85%;
+    
+    background: url("img/table.png");
+    background-size: cover;
+    background-position: center;
+}
+
+table th {
+    font-size: larger;
+}
+
+table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.10);
+}
+
+table td {
+    font-size: large;
+}
+
+table, td, th {
+    border-collapse: collapse;
+    border-style: solid;
+    border-width: 2px;
+    text-align: center;
+}
+
+div.next_button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
