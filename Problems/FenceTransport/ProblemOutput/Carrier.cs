@@ -1,22 +1,36 @@
+using ProblemResolver.Graph;
+
 namespace Problem.FenceTransport;
 
-public class Carrier (int Id, int? Position = 0) {
+public class Carrier (int Id, ProblemVertex Position) {
     public int Id { get; set; } = Id;
-    public int? Position { get; set; } = Position;
+    public ProblemVertex Position { get; set; } = Position;
+    public Queue<ProblemVertex> CurrentRoute { get; set;} = [];
+
+    public ProblemEdge? EdgeToBuild { get; set; }
+    public CarrierState State = CarrierState.Unassigned;
     public int Load { get; set; } = 100;
 
-    public void MoveTo(int newPosition)
+    public void MoveTo(ProblemVertex newPosition)
     {
         Position = newPosition;
     }
-    public void PickUp(int amout)
+    public void Refill()
     {
-        Load += amout % 101;
+        Load = 100;
     }
-    public void Deliver(int amout)
+    public void Deliver()
     {
-        Load -= amout;
-        if (Load < 0)
+        var needed = EdgeToBuild?.Throughput?.Capacity -  EdgeToBuild?.Throughput?.Flow;
+        if (needed > Load)
+        {
+            EdgeToBuild!.Throughput!.Flow += Load;
             Load = 0;
+        }
+        else
+        {
+            EdgeToBuild!.Throughput!.Flow += needed ?? 0;
+            Load -= needed ?? 0;
+        }
     }
 }
