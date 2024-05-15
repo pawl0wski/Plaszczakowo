@@ -38,7 +38,7 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
             else
                 edges.Add(new GraphEdge(vertices[edge.From],
                 vertices[edge.To], GraphStates.Active,
-                throughput: new GraphThroughput(edge.Throughput.Flow, edge.Throughput.Capacity)));
+                throughput: new GraphThroughput(0, edge.Throughput.Capacity)));
         }
     }
 }

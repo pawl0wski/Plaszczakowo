@@ -13,7 +13,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     public override FenceTransportOutput Resolve(FenceTransportInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
         AddHullEdges(data.Vertices[data.FactoryIndex], data.Vertices, data.Edges, data.ConvexHullOutput!.HullIndexes!);
-
+        
         FenceTransportOutput output = new();
         problemRecreationCommands = commands;
 
@@ -56,53 +56,89 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     private void CarryFence(ProblemVertex FactoryVertex, List<ProblemVertex> vertices, List<ProblemEdge> edges, 
         List<int> HullIndexes, List<int> FinishedEdges, List<Carrier> carriers)
     {
-        int currentVertex = FactoryVertex.Id;
         ProblemVertex furthestVertex = FindFurthestFenceVertex(FactoryVertex, vertices, edges, HullIndexes, FinishedEdges);
-        List<int> pathIndexes = FindPathToVertex(FactoryVertex, furthestVertex, vertices, edges, HullIndexes, FinishedEdges);
-        for(int j = 0; j < carriers.Count; j++)
+        Console.WriteLine("furthestVertex " + furthestVertex.Id);
+        int builtEdgeId = -1;
+        int availableCarriersCount = carriers.Count;
+        int furtherVertexNeededSections = 0;
+        foreach (ProblemEdge edge in edges)
         {
+            if (edge.To == furthestVertex.Id)
+            {   
+                builtEdgeId = edge.Id;
+                furtherVertexNeededSections = edge.Throughput!.Capacity - edge.Throughput.Flow;
+                break;
+            }
+        }
+
+        int carriersNeeded = 0;
+        if (furtherVertexNeededSections > 0)
+            carriersNeeded = (int)Math.Ceiling((double)furtherVertexNeededSections / 100);
+
+        List<int> pathIndexes = FindShortestPathToVertex(FactoryVertex, furthestVertex, vertices, edges);
+        if (availableCarriersCount >= carriersNeeded)
+        {
+            availableCarriersCount -= carriersNeeded;
             for (int i = 1; i < pathIndexes.Count; i++)
             {
-                foreach (var edge in edges)
+                for (int j = 0; j < carriersNeeded; j++)
                 {
-                    if (edge.From == pathIndexes[i - 1] && edge.To == pathIndexes[i])
+                    if (pathIndexes[i] == furthestVertex.Id)
                     {
-                        currentVertex = edge.To;
-                        if (currentVertex == furthestVertex.Id)
-                        {
-                            carriers[j].Load = AddCarriedValueToHullEdges(edges[currentVertex], carriers[j].Load);
-                            if (carriers[j].Load == 0)
-                            {
-                                ReturnToFactory();
-                            }
-                        }
-
+                        AddCarriedValueToHullEdges(edges[builtEdgeId], carriers[j]);
                     }
+                    carriers[j].MoveTo(pathIndexes[i]);
                 }
             }
         }
-    }
-    private int AddCarriedValueToHullEdges(ProblemEdge edge, int value)
-    {
-        if (edge.Throughput is null)
+        else if (availableCarriersCount < carriersNeeded && availableCarriersCount > 0)
         {
-            return value;
+            for (int i = 1; i < pathIndexes.Count; i++)
+            {
+                for (int j = availableCarriersCount - 1; j < carriers.Count; j++)
+                {
+                    if (pathIndexes[i] == furthestVertex.Id)
+                    {
+                        AddCarriedValueToHullEdges(edges[builtEdgeId], carriers[j]);
+                    }
+                    carriers[j].MoveTo(pathIndexes[i]);
+                }
+            }
         }
-        if (edge.Throughput!.Flow + value <= edge.Throughput.Capacity)
+        List<List<int>> paths = new();
+        Console.WriteLine("pathIndexes " + string.Join(", ", pathIndexes));
+        Console.WriteLine("carriers " + carriers.Count);
+        Console.WriteLine("carriers needed " + carriersNeeded);
+        Console.WriteLine("edge flow " + edges[builtEdgeId].Throughput.Flow);
+        problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(builtEdgeId, new(edges[builtEdgeId].Throughput.Flow, edges[builtEdgeId].Throughput.Capacity)));
+        problemRecreationCommands?.NextStep();
+    }
+    private void AddCarriedValueToHullEdges(ProblemEdge edge, Carrier carrier)
+    {
+        if (edge == null || carrier == null)
         {
-            edge.Throughput!.Flow += value;
-            return 0;
+            Console.WriteLine("edge or carrier is null");
+            return;
+        }
+        if (edge.Throughput?.Flow + carrier.Load <= edge.Throughput?.Capacity)
+        {
+            edge.Throughput!.Flow += carrier.Load;
+            Console.WriteLine("edge flow2 " + edge.Throughput.Flow);
+            carrier.Deliver(carrier.Load);
         }
         else
         {
-            int remaining = edge.Throughput.Capacity - edge.Throughput.Flow;
+            int remaining = edge.Throughput!.Capacity - edge.Throughput.Flow;
             edge.Throughput.Flow = edge.Throughput.Capacity;
-            return value - remaining;
+            Console.WriteLine("edge flow3 " + edge.Throughput.Flow);
+            carrier.Deliver(remaining);
         }
     }
     private void ReturnToFactory()
     {
-        throw new System.NotImplementedException();
+    }
+    private void AllocateCarriersToHullEdges()
+    {
     }
     private ProblemVertex FindFurthestFenceVertex(ProblemVertex FactoryVertex, List<ProblemVertex> vertices, List<ProblemEdge> edges, List<int> HullIndexes, List<int> FinishedEdges)
     {
@@ -119,7 +155,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         }
         return vertices[maxIndex];
     }
-    private List<int> FindPathToVertex(ProblemVertex start, ProblemVertex end, List<ProblemVertex> vertices, List<ProblemEdge> edges, List<int> HullIndexes, List<int> FinishedEdges)
+    private List<int> FindShortestPathToVertex(ProblemVertex start, ProblemVertex end, List<ProblemVertex> vertices, List<ProblemEdge> edges)
     {
         List<int> distances = BFS(start, vertices, edges);
         List<int> path = new();
@@ -145,28 +181,29 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         List<int> distances = new();
         for (int i = 0; i < vertices.Count; i++)
         {
-            distances.Add(vertices.Count + 1);
+            distances.Add(int.MaxValue);
         }
-        distances[start.Id] = 0;
         Queue<ProblemVertex> queue = new();
         queue.Enqueue(start);
+        distances[start.Id] = 0;
         while (queue.Count > 0)
         {
             ProblemVertex current = queue.Dequeue();
-            foreach (var edge in edges)
+            foreach (ProblemEdge edge in edges)
             {
-                if (edge.From == current.Id)
+                if (edge.From == current.Id && distances[edge.To] == int.MaxValue)
                 {
-                    if (distances[edge.To] == vertices.Count + 1)
-                    {
-                        distances[edge.To] = distances[edge.From] + 1;
-                        queue.Enqueue(vertices[edge.To]);
-                    }
+                    distances[edge.To] = distances[edge.From] + 1;
+                    queue.Enqueue(vertices[edge.To]);
+                }
+                if (edge.To == current.Id && distances[edge.From] == int.MaxValue)
+                {
+                    distances[edge.From] = distances[edge.To] + 1;
+                    queue.Enqueue(vertices[edge.From]);
                 }
             }
+            
         }
         return distances;
     }
-    
 }
-
