@@ -12,7 +12,7 @@ div.phrase-correction-output {
 div.paper {
     text-align: center;
     
-    padding-top: 3rem;
+    padding: 1rem 6rem 3rem 5rem;
     
     height: 45rem;    
     width: 40rem;
@@ -26,10 +26,14 @@ div.paper {
 }
 
 div.paper p{
-    width: 80%;
+    font-size: large;
 }
 
 div.paper h2 {
+    font-size: xx-large;
+    
+    margin-top: 3rem;
+    margin-bottom: 0;
 }
 
 div.next_button {
