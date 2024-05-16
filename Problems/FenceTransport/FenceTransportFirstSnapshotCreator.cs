@@ -22,11 +22,11 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
         foreach (var vertex in inputData.Vertices) 
         {
             if (vertex.Id == inputData.FactoryIndex)
-                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, "Fabryka", GraphStates.Special));
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, vertex.Id.ToString(), GraphStates.Special));
             else if (inputData.ConvexHullOutput!.HullIndexes!.Contains(vertex.Id))
-                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, null, GraphStates.Active));
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, vertex.Id.ToString(), GraphStates.Active));
             else
-                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0));
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, vertex.Id.ToString()));
         }
     }
     private void CreateEdges(List<GraphVertex> vertices, List<GraphEdge> edges)
