@@ -1,7 +1,7 @@
 @inject NavigationManager Navigator;
 
 <div class="input_choice" @onclick="OnClick">
-    <img src="img/buttons/plate.png"/>
+    <img src="@GetPlateSrc()"/>
     <h3>
         @Title
     </h3>
@@ -17,8 +17,12 @@
 
     [Parameter] public required string Href { get; set; }
 
+    [Parameter] public string? InputChoiceImg { get; set; }
+
     private void OnClick()
     {
         Navigator.NavigateTo(Href);
     }
+
+    public string GetPlateSrc() => InputChoiceImg ?? "img/buttons/plate.png";
 }
