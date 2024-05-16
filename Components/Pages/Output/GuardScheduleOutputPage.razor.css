@@ -7,6 +7,12 @@ div.guard_schedule {
     
 }
 
+div.table_wrapper {
+    overflow-y: scroll;
+    width: 90%;
+    height: 85%;
+}
+
 div.board {
     width: 60rem;
     height: 35rem;
@@ -26,8 +32,7 @@ div.board {
 }
 
 div.board table {
-    width: 90%;
-    height: 85%;
+    width: 100%;
     
     background: url("img/table.png");
     background-size: cover;

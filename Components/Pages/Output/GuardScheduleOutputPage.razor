@@ -8,23 +8,29 @@
     <WoodenTitle>Grafik strażników</WoodenTitle>
 
     <div class="board">
-        <table>
-            <tr>
-                <th style="width: 10%">Dzień</th>
-                <th style="width: 20%">ID Płaszczaka</th>
-                <th style="width: 35%">Energia</th>
-                <th style="width: 35%">Melodia</th>
-            </tr>
-                @foreach(var (day, plaszczak) in GetBestPlaszczaki() ?? [])
+        <div class="table_wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 10%">Dzień</th>
+                    <th style="width: 20%">ID Płaszczaka</th>
+                    <th style="width: 35%">Energia</th>
+                    <th style="width: 35%">Melodia</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var (day, plaszczak) in GetBestPlaszczaki() ?? [])
                 {
-                    <tr>
-                        <td>@day</td>
-                        <td>@plaszczak.Index</td>
-                        <td>@plaszczak.Energy</td>
-                        <td>@plaszczak.Melody</td>
-                    </tr>
+                <tr>
+                    <td>@day</td>
+                    <td>@plaszczak.Index</td>
+                    <td>@plaszczak.Energy</td>
+                    <td>@plaszczak.Melody</td>
+                </tr>
                 }
-        </table>    
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="next_button">
         <OldButton @onclick="ReturnBack">Zakończ</OldButton>
@@ -32,13 +38,14 @@
 </div>
 
 @code {
+
     private IEnumerable<(int, Plaszczak p)>? GetBestPlaszczaki()
     {
         if (Output is null)
             return null;
 
         var id = 0;
-        return Output.Plaszczaki.Take(7).Select((p) => (++id, p));
+        return Output.Plaszczaki.Select((p) => (++id, p));
     }
 
     private void ReturnBack() => Navigator.NavigateTo("/");
