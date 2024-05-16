@@ -2,8 +2,9 @@
 div.return-button {
     display: flex;
     flex-direction: column;
-
-    position: absolute;
+    margin-top: 1.5rem;
+    
+    position: fixed;
     top: 0;
 
     width: 8rem;
@@ -16,7 +17,6 @@ div.return-button__left {
 
 div.return-button__right {
     right: 2rem;
-    transform: translateX(-8rem);
 }
 
 .return-button__top {
