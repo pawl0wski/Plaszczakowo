@@ -12,6 +12,7 @@ div.welcome-button {
     transition: 0.5s background;
     
     color: white;
+    cursor: pointer;
 }
 
 div.welcome-button p {
