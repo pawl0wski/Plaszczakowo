@@ -6,18 +6,27 @@
 @inject IProblemState ProblemState
 
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right"/>
-@if (_outputData != null)
-{
-    <h2>Zakodowana melodia:</h2>
-    <p>@_outputData.Result</p>
-    <h2>Melodia przed zakodowaniem:</h2>
-    <p>@_outputData.InputPhrase</p>
-    <h2>Kody Huffmana:</h2>
-    @foreach (var hufCode in codes)
-    {
-        <p>@hufCode</p>
-    }
-}
+<div class="huffman-coding-output">
+    <img class="monitor__left" src="img/monitor_left.png" alt="Lewa cześć monitora">
+    <div class="monitor__center">
+        @if (_outputData != null)
+        {
+            <div class="monitor__center__text">
+                <h2>Zakodowana melodia:</h2>
+                <p>@_outputData.Result</p>
+                <h2>Melodia przed zakodowaniem:</h2>
+                <p>@_outputData.InputPhrase</p>
+                <h2>Kody Huffmana:</h2>
+                @foreach (var hufCode in codes)
+                {
+                    <p>@hufCode</p>
+                }
+            </div>
+        }
+    </div>
+    <img class="monitor__right" src="img/monitor_right.png" alt="Prawa cześć monitora">
+</div>
+
 
 @code {
     HuffmanCodingOutput? _outputData;
@@ -34,7 +43,7 @@
     {
         List<string> list = [];
         if (_outputData == null) return list;
-        
+
         foreach (var key in _outputData.HuffmanDictionary.Keys)
         {
             var code = "";
@@ -42,11 +51,15 @@
             {
                 code += key + " -> " + _outputData.HuffmanDictionary[key];
             }
-            else {
+            else
+            {
                 code += "_ -> " + _outputData.HuffmanDictionary[key];
             }
+
             list.Add(code);
         }
+
         return list;
     }
+
 }

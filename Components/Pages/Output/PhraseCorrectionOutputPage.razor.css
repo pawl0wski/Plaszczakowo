@@ -23,6 +23,7 @@ div.paper {
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    word-break: break-word;
 }
 
 div.paper p{
