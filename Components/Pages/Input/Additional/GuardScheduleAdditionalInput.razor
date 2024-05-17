@@ -100,7 +100,6 @@
     private async void GoToProblemPage()
     {
         var output = JsonSerializer.Serialize(ProblemInput);
-        Console.WriteLine(output);
         await ProblemState!.SetProblemJsonInputData(output);
         Navigator.NavigateTo($"/guard_schedule");
     }
