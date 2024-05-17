@@ -1,7 +1,5 @@
 @page "/input/keyboard/{ProblemName}"
 
-@using ElectronNET.API
-@using ElectronNET.API.Entities
 @using System.Text.Json
 @using Problem.PhraseCorrection
 @using ProjektZaliczeniowy_AiSD2.Components.States
@@ -26,15 +24,14 @@
 
     private string PrepareInputData()
     {
-        string input = "";
         PhraseCorrectionInputData data = new(_inputText);
-        input = JsonSerializer.Serialize(data);
+        var input = JsonSerializer.Serialize(data);
         return input;
     }
 
     private async void GoToProblemPage()
     {
-        string input = PrepareInputData();
+        var input = PrepareInputData();
         await ProblemState.SetProblemJsonInputData(input);
         Navigator.NavigateTo($"/{ProblemName}");
     }
