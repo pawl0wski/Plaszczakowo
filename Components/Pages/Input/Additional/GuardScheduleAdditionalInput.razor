@@ -2,8 +2,6 @@
 
 @using Problem.GuardSchedule
 @using System.Text.Json
-@using ElectronNET.API
-@using ElectronNET.API.Entities
 @using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.Additional.Components
 @inherits AdditionalInputBase<GuardScheduleInputData>
 @inject NavigationManager Navigator
@@ -22,7 +20,10 @@
         <hr/>
         @foreach (var plaszczak in ProblemInput?.Plaszczaki ?? [])
         {
-            <PlaszczakEntry Plaszczak="plaszczak" OnRemove="RemovePlaszczak" />
+            <PlaszczakEntry 
+                Plaszczak="plaszczak"
+                OnRemove="RemovePlaszczak"
+                />
         }
     </div>
     <div class="add_plaszczak">
@@ -36,7 +37,6 @@
 
 @code {
     private readonly Random _random = new();
-    private string _newFileName = "";
 
     protected override void InitializeDefaultInputProperties()
     {
@@ -96,57 +96,12 @@
             id++;
         }
     }
-
-    private async void SaveInputToFile()
-    {
-        var output = JsonSerializer.Serialize(ProblemInput);
-        await ProblemState!.SetProblemJsonInputData(output);
-
-        if (_newFileName.Length == 0 || output.Length == 0)
-        {
-            return;
-        }
-
-        var destinationFilePath = Path.Join(GetProblemPath("guard_schedule"), $"{_newFileName}.json");
-
-        if (File.Exists(destinationFilePath))
-        {
-            var currentBrowserWindow = Electron.WindowManager.BrowserWindows.First();
-            var options = new MessageBoxOptions("Podany plik istnieje, czy chcesz go nadpisać?")
-            {
-                Buttons = ["Nie", "Tak"],
-                Title = "Plik istnieje"
-            };
-            var messageBoxResult = await Electron.Dialog.ShowMessageBoxAsync(currentBrowserWindow, options);
-            if (messageBoxResult.Response == 0)
-            {
-                return;
-            }
-        }
-
-        File.WriteAllText(destinationFilePath, output);
-
-        Navigator.NavigateTo("/guard_schedule");
-    }
-
+    
     private async void GoToProblemPage()
     {
         var output = JsonSerializer.Serialize(ProblemInput);
+        Console.WriteLine(output);
         await ProblemState!.SetProblemJsonInputData(output);
         Navigator.NavigateTo($"/guard_schedule");
     }
-
-    private static string GetProblemPath(string problemName)
-    {
-        return Path.Join(
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            "Plaszczakowo",
-            problemName);
-    }
-
-
-    private void OnPlaszczakEnergyChanged(int energy, ref Plaszczak plaszczak)
-    {
-    }
-
 }
