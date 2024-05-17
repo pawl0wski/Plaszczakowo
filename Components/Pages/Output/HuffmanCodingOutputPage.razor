@@ -3,7 +3,6 @@
 @using States
 @using Problem.HuffmanCoding;
 @inherits ProblemOutputBase<HuffmanCodingOutput>
-@inject IProblemState ProblemState
 
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right"/>
 @if (_outputData != null)
@@ -13,7 +12,7 @@
     <h2>Melodia przed zakodowaniem:</h2>
     <p>@_outputData.InputPhrase</p>
     <h2>Kody Huffmana:</h2>
-    @foreach (var hufCode in codes)
+    @foreach (var hufCode in _codes)
     {
         <p>@hufCode</p>
     }
@@ -21,19 +20,25 @@
 
 @code {
     HuffmanCodingOutput? _outputData;
-    List<string> codes;
+    List<string> _codes = new();
 
 
     protected override async Task OnInitializedAsync()
     {
+        if (ProblemState is null)
+            throw new NullReferenceException("ProblemState is null");
+        
         _outputData = await ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
-        codes = ExtractCodes();
+       
+        _codes = ExtractCodes();
     }
 
     private List<string> ExtractCodes()
     {
         List<string> list = [];
-        if (_outputData == null) return list;
+
+        if (_outputData is null)
+            throw new NullReferenceException("_outputData is null");
         
         foreach (var key in _outputData.HuffmanDictionary.Keys)
         {

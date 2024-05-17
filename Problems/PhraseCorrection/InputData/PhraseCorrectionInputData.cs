@@ -2,13 +2,8 @@ using ProblemResolver;
 
 namespace Problem.PhraseCorrection;
 
-public record PhraseCorrectionInputData : ProblemInputData
+public record PhraseCorrectionInputData(string InputPhrase) : ProblemInputData
 {
-    public string InputPhrase { get; set; }
-
-    public PhraseCorrectionInputData(string inputPhrase)
-    {
-        this.InputPhrase = inputPhrase;
-    }
+    public string InputPhrase { get; set; } = InputPhrase;
 }
 

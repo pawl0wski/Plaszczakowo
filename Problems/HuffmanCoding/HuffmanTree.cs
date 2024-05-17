@@ -7,7 +7,7 @@ using ProblemVisualizer.Commands;
 
 public class HuffmanTree
 {
-    List<Node> MinHeap = new();
+    List<Node> _minHeap = new();
     private const int ScreenWidth = 1280;
     private const int ScreenHeight = 720;
 
@@ -16,25 +16,25 @@ public class HuffmanTree
     {
         GenerateMinHeap(letterAppearances);
         GenerateHuffmanHeap(ref commands);
-        return MinHeap.First();
+        return _minHeap.First();
     }
 
     private void GenerateMinHeap(Dictionary<char, int> letterAppearances)
     {
         foreach (var letter in letterAppearances.Keys)
         {
-            MinHeap.Add(new(letter, letterAppearances[letter], false));
+            _minHeap.Add(new(letter, letterAppearances[letter], false));
         }
 
-        MinHeap.Sort();
+        _minHeap.Sort();
     }
 
     private Node MakeConnector()
     {
-        Node left = MinHeap.First();
-        MinHeap.RemoveAt(0);
-        Node right = MinHeap.First();
-        MinHeap.RemoveAt(0);
+        var left = _minHeap.First();
+        _minHeap.RemoveAt(0);
+        var right = _minHeap.First();
+        _minHeap.RemoveAt(0);
         Node top = new('%', left.Value + right.Value, true)
         {
             Left = left,
@@ -45,18 +45,18 @@ public class HuffmanTree
 
     private void GenerateHuffmanHeap(ref ProblemRecreationCommands<GraphData> commands)
     {
-        while (MinHeap.Count > 1)
+        while (_minHeap.Count > 1)
         {
-            Node top = MakeConnector();
-            MinHeap.Add(top);
+            var top = MakeConnector();
+            _minHeap.Add(top);
             commands.Add(new ClearGraphCommand());
             DrawVertices(top, ref commands, CalculateLevels(top));
             commands.NextStep();
-            MinHeap.Sort();
+            _minHeap.Sort();
         }
     }
 
-    private void DrawVertices(Node root,
+    private static void DrawVertices(Node root,
         ref ProblemRecreationCommands<GraphData> commands,
         int howManyLevels)
     {
@@ -99,7 +99,7 @@ public class HuffmanTree
         }
     }
 
-    private int CalculateLevels(Node root)
+    private static int CalculateLevels(Node root)
     {
         Stack<Node> current = new();
         Stack<Node> next = new();

@@ -15,7 +15,6 @@ public class ProblemState : IProblemState
     {
         _sessionStore = sessionStorage;
     }
-
     public async Task SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData
     {

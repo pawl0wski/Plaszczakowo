@@ -5,7 +5,7 @@
 @inherits ProblemOutputBase<PhraseCorrectionOutput>
 
 @inject NavigationManager Navigator
-@inject IProblemState ProblemState
+
 
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right"/>
 <br/><br/><br/>
@@ -24,6 +24,9 @@
 
     protected override async Task OnInitializedAsync()
     {
+        if (ProblemState is null)
+            return;
+        
         _outputData = await ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
     }
 
@@ -32,7 +35,11 @@
         if (_outputData == null) return;
         
         HuffmanCodingInputData data = new(_outputData.FixedPhrase);
+        if (ProblemState is null)
+            throw new NullReferenceException("ProblemState is null");
+        
         await ProblemState.SetProblemInputData(data);
+
         Navigator.NavigateTo($"/huffman_coding");
     }
 }

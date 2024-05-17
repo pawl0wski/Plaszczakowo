@@ -34,7 +34,8 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
                 {
                     if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
                     {
-                        pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
+                        if (edge.Throughput != null)
+                            pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
                         ChangeGraphState(network, edge, previousIndex, pathFlow);
                         break;
                     }
@@ -48,7 +49,8 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
                     if (edge.From == network.Vertices[previousIndex]
                      && edge.To == network.Vertices[vertexIndex])
                     {
-                        edge.Throughput.Flow += pathFlow;
+                        if (edge.Throughput != null) 
+                            edge.Throughput.Flow += pathFlow;
                         if (pathFlow == 1)
                             if (previousIndex != source && vertexIndex != sink)
                                 pairs.Pairs.Add(new Pair(previousIndex, vertexIndex));
@@ -86,15 +88,18 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
     public void ChangeGraphState(GraphData network, GraphEdge edge, int index, int pathFlow){
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
-        problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge), new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
+        if (edge.Throughput != null)
+            problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge),
+                new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
         problemRecreationCommands?.NextStep();
     }
 
     private bool IsValidEdge(GraphEdge edge, int current, bool[] visited, GraphData network)
     {
-        return edge.From == network.Vertices[current] 
-        && edge.Throughput.Capacity > edge.Throughput.Flow 
-        && !visited[network.Vertices.IndexOf(edge.To)];
+        return edge.Throughput != null
+               && edge.From == network.Vertices[current]
+               && edge.Throughput.Capacity > edge.Throughput.Flow
+               && !visited[network.Vertices.IndexOf(edge.To)];
     }
 }
 
