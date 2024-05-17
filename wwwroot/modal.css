@@ -1,6 +1,6 @@
 .blazored-modal {
     background-color: #483C32 !important;
-    background-image: url("background/modal_background.png");
+    background-image: url("img/background/modal_background.png");
     background-size: cover;
     border-style: none !important;
 }

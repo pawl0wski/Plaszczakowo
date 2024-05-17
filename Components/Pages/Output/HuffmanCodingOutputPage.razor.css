@@ -1,0 +1,42 @@
+div.huffman-coding-output {
+    background: url("img/background/wall_background.png");
+    
+    width: 100vw;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+img.monitor__left {
+    height: 100vh;
+    width: 15vw;
+}
+
+img.monitor__right {
+    height: 100vh;
+    width: 15vw;
+}
+
+div.monitor__center {
+    height: 100vh;
+    width: 70vw;
+    background: url("img/monitor_center.png") no-repeat center;
+    background-size: 100% 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+div.monitor__center__text {
+    width: 95%;
+    font-size: larger;
+    height: 65vh;
+    overflow-y: scroll;
+    word-wrap: break-word;
+    
+    color: lawngreen;
+}

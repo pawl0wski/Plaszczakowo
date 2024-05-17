@@ -33,15 +33,24 @@ body {
     position: absolute;
     z-index: 10;
     width: 100vw;
+    padding-top: 3rem;
     min-height: 100vh;
     background-size: cover;
-    background-image: url("background/vinnette.png");
+    background-image: url("img/background/vinnette.png");
 }
 
 .map-background {
     width: 100vw;
     height: 100vh;
 
-    background-image: url("background/map.png");
+    background-image: url("img/background/map.png");
     background-size: cover;
 }
+
+.wall-background {
+     width: 100vw;
+     height: 100vh;
+
+     background-image: url("img/background/wall_background.png");
+     background-size: cover;
+ }

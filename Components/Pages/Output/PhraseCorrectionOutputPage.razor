@@ -7,17 +7,21 @@
 @inject NavigationManager Navigator
 
 
-<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right"/>
-<br/><br/><br/>
-<h2>Poprawiona melodia:</h2>
-@if (_outputData != null)
-{
-    <p>@_outputData.FixedPhrase</p>
-}
-
-<button @onclick="GoToNextSubproblem">Przejdź dalej</button>
-
-
+<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
+<div class="phrase-correction-output">
+    <div class="paper">
+        <h2>Poprawiona melodia</h2>
+        <p>
+            @if (_outputData != null)
+            {
+                @_outputData.FixedPhrase
+            }
+        </p>
+    </div>
+    <div class="next_button">
+        <OldButton @onclick="GoToNextSubproblem">Przejdź Dalej</OldButton>
+    </div>
+</div>
 
 @code {
     PhraseCorrectionOutput? _outputData;

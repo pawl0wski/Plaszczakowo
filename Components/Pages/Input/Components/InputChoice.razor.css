@@ -2,7 +2,7 @@ div.input_choice {
     width: 20rem;
     text-align: center;
     
-    background-image: url("buttons/input-choice-button.png");
+    background-image: url("img/buttons/input-choice-button.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -27,7 +27,7 @@ div.input_choice p {
 }
 
 div.input_choice img {
-    height: 15rem;
+    height: 13rem;
     aspect-ratio: 1 / 1;
 }
 

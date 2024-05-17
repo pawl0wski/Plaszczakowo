@@ -4,7 +4,7 @@ div.graph-validator-errors {
     
     padding: 1rem 2rem;
     
-    background-image: url("background/map.png");
+    background-image: url("img/background/map.png");
     background-size: cover;
     background-repeat: no-repeat;
 }

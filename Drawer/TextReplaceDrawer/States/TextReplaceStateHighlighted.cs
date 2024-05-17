@@ -4,7 +4,7 @@ public class TextReplaceStateHighlighted : TextReplaceState
 {
     public override string GetFontColor()
     {
-        return "orange";
+        return "#c46500";
     }
 
     public override string GetBackgroundColor()

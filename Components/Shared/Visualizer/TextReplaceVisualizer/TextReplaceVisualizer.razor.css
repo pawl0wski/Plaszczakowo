@@ -1,6 +1,6 @@
 div.text-list {
+    overflow: hidden;
     width: 100vw;
-    overflow: scroll;
     
     display: flex;
     flex-direction: row;
