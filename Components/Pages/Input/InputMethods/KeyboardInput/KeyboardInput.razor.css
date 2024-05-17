@@ -19,6 +19,8 @@ div.keyboard_input__input {
 div.keyboard_input__input textarea {
     width: 100%;
     height: 20rem;
+    resize: none;
+    outline: none;
     
     font-size: x-large;
     
