@@ -1,4 +1,4 @@
-<div class="@GetHtmlClass()" @onclick="onclick" >
+<div class="@GetHtmlClass()" style="width: @GetButtonWidth()" @onclick="onclick" >
     @ChildContent
 </div>
 
@@ -10,9 +10,12 @@
 
     [Parameter] public bool? Disabled { get; set; }
 
+    [Parameter] public int? Width { get; set; }
+
     private string GetHtmlClass()
     {
         return "old_button " + (Disabled ?? false ? "old_button--disabled" : "");
     }
 
+    private string GetButtonWidth() => $"{Width ?? 10}rem";
 }

@@ -1,9 +1,8 @@
 div.old_button {
-    width: 10rem;
     height: 3.7rem;
     
     background-image: url("img/buttons/button.png");
-    background-size: 100%;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     
     text-align: center;
