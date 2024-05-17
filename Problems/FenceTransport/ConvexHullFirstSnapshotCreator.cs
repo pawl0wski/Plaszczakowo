@@ -6,6 +6,8 @@ namespace Problem.CarrierAssignment;
 public class ConvexHullFirstSnapshotCreator(FenceTransportInputData inputData)
     : FirstSnapshotCreator<FenceTransportInputData, GraphData>(inputData)
 {
+    private readonly FenceTransportInputData _inputData = inputData;
+
     public override GraphData CreateFirstSnapshot()
     {
         List<GraphVertex> vertices = [];
@@ -17,7 +19,7 @@ public class ConvexHullFirstSnapshotCreator(FenceTransportInputData inputData)
 
     private void CreateLandmarks(List<GraphVertex> vertices)
     {
-        inputData.Landmarks.Sort((x, y)=>x.Id.CompareTo(y.Id));
-        foreach (var landmark in inputData.Landmarks) vertices.Add(new GraphVertex(landmark.X ?? 0, landmark.Y ?? 0));
+        _inputData.Landmarks.Sort((x, y)=>x.Id.CompareTo(y.Id));
+        foreach (var landmark in _inputData.Landmarks) vertices.Add(new GraphVertex(landmark.X ?? 0, landmark.Y ?? 0));
     }
 }

@@ -8,9 +8,11 @@ namespace Problem.GuardSchedule;
 public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
     : FirstSnapshotCreator<GuardScheduleInputData, GraphData>(inputData)
 {
+    private readonly GuardScheduleInputData _inputData = inputData;
+
     public override GraphData CreateFirstSnapshot()
     {
-        var outputData = ProblemToGraphData.Convert(inputData);
+        var outputData = ProblemToGraphData.Convert(_inputData);
         int xCoordinateForText = FindMaxXCoordinate();
 
         outputData.ChangeVertexStatus(0, GraphStates.Special);
@@ -27,7 +29,7 @@ public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
     {
         var maxX = int.MinValue;
 
-        foreach (var vertex in inputData.Vertices)
+        foreach (var vertex in _inputData.Vertices)
         {
             if (vertex.X > maxX)
             {
