@@ -21,8 +21,8 @@ public static class ProblemToGraphData
             var throughput = problemEdge.Throughput;
             edges.Add(new GraphEdge(vertices[problemEdge.From],
              vertices[problemEdge.To],
-              throughput: throughput is null ? null : new GraphThroughput(throughput.Flow,throughput.Capacity, 
-               directed: problemEdge.Directed)));
+              throughput: throughput is null ? null : new GraphThroughput(throughput.Flow,throughput.Capacity), 
+               directed: problemEdge.Directed));
         }
 
         return new (vertices, edges, []);
