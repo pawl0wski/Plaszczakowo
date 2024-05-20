@@ -4,18 +4,20 @@
 <LandscapeBackground/>
 <div class="input_choice_page">
     <ReturnButton/>
-    <InputChoiceTitle>
+    <WoodenTitle>
         Wybierz sposób wprowadzenia grafu
-    </InputChoiceTitle>
+    </WoodenTitle>
 
     <div class="horizontal_centered_row">
         <InputChoice
             Title="Plik"
             Description="Wybierz plik odpowiadający zapisanemu wcześniej grafowi."
+            InputChoiceImg="img/buttons/plate_file.png"
             Href="@GetFromFileLink()"/>
         <InputChoice
             Title="Kreator grafów"
             Description="Skorzystaj z kreatora grafów aby stworzyć dane wejściowe."
+            InputChoiceImg="img/buttons/plate_graph.png"
             Href="@GetGraphCreatorLink()"/>
     </div>
 </div>

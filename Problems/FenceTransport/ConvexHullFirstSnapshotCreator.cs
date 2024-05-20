@@ -6,6 +6,8 @@ namespace Problem.FenceTransport;
 public class ConvexHullFirstSnapshotCreator(FenceTransportInputData inputData)
     : FirstSnapshotCreator<FenceTransportInputData, GraphData>(inputData)
 {
+    private readonly FenceTransportInputData _inputData = inputData;
+
     public override GraphData CreateFirstSnapshot()
     {
         List<GraphVertex> vertices = [];
@@ -17,7 +19,7 @@ public class ConvexHullFirstSnapshotCreator(FenceTransportInputData inputData)
 
     private void CreateVertices(List<GraphVertex> vertices)
     {
-        inputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
-        foreach (var vertex in inputData.Vertices) vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0));
+        _inputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
+        foreach (var vertex in _inputData.Vertices) vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0));
     }
 }

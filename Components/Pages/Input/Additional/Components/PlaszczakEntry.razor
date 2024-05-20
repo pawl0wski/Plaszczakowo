@@ -1,0 +1,32 @@
+@using Problem.GuardSchedule
+<div class="plaszczak_entry">
+        <img class="plaszczak__photo" src="img/plaszczak_paper.png" alt="Płaszczak"/>
+        <div class="plaszczak__info">
+            <div class="plaszczak__info__title">
+                <h3>Id</h3>
+            </div>
+            <div class="plaszczak__info__content">
+                <p>@Plaszczak.Index</p>
+            </div>
+        </div>
+        <div class="plaszczak__info">
+            <div class="plaszczak__info__title">
+                <h3>Energia</h3>
+            </div>
+            <div class="plaszczak__info__content">
+                <input @bind="Plaszczak.MaxEnergy" type="number"/>
+            </div>
+        </div>
+        <div class="plaszczak__info__delete" @onclick="() => OnRemove(Plaszczak)">
+            <img src="img/x.png" alt="Usuń">
+        </div>
+</div>
+
+@code {
+
+    [Parameter] public required Plaszczak Plaszczak { get; set; }
+
+    [Parameter] public required Action<Plaszczak> OnRemove { get; set; }
+
+
+}

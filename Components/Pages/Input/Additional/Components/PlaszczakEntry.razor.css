@@ -1,0 +1,68 @@
+div.plaszczak_entry {
+    width: 30rem;
+    height: 8rem;
+    
+    padding: 1rem 2rem;
+    
+    background: url("img/paper_cut.png") no-repeat;
+    
+    background-size: 100% 100%;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    
+    gap: 2rem;
+}
+
+img.plaszczak__photo {
+    width: 5rem;
+    height: 5rem;
+    
+}
+
+div.plaszczak__info {
+    display: flex;
+    
+    height: 100%;
+    
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.plaszczak__info__title {
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.plaszczak__info__content {
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+div.plaszczak__info h3 {
+    font-size: x-large;
+    
+    opacity: 50%;
+}
+
+div.plaszczak__info p {
+    font-size: xx-large;
+}
+
+div.plaszczak__info__content input {
+    font-size: larger;
+    text-align: right;
+    width: 4rem;
+}
+
+div.plaszczak__info__delete img {
+    aspect-ratio: 1 / 1;
+    width: 2rem;
+    cursor: pointer;
+}

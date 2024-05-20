@@ -1,7 +1,5 @@
 @page "/input/keyboard/{ProblemName}"
 
-@using ElectronNET.API
-@using ElectronNET.API.Entities
 @using System.Text.Json
 @using Problem.PhraseCorrection
 @using ProjektZaliczeniowy_AiSD2.Components.States
@@ -10,80 +8,30 @@
 @inject NavigationManager Navigator;
 @inject IProblemState ProblemState;
 
-
-<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
-<p>Wprowadź wejściową frazę.</p>
-<input @bind="_inputText"/>
-<button @onclick="GoToProblemPage">Wczytaj</button>
-<br/>
-<p>Wprowadź nową nazwę pliku</p>
-<input @bind="_newFileName"/>
-<button @onclick="SaveInputToFile">Zapisz do pliku</button>
+<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right"></ReturnButton>
+<div class="keyboard_input">
+    <WoodenTitle>Wprowadź tekst z klawiatury</WoodenTitle>
+    
+    <div class="keyboard_input__input">
+        <textarea @bind="_inputText"></textarea>
+        <OldButton @onclick="GoToProblemPage">Wczytaj</OldButton>
+    </div>
+    
+</div>
 
 @code {
     private string _inputText = "";
-    private string _newFileName = "";
-
-    protected override void OnInitialized()
-    {
-        if (!CheckIfDirectoryExists())
-            Directory.CreateDirectory(GetProblemPath());
-    }
-
-    private bool CheckIfDirectoryExists()
-    {
-        return Path.Exists(GetProblemPath());
-    }
 
     private string PrepareInputData()
     {
-        string input = "";
         PhraseCorrectionInputData data = new(_inputText);
-        input = JsonSerializer.Serialize(data);
+        var input = JsonSerializer.Serialize(data);
         return input;
-    }
-
-    private string GetProblemPath()
-    {
-        return Path.Join(
-            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
-            "Plaszczakowo",
-            ProblemName);
-    }
-
-    private async void SaveInputToFile()
-    {
-        string inputText = PrepareInputData();
-        if (_newFileName.Length == 0 || inputText.Length == 0)
-        {
-            return;
-        }
-
-        string path = GetProblemPath();
-        path = Path.Join(path, _newFileName);
-        if (File.Exists(path))
-        {
-            var currentBrowserWindow = Electron.WindowManager.BrowserWindows.First();
-            var options = new MessageBoxOptions("Podany plik istnieje, czy chcesz go nadpisać?")
-            {
-                Buttons = ["Nie", "Tak"],
-                Title = "Plik istnieje"
-            };
-            var messageBoxResult = await Electron.Dialog.ShowMessageBoxAsync(currentBrowserWindow, options);
-            if (messageBoxResult.Response == 0)
-            {
-                return;
-            }
-        }
-
-        File.WriteAllText(path, inputText);
-
-        Navigator.NavigateTo("/");
     }
 
     private async void GoToProblemPage()
     {
-        string input = PrepareInputData();
+        var input = PrepareInputData();
         await ProblemState.SetProblemJsonInputData(input);
         Navigator.NavigateTo($"/{ProblemName}");
     }

@@ -1,6 +1,6 @@
 @page "/"
+@using ElectronNET.API
 @using ProjektZaliczeniowy_AiSD2.Components.Modals.Documentation
-@using ProjektZaliczeniowy_AiSD2.Components.Pages.Welcome.Components
 @rendermode InteractiveServer
 
 <div class="welcome">
@@ -9,17 +9,17 @@
             <h1>Płaszczakowo</h1>
         </div>
         <div class="main-menu__buttons">
+            <NavLink class="white-link" href="/graph_input_choice/carrier_assignment">
+                <WelcomeButton>Transportowanie płotu</WelcomeButton>
+            </NavLink>
             <NavLink class="white-link" href="/text_input_choice/computer_science_machine">
                 <WelcomeButton>Maszyna informatyka</WelcomeButton>
             </NavLink>
             <NavLink class="white-link" href="/graph_input_choice/guard_schedule">
                 <WelcomeButton>Grafik strażników</WelcomeButton>
             </NavLink>
-            <NavLink class="white-link" href="/graph_input_choice/carrier_assignment">
-                <WelcomeButton>Transportowanie płotu</WelcomeButton>
-            </NavLink>
-            <NavLink class="white-link" href="/graph_input_choice/demo">
-                <WelcomeButton>Demo</WelcomeButton>
+            <NavLink class="white-link" @onclick="Exit">
+                <WelcomeButton>Wyjście</WelcomeButton>
             </NavLink>
         </div>
         <div class="main-menu__bottom">
@@ -44,4 +44,11 @@
     {
         Modal.Show<Documentation>();
     }
+
+    private static void Exit()
+    {
+        Electron.App.Exit();
+        Environment.Exit(0);
+    }
+
 }

@@ -14,8 +14,8 @@ window.enableCanvasZoom = function () {
     });
 }
 
-window.scrollTextList = function(scrollBy) {
+window.scrollTextList = function(offset) {
     let element = document.querySelector("div.text-list");
     console.log(element);
-    element.scrollLeft = scrollBy;
+    element.scrollLeft =  (offset - Math.floor(window.innerWidth / 2 / 100)) * 100;
 }

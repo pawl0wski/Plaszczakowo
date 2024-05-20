@@ -3,7 +3,7 @@
 @using Problem.PhraseCorrection
 @inherits ProblemComponentBase<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
 
-<div class="map-background">
+<div class="wall-background">
     @if (Executor is not null)
     {
         <TextReplaceVisualizer Snapshots="Executor.GetSnapshots()" />

@@ -9,6 +9,7 @@ public class CarrierAssignmentFirstSnapshotCreator(FenceTransportInputData input
 {
     private int canvasWidth = 1920;
     private int canvasHeight = 1080;
+    private readonly FenceTransportInputData _inputData = inputData;
     public override GraphData CreateFirstSnapshot()
     {
         List<GraphVertex> vertices = [];
@@ -24,7 +25,7 @@ public class CarrierAssignmentFirstSnapshotCreator(FenceTransportInputData input
     }
     private void CreateFrontCarriers(List<GraphVertex> vertices)
     {
-        for (int i = 1; i <= inputData.FrontCarrierNumber; i++)
+        for (int i = 1; i <= _inputData.FrontCarrierNumber; i++)
         {
             int ValueY = canvasHeight / (inputData.FrontCarrierNumber + 1) * i;
             vertices.Add(new GraphVertex((int)(canvasWidth * 1/3), ValueY, (i-1).ToString(), null));
@@ -32,33 +33,33 @@ public class CarrierAssignmentFirstSnapshotCreator(FenceTransportInputData input
     }
     private void CreateRearCarriers(List<GraphVertex> vertices)
     {
-        for (int i = inputData.FrontCarrierNumber + 1; i <= inputData.FrontCarrierNumber + inputData.RearCarrierNumber; i++)
+        for (int i = _inputData.FrontCarrierNumber + 1; i <= _inputData.FrontCarrierNumber + _inputData.RearCarrierNumber; i++)
         {
-            int ValueY = canvasHeight / (inputData.RearCarrierNumber + 1) * (i - inputData.FrontCarrierNumber);
+            int ValueY = canvasHeight / (_inputData.RearCarrierNumber + 1) * (i - _inputData.FrontCarrierNumber);
             vertices.Add(new GraphVertex((int)(canvasWidth * 2/3), ValueY, (i-1).ToString(), null));
         }
     }
     private void CreateRelations(List<GraphVertex> vertices, List<GraphEdge> edges)
     {
-        for (int i = 0; i < inputData.Relations.Count; i++)
+        for (int i = 0; i < _inputData.Relations.Count; i++)
         {
-            edges.Add(new GraphEdge(vertices[inputData.Relations[i].From], vertices[inputData.Relations[i].To], null, new GraphThroughput(inputData.Relations[i].Flow, inputData.Relations[i].Capacity)));
+            edges.Add(new GraphEdge(vertices[_inputData.Relations[i].From], vertices[_inputData.Relations[i].To], null, new GraphThroughput(_inputData.Relations[i].Flow, _inputData.Relations[i].Capacity)));
         }
     }
     private void CreateSource(List<GraphVertex> vertices, List<GraphEdge> edges)
     {
         vertices.Add(new GraphVertex((int)(canvasWidth * 1/6), canvasHeight/2, "source", new GraphStateSpecial()));
-        for (int i = 0; i < inputData.FrontCarrierNumber; i++)
+        for (int i = 0; i < _inputData.FrontCarrierNumber; i++)
         {
-            edges.Add(new GraphEdge(vertices[inputData.FrontCarrierNumber + inputData.RearCarrierNumber], vertices[i], null, new GraphThroughput(0, 1)));
+            edges.Add(new GraphEdge(vertices[_inputData.FrontCarrierNumber + _inputData.RearCarrierNumber], vertices[i], null, new GraphThroughput(0, 1)));
         }
     }
     private void CreateSink(List<GraphVertex> vertices, List<GraphEdge> edges)
     {
         vertices.Add(new GraphVertex((int)(canvasWidth * 5/6), canvasHeight/2, "sink", new GraphStateSpecial()));
-        for (int i = 0; i < inputData.RearCarrierNumber; i++)
+        for (int i = 0; i < _inputData.RearCarrierNumber; i++)
         {
-            edges.Add(new GraphEdge(vertices[inputData.FrontCarrierNumber + i], vertices[inputData.FrontCarrierNumber + inputData.RearCarrierNumber + 1], null, new GraphThroughput(0, 1)));
+            edges.Add(new GraphEdge(vertices[_inputData.FrontCarrierNumber + i], vertices[_inputData.FrontCarrierNumber + _inputData.RearCarrierNumber + 1], null, new GraphThroughput(0, 1)));
         }
     }
 }

@@ -24,6 +24,7 @@ public static class GraphDataToProblem
                 data.Vertices.IndexOf(currentEdge.To),
                 currentEdge.Throughput is null ? null :
                 ProblemGraphThroughput.FromGraphThroughput(currentEdge.Throughput)
+                currentEdge.Directed
             ));
         }
 

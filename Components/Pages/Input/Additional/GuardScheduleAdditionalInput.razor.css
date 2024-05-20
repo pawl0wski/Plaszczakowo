@@ -1,0 +1,63 @@
+div.guard_schedule_additional_input {
+    height: 100vh;
+    width: 100vw;
+    
+    background: url("img/background/wall_background.png");
+    padding-top: 2rem;
+}
+
+div.plaszczak_entry_wrapper{
+    margin: 2rem auto;
+    width: 40rem;
+    height: 65vh;
+    overflow-y: scroll;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+div.plaszczak_entry_wrapper hr {
+    width: 28rem;
+    border-color: white;
+    opacity: 40%;
+}
+
+div.add_plaszczak {
+    display: flex;
+    justify-content: center;
+}
+
+div.max_steps {
+    width: 30rem;
+    min-height: 6rem;
+
+    background: url("img/paper_cut.png") no-repeat center;
+    background-size: 100% 100%;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div.max_steps h3 {
+    margin: 0;
+}
+
+div.max_steps input {
+    width: 4rem;
+    font-size: larger;
+}
+
+div.return_buttons {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 1rem;
+}

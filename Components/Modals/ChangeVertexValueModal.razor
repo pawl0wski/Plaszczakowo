@@ -1,0 +1,19 @@
+<div class="change-vertex-value">
+    <h3>Podaj wartość wierzchołka</h3>
+    <input type="number" @bind="@Number"/>
+    <button @onclick="Accept">Zaakceptuj</button>
+</div>
+
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public int Number { get; set; }
+
+
+    private void Accept()
+    {
+        BlazoredModal.CloseAsync(ModalResult.Ok(Number));
+    }
+
+}

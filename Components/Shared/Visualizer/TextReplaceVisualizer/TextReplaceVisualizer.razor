@@ -29,7 +29,7 @@
     protected override void OnSnapshotChange(TextReplaceData newDrawerData)
     {
         _currentTextReplaceData = newDrawerData;
-        JsRuntime.InvokeAsync<Task>("scrollTextList", (_currentTextReplaceData.Offset - 9) * 100);
+        JsRuntime.InvokeAsync<Task>("scrollTextList", _currentTextReplaceData.Offset);
         StateHasChanged();
     }
 

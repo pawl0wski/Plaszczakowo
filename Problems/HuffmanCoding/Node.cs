@@ -5,10 +5,10 @@ public class Node : IComparable<Node>
     public int Id  = 0;
     public int? ConnectTo = null;
     public int LeftOffset = 0;
-    public char Character;
-    public bool IfConnector;
+    public readonly char Character;
+    public readonly bool IfConnector;
     public Node? Left, Right;
-    public int Value;
+    public readonly int Value;
 
     public Node(char character, int value, bool ifConnector)
     {

@@ -1,27 +1,52 @@
 ﻿@page "/guard_schedule_output"
 @using Problem.GuardSchedule
 @inherits ProblemOutputBase<GuardScheduleOutput>
+@inject NavigationManager Navigator
 
-<h2>Grafik strażników:</h2>
-<table>
+<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
+<div class="guard_schedule">
+    <WoodenTitle>Grafik strażników</WoodenTitle>
 
-    <thead>
-    <tr>
-        <th>Energia</th>
-        <th>Melodia</th>
-    </tr>
-    </thead>
-    <tbody>
-    @if (Output is not null)
+    <div class="board">
+        <div class="table_wrapper">
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 10%">Dzień</th>
+                    <th style="width: 20%">ID Płaszczaka</th>
+                    <th style="width: 35%">Energia</th>
+                    <th style="width: 35%">Melodia</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var (day, plaszczak) in GetBestPlaszczaki() ?? [])
+                {
+                <tr>
+                    <td>@day</td>
+                    <td>@plaszczak.Index</td>
+                    <td>@plaszczak.Energy</td>
+                    <td>@plaszczak.Melody</td>
+                </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="next_button">
+        <OldButton @onclick="ReturnBack">Zakończ</OldButton>
+    </div>
+</div>
+
+@code {
+
+    private IEnumerable<(int, Plaszczak p)>? GetBestPlaszczaki()
     {
-        @foreach (var p in Output.Plaszczaki)
-        {
-            <tr>
-                <td>@p.MaxEnergy</td>
-                <td>@p.Melody</td>
-            </tr>
-        }
+        if (Output is null)
+            return null;
+
+        var id = 0;
+        return Output.Plaszczaki.Select((p) => (++id, p));
     }
 
-    </tbody>
-</table>
+    private void ReturnBack() => Navigator.NavigateTo("/");
+}

@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using ProblemResolver;
 
@@ -16,7 +15,6 @@ public class ProblemState : IProblemState
     {
         _sessionStore = sessionStorage;
     }
-
     public async Task SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData
     {
