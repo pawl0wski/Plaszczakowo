@@ -47,6 +47,12 @@ public class GraphData : DrawerData
         currentVertex.State = state;
     }
 
+    public void ChangeVertexText(int index, string value)
+    {
+        var currentVertex = Vertices[index];
+        currentVertex.Value = value;
+    }
+
     public void AddVertex(GraphVertex vertex)
     {
         Vertices.Add(vertex);

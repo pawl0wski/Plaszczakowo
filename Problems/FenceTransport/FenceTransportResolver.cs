@@ -1,7 +1,7 @@
-
 using Drawer.GraphDrawer;
 using ProblemResolver;
 using ProblemResolver.Graph;
+using ProblemVisualizer.Commands;
 
 namespace Problem.FenceTransport;
 
@@ -17,25 +17,21 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         for(int i = 0; i < (data.CarrierAssignmentOutput?.Pairs.Count() ?? 0); i++)
             carriers.Add(new Carrier(i, data.Vertices[data.FactoryIndex]));
 
+        data.Vertices[data.FactoryIndex].Value = carriers.Count;
         var firstVertex = GetUnfinishedVertieces(data).First();
         while(GetUnfinishedVertieces(data).Count > 0) {
-            Console.WriteLine($"Tyle do roboty jeszcze {GetUnfinishedVertieces(data).Count}");
+            bool moved = false;
             foreach(var carrier in carriers){
-                Console.WriteLine(firstVertex);
-                Console.WriteLine("Zajmuje się kolejnym pacjentem");
                 switch (carrier.State)
                 {
                     case CarrierState.Unassigned:
-                        Console.WriteLine($"Przydzielam robote {carrier.Id}");
                         AssignCarrierVertexToBuild(carrier, data);
-                        Console.WriteLine($"Secc {firstVertex}");
                     break;
                     case CarrierState.Delivering:
                         if (carrier.CurrentRoute.Count > 0){
-                            Console.WriteLine($"Siema. Tutaj {carrier.Id}. Ide sobie :) jestem na {carrier.Position.Id} a chce iść do {carrier.CurrentRoute.Last().Id}");
-                            carrier.MoveTo(carrier.CurrentRoute.Dequeue());
+                            MoveCarrierOnGraph(carrier);
+                            moved = true;
                         } else {
-                            Console.WriteLine($"Jestem już na miejscu. Zaraz będzie budowanko. {carrier.Id}");
                             var unfinishedEdges = GetUnfifinishedEdgesConnectedToVertex(carrier.Position, data);
                             if (unfinishedEdges.Count > 0) {
                                 ProblemEdge edgeToVisit = unfinishedEdges.OrderByDescending(e => e.Throughput?.Capacity - e.Throughput?.Flow).FirstOrDefault()!;
@@ -43,18 +39,18 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
                                 carrier.EdgeToBuild = edgeToVisit; 
                                 carrier.State = CarrierState.Building;
                             }else {
-                                Console.WriteLine($"Ojojoj. Ktoś mi już zabrał parace :C {carrier.Id}");
                                 carrier.State = CarrierState.Unassigned;
                                 AssignCarrierVertexToBuild(carrier, data);
                             }
                         }
                     break;
                     case CarrierState.Building:
-                        carrier.Position = carrier.CurrentRoute.Dequeue();
+                        MoveCarrierOnGraph(carrier);
+                        moved = true;
                         carrier.Deliver();
-                        Console.WriteLine($"Budu budu :D {carrier.Id} ja żem wybudować {carrier.EdgeToBuild?.Throughput?.Flow} / {carrier?.EdgeToBuild?.Throughput?.Capacity}");
+                        problemRecreationCommands.Add(new ChangeEdgeFlowCommand(carrier!.EdgeToBuild!.Id, new GraphThroughput(carrier!.EdgeToBuild!.Throughput!.Flow, carrier.EdgeToBuild.Throughput.Capacity)));
                         
-                        if (carrier.Load > 0){
+                        if (carrier!.Load > 0){
                             AssignCarrierVertexToBuild(carrier, data);
                         }
                         else {
@@ -63,10 +59,9 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
                     break;
                     case CarrierState.Reffiling:
                         if (carrier.CurrentRoute.Count > 0) {
-                            Console.WriteLine($"Ide po paliwko :) {carrier.Id}");
-                            carrier.MoveTo(carrier.CurrentRoute.Dequeue());
+                            MoveCarrierOnGraph(carrier);
+                            moved = true;
                         }else {
-                            Console.WriteLine($"Tsssssk... Otwieram browara {carrier.Id}");
                             carrier.Refill();
                             AssignCarrierVertexToBuild(carrier, data);                            
                         }
@@ -74,11 +69,19 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
                 }
 
             }
-            Console.WriteLine($"Tyle do roboty jeszcze {GetUnfinishedVertieces(data).Count}");
+            if (moved)
+                problemRecreationCommands.NextStep();
         }
         return output;
     }
 
+    private void MoveCarrierOnGraph(Carrier carrier){
+        carrier.Position.Value -= 1;
+        problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id, carrier.Position.Value.ToString()!));
+        carrier.MoveTo(carrier.CurrentRoute.Dequeue());
+        carrier.Position.Value = (carrier.Position.Value ?? 0) + 1;
+        problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id, carrier.Position.Value.ToString()!));
+    }
     private void ReturnCarrierToFactory(Carrier carrier, FenceTransportInputData data)
     {
         var factoryVertex = data.Vertices[data.FactoryIndex];
@@ -91,8 +94,6 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     {
         var furthestVertex = FindFurthestUnfinishedFenceVertex(carrier.Position, data);
         var path = FindShortestPathToVertex(carrier.Position, furthestVertex, data);
-        Console.WriteLine($"Przydzielam {carrier.Id} do {furthestVertex.Id}");
-        Console.WriteLine($"Droga {string.Join(" -> ", path.Select(v => v.Id))}");
         foreach(var vertex in path) carrier.CurrentRoute.Enqueue(vertex);
         carrier.State = CarrierState.Delivering;
     }
@@ -209,58 +210,28 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     }
     private List<ProblemVertex> FindShortestPathToVertex(ProblemVertex start, ProblemVertex end, FenceTransportInputData data)
     {
-        var vertices = data.Vertices;
-        var edges = data.Edges;
-    
-        // Initialize the distances array with int.MaxValue for all vertices
-        var distances = new int[vertices.Count];
-        for (int i = 0; i < distances.Length; i++)
+        List<int> distances = GetDistancesToEachVertex(start, data);
+        List<ProblemVertex> path = new List<ProblemVertex>();
+        ProblemVertex current = end;
+        while (current != start)
         {
-            distances[i] = int.MaxValue;
-        }
-    
-        // Initialize the previous vertex array to keep track of the path
-        var previous = new int[vertices.Count];
-    
-        // The distance from the start vertex to itself is 0
-        distances[start.Id] = 0;
-    
-        // Create a queue for the vertices to visit
-        var queue = new Queue<ProblemVertex>();
-        queue.Enqueue(start);
-    
-        // BFS algorithm
-        while (queue.Count > 0)
-        {
-            var current = queue.Dequeue();
-    
-            foreach (var edge in edges)
+            path.Add(current);
+            foreach (ProblemEdge edge in data.Edges)
             {
-                var neighborId = edge.From == current.Id ? edge.To : edge.From;
-    
-                if (distances[neighborId] == int.MaxValue)
+                if (edge.From == current.Id && distances[edge.To] == distances[current.Id] - 1)
                 {
-                    queue.Enqueue(vertices[neighborId]);
-                    distances[neighborId] = distances[current.Id] + 1;
-                    previous[neighborId] = current.Id;
+                    current = data.Vertices[edge.To];
+                    break;
+                }
+                if (edge.To == current.Id && distances[edge.From] == distances[current.Id] - 1)
+                {
+                    current = data.Vertices[edge.From];
+                    break;
                 }
             }
         }
-    
-        // If the end vertex is not reachable from the start vertex
-        if (distances[end.Id] == int.MaxValue)
-        {
-            return new List<ProblemVertex>();
-        }
-    
-        // Build the shortest path from start to end by following the previous vertices
-        var path = new List<ProblemVertex>();
-        for (var vertex = end; vertex != null; vertex = previous[vertex.Id] == start.Id ? null : vertices[previous[vertex.Id]])
-        {
-            path.Add(vertex);
-        }
-    
-        // Reverse the path to get it from start to end and return it
+        path.Add(start);
+
         path.Reverse();
         return path;
     }

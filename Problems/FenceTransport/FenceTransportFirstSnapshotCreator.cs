@@ -18,15 +18,16 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
 
     private void CreateVertices(List<GraphVertex> graphVertices)
     {
+        var carriersCount = InputData.CarrierAssignmentOutput.Pairs.Count();
         inputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
         foreach (var vertex in inputData.Vertices) 
         {
             if (vertex.Id == inputData.FactoryIndex)
-                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, vertex.Id.ToString(), GraphStates.Special));
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, carriersCount.ToString(), GraphStates.Special));
             else if (inputData.ConvexHullOutput!.HullIndexes!.Contains(vertex.Id))
-                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, vertex.Id.ToString(), GraphStates.Active));
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, 0.ToString(), GraphStates.Active));
             else
-                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, vertex.Id.ToString()));
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, 0.ToString()));
         }
     }
     private void CreateEdges(List<GraphVertex> vertices, List<GraphEdge> edges)
