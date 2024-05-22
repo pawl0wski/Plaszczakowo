@@ -11,11 +11,12 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     public override FenceTransportOutput Resolve(FenceTransportInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
         List<int> ConvexHullEdgesIndexes = AddHullEdges(data.Vertices[data.FactoryIndex], data.Vertices, data.Edges, data.ConvexHullOutput!.HullIndexes!);
+        
         FenceTransportOutput output = new();
         problemRecreationCommands = commands;
-        List<Carrier> carriers = [];
-        for(int i = 0; i < (data.CarrierAssignmentOutput?.Pairs.Count() ?? 0); i++)
-            carriers.Add(new Carrier(i, data.Vertices[data.FactoryIndex]));
+        int hoursCount = 0;
+        List<Carrier> carriers = CreateCarriers(data);
+        if (carriers.Count == 0) return output;
 
         data.Vertices[data.FactoryIndex].Value = carriers.Count;
         var firstVertex = GetUnfinishedVertieces(data).First();
@@ -70,11 +71,21 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
 
             }
             if (moved)
+            {
                 problemRecreationCommands.NextStep();
+                hoursCount++;
+            }
         }
+        output.HoursToBuild = hoursCount;
         return output;
     }
 
+    private List<Carrier> CreateCarriers(FenceTransportInputData data) {
+        List<Carrier> carriers = [];
+        for(int i = 0; i < (data.CarrierAssignmentOutput?.Pairs.Count() ?? 0); i++)
+        carriers.Add(new Carrier(i, data.Vertices[data.FactoryIndex]));
+        return carriers;
+    }
     private void MoveCarrierOnGraph(Carrier carrier){
         carrier.Position.Value -= 1;
         problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id, carrier.Position.Value.ToString()!));
