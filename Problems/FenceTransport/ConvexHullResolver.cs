@@ -1,10 +1,9 @@
 using Drawer.GraphDrawer;
-using Problem.CarrierAssignment;
 using ProblemResolver;
 using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;
 
-namespace Problem.ConvexHull;
+namespace Problem.FenceTransport;
 
 public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, ConvexHullOutput, GraphData>
 {
@@ -15,58 +14,58 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
     {
         problemRecreationCommands = commands;
         ConvexHullOutput output = new();
-        var LowestLandmark = FindLowestLandmark(data.Landmarks);
-        var angles = GetAngleOfOtherLandmarks(LowestLandmark, data.Landmarks);
+        var LowestVertex = FindLowestVertex(data.Vertices);
+        var angles = GetAngleOfOtherVertices(LowestVertex, data.Vertices);
 
-        SortByAngle(angles, data.Landmarks);
+        SortByAngle(angles, data.Vertices);
 
-        var indexes = DrawConvexHull(data.Landmarks);
+        var indexes = DrawConvexHull(data.Vertices);
         output.HullIndexes = indexes;
         
         return output;
     }
-    private ProblemVertex FindLowestLandmark(List<ProblemVertex> vertices)
+    private ProblemVertex FindLowestVertex(List<ProblemVertex> vertices)
     {
         int maxY = int.MinValue;
-        ProblemVertex lowestLandmark = vertices[0];
+        ProblemVertex lowestVertex = vertices[0];
         foreach (ProblemVertex vertex in vertices)
         {
             if (vertex.Y > maxY)
             {
                 maxY = vertex.Y ?? 0;
-                lowestLandmark = vertex;
+                lowestVertex = vertex;
             }
         }
-        problemRecreationCommands?.Add(new ChangeVertexStateCommand(lowestLandmark.Id, GraphStates.Special));
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(lowestVertex.Id, GraphStates.Special));
         problemRecreationCommands?.NextStep();
-        return lowestLandmark;
+        return lowestVertex;
     }
-    private List<float> GetAngleOfOtherLandmarks(ProblemVertex lowestLandmark, List<ProblemVertex> vertices)
+    private List<float> GetAngleOfOtherVertices(ProblemVertex lowestVertex, List<ProblemVertex> vertices)
     {
         List<float> angles = new();
         foreach (ProblemVertex vertex in vertices)
         {
-            float gotAngle = GetAngle(lowestLandmark, vertex);
+            float gotAngle = GetAngle(lowestVertex, vertex);
             angles.Add(gotAngle);
         }
         return angles;
     }
-    private float GetAngle(ProblemVertex lowestLandmark, ProblemVertex vertex)
+    private float GetAngle(ProblemVertex lowestVertex, ProblemVertex vertex)
     {
-        if (vertex == lowestLandmark)
+        if (vertex == lowestVertex)
         {
             return -1;
         }
-        if (lowestLandmark.Y == vertex.Y)
+        if (lowestVertex.Y == vertex.Y)
         {
-            if (lowestLandmark.X > vertex.X)
+            if (lowestVertex.X > vertex.X)
             {
                 return 180;
             }
             return 0;
         }
-        float deltaY = vertex.Y - lowestLandmark.Y ?? 0;
-        float deltaX = vertex.X - lowestLandmark.X ?? 0;
+        float deltaY = vertex.Y - lowestVertex.Y ?? 0;
+        float deltaX = vertex.X - lowestVertex.X ?? 0;
         float angle;
     
         angle = (float)((Math.Atan(1 / (deltaY / deltaX)) * 180 / Math.PI) + 90);

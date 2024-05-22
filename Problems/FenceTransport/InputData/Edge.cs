@@ -1,4 +1,4 @@
-namespace Problem.CarrierAssignment;
+namespace Problem.FenceTransport;
 
 public record Edge(int From, int To)
 {

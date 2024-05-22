@@ -2,14 +2,14 @@ using Drawer.GraphDrawer;
 
 namespace ProblemVisualizer.Commands;
 
-public class ChangeEdgeFlowCommand(int id, GraphThroughput throughput)
+public class ChangeVertexValueCommand(int id, string value)
     : ProblemVisualizerCommand<GraphData>
 {
-    public readonly GraphThroughput Throughput = throughput;
     public readonly int Id = id;
+    public readonly string Value = value;
 
     public override void Execute(ref GraphData data)
     {
-        data.ChangeEdgeFlow(Id, Throughput);
+        data.ChangeVertexText(Id, Value);
     }
 }

@@ -1,17 +1,16 @@
 using ProblemResolver;
 using ProblemResolver.Graph;
 
-namespace Problem.CarrierAssignment;
+namespace Problem.FenceTransport;
 
 public record FenceTransportInputData(int FrontCarrierNumber, int RearCarrierNumber, List<Edge> Relations, 
-    List<ProblemEdge> Paths, List<ProblemVertex> Landmarks, int FactoryIndex) : ProblemGraphInputData(Landmarks, Paths)
+    List<ProblemVertex> Vertices, List<ProblemEdge> Edges, int FactoryIndex) : ProblemGraphInputData(Vertices, Edges)
 {
     public int FrontCarrierNumber { get; set; } = FrontCarrierNumber;
     public int RearCarrierNumber { get; set; } = RearCarrierNumber;
     public List<Edge> Relations { get; set; } = Relations;
-    
-    public List<ProblemVertex> Landmarks { get; set; } = Landmarks;
-    
-    public List<ProblemEdge> Paths { get; set; } = Paths;
+
     public int FactoryIndex { get; set; } = FactoryIndex;
+    public CarrierAssignmentOutput? CarrierAssignmentOutput { get; set; }
+    public ConvexHullOutput? ConvexHullOutput { get; set; }
 }

@@ -22,6 +22,8 @@ public static class GraphDataToProblem
             edges.Add(new ProblemEdge(i,
                 data.Vertices.IndexOf(currentEdge.From),
                 data.Vertices.IndexOf(currentEdge.To),
+                currentEdge.Throughput is null ? null :
+                ProblemGraphThroughput.FromGraphThroughput(currentEdge.Throughput),
                 currentEdge.Directed
             ));
         }

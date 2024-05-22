@@ -2,7 +2,7 @@ using Drawer.GraphDrawer;
 
 namespace ProblemResolver.Graph;
 
-public record ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = false)
+public class ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = false) : ICloneable
 {
     public int Id { get; set; } = Id;
 
@@ -21,5 +21,10 @@ public record ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial =
             vertex.Y,
             vertex.Value is null ? null : Convert.ToInt32(vertex.Value),
             vertex.State == GraphStates.Special);
+    }
+
+    public object Clone()
+    {
+        return new ProblemVertex(Id, X, Y, Value);
     }
 }

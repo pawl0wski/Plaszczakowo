@@ -18,7 +18,11 @@ public static class ProblemToGraphData
         
         foreach (var problemEdge in inputData.Edges)
         {
-            edges.Add(new GraphEdge(vertices[problemEdge.From], vertices[problemEdge.To], directed: problemEdge.Directed));
+            var throughput = problemEdge.Throughput;
+            edges.Add(new GraphEdge(vertices[problemEdge.From],
+             vertices[problemEdge.To],
+              throughput: throughput is null ? null : new GraphThroughput(throughput.Flow,throughput.Capacity), 
+               directed: problemEdge.Directed));
         }
 
         return new (vertices, edges, []);

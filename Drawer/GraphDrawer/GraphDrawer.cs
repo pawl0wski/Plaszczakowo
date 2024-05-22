@@ -75,10 +75,10 @@ public class GraphDrawer : Drawer
         double xOffset;
         double yOffset;
 
-        if (e.Throughput.Capacity != -1)
-            (heightIndicator, xOffset, yOffset) = (1.3, -20, 7.5);
-        else
+        if (e.Throughput.Capacity == -1 || e.Throughput.Capacity > 1)
             (heightIndicator, xOffset, yOffset) = (2, -1, 0);   
+        else
+            (heightIndicator, xOffset, yOffset) = (1.3, -20, 7.5);
         
         var x = e.From.X + (e.To.X - e.From.X) / heightIndicator + xOffset;
         var y = e.From.Y + (e.To.Y - e.From.Y) / heightIndicator + yOffset;

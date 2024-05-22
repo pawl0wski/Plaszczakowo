@@ -1,5 +1,5 @@
 ﻿using Problem.GuardSchedule;
-using Problem.CarrierAssignment;
+using Problem.FenceTransport;
 using Problem.PhraseCorrection;
 using ProblemResolver.Graph;
 using System.Text.Json;
@@ -55,14 +55,14 @@ public static class DefaultProblemInputProvider
 
         List<ProblemEdge> problemEdges = 
         [
-            new ProblemEdge(0, 0, 1, true),
-            new ProblemEdge(1, 1, 2, true),
-            new ProblemEdge(2, 2, 3, true),
-            new ProblemEdge(3, 3, 4, true),
-            new ProblemEdge(4, 4, 5, true),
-            new ProblemEdge(5, 5, 6, true),
-            new ProblemEdge(6, 6, 7, true),
-            new ProblemEdge(7, 7, 0, true),
+            new ProblemEdge(0, 0, 1, null, true),
+            new ProblemEdge(1, 1, 2, null, true),
+            new ProblemEdge(2, 2, 3, null, true),
+            new ProblemEdge(3, 3, 4, null, true),
+            new ProblemEdge(4, 4, 5, null, true),
+            new ProblemEdge(5, 5, 6, null, true),
+            new ProblemEdge(6, 6, 7, null, true),
+            new ProblemEdge(7, 7, 0, null, true),
         ];
 
         List<Plaszczak> plaszczaki =
@@ -99,30 +99,20 @@ public static class DefaultProblemInputProvider
 
         List<Edge> relations =
         [
-            new Edge(0, 5),
             new Edge(0, 6),
             new Edge(0, 7),
-            new Edge(1, 5),
+            new Edge(1, 10),
             new Edge(1, 9),
-            new Edge(2, 5),
+            new Edge(2, 10),
             new Edge(2, 7),
             new Edge(3, 7),
             new Edge(3, 8),
             new Edge(4, 6),
+            new Edge(4, 11),
+            new Edge(5, 9),
         ];
 
-        List<ProblemEdge> paths =
-        [
-            new ProblemEdge(0, 0, 1),
-            new ProblemEdge(1, 1, 2),
-            new ProblemEdge(2, 2, 3),
-            new ProblemEdge(3, 2, 4),
-            new ProblemEdge(4, 3, 4),
-            new ProblemEdge(5, 3, 5),
-            new ProblemEdge(6, 4, 6),
-        ];
-
-        List<ProblemVertex> landmarks =
+        List<ProblemVertex> vertices =
         [
             new ProblemVertex(0, 50, 100, null),
             new ProblemVertex(1, 150, 250, null),
@@ -133,7 +123,18 @@ public static class DefaultProblemInputProvider
             new ProblemVertex(6, 800, 250, null),
         ];
 
-        FenceTransportInputData carrierAssigment = new(5, 5, relations, paths, landmarks, 3);
+        List<ProblemEdge> edges =
+        [
+            new ProblemEdge(0, 0, 1),
+            new ProblemEdge(1, 1, 2),
+            new ProblemEdge(2, 2, 3),
+            new ProblemEdge(3, 2, 4),
+            new ProblemEdge(4, 3, 4),
+            new ProblemEdge(5, 3, 5),
+            new ProblemEdge(6, 4, 6),
+        ];
+
+        FenceTransportInputData carrierAssigment = new(6, 6, relations, vertices, edges, 3);
         string jsonCarrierAssigment = JsonSerializer.Serialize(carrierAssigment);
         File.WriteAllText(destinationFilePath, jsonCarrierAssigment);
     }

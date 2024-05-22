@@ -1,5 +1,4 @@
 ﻿using Drawer.GraphDrawer;
-using Problem.CarrierAssignment;
 using ProblemResolver;
 using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;

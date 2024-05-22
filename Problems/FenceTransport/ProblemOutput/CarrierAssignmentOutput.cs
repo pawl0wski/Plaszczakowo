@@ -1,6 +1,6 @@
 using ProblemResolver;
 
-namespace Problem.CarrierAssignment;
+namespace Problem.FenceTransport;
 
 public record CarrierAssignmentOutput : ProblemOutput
 {

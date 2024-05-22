@@ -1,0 +1,93 @@
+@page "/input/additional/carrier_assignment"
+
+@using Problem.FenceTransport
+@using System.Text.Json
+@using ElectronNET.API
+@using ElectronNET.API.Entities
+@inherits AdditionalInputBase<FenceTransportInputData>
+@inject NavigationManager Navigator
+
+<h1>Tragarze</h1>
+<table>
+    <tr>
+        <th>Ilość z przodu</th>
+        <th>Ilość z tyłu</th>
+    </tr>
+    <tr>
+    @if (ProblemInput != null)
+    {
+        <td>
+            <input @bind="ProblemInput.FrontCarrierNumber" />
+        </td>
+        <td>
+            <input @bind="ProblemInput.RearCarrierNumber" />
+        </td>
+    }
+    </tr>
+<h1>Relacje</h1>
+    <tr>
+        <th>Index Przodu</th>
+        <th>Index Tyłu</th>
+    </tr>
+    @if (ProblemInput != null && ProblemInput.Relations != null)
+    {
+
+        @foreach (var relation in ProblemInput.Relations)
+        {
+            <tr>
+                <td>
+                    <input @bind="relation.From" />
+                    @if (relation.From < 0 || relation.From >= ProblemInput!.FrontCarrierNumber)
+                    {
+                        <label>błąd</label>
+                    }
+                </td>
+                <td>
+                    <input @bind="relation.To" />
+                    @if (relation.To < ProblemInput!.FrontCarrierNumber || 
+                        relation.To >= ProblemInput!.FrontCarrierNumber + ProblemInput!.RearCarrierNumber)
+                    {
+                        <label>błąd</label>
+                    }
+                </td>
+                <td>
+                    <button @onclick="() => RemoveRelation(relation)">Usuń</button>
+                </td>
+            </tr>
+        }
+    }
+    <tr>
+        <td>
+            <button @onclick="AddRelation">Dodaj</button>
+        </td>
+    </tr>
+</table>
+
+<br />
+<button @onclick="GoToProblemPage">Wczytaj</button>
+
+@code {
+    protected override void InitializeDefaultInputProperties()
+    {
+        if (ProblemInput is not null)
+        {
+            ProblemInput.Relations = [];
+        }
+    }
+    private async void GoToProblemPage()
+    {
+        var output = JsonSerializer.Serialize(ProblemInput);
+        await ProblemState!.SetProblemJsonInputData(output);
+        Navigator.NavigateTo($"/carrier_assignment");
+    }
+    private void RemoveRelation(Edge relation)
+    {
+        ProblemInput!.Relations.Remove(relation);
+    }
+    private void AddRelation()
+    {
+        if (ProblemInput is null)
+            return;
+        ProblemInput!.Relations.Add(new Edge(0, 0));
+    }
+}
