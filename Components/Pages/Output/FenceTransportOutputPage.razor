@@ -13,13 +13,14 @@
     @if (_outputData.HoursToBuild < 0)
     {
         <h2>Nie da sie zbudować płotu!</h2>
+        <OldButton @onclick="ReturnBack">Zakończ</OldButton>
     }
     else{
         <h2>Można zbudować płot w @(_outputData.HoursToBuild) godzin</h2>
-    
+        <button @onclick="NextProblem">Następny problem</button>
+        <OldButton @onclick="ReturnBack">Zakończ</OldButton>
     }
 }
-<button @onclick="NextProblem">Następny problem</button>
 
 @code {
     FenceTransportOutput? _outputData;
@@ -34,4 +35,5 @@
     {
         Navigation.NavigateTo("guard_schedule");
     }
+    private void ReturnBack() => Navigation.NavigateTo("/");
 }

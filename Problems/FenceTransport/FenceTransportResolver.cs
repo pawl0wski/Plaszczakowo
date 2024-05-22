@@ -16,7 +16,10 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         problemRecreationCommands = commands;
         int hoursCount = 0;
         List<Carrier> carriers = CreateCarriers(data);
-        if (carriers.Count == 0) return output;
+        if (carriers.Count == 0) {
+            output.HoursToBuild = -1;
+            return output;
+        }
 
         data.Vertices[data.FactoryIndex].Value = carriers.Count;
         var firstVertex = GetUnfinishedVertieces(data).First();
