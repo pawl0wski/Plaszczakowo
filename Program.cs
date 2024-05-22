@@ -15,13 +15,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// builder.Services.AddElectron();
+builder.Services.AddElectron();
 
 // Dodawanie ProblemState który przechowuje wejście problemu między stronami
 builder.Services.AddScoped<IProblemState, ProblemState>();
 
 // Dodawanie Electrona do projektu.
-// builder.WebHost.UseElectron(args);
+builder.WebHost.UseElectron(args);
 
 builder.Services.AddBlazoredModal();
 
@@ -49,14 +49,14 @@ app.MapRazorComponents<App>()
 await app.StartAsync();
 
 // Tworzenie nowego okna Electron.
-// var window = await Electron.WindowManager.CreateWindowAsync();
+var window = await Electron.WindowManager.CreateWindowAsync();
 
 // Ustawianie wielkości okna
-// window.SetContentSize(1280, 720);
+window.SetContentSize(1280, 720);
 // Ukrywanie górnego menu
-// window.SetMenuBarVisibility(false);
+window.SetMenuBarVisibility(false);
 // Ustawienie tytułu okna
-// window.SetTitle("Świat Płaszczaków");
+window.SetTitle("Świat Płaszczaków");
 
 // Stworzenie testowych .json dla podproblemów
 DefaultProblemInputProvider.CreateDefaultFilesForProblems();
