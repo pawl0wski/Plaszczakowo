@@ -96,28 +96,28 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
 
         Activate(vertices[0].Id);
         Activate(vertices[1].Id);
-
+        Connect(vertices[0].Id, vertices[1].Id);
         ConvexHullStack.Push(vertices[0]);
         ConvexHullStack.Push(vertices[1]);
         for (int i = 2; i < vertices.Count; i++)
         {
-            problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertices[i].Id, GraphStates.Highlighted));
-            problemRecreationCommands?.NextStep();
             var Last = ConvexHullStack.Pop();
             var BeforeLast = ConvexHullStack.Peek();
             while (IsClockwise(BeforeLast, Last, vertices[i]))
             {
                 Inactivate(Last.Id);
-
+                DeleteLastConnection();
                 Last = ConvexHullStack.Pop();
                 BeforeLast = ConvexHullStack.Peek();
 
                 Highlight(Last.Id);
+                HighlightConnect(BeforeLast.Id, Last.Id);
             }
             ConvexHullStack.Push(Last);
             ConvexHullStack.Push(vertices[i]);
             problemRecreationCommands?.Add(new ChangeVertexStateCommand(Last.Id, GraphStates.Active));
             problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertices[i].Id, GraphStates.Highlighted));
+            HighlightConnect(Last.Id, vertices[i].Id);
             
             if (i == vertices.Count - 1)
             {
@@ -171,6 +171,18 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
         edgeIndex++;
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(edgeIndex, GraphStates.Active));
         problemRecreationCommands?.NextStep();
-
+    }
+    private void HighlightConnect(int sourceId, int destinationId)
+    {
+        problemRecreationCommands?.Add(new ConnectVertexCommand(sourceId, destinationId));
+        edgeIndex++;
+        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(edgeIndex, GraphStates.Highlighted));
+        problemRecreationCommands?.NextStep();
+    }
+    private void DeleteLastConnection()
+    {
+        problemRecreationCommands?.Add(new RemoveEdgeCommand(edgeIndex));
+        edgeIndex--;
+        problemRecreationCommands?.NextStep();
     }
 }

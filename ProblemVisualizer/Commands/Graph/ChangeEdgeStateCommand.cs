@@ -10,6 +10,10 @@ public class ChangeEdgeStateCommand(int id, GraphState state)
 
     public override void Execute(ref GraphData data)
     {
+        if (Id > data.Edges.Count || Id < 0) 
+        {
+            return;
+        }
         data.ChangeEdgeState(Id, State);
     }
 }

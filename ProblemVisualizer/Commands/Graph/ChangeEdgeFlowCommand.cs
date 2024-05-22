@@ -10,6 +10,10 @@ public class ChangeEdgeFlowCommand(int id, GraphThroughput throughput)
 
     public override void Execute(ref GraphData data)
     {
+        if (Id > data.Edges.Count || Id < 0) 
+        {
+            return;
+        }
         data.ChangeEdgeFlow(Id, Throughput);
     }
 }
