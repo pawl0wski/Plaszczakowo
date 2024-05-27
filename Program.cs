@@ -56,7 +56,7 @@ window.SetContentSize(1280, 720);
 // Ukrywanie górnego menu
 window.SetMenuBarVisibility(false);
 // Ustawienie tytułu okna
-window.SetTitle("Świat Płaszczaków");
+window.SetTitle("Płaszczakowo");
 
 // Stworzenie testowych .json dla podproblemów
 DefaultProblemInputProvider.CreateDefaultFilesForProblems();
