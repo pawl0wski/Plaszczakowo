@@ -1,4 +1,4 @@
-# Projekt zaliczeniowy na Algorytmy i stuktury danych II
+# Płaszczakowo
 
 ## Skład projektu
 
