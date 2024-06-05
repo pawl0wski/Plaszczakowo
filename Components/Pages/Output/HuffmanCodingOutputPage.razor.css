@@ -1,9 +1,9 @@
 div.huffman-coding-output {
     background: url("img/background/wall_background.png");
-    
+
     width: 100vw;
     height: 100vh;
-    
+
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -37,6 +37,6 @@ div.monitor__center__text {
     height: 65vh;
     overflow-y: scroll;
     word-wrap: break-word;
-    
+
     color: lawngreen;
 }

@@ -9,28 +9,17 @@
     <div class="monitor__center">
         @if (_outputData != null)
         {
-            <div class="monitor__center__text">
-                <h2>Zakodowana melodia:</h2>
-                <p>@_outputData.Result</p>
-                <h2>Melodia przed zakodowaniem:</h2>
-                <p>@_outputData.InputPhrase</p>
-                <h2>Kody Huffmana:</h2>
-                <table>
-                    <thead>
-                        <th>Litera</th>
-                        <th>Kod</th>
-                    </thead>
-                    <tbody>
-                        @foreach (var hufCode in codes)
-                        {
-                            <tr>
-                            <td>@hufCode[0]</td>
-                            <td>@hufCode.Substring(2)</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div class="monitor__center__text">
+            <h2>Zakodowana melodia:</h2>
+            <p>@_outputData.Result</p>
+            <h2>Melodia przed zakodowaniem:</h2>
+            <p>@_outputData.InputPhrase</p>
+            <h2>Kody Huffmana:</h2>
+            @foreach (var hufCode in codes)
+            {
+            <p>@hufCode</p>
+            }
+        </div>
         }
     </div>
     <img class="monitor__right" src="img/monitor_right.png" alt="Prawa cześć monitora">
@@ -39,16 +28,13 @@
 
 @code {
     HuffmanCodingOutput? _outputData;
-    List<string> codes = new();
+    List<string> codes;
 
 
     protected override async Task OnInitializedAsync()
     {
-        if (ProblemState is not null)
-        {
         _outputData = await ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
         codes = ExtractCodes();
-        }
     }
 
     private List<string> ExtractCodes()
@@ -61,11 +47,11 @@
             var code = "";
             if (key != ' ')
             {
-                code += key + " " + _outputData.HuffmanDictionary[key];
+                code += key + " -> " + _outputData.HuffmanDictionary[key];
             }
             else
             {
-                code += "_ " + _outputData.HuffmanDictionary[key];
+                code += "_ -> " + _outputData.HuffmanDictionary[key];
             }
 
             list.Add(code);
@@ -73,6 +59,4 @@
 
         return list;
     }
-
-}
 }
