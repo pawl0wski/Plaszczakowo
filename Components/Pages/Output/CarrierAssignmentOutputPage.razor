@@ -40,7 +40,7 @@
         _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
         var inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
         inputData.CarrierAssignmentOutput = _outputData;
-        ProblemState.SetProblemInputData(inputData);
+        await ProblemState.SetProblemInputData(inputData);
     }
     private void NextProblem()
     {

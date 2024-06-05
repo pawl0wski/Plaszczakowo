@@ -10,6 +10,7 @@ public class CarrierAssignmentFirstSnapshotCreator(FenceTransportInputData input
     private int canvasWidth = 1920;
     private int canvasHeight = 1080;
     private readonly FenceTransportInputData _inputData = inputData;
+
     public override GraphData CreateFirstSnapshot()
     {
         List<GraphVertex> vertices = [];
@@ -27,7 +28,7 @@ public class CarrierAssignmentFirstSnapshotCreator(FenceTransportInputData input
     {
         for (int i = 1; i <= _inputData.FrontCarrierNumber; i++)
         {
-            int ValueY = canvasHeight / (inputData.FrontCarrierNumber + 1) * i;
+            int ValueY = canvasHeight / (_inputData.FrontCarrierNumber + 1) * i;
             vertices.Add(new GraphVertex((int)(canvasWidth * 1/3), ValueY, (i-1).ToString(), null));
         }
     }
