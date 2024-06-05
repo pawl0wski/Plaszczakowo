@@ -28,13 +28,16 @@
 
 @code {
     HuffmanCodingOutput? _outputData;
-    List<string> codes;
+    List<string> codes = new();
 
 
     protected override async Task OnInitializedAsync()
     {
+        if (ProblemState is not null)
+        {
         _outputData = await ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
         codes = ExtractCodes();
+        }
     }
 
     private List<string> ExtractCodes()
