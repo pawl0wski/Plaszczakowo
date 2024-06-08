@@ -2,7 +2,7 @@
 @using Problem.FenceTransport
 @using States
 @using ProblemResolver
-@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
 @inherits ProblemOutputBase<FenceTransportOutput>
 
 @inject NavigationManager Navigation
@@ -16,8 +16,19 @@
         <OldButton @onclick="ReturnBack">Zakończ</OldButton>
     }
     else{
-        <h2>Można zbudować płot w @(_outputData.HoursToBuild) godzin</h2>
-        <OldButton @onclick="NextProblem">Następny problem</OldButton>
+        @if (_outputData.HoursToBuild == 1)
+        {
+            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godzinę</h2>
+        }
+        else if (_outputData.HoursToBuild % 10 > 1 && _outputData.HoursToBuild % 10 < 5)
+        {
+            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godziny</h2>
+        }
+        else
+        {
+            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godzin</h2>
+        }
+        <OldButton @onclick="NextProblem">Grafik Strażników</OldButton>
         <OldButton @onclick="ReturnBack">Zakończ</OldButton>
     }
 }
@@ -33,7 +44,7 @@
     }
     private void NextProblem()
     {
-        Navigation.NavigateTo("guard_schedule");
+        Navigation.NavigateTo("/input/graphcreator/guard_schedule");
     }
     private void ReturnBack() => Navigation.NavigateTo("/");
 }
