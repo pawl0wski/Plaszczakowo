@@ -2,7 +2,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using ProblemResolver;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.States;
+namespace ProjektZaliczeniowy_AiSD2.States;
 
 public class ProblemState : IProblemState
 {

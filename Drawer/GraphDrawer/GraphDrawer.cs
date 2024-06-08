@@ -24,6 +24,11 @@ public class GraphDrawer : Drawer
         _data = newData;
     }
 
+    public void UpdateVertexImages(IGraphVertexImageProvider provider)
+    {
+        _data!.FillImagesWithProvider(provider);
+    }
+
     public override async Task Draw()
     {
         if (_data is null)
@@ -90,7 +95,7 @@ public class GraphDrawer : Drawer
 
     private async Task DrawVertex(GraphVertex v)
     {
-        if (v.VertexImageRef == null)
+        if (v.VertexImage == null)
         {
             await DrawCircleOutline(v);
             await DrawCircle(v);
@@ -121,10 +126,10 @@ public class GraphDrawer : Drawer
 
     private async Task DrawImageFromRef(GraphVertex v)
     {
-        if (v.VertexImageRef is null)
+        if (v.VertexImage is null)
             throw new NullReferenceException();
 
-        await _context.DrawImageAsync((ElementReference)v.VertexImageRef, v.X - 15, v.Y - 16);
+        await _context.DrawImageAsync(v.VertexImage.ImageReference, v.X - 15, v.Y - 16);
     }
 
     private async Task FillVertexTextContent(GraphVertex v)

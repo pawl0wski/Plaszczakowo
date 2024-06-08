@@ -6,22 +6,29 @@ public class GraphVertex : ICloneable
 {
     public GraphState State;
     public string? Value;
-    public ElementReference? VertexImageRef;
+    public GraphVertexImage? VertexImage;
     public int X;
     public int Y;
 
     public GraphVertex(int x, int y, string? value = null, GraphState? state = null,
-        ElementReference? vertexImageRef = null)
+        GraphVertexImage? vertexImage = null)
     {
         X = x;
         Y = y;
         Value = value;
         State = state ?? GraphStates.Inactive;
-        VertexImageRef = vertexImageRef;
+        VertexImage = vertexImage;
+    }
+
+    public void FillImageWithProvider(IGraphVertexImageProvider provider)
+    {
+        ArgumentNullException.ThrowIfNull(VertexImage);
+        
+        VertexImage.FillWithProvider(provider);
     }
 
     public object Clone()
     {
-        return new GraphVertex(X, Y, Value, State, VertexImageRef);
+        return new GraphVertex(X, Y, Value, State, VertexImage);
     }
 }

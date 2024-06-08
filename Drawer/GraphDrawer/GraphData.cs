@@ -29,6 +29,13 @@ public class GraphData : DrawerData
         );
     }
 
+    public void FillImagesWithProvider(IGraphVertexImageProvider provider)
+    {
+        foreach (var vertex in Vertices.Where(v => v.VertexImage is not null))
+        {
+            vertex.FillImageWithProvider(provider);
+        }
+    }
     public void ChangeEdgeState(int index, GraphState state)
     {
         var currentEdge = Edges[index];
@@ -51,6 +58,18 @@ public class GraphData : DrawerData
     {
         var currentVertex = Vertices[index];
         currentVertex.Value = value;
+    }
+
+    public void ChangeVertexImage(int index, GraphVertexImage image)
+    {
+        var currentVertex = Vertices[index];
+        currentVertex.VertexImage = image;
+    }
+    
+    public void RemoveVertexImage(int index)
+    {
+        var currentVertex = Vertices[index];
+        currentVertex.VertexImage = null;
     }
 
     public void AddVertex(GraphVertex vertex)

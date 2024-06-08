@@ -2,7 +2,7 @@ using Drawer;
 using Microsoft.AspNetCore.Components;
 using ProblemResolver;
 using ProblemVisualizer;
-using ProjektZaliczeniowy_AiSD2.Components.States;
+using ProjektZaliczeniowy_AiSD2.States;
 
 namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Problems;
 
