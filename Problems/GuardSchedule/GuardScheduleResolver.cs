@@ -81,6 +81,7 @@ public class GuardScheduleResolver
 
                 Resting(p);
 
+                ChangeVertexImages(p, vertexIndex);
                 ChangePlaszczakText(p, xCoordinateForText, previousMelody, vertexIndex, maxSteps);
                 ChangeGraphColor(vertexIndex);
 
@@ -94,6 +95,17 @@ public class GuardScheduleResolver
             output.Plaszczaki.Add(p);
             plaszczakIndex++;
         }
+    }
+
+    private void ChangeVertexImages( Plaszczak p, int vertexIndex)
+    {
+        _problemRecreationCommands?.Add(new RemoveAllVertexImageCommand());
+        GraphVertexImage? plaszczakImage = null;
+        
+        if (p.Energy == p.MaxEnergy && vertexIndex != 0)
+            plaszczakImage = GraphVertexImages.PlaszczakSleeping;
+        
+        _problemRecreationCommands?.Add(new ChangeVertexImageCommand(vertexIndex, plaszczakImage ?? GraphVertexImages.PlaszczakFrontActive));
     }
 
     private static void UpdatePosition(Plaszczak p, List<ProblemVertex> vertices, int vertexIndex)

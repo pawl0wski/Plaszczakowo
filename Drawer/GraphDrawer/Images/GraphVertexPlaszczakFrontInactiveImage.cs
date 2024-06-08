@@ -4,6 +4,8 @@ namespace Drawer.GraphDrawer;
 
 public class GraphVertexPlaszczakFrontInactiveImage : GraphVertexImage
 {
+    public override bool GetOnVertex()
+        => false;
     protected override ElementReference GetImageReferenceFromProvider(IGraphVertexImageProvider provider)
     {
         return provider.PlaszczakFrontInactive;

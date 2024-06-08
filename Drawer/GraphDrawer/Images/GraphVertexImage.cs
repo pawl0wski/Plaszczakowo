@@ -4,8 +4,11 @@ namespace Drawer.GraphDrawer;
 
 public abstract class GraphVertexImage
 {
-    public bool ReplaceVertex;
-    public ElementReference ImageReference { get; private set; }
+    public abstract bool GetOnVertex();
+
+    public ElementReference GetImageReference()
+        => ImageReference;
+    protected ElementReference ImageReference { get; private set; }
 
     public void FillWithProvider(IGraphVertexImageProvider provider)
     {

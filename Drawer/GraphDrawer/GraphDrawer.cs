@@ -67,7 +67,7 @@ public class GraphDrawer : Drawer
 
         if (e.Directed)
             await DrawDirectedArrow(e);
-            
+
         if (e.Throughput != null)
             await FillEdgeWithThroughput(e);
     }
@@ -81,10 +81,10 @@ public class GraphDrawer : Drawer
         double yOffset;
 
         if (e.Throughput.Capacity == -1 || e.Throughput.Capacity > 1)
-            (heightIndicator, xOffset, yOffset) = (2, -1, 0);   
+            (heightIndicator, xOffset, yOffset) = (2, -1, 0);
         else
             (heightIndicator, xOffset, yOffset) = (1.3, -20, 7.5);
-        
+
         var x = e.From.X + (e.To.X - e.From.X) / heightIndicator + xOffset;
         var y = e.From.Y + (e.To.Y - e.From.Y) / heightIndicator + yOffset;
 
@@ -95,12 +95,10 @@ public class GraphDrawer : Drawer
 
     private async Task DrawVertex(GraphVertex v)
     {
-        if (v.VertexImage == null)
-        {
-            await DrawCircleOutline(v);
-            await DrawCircle(v);
-        }
-        else
+        await DrawCircleOutline(v);
+        await DrawCircle(v);
+        
+        if (v.VertexImage != null)
         {
             await DrawImageFromRef(v);
         }
@@ -129,7 +127,10 @@ public class GraphDrawer : Drawer
         if (v.VertexImage is null)
             throw new NullReferenceException();
 
-        await _context.DrawImageAsync(v.VertexImage.ImageReference, v.X - 15, v.Y - 16);
+        if (v.VertexImage.GetOnVertex())
+            await _context.DrawImageAsync(v.VertexImage.GetImageReference(), v.X - 15, v.Y - 15);
+        else
+            await _context.DrawImageAsync(v.VertexImage.GetImageReference(), v.X + 10, v.Y - 45);
     }
 
     private async Task FillVertexTextContent(GraphVertex v)
@@ -161,10 +162,10 @@ public class GraphDrawer : Drawer
     private async Task DrawDirectedArrow(GraphEdge e)
     {
         await _context.SetFillStyleAsync(e.State.GetPrimaryColor());
-        double arrowSize = 15; 
+        double arrowSize = 15;
         var angle = Math.Atan2(e.To.Y - e.From.Y, e.To.X - e.From.X);
 
-        double vertexRadius = e.State.GetOutlineWidth() + e.State.GetEdgeRadius(); 
+        double vertexRadius = e.State.GetOutlineWidth() + e.State.GetEdgeRadius();
         var endX = e.To.X - vertexRadius * Math.Cos(angle);
         var endY = e.To.Y - vertexRadius * Math.Sin(angle);
 
