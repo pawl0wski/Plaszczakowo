@@ -19,4 +19,6 @@ public interface IGraphVertexImageProvider
     public ElementReference PlaszczakMusic { get; }
 
     public ElementReference PlaszczakSleeping { get; }
+
+    public ElementReference PlaszczakiFence { get; }
 }

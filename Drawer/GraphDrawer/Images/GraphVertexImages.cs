@@ -19,4 +19,6 @@ public static class GraphVertexImages
     public static readonly GraphVertexPlaszczakMusicImage PlaszczakMusic = new();
 
     public static readonly GraphVertexPlaszczakSleepingImage PlaszczakSleeping = new();
+
+    public static readonly GraphVertexPlaszczakiFenceImage PlaszczakiFence = new();
 }
