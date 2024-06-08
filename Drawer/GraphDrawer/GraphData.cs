@@ -69,4 +69,8 @@ public class GraphData : DrawerData
 
         Edges.RemoveAll((edge) => edge.From == vertex || edge.To == vertex);
     }
+    public void RemoveEdge(int edgeIndex)
+    {
+        Edges.RemoveAt(edgeIndex);
+    }
 }

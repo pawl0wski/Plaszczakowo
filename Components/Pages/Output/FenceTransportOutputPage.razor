@@ -1,17 +1,50 @@
 ﻿@page "/fence_transport_output"
-<!--@using Problem.FenceTransport-->
+@using Problem.FenceTransport
 @using States
 @using ProblemResolver
-@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-@* @inherits ProblemOutputBase<> *@
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inherits ProblemOutputBase<FenceTransportOutput>
 
+@inject NavigationManager Navigation
 @inject IProblemState ProblemState
 
-@code {
-    //FenceTransportOutput? _outputData;
+@if (_outputData != null)
+{
+    @if (_outputData.HoursToBuild < 0)
+    {
+        <h2>Nie da sie zbudować płotu!</h2>
+        <OldButton @onclick="ReturnBack">Zakończ</OldButton>
+    }
+    else{
+        @if (_outputData.HoursToBuild == 1)
+        {
+            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godzinę</h2>
+        }
+        else if (_outputData.HoursToBuild % 10 > 1 && _outputData.HoursToBuild % 10 < 5)
+        {
+            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godziny</h2>
+        }
+        else
+        {
+            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godzin</h2>
+        }
+        <OldButton @onclick="NextProblem">Grafik Strażników</OldButton>
+        <OldButton @onclick="ReturnBack">Zakończ</OldButton>
+    }
+}
 
-    // protected override async Task OnInitializedAsync()
-    // {
-        //_outputData = await ProblemState.GetProblemOutputData<FenceTransportOutput>();
-    @* } *@
+@code {
+    FenceTransportOutput? _outputData;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _outputData = await ProblemState.GetProblemOutputData<FenceTransportOutput>();
+        var inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
+        ProblemState.SetProblemInputData(inputData);
+    }
+    private void NextProblem()
+    {
+        Navigation.NavigateTo("/input/graphcreator/guard_schedule");
+    }
+    private void ReturnBack() => Navigation.NavigateTo("/");
 }
