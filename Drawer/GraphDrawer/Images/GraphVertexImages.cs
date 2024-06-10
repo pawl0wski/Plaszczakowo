@@ -2,17 +2,9 @@ namespace Drawer.GraphDrawer;
 
 public static class GraphVertexImages
 {
-    public static readonly GraphVertexPlaszczakBackActiveImage PlaszczakBackActive = new();
+    public static readonly GraphVertexPlaszczakStep1Image PlaszczakStep1 = new();
 
-    public static readonly GraphVertexPlaszczakFrontActiveImage PlaszczakFrontActive = new();
-
-    public static readonly GraphVertexPlaszczakBackHighlightedImage PlaszczakBackHighlighted = new();
-
-    public static readonly GraphVertexPlaszczakFrontHighlightedImage PlaszczakFrontHighlighted = new();
-
-    public static readonly GraphVertexPlaszczakBackInactiveImage PlaszczakBackInactive = new();
-
-    public static readonly GraphVertexPlaszczakFrontInactiveImage PlaszczakFrontInactive = new();
+    public static readonly GraphVertexPlaszczakStep2Image PlaszczakStep2 = new();
 
     public static readonly GraphVertexFactoryImage Factory = new();
 

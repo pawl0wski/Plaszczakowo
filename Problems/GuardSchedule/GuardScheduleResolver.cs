@@ -107,7 +107,7 @@ public class GuardScheduleResolver
         if (previousMelody < p.Melody && vertexIndex != 0)
             plaszczakImage = GraphVertexImages.PlaszczakMusic;
 
-        _problemRecreationCommands?.Add(new ChangeVertexImageCommand(vertexIndex, plaszczakImage ?? GraphVertexImages.PlaszczakFrontActive));
+        _problemRecreationCommands?.Add(new ChangeVertexImageCommand(vertexIndex, plaszczakImage ?? GraphVertexImages.PlaszczakStep1));
     }
 
     private static void UpdatePosition(Plaszczak p, List<ProblemVertex> vertices, int vertexIndex)
