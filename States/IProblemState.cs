@@ -1,6 +1,6 @@
 using ProblemResolver;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.States;
+namespace ProjektZaliczeniowy_AiSD2.States;
 
 public interface IProblemState
 {

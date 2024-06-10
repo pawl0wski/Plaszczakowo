@@ -1,0 +1,19 @@
+@implements IGraphVertexImageProvider
+
+<div style="display: none">
+    <img @ref="Factory" src="img/vertex/factory.png"/>
+    <img @ref="PlaszczakStep1" src="img/vertex/plaszczak_step1.png"/>
+    <img @ref="PlaszczakStep2" src="img/vertex/plaszczak_step2.png"/>
+    <img @ref="PlaszczakMusic" src="img/vertex/plaszczak_music.png"/>
+    <img @ref="PlaszczakSleeping" src="img/vertex/plaszczak_sleeping.png"/>
+    <img @ref="PlaszczakiFence" src="img/vertex/plaszczaki_fence.png"/>
+</div>
+
+@code{
+    public ElementReference Factory { get; private set; }
+    public ElementReference PlaszczakStep1 { get; private set; }
+    public ElementReference PlaszczakStep2 { get; private set; }
+    public ElementReference PlaszczakMusic { get; private set; }
+    public ElementReference PlaszczakSleeping { get; private set; }
+    public ElementReference PlaszczakiFence { get; private set; }
+}

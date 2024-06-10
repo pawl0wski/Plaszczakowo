@@ -24,6 +24,11 @@ public class GraphDrawer : Drawer
         _data = newData;
     }
 
+    public void UpdateVertexImages(IGraphVertexImageProvider provider)
+    {
+        _data!.FillImagesWithProvider(provider);
+    }
+
     public override async Task Draw()
     {
         if (_data is null)
@@ -62,7 +67,7 @@ public class GraphDrawer : Drawer
 
         if (e.Directed)
             await DrawDirectedArrow(e);
-            
+
         if (e.Throughput != null)
             await FillEdgeWithThroughput(e);
     }
@@ -76,26 +81,27 @@ public class GraphDrawer : Drawer
         double yOffset;
 
         if (e.Throughput.Capacity == -1 || e.Throughput.Capacity > 1)
-            (heightIndicator, xOffset, yOffset) = (2, -1, 0);   
+            (heightIndicator, xOffset, yOffset) = (2, -1, 0);
         else
             (heightIndicator, xOffset, yOffset) = (1.3, -20, 7.5);
-        
+
         var x = e.From.X + (e.To.X - e.From.X) / heightIndicator + xOffset;
         var y = e.From.Y + (e.To.Y - e.From.Y) / heightIndicator + yOffset;
 
         await _context.SetFillStyleAsync(e.State.GetThroughputColor());
-        await _context.SetFontAsync("bold 20px Cascadia Mono");
+        await _context.SetFontAsync("bold 20px Dekko");
         await _context.FillTextAsync(e.Throughput.ToString(), x, y);
     }
 
     private async Task DrawVertex(GraphVertex v)
     {
-        if (v.VertexImageRef == null)
+        if (!v.VertexImage?.GetOnVertex() ?? true)
         {
             await DrawCircleOutline(v);
             await DrawCircle(v);
-        }
-        else
+        } 
+        
+        if (v.VertexImage != null)
         {
             await DrawImageFromRef(v);
         }
@@ -121,16 +127,19 @@ public class GraphDrawer : Drawer
 
     private async Task DrawImageFromRef(GraphVertex v)
     {
-        if (v.VertexImageRef is null)
+        if (v.VertexImage is null)
             throw new NullReferenceException();
 
-        await _context.DrawImageAsync((ElementReference)v.VertexImageRef, v.X - 15, v.Y - 16);
+        if (v.VertexImage.GetOnVertex())
+            await _context.DrawImageAsync(v.VertexImage.GetImageReference(), v.X - 25, v.Y - 25);
+        else
+            await _context.DrawImageAsync(v.VertexImage.GetImageReference(), v.X + 10, v.Y - 45);
     }
 
     private async Task FillVertexTextContent(GraphVertex v)
     {
         await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
-        await _context.SetFontAsync("26px Cascadia Mono");
+        await _context.SetFontAsync("26px Dekko");
         var text = v.Value ?? "";
         var textWidth = await _context.MeasureTextAsync(text);
         var x = v.X - textWidth.Width / 2;
@@ -156,10 +165,10 @@ public class GraphDrawer : Drawer
     private async Task DrawDirectedArrow(GraphEdge e)
     {
         await _context.SetFillStyleAsync(e.State.GetPrimaryColor());
-        double arrowSize = 15; 
+        double arrowSize = 15;
         var angle = Math.Atan2(e.To.Y - e.From.Y, e.To.X - e.From.X);
 
-        double vertexRadius = e.State.GetOutlineWidth() + e.State.GetEdgeRadius(); 
+        double vertexRadius = e.State.GetOutlineWidth() + e.State.GetEdgeRadius();
         var endX = e.To.X - vertexRadius * Math.Cos(angle);
         var endY = e.To.Y - vertexRadius * Math.Sin(angle);
 

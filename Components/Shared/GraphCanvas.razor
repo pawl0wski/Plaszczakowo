@@ -2,6 +2,7 @@
 @inject IJSRuntime JsRuntime;
 @rendermode InteractiveServer
 
+<GraphCanvasImages @ref="_provider" />
 <div class="canvas_wrapper">
     <BECanvas Width="CanvasWidth ?? 1280" Height="CanvasHeight ?? 720" @ref="_canvasReference"/>
 </div>
@@ -16,6 +17,8 @@
 
     [Parameter] public bool EnableZoom { get; set; } = true;
 
+    private IGraphVertexImageProvider? _provider;
+    
     private BECanvasComponent? _canvasReference;
 
     private Canvas2DContext? _context;
@@ -31,7 +34,8 @@
 
             _context = await _canvasReference.CreateCanvas2DAsync();
             _drawer = new GraphDrawer(_context, Data);
-
+            
+            _drawer.UpdateVertexImages(_provider!);
             await _drawer!.Draw();
         }
 
@@ -46,6 +50,7 @@
     public async void ChangeGraphData(GraphData newGraphData)
     {
         _drawer!.UpdateGraphData(newGraphData);
+        _drawer.UpdateVertexImages(_provider!);
         await _drawer!.Draw();
     }
 

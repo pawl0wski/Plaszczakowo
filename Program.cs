@@ -1,7 +1,7 @@
 using Blazored.Modal;
 using BlazorTransitionableRoute;
 using ElectronNET.API;
-using ProjektZaliczeniowy_AiSD2.Components.States;
+using ProjektZaliczeniowy_AiSD2.States;
 using App = ProjektZaliczeniowy_AiSD2.Components.App;
 
 /*

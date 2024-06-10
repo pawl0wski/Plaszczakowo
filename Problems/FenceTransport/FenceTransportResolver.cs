@@ -1,4 +1,5 @@
 using Drawer.GraphDrawer;
+using ElectronNET.API.Entities;
 using ProblemResolver;
 using ProblemResolver.Graph;
 using ProblemVisualizer.Commands;
@@ -8,11 +9,14 @@ namespace Problem.FenceTransport;
 public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, FenceTransportOutput, GraphData>
 {
     private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
+
+    private int _factoryIndex;
     public override FenceTransportOutput Resolve(FenceTransportInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
         List<int> ConvexHullEdgesIndexes = AddHullEdges(data.Vertices[data.FactoryIndex], data.Vertices, data.Edges, data.ConvexHullOutput!.HullIndexes!);
         
         FenceTransportOutput output = new();
+        _factoryIndex = data.FactoryIndex;
         problemRecreationCommands = commands;
         int hoursCount = 0;
         List<Carrier> carriers = CreateCarriers(data);
@@ -60,7 +64,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
                         else {
                             ReturnCarrierToFactory(carrier, data);
                         }
-                    break;
+                        break;
                     case CarrierState.Reffiling:
                         if (carrier.CurrentRoute.Count > 0) {
                             MoveCarrierOnGraph(carrier);
@@ -69,7 +73,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
                             carrier.Refill();
                             AssignCarrierVertexToBuild(carrier, data);                            
                         }
-                    break;
+                        break;
                 }
 
             }
@@ -85,17 +89,34 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
 
     private List<Carrier> CreateCarriers(FenceTransportInputData data) {
         List<Carrier> carriers = [];
-        for(int i = 0; i < (data.CarrierAssignmentOutput?.Pairs.Count() ?? 0); i++)
-        carriers.Add(new Carrier(i, data.Vertices[data.FactoryIndex]));
+        for(int i = 0; i < (data.CarrierAssignmentOutput?.Pairs.Count ?? 0); i++)
+            carriers.Add(new Carrier(i, data.Vertices[data.FactoryIndex]));
         return carriers;
     }
     private void MoveCarrierOnGraph(Carrier carrier){
         carrier.Position.Value -= 1;
         problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id, carrier.Position.Value.ToString()!));
+        AddCarriersImageToVertexIf(carrier.Position.Value != 0, carrier.Position.Id);
+        
         carrier.MoveTo(carrier.CurrentRoute.Dequeue());
         carrier.Position.Value = (carrier.Position.Value ?? 0) + 1;
         problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id, carrier.Position.Value.ToString()!));
+
+        AddCarriersImageToVertexIf(carrier.Position.Value != 0, carrier.Position.Id);
     }
+
+    private void AddCarriersImageToVertexIf(bool expression, int index)
+    {
+        if (expression && _factoryIndex != index)
+            problemRecreationCommands?.Add(new ChangeVertexImageCommand(index, GraphVertexImages.PlaszczakiFence));
+        else
+        {
+            if( _factoryIndex != index)
+                problemRecreationCommands?.Add(new RemoveVertexImageCommand(index));
+        }
+            
+    }
+
     private void ReturnCarrierToFactory(Carrier carrier, FenceTransportInputData data)
     {
         var factoryVertex = data.Vertices[data.FactoryIndex];
