@@ -7,64 +7,45 @@
 @inherits AdditionalInputBase<FenceTransportInputData>
 @inject NavigationManager Navigator
 
-<h1>Tragarze</h1>
-<table>
-    <tr>
-        <th>Ilość z przodu</th>
-        <th>Ilość z tyłu</th>
-    </tr>
-    <tr>
-    @if (ProblemInput != null)
-    {
-        <td>
-            <input @bind="ProblemInput.FrontCarrierNumber" />
-        </td>
-        <td>
-            <input @bind="ProblemInput.RearCarrierNumber" />
-        </td>
-    }
-    </tr>
-<h1>Relacje</h1>
-    <tr>
-        <th>Index Przodu</th>
-        <th>Index Tyłu</th>
-    </tr>
-    @if (ProblemInput != null && ProblemInput.Relations != null)
-    {
+<div class="fence_transport_additional_input">
+    <WoodenTitle>Tragarze i ich relacje</WoodenTitle>
 
-        @foreach (var relation in ProblemInput.Relations)
+    <div class="carrier_entry_wrapper">
+        @if (ProblemInput is not null)
         {
-            <tr>
+            <table class="max_carriers">
+                <tr>
+                    <th>
+                        <h3>Ilość tagarzy z przodu</h3>
+                    </th>
+                    <th>
+                        <h3>Ilość tragarzy z tyłu</h3>
+                    </th>
+                </tr>
                 <td>
-                    <input @bind="relation.From" />
-                    @if (relation.From < 0 || relation.From >= ProblemInput!.FrontCarrierNumber)
-                    {
-                        <label>błąd</label>
-                    }
+                    <input type="number" min="0" @bind="ProblemInput.FrontCarrierNumber" />
                 </td>
                 <td>
-                    <input @bind="relation.To" />
-                    @if (relation.To < ProblemInput!.FrontCarrierNumber || 
-                        relation.To >= ProblemInput!.FrontCarrierNumber + ProblemInput!.RearCarrierNumber)
-                    {
-                        <label>błąd</label>
-                    }
+                    <input type="number" min="0" @bind="ProblemInput.RearCarrierNumber" />
                 </td>
-                <td>
-                    <button @onclick="() => RemoveRelation(relation)">Usuń</button>
-                </td>
-            </tr>
+            </table>
         }
-    }
-    <tr>
-        <td>
-            <button @onclick="AddRelation">Dodaj</button>
-        </td>
-    </tr>
-</table>
-
-<br />
-<button @onclick="GoToProblemPage">Wczytaj</button>
+        <hr/>
+        @foreach (var relation in ProblemInput?.Relations ?? [])
+        {
+            <RelationEntry 
+                Relation="relation"
+                OnRemove="RemoveRelation"
+                />
+        }
+    </div>
+        <div class="add_relation">
+            <OldButton @onclick="AddRelation" Width="20">Dodaj</OldButton>
+        </div>
+        <div class="return_button">
+            <OldButton @onclick="GoToProblemPage">Wczytaj</OldButton>
+        </div>
+</div>
 
 @code {
     protected override void InitializeDefaultInputProperties()
@@ -89,5 +70,6 @@
         if (ProblemInput is null)
             return;
         ProblemInput!.Relations.Add(new Edge(0, 0));
+        Console.WriteLine("Added relation");
     }
 }
