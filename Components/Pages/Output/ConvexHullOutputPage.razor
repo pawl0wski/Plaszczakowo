@@ -5,26 +5,35 @@
 
 @inject NavigationManager Navigation
 
-<h2>Indeksy otoczki wypukłej:</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Indeks</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (_outputData is not null && _outputData.HullIndexes is not null)
-        {
-            @foreach (var i in _outputData.HullIndexes)
-            {
+<div class="convex_hull">
+    <WoodenTitle>Indeksy otoczki wypukłej:</WoodenTitle>
+
+    <div class="board">
+        <div class="table_wrapper">
+            <table>
+                <thead>
                 <tr>
-                    <td>@i</td>
+                    <th>Indeks</th>
                 </tr>
-            }
-        }
-    </tbody>
-</table>
-<OldButton @onclick="NextProblem">Następny problem</OldButton>
+                </thead>
+                <tbody>
+                    @if (_outputData is not null && _outputData.HullIndexes is not null)
+                    {
+                        @foreach (var i in _outputData.HullIndexes)
+                        {
+                            <tr>
+                                <td>@i</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="next_button">
+        <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
+    </div>
+</div>
 
 @code {
     ConvexHullOutput? _outputData;
