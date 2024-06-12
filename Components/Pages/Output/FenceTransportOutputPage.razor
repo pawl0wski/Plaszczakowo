@@ -8,30 +8,37 @@
 @inject NavigationManager Navigation
 @inject IProblemState ProblemState
 
-@if (_outputData != null)
-{
-    @if (_outputData.HoursToBuild < 0)
+<div class="fence_transport">
+    @if (_outputData != null)
     {
-        <h2>Nie da sie zbudować płotu!</h2>
-        <OldButton @onclick="ReturnBack">Zakończ</OldButton>
+        @if (_outputData.HoursToBuild < 0)
+        {
+            <WoodenTitle>Nie da sie zbudować płotu!</WoodenTitle>
+        }
+        else{
+            @if (_outputData.HoursToBuild == 1)
+            {
+                <WoodenTitle>Można zbudować płot w @(_outputData.HoursToBuild) godzinę</WoodenTitle>
+            }
+            else if (_outputData.HoursToBuild % 10 > 1 && _outputData.HoursToBuild % 10 < 5)
+            {
+                <WoodenTitle>Można zbudować płot w @(_outputData.HoursToBuild) godziny</WoodenTitle>
+            }
+            else
+            {
+                <WoodenTitle>Można zbudować płot w @(_outputData.HoursToBuild) godzin</WoodenTitle>
+            }
+        }
     }
-    else{
-        @if (_outputData.HoursToBuild == 1)
-        {
-            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godzinę</h2>
-        }
-        else if (_outputData.HoursToBuild % 10 > 1 && _outputData.HoursToBuild % 10 < 5)
-        {
-            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godziny</h2>
-        }
-        else
-        {
-            <h2>Można zbudować płot w @(_outputData.HoursToBuild) godzin</h2>
-        }
-        <OldButton @onclick="NextProblem">Grafik Strażników</OldButton>
+
+    
+    <div class="next_button">
+        <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
+    </div>
+    <div class="return_button">
         <OldButton @onclick="ReturnBack">Zakończ</OldButton>
-    }
-}
+    </div>
+</div>
 
 @code {
     FenceTransportOutput? _outputData;
