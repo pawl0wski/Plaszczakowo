@@ -6,32 +6,35 @@
 @inject NavigationManager Navigation
 
 <div class="carrier_assignment">
-    <WoodenTitle>Pary dopasowanych tragarzy:</WoodenTitle>
+    <WoodenTitle>Pary dopasowanych tragarzy</WoodenTitle>
 
-    <div class="board">
-        <div class="table_wrapper">
-            <table>
-                <thead>
-                <tr>
-                    <th>Ręce z przodu</th>
-                    <th>Ręce z tyłu</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @if (_outputData != null)
-                    {
-                        @foreach (var pair in _outputData.Pairs ?? [])
-                        {
-                        <tr>
-                            <td>@pair.First</td>
-                            <td>@pair.Second</td>
-                        </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
+    <div class="carriers">
+        @if (_outputData is not null)
+        {
+            @foreach (var pair in _outputData!.Pairs)
+            {
+                <div class="carrier">
+                    <div class="carrier_info">
+                        <div class="carrier_front_id">
+                            @pair.First
+                        </div>
+                        <div class="carrier_back_id">
+                            @pair.Second
+                        </div>
+                    </div>
+                    <div class="carrier_img">
+                        <div class="carrier_front_img">
+                            <img src="img/carrier_front.png" alt="Płaszczak z przodu"/>
+                        </div>
+                        <div class="carrier_back_img">
+                            <img src="img/carrier_back.png" alt="Płaszczak z tyłu">
+                        </div>
+                    </div>
+                </div>
+            }
+        }
     </div>
+
     <div class="next_button">
         <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
     </div>
@@ -42,16 +45,18 @@
 
     protected override async Task OnInitializedAsync()
     {
-        if (ProblemState is null) 
+        if (ProblemState is null)
             throw new NullReferenceException("ProblemState is null");
-        
+
         _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
         var inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
         inputData.CarrierAssignmentOutput = _outputData;
         await ProblemState.SetProblemInputData(inputData);
     }
+
     private void NextProblem()
     {
         Navigation.NavigateTo("convex_hull");
     }
+
 }
