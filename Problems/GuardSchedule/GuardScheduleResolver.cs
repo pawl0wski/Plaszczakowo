@@ -13,8 +13,8 @@ public class GuardScheduleResolver
     public override GuardScheduleOutput Resolve(GuardScheduleInputData data, ref ProblemRecreationCommands<GraphData> commands)
     {
         GuardScheduleOutput output = new();
-        PrepareInputData(ref data);
         _problemRecreationCommands = commands;
+        PrepareInputData(ref data);
 
         IteratePath(data, ref output);
 
@@ -172,7 +172,7 @@ public class GuardScheduleResolver
         _problemRecreationCommands?.Add(new ChangeTextCommand(1, $"Max ⚡: {p.MaxEnergy}", xCoordinateForText, 310, GraphStates.Inactive));
 
         if (p.Energy == p.MaxEnergy && vertexIndex != 0)
-            _problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: 💤", xCoordinateForText, 360, GraphStates.Active));
+            _problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: {p.Energy} 💤", xCoordinateForText, 360, GraphStates.Active));
         else
             _problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: {p.Energy}", xCoordinateForText, 360, GraphStates.Inactive));
         
@@ -184,7 +184,7 @@ public class GuardScheduleResolver
         _problemRecreationCommands?.Add(new ChangeTextCommand(4, $"Max 🦶: {maxSteps}", xCoordinateForText, 460, GraphStates.Inactive));
 
         if (p.Steps == 0 && vertexIndex != 0)
-            _problemRecreationCommands?.Add(new ChangeTextCommand(5, $"Kroki: 💤", xCoordinateForText, 510, GraphStates.Active));
+            _problemRecreationCommands?.Add(new ChangeTextCommand(5, $"Kroki: {p.Steps} 💤", xCoordinateForText, 510, GraphStates.Active));
         else
             _problemRecreationCommands?.Add(new ChangeTextCommand(5, $"Kroki: {p.Steps}", xCoordinateForText, 510, GraphStates.Inactive));
     }
