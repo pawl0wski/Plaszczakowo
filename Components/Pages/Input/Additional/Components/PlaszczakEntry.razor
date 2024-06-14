@@ -14,7 +14,7 @@
                 <h3>Energia</h3>
             </div>
             <div class="plaszczak__info__content">
-                <input @bind="Plaszczak.MaxEnergy" type="number"/>
+                <input @bind=Plaszczak.MaxEnergy @oninput="OnPlaszczakEnergyChange" type="number"/>
             </div>
         </div>
         <div class="plaszczak__info__delete" @onclick="() => OnRemove(Plaszczak)">
@@ -28,5 +28,9 @@
 
     [Parameter] public required Action<Plaszczak> OnRemove { get; set; }
 
-
+    private void OnPlaszczakEnergyChange(ChangeEventArgs e)
+    {
+        Plaszczak.MaxEnergy = int.Parse((string)e.Value!);
+        Plaszczak.Energy = int.Parse((string)e.Value!);
+    }
 }
