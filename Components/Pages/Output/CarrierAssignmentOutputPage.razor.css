@@ -9,6 +9,8 @@ div.carrier_assignment {
 
 div.carriers {
     height: 80vh;
+    width: fit-content;
+    margin: 0 auto;
     overflow-y: scroll;
 }
 

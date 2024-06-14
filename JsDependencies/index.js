@@ -3,6 +3,7 @@ import "@fortawesome/fontawesome-free/css/all.css"
 import panzoom from "panzoom";
 import "@fontsource/caveat-brush";
 import "@fontsource/dekko"
+import "@fontsource/dseg14-modern"
 
 window.enableCanvasZoom = function () {
     let canvas = document.querySelector("canvas");
