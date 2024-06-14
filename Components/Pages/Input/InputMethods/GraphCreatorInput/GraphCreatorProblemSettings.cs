@@ -8,5 +8,7 @@ public record GraphCreatorProblemSettings
 
     public bool CanChangeVertexValue { get; set; }
 
+    public bool ReadGraphDataFromFenceState { get; set; }
+
     public GraphInputValidatorModes Modes { get; set; }
 }

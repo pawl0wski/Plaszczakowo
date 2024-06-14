@@ -23,6 +23,11 @@ public class ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = 
             vertex.State == GraphStates.Special);
     }
 
+    public GraphVertex ToGraphVertex()
+    {
+        return new GraphVertex(X ?? 0, Y ?? 0, Value?.ToString(), IsSpecial ? GraphStates.Special : GraphStates.Inactive);
+    }
+
     public object Clone()
     {
         return new ProblemVertex(Id, X, Y, Value);

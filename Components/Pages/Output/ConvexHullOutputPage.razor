@@ -4,6 +4,7 @@
 @inherits ProblemOutputBase<ConvexHullOutput>
 
 @inject NavigationManager Navigation
+@inject IFenceState FenceState
 
 <div class="convex_hull">
     <WoodenTitle>Indeksy otoczki wypukłej:</WoodenTitle>
@@ -36,17 +37,25 @@
 </div>
 
 @code {
-    ConvexHullOutput? _outputData;
+    private ConvexHullOutput? _outputData;
+
+    private FenceTransportInputData? _inputData;
 
     protected override async Task OnInitializedAsync()
     {
         if (ProblemState is not null)
         {
-        _outputData = await ProblemState.GetProblemOutputData<ConvexHullOutput>();
-        var inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
-        inputData.ConvexHullOutput = _outputData;
-        await ProblemState.SetProblemInputData(inputData);
+            _outputData = await ProblemState.GetProblemOutputData<ConvexHullOutput>();
+            _inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
+            _inputData.ConvexHullOutput = _outputData;
+            await ProblemState.SetProblemInputData(_inputData);
+            SaveFenceToFenceState();
         }
+    }
+
+    private void SaveFenceToFenceState()
+    {
+        FenceState.SetFence(_inputData!, _outputData!);
     }
     private void NextProblem()
     {

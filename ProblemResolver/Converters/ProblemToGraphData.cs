@@ -13,7 +13,7 @@ public static class ProblemToGraphData
         {
             if (problemVertex.X is null || problemVertex.Y is null)
                 throw new NullReferenceException("X or Y in ProblemVertex can't be null");
-            vertices.Add(new GraphVertex(problemVertex.X ?? 0, problemVertex.Y ?? 0, problemVertex.Value.ToString()));
+            vertices.Add(problemVertex.ToGraphVertex());
         }
         
         foreach (var problemEdge in inputData.Edges)

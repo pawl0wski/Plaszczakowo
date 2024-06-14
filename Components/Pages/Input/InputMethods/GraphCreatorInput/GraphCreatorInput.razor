@@ -1,11 +1,13 @@
 @page "/input/graphcreator/{ProblemName}"
 @using Drawer.GraphDrawer
+@using ProblemResolver
 @using ProblemResolver.Converters
 @using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator
 @using ProjektZaliczeniowy_AiSD2.States
 @inherits InputMethodBase;
 @inject NavigationManager Navigator;
 @inject IProblemState ProblemState;
+@inject IFenceState FenceState;
 
 <div class="graph-creator">
     <ReturnButton/>
@@ -38,6 +40,15 @@
     protected override void OnInitialized()
     {
         _problemSettings = GraphCreatorProblemSettingsProvider.GetSettingsForProblem(ProblemName);
+        
+        GetGraphFromFenceState();
+    }
+
+    private void GetGraphFromFenceState() {
+        if (_problemSettings.ReadGraphDataFromFenceState && FenceState.IsFenceSet()){
+            _currentData = FenceState.GetFence();
+            FenceState.ClearFence();
+        }
     }
 
     private async void OnCreatorClick(MouseEventArgs obj)

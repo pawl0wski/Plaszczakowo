@@ -18,6 +18,7 @@ public static class GraphCreatorProblemSettingsProvider
     {
         DirectedGraph = true,
         CanChangeVertexValue = true,
+        ReadGraphDataFromFenceState = true,
         Modes = GraphInputValidatorModes.HaveLoop
                 | GraphInputValidatorModes.OneEdgeFromEveryVertex
                 | GraphInputValidatorModes.EverythingConnected
@@ -31,6 +32,7 @@ public static class GraphCreatorProblemSettingsProvider
     {
         DirectedGraph = false,
         CanChangeVertexValue = false,
+        ReadGraphDataFromFenceState = false,
         Modes = GraphInputValidatorModes.EverythingConnected
                 | GraphInputValidatorModes.ShouldHave3Vertices
                 | GraphInputValidatorModes.ShouldHaveSpecialVertex

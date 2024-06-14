@@ -20,6 +20,8 @@ builder.Services.AddElectron();
 // Dodawanie ProblemState który przechowuje wejście problemu między stronami
 builder.Services.AddScoped<IProblemState, ProblemState>();
 
+builder.Services.AddSingleton<IFenceState, FenceState>();
+
 // Dodawanie Electrona do projektu.
 builder.WebHost.UseElectron(args);
 
