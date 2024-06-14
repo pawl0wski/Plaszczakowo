@@ -1,0 +1,19 @@
+div.fence_transport {
+    width: 100vw;
+    height: 100vh;
+    background: url("img/background/wall_background.png");
+    
+    padding-top: 2rem;
+    
+}
+
+div.next_button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+div.return_button {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+}

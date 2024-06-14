@@ -5,29 +5,37 @@
 
 @inject NavigationManager Navigation
 
-<h2>Pary dopasowanych przewoźników:</h2>
-<table>
-    
-    <thead>
-        <tr>
-            <th>Ręce z przodu</th>
-            <th>Ręce z tyłu</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (_outputData != null)
-        {
-            @foreach (var pair in _outputData.Pairs)
-            {
+<div class="carrier_assignment">
+    <WoodenTitle>Pary dopasowanych tragarzy:</WoodenTitle>
+
+    <div class="board">
+        <div class="table_wrapper">
+            <table>
+                <thead>
                 <tr>
-                    <td>@pair.First</td>
-                    <td>@pair.Second</td>
+                    <th>Ręce z przodu</th>
+                    <th>Ręce z tyłu</th>
                 </tr>
-            }
-        }
-    </tbody>
-</table>
-<OldButton @onclick="NextProblem">Następny problem</OldButton>
+                </thead>
+                <tbody>
+                    @if (_outputData != null)
+                    {
+                        @foreach (var pair in _outputData.Pairs ?? [])
+                        {
+                        <tr>
+                            <td>@pair.First</td>
+                            <td>@pair.Second</td>
+                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="next_button">
+        <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
+    </div>
+</div>
 
 @code {
     CarrierAssignmentOutput? _outputData;

@@ -1,0 +1,33 @@
+@using Problem.FenceTransport
+
+<div class="relation_entry">
+        <img class="plaszczak__photo" src="img/plaszczak_paper.png" alt="Płaszczak"/>
+        <div class="relation__info">
+            <div class="relation__info__title">
+                <h3>Indeks Przodu</h3>
+            </div>
+            <div class="relation__info__content">
+                <input @bind="Relation.From" type="number" min="0"/>
+            </div>
+        </div>
+        <div class="relation__info">
+            <div class="relation__info__title">
+                <h3>Indeks Tyłu</h3>
+            </div>
+            <div class="relation__info__content">
+                <input @bind="Relation.To" type="number" min="0"/>
+            </div>
+        </div>
+        <div class="relation__info__delete" @onclick="() => OnRemove(Relation)">
+            <img src="img/x.png" alt="Usuń">
+        </div>
+</div>
+
+@code {
+
+    [Parameter] public required Edge Relation { get; set; }
+
+    [Parameter] public required Action<Edge> OnRemove { get; set; }
+
+
+}
