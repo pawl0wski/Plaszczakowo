@@ -13,4 +13,8 @@ public interface IGraphVertexImageProvider
     public ElementReference PlaszczakSleeping { get; }
 
     public ElementReference PlaszczakiFence { get; }
+    public ElementReference FrontCarrierInactive { get; }
+    public ElementReference FrontCarrierActive { get; }
+    public ElementReference RearCarrierInactive { get; }
+    public ElementReference RearCarrierActive { get; }
 }

@@ -14,10 +14,10 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
         GraphData graphData = creator.CreateFirstSnapshot();
         problemRecreationCommands = commands;
         int verticesCount = graphData.Vertices.Count;
-        return PairCreator(graphData, verticesCount - 2, verticesCount - 1);
+        return PairCreator(graphData, verticesCount - 2, verticesCount - 1, data);
     }
 
-    public CarrierAssignmentOutput PairCreator(GraphData network, int source, int sink)
+    public CarrierAssignmentOutput PairCreator(GraphData network, int source, int sink, FenceTransportInputData data)
     {
         var pairs = new CarrierAssignmentOutput();
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(source, GraphStates.Special));
@@ -35,7 +35,7 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
                     {
                         if (edge.Throughput != null)
                             pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
-                        ChangeGraphState(network, edge, previousIndex, pathFlow);
+                        ChangeGraphState(network, edge, previousIndex, pathFlow, data);
                         break;
                     }
                 }
@@ -90,10 +90,14 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
         return visited[sink];
     }
 
-    public void ChangeGraphState(GraphData network, GraphEdge edge, int index, int pathFlow)
+    public void ChangeGraphState(GraphData network, GraphEdge edge, int index, int pathFlow, FenceTransportInputData data)
     {
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
+        if (index >= 0 && index < data.FrontCarrierNumber)
+            problemRecreationCommands?.Add(new ChangeVertexImageCommand(index, GraphVertexImages.FrontCarrierActiveImage));
+        else if (index >= data.FrontCarrierNumber && index < data.FrontCarrierNumber + data.RearCarrierNumber)
+            problemRecreationCommands?.Add(new ChangeVertexImageCommand(index, GraphVertexImages.RearCarrierActiveImage));
         if (edge.Throughput != null)
             problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(network.Edges.IndexOf(edge),
                 new GraphThroughput(edge.Throughput.Flow + pathFlow, edge.Throughput.Capacity)));
