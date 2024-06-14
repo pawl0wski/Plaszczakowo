@@ -1,4 +1,5 @@
 @page "/convex_hull_output"
+@using Drawer.GraphDrawer
 @using Problem.FenceTransport
 @using ProjektZaliczeniowy_AiSD2.States
 @inherits ProblemOutputBase<ConvexHullOutput>
@@ -7,30 +8,11 @@
 @inject IFenceState FenceState
 
 <div class="convex_hull">
-    <WoodenTitle>Indeksy otoczki wypukłej:</WoodenTitle>
-
-    <div class="board">
-        <div class="table_wrapper">
-            <table>
-                <thead>
-                <tr>
-                    <th>Indeks</th>
-                </tr>
-                </thead>
-                <tbody>
-                    @if (_outputData is not null && _outputData.HullIndexes is not null)
-                    {
-                        @foreach (var i in _outputData.HullIndexes)
-                        {
-                            <tr>
-                                <td>@i</td>
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
-        </div>
+    <div class="title">
+        <WoodenTitle>Otoczka wypukła</WoodenTitle>
     </div>
+    <GraphCanvas Data="_convexHull"/>
+
     <div class="next_button">
         <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
     </div>
@@ -40,6 +22,8 @@
     private ConvexHullOutput? _outputData;
 
     private FenceTransportInputData? _inputData;
+
+    private GraphData _convexHull { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -53,12 +37,25 @@
         }
     }
 
+    protected override void OnParametersSet()
+    {
+        GetConvexHullGraphData();
+    }
+
+    private void GetConvexHullGraphData()
+    {
+        if (_outputData is not null && _inputData is not null) 
+            _convexHull = _outputData.ToGraphData(_inputData, false);
+    }
+    
     private void SaveFenceToFenceState()
     {
         FenceState.SetFence(_inputData!, _outputData!);
     }
+    
     private void NextProblem()
     {
         Navigation.NavigateTo("fence_transport");
     }
+    
 }
