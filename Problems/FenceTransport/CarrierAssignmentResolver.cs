@@ -93,7 +93,8 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
     public void ChangeGraphState(GraphData network, GraphEdge edge, int index, int pathFlow, FenceTransportInputData data)
     {
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(network.Edges.IndexOf(edge), GraphStates.Active));
-        problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
+        if (index < network.Vertices.Count - 2)
+            problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
         if (index >= 0 && index < data.FrontCarrierNumber)
             problemRecreationCommands?.Add(new ChangeVertexImageCommand(index, GraphVertexImages.FrontCarrierActiveImage));
         else if (index >= data.FrontCarrierNumber && index < data.FrontCarrierNumber + data.RearCarrierNumber)
