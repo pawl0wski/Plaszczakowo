@@ -1,33 +1,47 @@
 @using Problem.FenceTransport
 
 <div class="relation_entry">
-        <img class="plaszczak__photo" src="img/plaszczak_paper.png" alt="Płaszczak"/>
-        <div class="relation__info">
-            <div class="relation__info__title">
-                <h3>Indeks Przodu</h3>
-            </div>
-            <div class="relation__info__content">
-                <input @bind="Relation.From" type="number" min="0"/>
-            </div>
+    <img class="plaszczak__photo" src="img/plaszczak_paper.png" alt="Płaszczak"/>
+    <div class="relation__info">
+        <div class="relation__info__title">
+            <h3>Przód</h3>
         </div>
-        <div class="relation__info">
-            <div class="relation__info__title">
-                <h3>Indeks Tyłu</h3>
-            </div>
-            <div class="relation__info__content">
-                <input @bind="Relation.To" type="number" min="0"/>
-            </div>
+        <div class="relation__info__content">
+            <select @bind="Relation.From">
+                @for (var i = 0; i < FrontCarrierNumber; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
         </div>
-        <div class="relation__info__delete" @onclick="() => OnRemove(Relation)">
-            <img src="img/x.png" alt="Usuń">
+    </div>
+    <div class="relation__info">
+        <div class="relation__info__title">
+            <h3>Tył</h3>
         </div>
+        <div class="relation__info__content">
+            <select @bind="Relation.To">
+                @for (var i = FrontCarrierNumber; i < RearCarrierNumber + FrontCarrierNumber; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="relation__info__delete" @onclick="OnRemove">
+        <img src="img/x.png" alt="Usuń">
+    </div>
 </div>
 
 @code {
 
     [Parameter] public required Edge Relation { get; set; }
 
-    [Parameter] public required Action<Edge> OnRemove { get; set; }
+    [Parameter] public required int FrontCarrierNumber { get; set; }
+
+    [Parameter] public required int RearCarrierNumber { get; set; }
+
+    [Parameter] public required Action OnRemove { get; set; }
 
 
 }

@@ -15,6 +15,11 @@ div.relation_entry {
     gap: 2rem;
 }
 
+div.relation_entry select {
+    width: 6rem;
+    font-size: large;
+}
+
 img.plaszczak__photo {
     width: 5rem;
     height: 5rem;
