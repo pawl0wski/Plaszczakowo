@@ -17,25 +17,6 @@
         <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
         <PackageReference Include="ElectronNET.API" Version="23.6.2" />
     </ItemGroup>
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="wwwroot\buttons\button-frame-hover.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\buttons\button-frame.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\buttons\button.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\buttons\input-choice-button.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\buttons\plate.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\buttons\return-button-top.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\1_layer.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\2_layer.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\3_layer.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\4_layer.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\5_layer.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\6_layer.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\7_layer.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\map.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\modal_background.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\title.png" />
-      <_ContentIncludedByDefault Remove="wwwroot\background\vinnette.png" />
-    </ItemGroup>
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
         <Exec Command="npm install" WorkingDirectory="JsDependencies/" />
         <Exec Command="npm run build" WorkingDirectory="JsDependencies/" />
