@@ -1,0 +1,11 @@
+div.cursor_position {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+div.cursor_position p {
+    margin: 1rem;
+    font-weight: bold;
+    user-select: none;
+}
