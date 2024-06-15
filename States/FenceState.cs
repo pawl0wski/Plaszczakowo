@@ -15,7 +15,7 @@ public class FenceState : IFenceState
     public GraphData GetFence(){
         if (_fence == null)
             throw new InvalidOperationException("Fence is not set");
-        return (GraphData)_fence.Clone();
+        return _fence;
     }
 
     public bool IsFenceSet()
