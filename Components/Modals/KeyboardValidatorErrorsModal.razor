@@ -1,0 +1,17 @@
+﻿@using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.KeyboardInput.Validator
+<div class="keyboard_input-validator-errors">
+    <h2>Musisz naprawić poniższe problemy we wprowadzonej frazie</h2>
+    <ul>
+        @foreach (var error in Errors)
+        {
+            <li class="validator-error">@error.Content</li>
+        }
+    </ul>
+</div>
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public List<KeyboardInputError> Errors { get; set; } = [];
+
+}
