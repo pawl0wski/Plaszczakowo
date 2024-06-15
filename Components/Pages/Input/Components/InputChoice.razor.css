@@ -1,4 +1,5 @@
 div.input_choice {
+    user-select: none;
     width: 20rem;
     text-align: center;
     

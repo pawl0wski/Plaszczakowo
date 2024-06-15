@@ -2,13 +2,11 @@
 
 @using Problem.FenceTransport
 @using System.Text.Json
-@using ElectronNET.API
-@using ElectronNET.API.Entities
 @inherits AdditionalInputBase<FenceTransportInputData>
 @inject NavigationManager Navigator
 
 <div class="fence_transport_additional_input">
-    <WoodenTitle>Tragarze i ich relacje</WoodenTitle>
+    <WoodenTitle>Ilość tragarzy i relacje</WoodenTitle>
 
     <div class="carrier_entry_wrapper">
         @if (ProblemInput is not null)
@@ -22,32 +20,34 @@
                         <h3>Ilość tragarzy z tyłu</h3>
                     </th>
                 </tr>
-                <td>
-                    <input type="number" min="0" @bind="ProblemInput.FrontCarrierNumber" />
+                <td style="padding-top: 0">
+                    <input class="carrier_number" type="number" min="0" @bind="ProblemInput.FrontCarrierNumber"/>
                 </td>
-                <td>
-                    <input type="number" min="0" @bind="ProblemInput.RearCarrierNumber" />
+                <td style="padding-top: 0">
+                    <input class="carrier_number" type="number" min="0" @bind="ProblemInput.RearCarrierNumber"/>
                 </td>
             </table>
         }
         <hr/>
         @foreach (var relation in ProblemInput?.Relations ?? [])
         {
-            <RelationEntry 
+            <RelationEntry
+                FrontCarrierNumber="ProblemInput?.FrontCarrierNumber ?? 0"
+                RearCarrierNumber="ProblemInput?.RearCarrierNumber ?? 0"
                 Relation="relation"
-                OnRemove="RemoveRelation"
-                />
+                OnRemove="() => RemoveRelation(relation)"/>
         }
     </div>
-        <div class="add_relation">
-            <OldButton @onclick="AddRelation" Width="20">Dodaj</OldButton>
-        </div>
-        <div class="return_button">
-            <OldButton @onclick="GoToProblemPage">Wczytaj</OldButton>
-        </div>
+    <div class="add_relation">
+        <OldButton @onclick="AddRelation" Width="20">Dodaj relację</OldButton>
+    </div>
+    <div class="return_button">
+        <OldButton @onclick="GoToProblemPage">Wczytaj</OldButton>
+    </div>
 </div>
 
 @code {
+
     protected override void InitializeDefaultInputProperties()
     {
         if (ProblemInput is not null)
@@ -55,21 +55,25 @@
             ProblemInput.Relations = [];
         }
     }
+
     private async void GoToProblemPage()
     {
         var output = JsonSerializer.Serialize(ProblemInput);
         await ProblemState!.SetProblemJsonInputData(output);
         Navigator.NavigateTo($"/carrier_assignment");
     }
+
     private void RemoveRelation(Edge relation)
     {
         ProblemInput!.Relations.Remove(relation);
+        StateHasChanged();
     }
+
     private void AddRelation()
     {
         if (ProblemInput is null)
             return;
         ProblemInput!.Relations.Add(new Edge(0, 0));
-        Console.WriteLine("Added relation");
     }
+
 }

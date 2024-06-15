@@ -23,22 +23,6 @@ public class FenceState : IFenceState
 
     public void SetFence(FenceTransportInputData inputData, ConvexHullOutput outputData)
     {
-        GraphData graphData = new();
-        
-        if (outputData.HullIndexes == null)
-            throw new ArgumentNullException(nameof(outputData.HullIndexes));
-        
-        foreach (var vertexId in outputData.HullIndexes)
-        {
-            graphData.Vertices.Add(inputData.Vertices.First(v => v.Id == inputData.Vertices[vertexId].Id).ToGraphVertex());
-        }
-
-        for (int i = 1; i < graphData.Vertices.Count(); i++)
-        {
-            graphData.AddEdge(new GraphEdge(graphData.Vertices[i-1], graphData.Vertices[i], directed: true));
-        }
-        graphData.AddEdge(new GraphEdge(graphData.Vertices.Last(), graphData.Vertices.First(), directed: true));
-
-        _fence = graphData;
+        _fence = outputData.ToGraphData(inputData);
     }
 }

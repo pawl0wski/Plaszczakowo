@@ -3,15 +3,18 @@ import "@fortawesome/fontawesome-free/css/all.css"
 import panzoom from "panzoom";
 import "@fontsource/caveat-brush";
 import "@fontsource/dekko"
+import "@fontsource/dseg14-modern"
 
 window.enableCanvasZoom = function () {
-    let canvas = document.querySelector("canvas");
+    let canvas = document.querySelectorAll("canvas");
 
-    panzoom(canvas, {
-        zoomSpeed: 0.065,
-        maxZoom: 2,
-        minZoom: 0.5,
-    });
+    canvas.forEach(c => {
+        panzoom(c, {
+            zoomSpeed: 0.065,
+            maxZoom: 2,
+            minZoom: 0.5,
+        });
+    })
 }
 
 window.scrollTextList = function(offset) {

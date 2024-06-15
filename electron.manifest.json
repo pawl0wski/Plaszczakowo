@@ -3,18 +3,24 @@
   "splashscreen": {
     "imageFile": ""
   },
-  "name": "ProjektZaliczeniowy-AiSD2",
+  "name": "Plaszczakowo",
   "author": "",
   "singleInstance": false,
   "environment": "Production",
   "build": {
-    "appId": "com.ProjektZaliczeniowy-AiSD2.app",
-    "productName": "ProjektZaliczeniowy-AiSD2",
+    "appId": "com.Plaszczakowo.app",
+    "productName": "Plaszczakowo",
     "copyright": "Copyright © 2024",
     "buildVersion": "1.0.0",
     "compression": "maximum",
     "directories": {
       "output": "../../../bin/Desktop"
+    },
+    "win": {
+      "icon": "../../../wwwroot/icon.ico"
+    },
+    "linux": {
+      "icon": "../../../wwwroot/icon.png"
     },
     "extraResources": [
       {

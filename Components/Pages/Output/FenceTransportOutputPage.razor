@@ -11,27 +11,22 @@
 <div class="fence_transport">
     @if (_outputData != null)
     {
+        <WoodenTitle>Czas budowy płotu</WoodenTitle>
         @if (_outputData.HoursToBuild < 0)
         {
             <WoodenTitle>Nie da sie zbudować płotu!</WoodenTitle>
         }
-        else{
-            @if (_outputData.HoursToBuild == 1)
-            {
-                <WoodenTitle>Można zbudować płot w @(_outputData.HoursToBuild) godzinę</WoodenTitle>
-            }
-            else if (_outputData.HoursToBuild % 10 > 1 && _outputData.HoursToBuild % 10 < 5)
-            {
-                <WoodenTitle>Można zbudować płot w @(_outputData.HoursToBuild) godziny</WoodenTitle>
-            }
-            else
-            {
-                <WoodenTitle>Można zbudować płot w @(_outputData.HoursToBuild) godzin</WoodenTitle>
-            }
+        else
+        {
+            <div class="clock_wrapper">
+                <div class="clock">
+                    @(GetClockText())
+                </div>
+            </div>
         }
     }
 
-    
+
     <div class="next_button">
         <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
     </div>
@@ -47,11 +42,21 @@
     {
         _outputData = await ProblemState.GetProblemOutputData<FenceTransportOutput>();
         var inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
-        ProblemState.SetProblemInputData(inputData);
+        await ProblemState.SetProblemInputData(inputData);
     }
-    private void NextProblem()
+
+    private string GetClockText()
     {
-        Navigation.NavigateTo("/input/graphcreator/guard_schedule");
+        var output = $"{_outputData?.HoursToBuild ?? 0}:00";
+        if (_outputData?.HoursToBuild < 10)
+            output = "0" + output;
+        return output;
     }
-    private void ReturnBack() => Navigation.NavigateTo("/");
+
+    private void NextProblem()
+        => Navigation.NavigateTo("/input/graphcreator/guard_schedule");
+
+    private void ReturnBack()
+        => Navigation.NavigateTo("/");
+
 }
