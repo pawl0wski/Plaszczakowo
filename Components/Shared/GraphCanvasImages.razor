@@ -7,6 +7,10 @@
     <img @ref="PlaszczakMusic" src="img/vertex/plaszczak_music.png"/>
     <img @ref="PlaszczakSleeping" src="img/vertex/plaszczak_sleeping.png"/>
     <img @ref="PlaszczakiFence" src="img/vertex/plaszczaki_fence.png"/>
+    <img @ref="FrontCarrierInactive" src="img/vertex/front_carrier_inactive.png"/>
+    <img @ref="FrontCarrierActive" src="img/vertex/front_carrier_active.png"/>
+    <img @ref="RearCarrierInactive" src="img/vertex/rear_carrier_inactive.png"/>
+    <img @ref="RearCarrierActive" src="img/vertex/rear_carrier_active.png"/>
 </div>
 
 @code{
@@ -16,4 +20,9 @@
     public ElementReference PlaszczakMusic { get; private set; }
     public ElementReference PlaszczakSleeping { get; private set; }
     public ElementReference PlaszczakiFence { get; private set; }
+    public ElementReference FrontCarrierInactive { get; private set; }
+    public ElementReference FrontCarrierActive { get; private set; }
+    public ElementReference RearCarrierInactive { get; private set; }
+    public ElementReference RearCarrierActive { get; private set; }
+    
 }

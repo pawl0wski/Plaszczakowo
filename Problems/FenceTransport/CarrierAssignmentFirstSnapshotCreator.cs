@@ -29,7 +29,10 @@ public class CarrierAssignmentFirstSnapshotCreator(FenceTransportInputData input
         for (int i = 1; i <= _inputData.FrontCarrierNumber; i++)
         {
             int ValueY = canvasHeight / (_inputData.FrontCarrierNumber + 1) * i;
-            vertices.Add(new GraphVertex((int)(canvasWidth * 1/3), ValueY, (i-1).ToString(), null));
+            vertices.Add(new GraphVertex((int)(canvasWidth * 1/3), 
+            ValueY, (i-1).ToString(), 
+            null,
+            GraphVertexImages.FrontCarrierInactiveImage));
         }
     }
     private void CreateRearCarriers(List<GraphVertex> vertices)
@@ -37,7 +40,11 @@ public class CarrierAssignmentFirstSnapshotCreator(FenceTransportInputData input
         for (int i = _inputData.FrontCarrierNumber + 1; i <= _inputData.FrontCarrierNumber + _inputData.RearCarrierNumber; i++)
         {
             int ValueY = canvasHeight / (_inputData.RearCarrierNumber + 1) * (i - _inputData.FrontCarrierNumber);
-            vertices.Add(new GraphVertex((int)(canvasWidth * 2/3), ValueY, (i-1).ToString(), null));
+            vertices.Add(new GraphVertex((int)(canvasWidth * 2/3), 
+            ValueY, 
+            (i-1).ToString(), 
+            null, 
+            GraphVertexImages.RearCarrierInactiveImage));
         }
     }
     private void CreateRelations(List<GraphVertex> vertices, List<GraphEdge> edges)
