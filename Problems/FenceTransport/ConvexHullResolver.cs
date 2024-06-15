@@ -94,43 +94,27 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
         List<int> ConvexHullIndexes = new();
         var ConvexHullStack = new Stack<ProblemVertex>();
 
-        Activate(vertices[0].Id);
-        Activate(vertices[1].Id);
-        Connect(vertices[0].Id, vertices[1].Id);
         ConvexHullStack.Push(vertices[0]);
         ConvexHullStack.Push(vertices[1]);
+        DrawCurrentHull(ConvexHullStack);
         for (int i = 2; i < vertices.Count; i++)
         {
             var Last = ConvexHullStack.Pop();
             var BeforeLast = ConvexHullStack.Peek();
+            
             while (IsClockwise(BeforeLast, Last, vertices[i]))
             {
-                Inactivate(Last.Id);
-                DeleteLastConnection();
                 Last = ConvexHullStack.Pop();
                 BeforeLast = ConvexHullStack.Peek();
-
-                Highlight(Last.Id);
-                HighlightConnect(BeforeLast.Id, Last.Id);
             }
             ConvexHullStack.Push(Last);
             ConvexHullStack.Push(vertices[i]);
-            problemRecreationCommands?.Add(new ChangeVertexStateCommand(Last.Id, GraphStates.Active));
-            problemRecreationCommands?.Add(new ChangeVertexStateCommand(vertices[i].Id, GraphStates.Highlighted));
-            HighlightConnect(Last.Id, vertices[i].Id);
-            
-            if (i == vertices.Count - 1)
-            {
-                foreach (ProblemVertex vertex in ConvexHullStack.Reverse())
-                {
-                    Activate(vertex.Id);
-                }
-                
-            }
+            DrawCurrentHull(ConvexHullStack);
         }
         foreach (ProblemVertex vertex in ConvexHullStack)
         {
             ConvexHullIndexes.Add(vertex.Id);
+            Activate(vertex.Id);
         }
         Connect(ConvexHullIndexes[0], ConvexHullIndexes[ConvexHullIndexes.Count - 1]);
         for (int i = 0; i < ConvexHullIndexes.Count - 1; i++)
@@ -153,36 +137,51 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
     private void Highlight(int index)
     {
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Highlighted));
-        problemRecreationCommands?.NextStep();
     }
     private void Activate(int index)
     {
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
-        problemRecreationCommands?.NextStep();
-    }
-    private void Inactivate(int index)
-    {
-        problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Inactive));
-        problemRecreationCommands?.NextStep();
     }
     private void Connect(int sourceId, int destinationId)
     {
         problemRecreationCommands?.Add(new ConnectVertexCommand(sourceId, destinationId));
         edgeIndex++;
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(edgeIndex, GraphStates.Active));
-        problemRecreationCommands?.NextStep();
     }
     private void HighlightConnect(int sourceId, int destinationId)
     {
         problemRecreationCommands?.Add(new ConnectVertexCommand(sourceId, destinationId));
         edgeIndex++;
         problemRecreationCommands?.Add(new ChangeEdgeStateCommand(edgeIndex, GraphStates.Highlighted));
-        problemRecreationCommands?.NextStep();
     }
-    private void DeleteLastConnection()
+    private void DrawCurrentHull(Stack<ProblemVertex> vertexStack)
     {
-        problemRecreationCommands?.Add(new RemoveEdgeCommand(edgeIndex));
-        edgeIndex--;
+        List<int> indices = new();
+        foreach (ProblemVertex vertex in vertexStack)
+        {
+            indices.Add(vertex.Id);
+        }
+        ClearAllEdges();
+        InactivateAllVertices();
+        for (int i = 0; i < indices.Count - 1; i++)
+        {
+            HighlightConnect(indices[i], indices[i + 1]);
+            Highlight(indices[i]);
+        }
+        Highlight(indices[indices.Count - 1]);
         problemRecreationCommands?.NextStep();
+
+    }
+    private void ClearAllEdges()
+    {
+        for (int i = edgeIndex; i >= 0; i--)
+        {
+            problemRecreationCommands?.Add(new RemoveEdgeCommand(i));
+            edgeIndex--;
+        }
+    }
+    private void InactivateAllVertices()
+    {
+        problemRecreationCommands?.Add(new ResetGraphStateCommand());
     }
 }
