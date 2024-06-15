@@ -1,4 +1,7 @@
+![Plaszczakowo](https://github.com/pawl0wski/Plaszczakowo/assets/59766830/663277e5-2712-4cbc-a9e1-a9f327659c09)
 # Płaszczakowo
+
+Dokumentacja: [PDF](wwwroot/documentation.pdf)
 
 ## Skład projektu
 
@@ -24,3 +27,13 @@ Po zainstalowaniu środowiska .NET, należy zainstalować narzędzie Electron.NE
 
 Potem uruchamiany naszą aplikacje poleceniem: \
 `electronize start`
+
+## Zrzuty ekranu
+![image](https://github.com/pawl0wski/Plaszczakowo/assets/59766830/0ae4e41a-bf3b-4043-b795-d2850e5eaddf)
+![image](https://github.com/pawl0wski/Plaszczakowo/assets/59766830/a5087983-3bde-4d1d-9460-97d51cf73107)
+![image](https://github.com/pawl0wski/Plaszczakowo/assets/59766830/b18c5c2a-d34e-4fa6-959f-46ee8872ee09)
+![image](https://github.com/pawl0wski/Plaszczakowo/assets/59766830/30cf46b6-18c3-4eff-a7c4-034504b66000)
+![image](https://github.com/pawl0wski/Plaszczakowo/assets/59766830/b2ba86a7-0b7f-4087-9ffe-3494437a8f2b)
+![image](https://github.com/pawl0wski/Plaszczakowo/assets/59766830/bec845eb-ef07-44f2-80c6-0a5a477a598c)
+
+
