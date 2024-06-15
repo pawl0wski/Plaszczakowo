@@ -25,14 +25,14 @@
 
     private GraphData ConvexHull { get; set; } = new();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         if (ProblemState is not null)
         {
-            _outputData = await ProblemState.GetProblemOutputData<ConvexHullOutput>();
-            _inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
+            _outputData = ProblemState.GetProblemOutputData<ConvexHullOutput>();
+            _inputData = ProblemState.GetProblemInputData<FenceTransportInputData>();
             _inputData.ConvexHullOutput = _outputData;
-            await ProblemState.SetProblemInputData(_inputData);
+            ProblemState.SetProblemInputData(_inputData);
             SaveFenceToFenceState();
         }
     }

@@ -13,13 +13,11 @@ public class ProblemOutputBase<TProblemOutput>  : ComponentBase
     
     protected TProblemOutput? Output;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         if (ProblemState is null)
             throw new NullReferenceException("ProblemState is null");
         
-        Output = await ProblemState.GetProblemOutputData<TProblemOutput>();
-        
-        await base.OnInitializedAsync();
+        Output = ProblemState.GetProblemOutputData<TProblemOutput>();
     }
 }

@@ -97,10 +97,9 @@
         }
     }
     
-    private async void GoToProblemPage()
+    private void GoToProblemPage()
     {
-        var output = JsonSerializer.Serialize(ProblemInput);
-        await ProblemState!.SetProblemJsonInputData(output);
+        ProblemState!.SetProblemInputData(ProblemInput!);
         Navigator.NavigateTo($"/guard_schedule");
     }
 }

@@ -179,7 +179,7 @@
         StateHasChanged();
     }
 
-    private async void OnContinue()
+    private void OnContinue()
     {
         var problemInput = GraphDataToProblem.Convert(_currentData);
 
@@ -190,7 +190,7 @@
             return;
         }
 
-        await ProblemState.SetProblemInputData(problemInput);
+        ProblemState.SetProblemInputData(problemInput);
         Navigator.NavigateTo($"/input/additional/{ProblemName}", true);
     }
 

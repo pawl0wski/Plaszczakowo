@@ -43,15 +43,15 @@
 @code {
     CarrierAssignmentOutput? _outputData;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         if (ProblemState is null)
             throw new NullReferenceException("ProblemState is null");
 
-        _outputData = await ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
-        var inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
+        _outputData = ProblemState.GetProblemOutputData<CarrierAssignmentOutput>();
+        var inputData = ProblemState.GetProblemInputData<FenceTransportInputData>();
         inputData.CarrierAssignmentOutput = _outputData;
-        await ProblemState.SetProblemInputData(inputData);
+        ProblemState.SetProblemInputData(inputData);
     }
 
     private void NextProblem()
