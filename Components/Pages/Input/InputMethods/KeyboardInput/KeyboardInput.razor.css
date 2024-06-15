@@ -27,7 +27,7 @@ div.keyboard_input__input textarea {
     background: url("img/table.png");
     background-size: cover;
     border-style: solid;
-    border-color: saddlebrown;
+    border-color: #522300;
     border-width: 3px;
     border-radius: 0.5rem;
 }

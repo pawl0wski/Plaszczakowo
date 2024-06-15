@@ -18,7 +18,7 @@ builder.Services.AddRazorComponents()
 builder.Services.AddElectron();
 
 // Dodawanie ProblemState który przechowuje wejście problemu między stronami
-builder.Services.AddScoped<IProblemState, ProblemState>();
+builder.Services.AddSingleton<IProblemState, ProblemState>();
 
 builder.Services.AddSingleton<IFenceState, FenceState>();
 

@@ -1,6 +1,5 @@
 @page "/input/graphcreator/{ProblemName}"
 @using Drawer.GraphDrawer
-@using ProblemResolver
 @using ProblemResolver.Converters
 @using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator
 @using ProjektZaliczeniowy_AiSD2.States
@@ -9,7 +8,7 @@
 @inject IProblemState ProblemState;
 @inject IFenceState FenceState;
 
-<div class="graph-creator">
+<div class="graph-creator" @onmousemove="UpdateCursorXY">
     <ReturnButton/>
     <div class="click_handler" @onclick="OnCreatorClick">
         <GraphCanvas EnableZoom="false" Data="_currentData" @ref="_canvas"/>
@@ -19,6 +18,7 @@
         SelectedMode="_currentMode"
         AllowVertexValueChange="_problemSettings.CanChangeVertexValue"/>
     <GraphCreatorToolContinue OnContinue="OnContinue"/>
+    <GraphCreatorCursorPosition X="_cursorX" Y="_cursorY" />
 </div>
 
 
@@ -34,6 +34,10 @@
     private GraphState? _prevSelectedState;
 
     private GraphCanvas? _canvas;
+    
+    private int _cursorX = 0;
+
+    private int _cursorY = 0;
 
     private GraphCreatorProblemSettings _problemSettings = new();
 
@@ -175,7 +179,7 @@
         StateHasChanged();
     }
 
-    private async void OnContinue()
+    private void OnContinue()
     {
         var problemInput = GraphDataToProblem.Convert(_currentData);
 
@@ -186,7 +190,7 @@
             return;
         }
 
-        await ProblemState.SetProblemInputData(problemInput);
+        ProblemState.SetProblemInputData(problemInput);
         Navigator.NavigateTo($"/input/additional/{ProblemName}", true);
     }
 
@@ -194,6 +198,12 @@
     {
         var parameters = new ModalParameters().Add(nameof(GraphValidatorErrorsModal.Errors), errors);
         Modal.Show<GraphValidatorErrorsModal>("", parameters, new ModalOptions() { Size = ModalSize.Medium });
+    }
+
+    private void UpdateCursorXY(MouseEventArgs obj)
+    {
+        _cursorX = Convert.ToInt32(obj.ClientX);
+        _cursorY = Convert.ToInt32(obj.ClientY);
     }
 
 }

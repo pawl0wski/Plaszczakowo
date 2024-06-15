@@ -38,11 +38,11 @@
 @code {
     FenceTransportOutput? _outputData;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        _outputData = await ProblemState.GetProblemOutputData<FenceTransportOutput>();
-        var inputData = await ProblemState.GetProblemInputData<FenceTransportInputData>();
-        await ProblemState.SetProblemInputData(inputData);
+        _outputData = ProblemState.GetProblemOutputData<FenceTransportOutput>();
+        var inputData = ProblemState.GetProblemInputData<FenceTransportInputData>();
+        ProblemState.SetProblemInputData(inputData);
     }
 
     private string GetClockText()

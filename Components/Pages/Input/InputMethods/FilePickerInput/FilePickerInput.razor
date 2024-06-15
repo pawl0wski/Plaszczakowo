@@ -89,7 +89,7 @@
             throw new NullReferenceException("SelectedFile can't be null");
 
         var fileContent = await File.ReadAllTextAsync(_selectedFile);
-        await ProblemState.SetProblemJsonInputData(fileContent);
+        ProblemState.SetProblemJsonInputData(fileContent);
     }
 
     private void GoToProblemPage()

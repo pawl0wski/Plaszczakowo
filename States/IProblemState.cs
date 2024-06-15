@@ -4,19 +4,19 @@ namespace ProjektZaliczeniowy_AiSD2.States;
 
 public interface IProblemState
 {
-    public ValueTask<TInputData> GetProblemInputData<TInputData>()
+    public TInputData GetProblemInputData<TInputData>()
         where TInputData : ProblemInputData;
 
-    public Task SetProblemJsonInputData(string inputData);
+    public void SetProblemJsonInputData(string inputData);
 
-    public Task SetProblemInputData<TInputData>(TInputData inputData)
+    public void SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData;
 
-    public ValueTask<TOutputData> GetProblemOutputData<TOutputData>()
+    public TOutputData GetProblemOutputData<TOutputData>()
     where TOutputData : ProblemOutput;
 
-    public Task SetProblemJsonOutputData(string outputData);
+    public void SetProblemJsonOutputData(string outputData);
 
-    public Task SetProblemOutputData<TOutputData>(TOutputData outputData)
+    public void SetProblemOutputData<TOutputData>(TOutputData outputData)
         where TOutputData : ProblemOutput;
 }

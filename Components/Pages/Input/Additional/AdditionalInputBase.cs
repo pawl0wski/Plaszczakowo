@@ -14,17 +14,17 @@ public abstract class AdditionalInputBase<TProblemInput> : ComponentBase
     
     protected override async Task OnInitializedAsync()
     {
-        await InitializeProblemInput();
+        InitializeProblemInput();
         InitializeDefaultInputProperties();
         await base.OnInitializedAsync();
     }
 
-    private async Task InitializeProblemInput()
+    private void InitializeProblemInput()
     {
         if (ProblemState is null)
             throw new NullReferenceException("ProblemState is null!");
         
-        ProblemInput = await ProblemState.GetProblemInputData<TProblemInput>();
+        ProblemInput = ProblemState.GetProblemInputData<TProblemInput>();
     }
 
     protected abstract void InitializeDefaultInputProperties();

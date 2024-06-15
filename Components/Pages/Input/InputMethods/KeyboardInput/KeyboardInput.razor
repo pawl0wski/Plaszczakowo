@@ -24,14 +24,12 @@
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
     private string _inputText = "";
 
-    private string PrepareInputData()
+    private PhraseCorrectionInputData PrepareInputData()
     {
-        PhraseCorrectionInputData data = new(_inputText);
-        var input = JsonSerializer.Serialize(data);
-        return input;
+        return new PhraseCorrectionInputData(_inputText);
     }
 
-    private async void GoToProblemPage()
+    private void GoToProblemPage()
     {
         var input = PrepareInputData();
         var errors = KeyboardInputValidator.Validate(_inputText);
@@ -40,7 +38,7 @@
             ShowValidatorErrorModal(errors);
             return;
         }
-        await ProblemState.SetProblemJsonInputData(input);
+        ProblemState.SetProblemInputData(input);
         Navigator.NavigateTo($"/{ProblemName}");
     }
     

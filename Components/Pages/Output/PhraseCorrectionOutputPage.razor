@@ -26,15 +26,15 @@
 @code {
     PhraseCorrectionOutput? _outputData;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         if (ProblemState is null)
             return;
         
-        _outputData = await ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
+        _outputData = ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
     }
 
-    private async void GoToNextSubproblem()
+    private void GoToNextSubproblem()
     {
         if (_outputData == null) return;
         
@@ -42,7 +42,7 @@
         if (ProblemState is null)
             throw new NullReferenceException("ProblemState is null");
         
-        await ProblemState.SetProblemInputData(data);
+        ProblemState.SetProblemInputData(data);
 
         Navigator.NavigateTo($"/huffman_coding");
     }
