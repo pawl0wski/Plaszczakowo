@@ -11,7 +11,7 @@
     <div class="title">
         <WoodenTitle>Otoczka wypukła</WoodenTitle>
     </div>
-    <GraphCanvas Data="_convexHull"/>
+    <GraphCanvas Data="ConvexHull"/>
 
     <div class="next_button">
         <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
@@ -23,7 +23,7 @@
 
     private FenceTransportInputData? _inputData;
 
-    private GraphData _convexHull { get; set; }
+    private GraphData ConvexHull { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -45,7 +45,7 @@
     private void GetConvexHullGraphData()
     {
         if (_outputData is not null && _inputData is not null) 
-            _convexHull = _outputData.ToGraphData(_inputData, false);
+            ConvexHull = _outputData.ToGraphData(_inputData, false);
     }
     
     private void SaveFenceToFenceState()

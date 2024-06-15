@@ -1,5 +1,5 @@
-
 div.return-button {
+    user-select: none;
     display: flex;
     flex-direction: column;
     margin-top: 1.5rem;
@@ -8,7 +8,6 @@ div.return-button {
     top: 0;
 
     width: 8rem;
-    height: 6rem;
 }
 
 div.return-button__left {
