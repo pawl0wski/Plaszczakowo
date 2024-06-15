@@ -35,7 +35,7 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
         await InsertOutputDataIntoProblemState();
     }
 
-    protected async Task ResolveInputDataFromSessionStorage()
+    private async Task ResolveInputDataFromSessionStorage()
     {
         if (ProblemState is null)
             throw new NullReferenceException("ProblemState can't be null.");
@@ -46,14 +46,14 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
     {
         
     }
-    
-    protected void ResolveAndCreateSnapshots()
+
+    private void ResolveAndCreateSnapshots()
     {
         ResolveProblem();
         CreateDrawerDataSnapshots();
     }
 
-    protected void ResolveProblem()
+    private void ResolveProblem()
     {
         if (Resolver is null)
             throw new NullReferenceException("You need to initialize Resolver before resolving problem.");
@@ -61,7 +61,7 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
         OutputData = Resolver.Resolve(InputData!, ref RecreationCommands);
     }
 
-    protected void CreateDrawerDataSnapshots()
+    private void CreateDrawerDataSnapshots()
     {
         if (FirstSnapshotCreator is null)
             throw new NullReferenceException(
@@ -71,7 +71,8 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
         Executor.CreateFirstSnapshot();
         Executor.ExecuteCommands();
     }
-    protected async Task InsertOutputDataIntoProblemState()
+
+    private async Task InsertOutputDataIntoProblemState()
     {
         if (ProblemState is null || OutputData is null)
             return;
