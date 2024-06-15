@@ -19,8 +19,8 @@ Dokumentacja: [PDF](wwwroot/documentation.pdf)
 
 ## Uruchomienie projektu
 
-Aby uruchomić nasz projekt, potrzebne będzie środowisko .NET. Można je zainstalować ze
-strony https://dotnet.microsoft.com/en-us/.
+Aby uruchomić nasz projekt, potrzebne będzie środowisko .NET oraz Node.JS. Można je zainstalować ze
+strony https://dotnet.microsoft.com/en-us/ i https://nodejs.org/en.
 
 Po zainstalowaniu środowiska .NET, należy zainstalować narzędzie Electron.NET za pomocą polecenia: \
 `dotnet tool install ElectronNET.CLI -g`
