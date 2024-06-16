@@ -14,13 +14,13 @@ public class ConvexHullFirstSnapshotCreator(FenceTransportInputData inputData)
         List<GraphVertex> vertices = [];
 
         CreateVertices(vertices);
-        
-        return new (vertices, [], []);
+
+        return new GraphData(vertices, [], []);
     }
 
     private void CreateVertices(List<GraphVertex> vertices)
     {
-        _inputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
+        _inputData.Vertices.Sort((x, y) => x.Id.CompareTo(y.Id));
         foreach (var vertex in _inputData.Vertices) vertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0));
     }
 }

@@ -3,9 +3,9 @@ using Plaszczakowo.Drawer.TextReplaceDrawer.States;
 
 namespace Plaszczakowo.ProblemVisualizer.Commands;
 
-public class ChangeCharStateCommand(int id, TextReplaceState newState) 
+public class ChangeCharStateCommand(int id, TextReplaceState newState)
     : ProblemVisualizerCommand<TextReplaceData>
-{ 
+{
     public readonly int Id = id;
 
     public readonly TextReplaceState State = newState;

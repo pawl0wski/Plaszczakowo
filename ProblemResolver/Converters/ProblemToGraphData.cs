@@ -16,16 +16,16 @@ public static class ProblemToGraphData
                 throw new NullReferenceException("X or Y in ProblemVertex can't be null");
             vertices.Add(problemVertex.ToGraphVertex());
         }
-        
+
         foreach (var problemEdge in inputData.Edges)
         {
             var throughput = problemEdge.Throughput;
             edges.Add(new GraphEdge(vertices[problemEdge.From],
-             vertices[problemEdge.To],
-              throughput: throughput is null ? null : new GraphThroughput(throughput.Flow,throughput.Capacity), 
-               directed: problemEdge.Directed));
+                vertices[problemEdge.To],
+                throughput: throughput is null ? null : new GraphThroughput(throughput.Flow, throughput.Capacity),
+                directed: problemEdge.Directed));
         }
 
-        return new (vertices, edges, []);
+        return new GraphData(vertices, edges, []);
     }
 }

@@ -4,18 +4,7 @@ namespace Plaszczakowo.Problems.GuardSchedule.Input;
 
 public record Plaszczak : IComparable<Plaszczak>
 {
-   private static readonly Random Random = new();
-
-    public int CurrentVertexIndex { get; set; }
-    public int CurrentVertexValue { get; set; }
-    public int Energy { get; set; }
-    public int Index { get; set; }
-    public int MaxEnergy { get; set; }
-    public int Melody { get; set; }
-    public int NextVertexValue { get; set; }
-
-    public int PreviousVertexValue { get; set; }
-    public int Steps { get; set; }
+    private static readonly Random Random = new();
 
     public Plaszczak(int energyMax)
     {
@@ -26,7 +15,7 @@ public record Plaszczak : IComparable<Plaszczak>
         Steps = 0;
     }
 
-    public Plaszczak (int energy, int melody = 0, int steps = 0)
+    public Plaszczak(int energy, int melody = 0, int steps = 0)
     {
         MaxEnergy = energy;
         Energy = energy;
@@ -35,7 +24,7 @@ public record Plaszczak : IComparable<Plaszczak>
     }
 
     [JsonConstructor]
-    public Plaszczak(int CurrentVertexIndex, int CurrentVertexValue, int Energy, int Index, 
+    public Plaszczak(int CurrentVertexIndex, int CurrentVertexValue, int Energy, int Index,
         int MaxEnergy, int Melody, int NextVertexValue, int PreviousVertexValue, int Steps)
     {
         this.CurrentVertexIndex = CurrentVertexIndex;
@@ -48,6 +37,17 @@ public record Plaszczak : IComparable<Plaszczak>
         this.PreviousVertexValue = PreviousVertexValue;
         this.Steps = Steps;
     }
+
+    public int CurrentVertexIndex { get; set; }
+    public int CurrentVertexValue { get; set; }
+    public int Energy { get; set; }
+    public int Index { get; set; }
+    public int MaxEnergy { get; set; }
+    public int Melody { get; set; }
+    public int NextVertexValue { get; set; }
+
+    public int PreviousVertexValue { get; set; }
+    public int Steps { get; set; }
 
     public int CompareTo(Plaszczak? other)
     {

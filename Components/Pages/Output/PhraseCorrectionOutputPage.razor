@@ -1,7 +1,7 @@
 @page "/phrase_correction_output"
+
 @using Plaszczakowo.Problems.HuffmanCoding.Input
 @using Plaszczakowo.Problems.PhraseCorrection.Output
-
 @inherits ProblemOutputBase<PhraseCorrectionOutput>
 
 @inject NavigationManager Navigator
@@ -30,20 +30,21 @@
     {
         if (ProblemState is null)
             return;
-        
+
         _outputData = ProblemState.GetProblemOutputData<PhraseCorrectionOutput>();
     }
 
     private void GoToNextSubproblem()
     {
         if (_outputData == null) return;
-        
+
         HuffmanCodingInputData data = new(_outputData.FixedPhrase);
         if (ProblemState is null)
             throw new NullReferenceException("ProblemState is null");
-        
+
         ProblemState.SetProblemInputData(data);
 
-        Navigator.NavigateTo($"/huffman_coding");
+        Navigator.NavigateTo("/huffman_coding");
     }
+
 }

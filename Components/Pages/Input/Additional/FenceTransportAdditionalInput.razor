@@ -1,7 +1,6 @@
 @page "/input/additional/carrier_assignment"
 
 @using Plaszczakowo.Problems.FenceTransport.Input
-
 @inherits AdditionalInputBase<FenceTransportInputData>
 @inject NavigationManager Navigator
 
@@ -59,7 +58,7 @@
     private void GoToProblemPage()
     {
         ProblemState!.SetProblemInputData(ProblemInput!);
-        Navigator.NavigateTo($"/carrier_assignment");
+        Navigator.NavigateTo("/carrier_assignment");
     }
 
     private void RemoveRelation(Edge relation)

@@ -6,8 +6,8 @@ namespace Plaszczakowo.Drawer.GraphDrawer;
 public class GraphData : DrawerData
 {
     public List<GraphEdge> Edges;
-    public List<GraphVertex> Vertices;
     public List<GraphText> Texts;
+    public List<GraphVertex> Vertices;
 
     public GraphData(List<GraphVertex> vertices, List<GraphEdge> edges, List<GraphText> texts)
     {
@@ -34,11 +34,9 @@ public class GraphData : DrawerData
 
     public void FillImagesWithProvider(IGraphVertexImageProvider provider)
     {
-        foreach (var vertex in Vertices.Where(v => v.VertexImage is not null))
-        {
-            vertex.FillImageWithProvider(provider);
-        }
+        foreach (var vertex in Vertices.Where(v => v.VertexImage is not null)) vertex.FillImageWithProvider(provider);
     }
+
     public void ChangeEdgeState(int index, GraphState state)
     {
         var currentEdge = Edges[index];
@@ -68,7 +66,7 @@ public class GraphData : DrawerData
         var currentVertex = Vertices[index];
         currentVertex.VertexImage = image;
     }
-    
+
     public void RemoveVertexImage(int index)
     {
         var currentVertex = Vertices[index];
@@ -89,8 +87,9 @@ public class GraphData : DrawerData
     {
         Vertices.Remove(vertex);
 
-        Edges.RemoveAll((edge) => edge.From == vertex || edge.To == vertex);
+        Edges.RemoveAll(edge => edge.From == vertex || edge.To == vertex);
     }
+
     public void RemoveEdge(int edgeIndex)
     {
         Edges.RemoveAt(edgeIndex);

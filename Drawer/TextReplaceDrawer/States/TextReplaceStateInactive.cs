@@ -16,5 +16,4 @@ public class TextReplaceStateInactive : TextReplaceState
     {
         return false;
     }
-
 }

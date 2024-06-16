@@ -5,11 +5,12 @@ namespace Plaszczakowo.Drawer.GraphDrawer.Images;
 public class GraphVertexFrontCarrierInactiveImage : GraphVertexImage
 {
     public override bool GetOnVertex()
-        => true;
+    {
+        return true;
+    }
 
     protected override ElementReference GetImageReferenceFromProvider(IGraphVertexImageProvider provider)
     {
         return provider.FrontCarrierInactive;
     }
-    
 }

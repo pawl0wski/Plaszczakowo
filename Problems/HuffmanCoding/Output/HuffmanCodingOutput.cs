@@ -9,4 +9,3 @@ public record HuffmanCodingOutput : ProblemOutput
     public string InputPhrase { get; set; } = "";
     public Dictionary<char, string> HuffmanDictionary { get; set; } = new();
 }
-

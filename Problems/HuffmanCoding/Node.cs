@@ -2,13 +2,13 @@ namespace Plaszczakowo.Problems.HuffmanCoding;
 
 public class Node : IComparable<Node>
 {
-    public int Id  = 0;
-    public int? ConnectTo = null;
-    public int LeftOffset = 0;
     public readonly char Character;
     public readonly bool IfConnector;
-    public Node? Left, Right;
     public readonly int Value;
+    public int? ConnectTo;
+    public int Id;
+    public Node? Left, Right;
+    public int LeftOffset;
 
     public Node(char character, int value, bool ifConnector)
     {
@@ -17,14 +17,6 @@ public class Node : IComparable<Node>
         IfConnector = ifConnector;
     }
 
-    public Node InsertAdditionalData(int id, int? connectTo, int leftOffset)
-    {
-        Id = id;
-        ConnectTo = connectTo;
-        LeftOffset = leftOffset;
-        return this;
-    }
-    
     public int CompareTo(Node? other)
     {
         if (other == null) return 0;
@@ -35,5 +27,16 @@ public class Node : IComparable<Node>
         return Character.CompareTo(other.Character);
     }
 
-    public override string ToString() => $"{Character} {Value} {IfConnector}";
+    public Node InsertAdditionalData(int id, int? connectTo, int leftOffset)
+    {
+        Id = id;
+        ConnectTo = connectTo;
+        LeftOffset = leftOffset;
+        return this;
+    }
+
+    public override string ToString()
+    {
+        return $"{Character} {Value} {IfConnector}";
+    }
 }

@@ -2,10 +2,7 @@
 
 @using Plaszczakowo.Problems.FenceTransport
 @using Plaszczakowo.Problems.FenceTransport.Input
-@using Plaszczakowo.Problems.FenceTransport.Output
-@using Plaszczakowo.Drawer.GraphDrawer
-
-@inherits ProblemComponentBase<FenceTransportInputData, FenceTransportOutput, GraphData>
+@inherits ProblemComponentBase<FenceTransportInputData, Plaszczakowo.Problems.FenceTransport.Output.FenceTransportOutput, Plaszczakowo.Drawer.GraphDrawer.GraphData>
 
 <div class="map-background">
     @if (Executor is not null)

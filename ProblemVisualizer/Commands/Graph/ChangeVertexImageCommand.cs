@@ -11,10 +11,7 @@ public class ChangeVertexImageCommand(int id, GraphVertexImage image)
 
     public override void Execute(ref GraphData data)
     {
-        if (Id > data.Edges.Count || Id < 0) 
-        {
-            return;
-        }
+        if (Id > data.Edges.Count || Id < 0) return;
         data.ChangeVertexImage(Id, Image);
     }
 }

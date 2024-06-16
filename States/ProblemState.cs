@@ -6,9 +6,9 @@ namespace Plaszczakowo.States;
 
 public class ProblemState : IProblemState
 {
-    private string? _problemInputData = null;
+    private string? _problemInputData;
 
-    private string? _problemOutputData = null;
+    private string? _problemOutputData;
 
     public void SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData

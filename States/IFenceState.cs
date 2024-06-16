@@ -1,4 +1,3 @@
-
 using Plaszczakowo.Drawer.GraphDrawer;
 using Plaszczakowo.Problems.FenceTransport.Input;
 using Plaszczakowo.Problems.FenceTransport.Output;

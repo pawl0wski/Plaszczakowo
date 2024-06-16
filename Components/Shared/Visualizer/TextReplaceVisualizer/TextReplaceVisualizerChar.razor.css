@@ -2,7 +2,7 @@ div.letter {
     min-width: 100px;
     height: 100px;
     box-sizing: border-box;
-    
+
     font-size: xx-large;
 
     display: flex;
@@ -12,7 +12,7 @@ div.letter {
     border-width: 3px;
     border-color: black;
     border-style: solid;
-    
+
     background: url("img/background/map.png");
     background-size: cover;
 }

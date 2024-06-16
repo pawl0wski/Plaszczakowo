@@ -2,7 +2,7 @@ div.fence_transport {
     width: 100vw;
     height: 100vh;
     background: url("img/background/wall_background.png");
-    
+
     padding-top: 2rem;
 
 }
@@ -10,7 +10,7 @@ div.fence_transport {
 div.clock_wrapper {
     width: 100%;
     height: 80%;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,17 +19,17 @@ div.clock_wrapper {
 div.clock {
     color: limegreen;
     font-family: 'DSEG14 Modern', sans-serif;
-    
+
     width: 30rem;
     height: 15rem;
-    
+
     padding-top: 3rem;
     padding-right: 3rem;
-    
+
     font-size: 6rem;
     background-image: url("img/clock.png");
     background-size: 100% 100%;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;

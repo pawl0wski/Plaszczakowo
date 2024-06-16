@@ -1,10 +1,10 @@
 ﻿@page "/guard_schedule_output"
-@using Plaszczakowo.Problems.GuardSchedule.Input
 
+@using Plaszczakowo.Problems.GuardSchedule.Input
 @inherits ProblemOutputBase<Plaszczakowo.Problems.GuardSchedule.Output.GuardScheduleOutput>
 @inject NavigationManager Navigator
 
-<SaveButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ProblemName="guard_schedule" />
+<SaveButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ProblemName="guard_schedule"/>
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
 <div class="guard_schedule">
     <WoodenTitle>Grafik strażników</WoodenTitle>
@@ -23,12 +23,12 @@
                 <tbody>
                 @foreach (var (day, plaszczak) in GetBestPlaszczaki() ?? [])
                 {
-                <tr>
-                    <td>@day</td>
-                    <td>@plaszczak.Index</td>
-                    <td>@plaszczak.Energy</td>
-                    <td>@plaszczak.Melody</td>
-                </tr>
+                    <tr>
+                        <td>@day</td>
+                        <td>@plaszczak.Index</td>
+                        <td>@plaszczak.Energy</td>
+                        <td>@plaszczak.Melody</td>
+                    </tr>
                 }
                 </tbody>
             </table>
@@ -44,8 +44,12 @@
             return null;
 
         var id = 0;
-        return Output.Plaszczaki.Select((p) => (++id, p));
+        return Output.Plaszczaki.Select(p => (++id, p));
     }
 
-    private void ReturnBack() => Navigator.NavigateTo("/");
+    private void ReturnBack()
+    {
+        Navigator.NavigateTo("/");
+    }
+
 }

@@ -4,8 +4,5 @@ namespace Plaszczakowo.Problems.PhraseCorrection.Output;
 
 public record PhraseCorrectionOutput : ProblemOutput
 {
-
-    
-    public string FixedPhrase { get; set;} = "";
+    public string FixedPhrase { get; set; } = "";
 }
-

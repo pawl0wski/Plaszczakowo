@@ -1,14 +1,14 @@
-div.save_input{
+div.save_input {
     background: url("img/background/map.png");
     width: 100%;
     height: 100%;
-    
+
     display: flex;
     gap: 1rem;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
     padding: 1rem;
 }
 

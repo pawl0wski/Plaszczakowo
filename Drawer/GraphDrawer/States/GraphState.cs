@@ -9,7 +9,13 @@ public abstract class GraphState
 
     public abstract int GetLineWidth();
 
-    public virtual int GetOutlineWidth() => 5;
+    public virtual int GetOutlineWidth()
+    {
+        return 5;
+    }
 
-    public virtual int GetEdgeRadius() => 25;
+    public virtual int GetEdgeRadius()
+    {
+        return 25;
+    }
 }

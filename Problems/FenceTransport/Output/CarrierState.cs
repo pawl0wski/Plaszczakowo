@@ -1,8 +1,9 @@
 namespace Plaszczakowo.Problems.FenceTransport.Output;
 
-public enum CarrierState {
+public enum CarrierState
+{
     Delivering,
     Building,
     Reffiling,
-    Unassigned,
+    Unassigned
 }

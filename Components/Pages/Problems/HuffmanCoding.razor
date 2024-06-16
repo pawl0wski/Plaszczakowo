@@ -1,16 +1,13 @@
 @page "/huffman_coding"
 
-@using Drawer.GraphDrawer
 @using Plaszczakowo.Problems.HuffmanCoding
 @using Plaszczakowo.Problems.HuffmanCoding.Input
-@using Plaszczakowo.Problems.HuffmanCoding.Output
-
-@inherits ProblemComponentBase<HuffmanCodingInputData, HuffmanCodingOutput, GraphData>
+@inherits ProblemComponentBase<HuffmanCodingInputData, Plaszczakowo.Problems.HuffmanCoding.Output.HuffmanCodingOutput, Plaszczakowo.Drawer.GraphDrawer.GraphData>
 
 <div class="map-background">
     @if (Executor is not null)
     {
-        <GraphVisualizer Snapshots="Executor.GetSnapshots()" />
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
         <ReturnButton/>
         <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.HuffmanCoding"/>
     }
@@ -27,4 +24,5 @@
     {
         FirstSnapshotCreator = new FirstHuffmanCodingSnapshotCreator(inputData);
     }
+
 }

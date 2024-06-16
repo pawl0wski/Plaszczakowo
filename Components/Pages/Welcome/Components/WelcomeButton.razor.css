@@ -10,7 +10,7 @@ div.welcome-button {
     align-content: center;
 
     transition: 0.5s background;
-    
+
     color: white;
     cursor: pointer;
 }

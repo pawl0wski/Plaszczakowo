@@ -1,17 +1,17 @@
 div.relation_entry {
     width: 30rem;
     height: 8rem;
-    
+
     padding: 1rem 2rem;
-    
+
     background: url("img/paper_cut.png") no-repeat;
-    
+
     background-size: 100% 100%;
 
     display: flex;
     justify-content: space-around;
     align-items: center;
-    
+
     gap: 2rem;
 }
 
@@ -23,14 +23,14 @@ div.relation_entry select {
 img.plaszczak__photo {
     width: 5rem;
     height: 5rem;
-    
+
 }
 
 div.relation__info {
     display: flex;
-    
+
     height: 100%;
-    
+
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -52,7 +52,7 @@ div.relation__info__content {
 
 div.relation__info h3 {
     font-size: x-large;
-    
+
     opacity: 50%;
 }
 

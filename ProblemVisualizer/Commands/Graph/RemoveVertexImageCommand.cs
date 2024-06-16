@@ -9,10 +9,7 @@ public class RemoveVertexImageCommand(int id)
 
     public override void Execute(ref GraphData data)
     {
-        if (Id > data.Edges.Count || Id < 0) 
-        {
-            return;
-        }
+        if (Id > data.Edges.Count || Id < 0) return;
         data.RemoveVertexImage(Id);
     }
 }

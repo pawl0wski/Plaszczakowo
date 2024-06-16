@@ -45,7 +45,6 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
 
     protected virtual void UpdateInputData()
     {
-        
     }
 
     private void ResolveAndCreateSnapshots()
@@ -77,7 +76,7 @@ public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> :
     {
         if (ProblemState is null || OutputData is null)
             return;
-        
+
         ProblemState.SetProblemOutputData(OutputData);
     }
 

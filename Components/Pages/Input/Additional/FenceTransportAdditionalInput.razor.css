@@ -1,12 +1,12 @@
 div.fence_transport_additional_input {
     height: 100vh;
     width: 100vw;
-    
+
     background: url("img/background/wall_background.png");
     padding-top: 2rem;
 }
 
-div.carrier_entry_wrapper{
+div.carrier_entry_wrapper {
     margin: 2rem auto;
     width: 40rem;
     height: 65vh;
@@ -37,15 +37,17 @@ table.max_carriers th, table.max_carriers td {
     padding: 1rem;
     vertical-align: middle;
 }
+
 div.add_relation {
     display: flex;
     justify-content: center;
 }
+
 div.return_button {
     position: fixed;
     right: 0;
     bottom: 0;
-    
+
     display: flex;
     gap: 1rem;
     margin-bottom: 1rem;

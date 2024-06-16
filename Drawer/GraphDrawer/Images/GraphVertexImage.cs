@@ -4,11 +4,13 @@ namespace Plaszczakowo.Drawer.GraphDrawer.Images;
 
 public abstract class GraphVertexImage
 {
+    protected ElementReference ImageReference { get; private set; }
     public abstract bool GetOnVertex();
 
     public ElementReference GetImageReference()
-        => ImageReference;
-    protected ElementReference ImageReference { get; private set; }
+    {
+        return ImageReference;
+    }
 
     public void FillWithProvider(IGraphVertexImageProvider provider)
     {

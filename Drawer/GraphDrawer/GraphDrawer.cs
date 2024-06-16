@@ -99,12 +99,9 @@ public class GraphDrawer : Drawer
         {
             await DrawCircleOutline(v);
             await DrawCircle(v);
-        } 
-        
-        if (v.VertexImage != null)
-        {
-            await DrawImageFromRef(v);
         }
+
+        if (v.VertexImage != null) await DrawImageFromRef(v);
 
         await FillVertexTextContent(v);
     }

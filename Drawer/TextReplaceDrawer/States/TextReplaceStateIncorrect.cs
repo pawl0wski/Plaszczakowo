@@ -17,5 +17,4 @@ public class TextReplaceStateIncorrect : TextReplaceState
     {
         return true;
     }
-
 }

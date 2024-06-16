@@ -1,16 +1,13 @@
 @page "/computer_science_machine"
 
-@using Drawer.TextReplaceDrawer
 @using Plaszczakowo.Problems.PhraseCorrection
 @using Plaszczakowo.Problems.PhraseCorrection.Input
-@using Plaszczakowo.Problems.PhraseCorrection.Output
-
-@inherits ProblemComponentBase<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
+@inherits ProblemComponentBase<PhraseCorrectionInputData, Plaszczakowo.Problems.PhraseCorrection.Output.PhraseCorrectionOutput, Plaszczakowo.Drawer.TextReplaceDrawer.TextReplaceData>
 
 <div class="wall-background">
     @if (Executor is not null)
     {
-        <TextReplaceVisualizer Snapshots="Executor.GetSnapshots()" />
+        <TextReplaceVisualizer Snapshots="Executor.GetSnapshots()"/>
         <ReturnButton/>
         <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.PhraseCorrection"/>
     }

@@ -2,15 +2,33 @@ namespace Plaszczakowo.Drawer.GraphDrawer.States;
 
 public class GraphStateText : GraphState
 {
-    public override string GetPrimaryColor() => "black";
+    public override string GetPrimaryColor()
+    {
+        return "black";
+    }
 
-    public override string GetSecondaryColor() => "white";
+    public override string GetSecondaryColor()
+    {
+        return "white";
+    }
 
-    public override string GetThroughputColor() => "gray";
+    public override string GetThroughputColor()
+    {
+        return "gray";
+    }
 
-    public override int GetLineWidth() => 1;
-    
-    public override int GetOutlineWidth() => 1;
+    public override int GetLineWidth()
+    {
+        return 1;
+    }
 
-    public override int GetEdgeRadius() => 20;
+    public override int GetOutlineWidth()
+    {
+        return 1;
+    }
+
+    public override int GetEdgeRadius()
+    {
+        return 20;
+    }
 }

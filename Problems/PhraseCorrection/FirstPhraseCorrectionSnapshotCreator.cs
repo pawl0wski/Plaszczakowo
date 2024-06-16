@@ -10,9 +10,7 @@ public class FirstPhraseCorrectionSnapshotCreator(PhraseCorrectionInputData inpu
     public override TextReplaceData CreateFirstSnapshot()
     {
         List<TextReplaceChar> chars = [];
-        foreach( char c in InputData.InputPhrase) {
-            chars.Add(new TextReplaceChar(c, null));
-        }
+        foreach (var c in InputData.InputPhrase) chars.Add(new TextReplaceChar(c));
 
         return new TextReplaceData(chars);
     }

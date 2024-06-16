@@ -15,6 +15,11 @@ public class ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = 
 
     public bool IsSpecial { get; set; } = IsSpecial;
 
+    public object Clone()
+    {
+        return new ProblemVertex(Id, X, Y, Value);
+    }
+
     public static ProblemVertex FromGraphVertex(int id, GraphVertex vertex)
     {
         return new ProblemVertex(id,
@@ -26,11 +31,7 @@ public class ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = 
 
     public GraphVertex ToGraphVertex()
     {
-        return new GraphVertex(X ?? 0, Y ?? 0, Value?.ToString(), IsSpecial ? GraphStates.Special : GraphStates.Inactive);
-    }
-
-    public object Clone()
-    {
-        return new ProblemVertex(Id, X, Y, Value);
+        return new GraphVertex(X ?? 0, Y ?? 0, Value?.ToString(),
+            IsSpecial ? GraphStates.Special : GraphStates.Inactive);
     }
 }

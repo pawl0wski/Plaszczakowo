@@ -2,11 +2,11 @@
 div.visualizer_buttons {
     background: url("img/visualizer/step_back.png") no-repeat;
     background-size: cover;
-    
+
     color: white;
     font-weight: bold;
     font-size: 1.2rem;
-    
+
     width: 100vw;
 
     position: fixed;
@@ -17,7 +17,7 @@ div.visualizer_buttons {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    
+
     padding: 0 1rem;
 }
 

@@ -15,7 +15,5 @@ public class TextReplaceStateHighlighted : TextReplaceState
     public override bool IsBold()
     {
         return true;
-        
     }
-
 }

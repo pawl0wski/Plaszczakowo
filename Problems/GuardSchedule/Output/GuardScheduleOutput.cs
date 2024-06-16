@@ -7,4 +7,3 @@ public record GuardScheduleOutput : ProblemOutput
 {
     public List<Plaszczak> Plaszczaki { get; set; } = [];
 }
-

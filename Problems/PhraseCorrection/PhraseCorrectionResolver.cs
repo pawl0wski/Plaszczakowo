@@ -5,9 +5,11 @@ using Plaszczakowo.Problems.PhraseCorrection.Output;
 
 namespace Plaszczakowo.Problems.PhraseCorrection;
 
-public class PhraseCorrectionResolver : ProblemResolver<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
+public class
+    PhraseCorrectionResolver : ProblemResolver<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
 {
-    public override PhraseCorrectionOutput Resolve(PhraseCorrectionInputData data, ref ProblemRecreationCommands<TextReplaceData> commands)
+    public override PhraseCorrectionOutput Resolve(PhraseCorrectionInputData data,
+        ref ProblemRecreationCommands<TextReplaceData> commands)
     {
         PhraseCorrection correction = new(data.InputPhrase);
         PhraseCorrectionOutput output = new();
@@ -15,4 +17,3 @@ public class PhraseCorrectionResolver : ProblemResolver<PhraseCorrectionInputDat
         return output;
     }
 }
-

@@ -11,13 +11,13 @@
         </Content>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1" />
-        <PackageReference Include="Blazored.Modal" Version="7.3.1" />
-        <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0" />
-        <PackageReference Include="ElectronNET.API" Version="23.6.2" />
+        <PackageReference Include="Blazor.Extensions.Canvas" Version="1.1.1"/>
+        <PackageReference Include="Blazored.Modal" Version="7.3.1"/>
+        <PackageReference Include="BlazorTransitionableRoute" Version="4.0.0"/>
+        <PackageReference Include="ElectronNET.API" Version="23.6.2"/>
     </ItemGroup>
     <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-        <Exec Command="npm install" WorkingDirectory="JsDependencies/" />
-        <Exec Command="npm run build" WorkingDirectory="JsDependencies/" />
+        <Exec Command="npm install" WorkingDirectory="JsDependencies/"/>
+        <Exec Command="npm run build" WorkingDirectory="JsDependencies/"/>
     </Target>
 </Project>

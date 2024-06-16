@@ -1,6 +1,6 @@
-<div class="@GetHtmlClass()" @onclick="OnToolClick" >
+<div class="@GetHtmlClass()" @onclick="OnToolClick">
     <p>
-        <Icon Name="@IconName" Size="16" />
+        <Icon Name="@IconName" Size="16"/>
         @ToolName
     </p>
 </div>
@@ -18,8 +18,14 @@
     [Parameter] public bool Selected { get; set; }
 
 
-    private string GetHtmlClass() => $"tool {(Selected ? "tool__selected" : "")}";
+    private string GetHtmlClass()
+    {
+        return $"tool {(Selected ? "tool__selected" : "")}";
+    }
 
-    private void OnToolClick() => OnSelect(Mode);
+    private void OnToolClick()
+    {
+        OnSelect(Mode);
+    }
 
 }

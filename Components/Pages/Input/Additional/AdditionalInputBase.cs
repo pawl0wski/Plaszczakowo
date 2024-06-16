@@ -7,11 +7,10 @@ namespace Plaszczakowo.Components.Pages.Input.Additional;
 public abstract class AdditionalInputBase<TProblemInput> : ComponentBase
     where TProblemInput : ProblemInputData
 {
-    [Inject] 
-    protected IProblemState? ProblemState { get; set; }
-
     protected TProblemInput? ProblemInput;
-    
+
+    [Inject] protected IProblemState? ProblemState { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         InitializeProblemInput();
@@ -23,7 +22,7 @@ public abstract class AdditionalInputBase<TProblemInput> : ComponentBase
     {
         if (ProblemState is null)
             throw new NullReferenceException("ProblemState is null!");
-        
+
         ProblemInput = ProblemState.GetProblemInputData<TProblemInput>();
     }
 

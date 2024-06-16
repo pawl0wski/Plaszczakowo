@@ -1,12 +1,8 @@
 @page "/guard_schedule"
 
-
 @using Plaszczakowo.Problems.GuardSchedule
 @using Plaszczakowo.Problems.GuardSchedule.Input
-@using Plaszczakowo.Problems.GuardSchedule.Output
-@using Plaszczakowo.Drawer.GraphDrawer
-
-@inherits ProblemComponentBase<GuardScheduleInputData, GuardScheduleOutput, GraphData>
+@inherits ProblemComponentBase<GuardScheduleInputData, Plaszczakowo.Problems.GuardSchedule.Output.GuardScheduleOutput, Plaszczakowo.Drawer.GraphDrawer.GraphData>
 
 <div class="map-background">
     @if (Executor is not null)

@@ -4,8 +4,13 @@ using Plaszczakowo.Problems.FenceTransport.Output;
 
 namespace Plaszczakowo.Problems.FenceTransport.Input;
 
-public record FenceTransportInputData(int FrontCarrierNumber, int RearCarrierNumber, List<Edge> Relations, 
-    List<ProblemVertex> Vertices, List<ProblemEdge> Edges, int FactoryIndex) : ProblemGraphInputData(Vertices, Edges)
+public record FenceTransportInputData(
+    int FrontCarrierNumber,
+    int RearCarrierNumber,
+    List<Edge> Relations,
+    List<ProblemVertex> Vertices,
+    List<ProblemEdge> Edges,
+    int FactoryIndex) : ProblemGraphInputData(Vertices, Edges)
 {
     public int FrontCarrierNumber { get; set; } = FrontCarrierNumber;
     public int RearCarrierNumber { get; set; } = RearCarrierNumber;

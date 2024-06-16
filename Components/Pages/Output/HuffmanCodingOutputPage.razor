@@ -1,26 +1,25 @@
 @page "/huffman_coding_output"
-
 @using Plaszczakowo.Problems.HuffmanCoding.Output
 @inherits ProblemOutputBase<HuffmanCodingOutput>
 
-<SaveButton ProblemName="computer_science_machine" ButtonPosition="HangingButton.HangingButtonPosition.Right" />
+<SaveButton ProblemName="computer_science_machine" ButtonPosition="HangingButton.HangingButtonPosition.Right"/>
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
 <div class="huffman-coding-output">
     <img class="monitor__left" src="img/monitor_left.png" alt="Lewa cześć monitora">
     <div class="monitor__center">
         @if (_outputData != null)
         {
-        <div class="monitor__center__text">
-            <h2>Zakodowana melodia:</h2>
-            <p>@_outputData.Result</p>
-            <h2>Melodia przed zakodowaniem:</h2>
-            <p>@_outputData.InputPhrase</p>
-            <h2>Kody Huffmana:</h2>
-            @foreach (var hufCode in codes)
-            {
-            <p>@hufCode</p>
-            }
-        </div>
+            <div class="monitor__center__text">
+                <h2>Zakodowana melodia:</h2>
+                <p>@_outputData.Result</p>
+                <h2>Melodia przed zakodowaniem:</h2>
+                <p>@_outputData.InputPhrase</p>
+                <h2>Kody Huffmana:</h2>
+                @foreach (var hufCode in codes)
+                {
+                    <p>@hufCode</p>
+                }
+            </div>
         }
     </div>
     <img class="monitor__right" src="img/monitor_right.png" alt="Prawa cześć monitora">
@@ -36,8 +35,8 @@
     {
         if (ProblemState is not null)
         {
-        _outputData = ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
-        codes = ExtractCodes();
+            _outputData = ProblemState.GetProblemOutputData<HuffmanCodingOutput>();
+            codes = ExtractCodes();
         }
     }
 
@@ -63,4 +62,5 @@
 
         return list;
     }
+
 }

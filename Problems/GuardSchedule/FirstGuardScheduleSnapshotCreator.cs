@@ -14,7 +14,7 @@ public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
     public override GraphData CreateFirstSnapshot()
     {
         var outputData = ProblemToGraphData.Convert(_inputData);
-        int xCoordinateForText = FindMaxXCoordinate();
+        var xCoordinateForText = FindMaxXCoordinate();
 
         outputData.ChangeVertexStatus(0, GraphStates.Special);
         outputData.Texts.Add(new GraphText("Id 💂: -", xCoordinateForText, 260, GraphStates.Inactive));
@@ -31,12 +31,8 @@ public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
         var maxX = int.MinValue;
 
         foreach (var vertex in _inputData.Vertices)
-        {
             if (vertex.X > maxX)
-            {
                 maxX = (int)vertex.X;
-            }
-        }
 
         return maxX + 150;
     }
