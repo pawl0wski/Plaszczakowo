@@ -8,6 +8,8 @@
 @inject NavigationManager Navigation
 @inject IProblemState ProblemState
 
+<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
+<SaveButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ProblemName="carrier_assignment">Zapisz dane wejściowe</SaveButton>
 <div class="fence_transport">
     @if (_outputData != null)
     {

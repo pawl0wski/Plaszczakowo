@@ -36,7 +36,3 @@ div.return-button__bottom {
     justify-content: center;
     cursor: pointer;
 }
-
-div.return-button__bottom span {
-    transform: rotateZ(-3deg);
-}

@@ -74,7 +74,10 @@
         var files = await Electron.Dialog.ShowOpenDialogAsync(currentBrowserWindow, dialogOptions);
         if (files is null || files.Length == 0)
             return;
-        _selectedFile = files.Last();
+        
+        var file = files.First();
+        File.Copy(file, Path.Join(GetProblemPath(), Path.GetFileName(file)));
+        StateHasChanged();
     }
 
     private async Task ReadFileAndGoToProblemPage()

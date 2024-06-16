@@ -6,43 +6,49 @@ namespace ProjektZaliczeniowy_AiSD2.States;
 
 public class ProblemState : IProblemState
 {
-    private string? _problemData = null;
+    private string? _problemInputData = null;
 
-    private string? _outputData = null;
+    private string? _problemOutputData = null;
 
     public void SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData
     {
-        _problemData = JsonSerializer.Serialize(inputData);
+        _problemInputData = JsonSerializer.Serialize(inputData);
+    }
+
+    public string GetProblemJsonInputData()
+    {
+        ArgumentNullException.ThrowIfNull(_problemInputData);
+        return _problemInputData;
     }
 
     public void SetProblemJsonInputData(string inputData)
     {
-        _problemData = inputData;
+        _problemInputData = inputData;
     }
 
     public TInputData GetProblemInputData<TInputData>()
         where TInputData : ProblemInputData
     {
-        return DeserializeData<TInputData>(_problemData!);
+        return DeserializeData<TInputData>(_problemInputData!);
     }
 
     public void SetProblemOutputData<TOutputData>(TOutputData outputData) where TOutputData : ProblemOutput
     {
-        _outputData = JsonSerializer.Serialize(outputData);
+        _problemOutputData = JsonSerializer.Serialize(outputData);
     }
 
     public void SetProblemJsonOutputData(string outputData)
     {
-        _outputData = outputData;
+        _problemOutputData = outputData;
     }
 
     public TOutputData GetProblemOutputData<TOutputData>() where TOutputData : ProblemOutput
     {
-        return DeserializeData<TOutputData>(_outputData!);
+        return DeserializeData<TOutputData>(_problemOutputData!);
     }
 
-    private TData DeserializeData<TData>(string serializedData)
+    private static TData DeserializeData<TData>(string serializedData)
     {
         var deserializedData = JsonSerializer.Deserialize<TData>(serializedData);
         if (deserializedData is null)
@@ -50,5 +56,4 @@ public class ProblemState : IProblemState
 
         return deserializedData;
     }
-
 }
