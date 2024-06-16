@@ -1,4 +1,5 @@
 @inherits HangingButton
+@inject NavigationManager Navigator
 
 @{
     base.BuildRenderTree(__builder);
@@ -9,10 +10,11 @@
 
     [Parameter] public required string ProblemName { get; set; }
 
-    protected override void OnHangingButtonClick()
+    protected override async void OnHangingButtonClick()
     {
         var parameters = new ModalParameters().Add(nameof(SaveProblemInputModal.ProblemName), ProblemName);
-        Modal.Show<SaveProblemInputModal>(parameters, new ModalOptions { Size = ModalSize.Medium });
+        await Modal.Show<SaveProblemInputModal>(parameters, new ModalOptions { Size = ModalSize.Medium }).Result;
+        Navigator.NavigateTo("/");
     }
 
     protected override string GetButtonContent() => "Zapisz wejście";
