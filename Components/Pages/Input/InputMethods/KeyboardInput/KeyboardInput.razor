@@ -1,6 +1,5 @@
 @page "/input/keyboard/{ProblemName}"
 
-@using System.Text.Json
 @using Problem.PhraseCorrection
 @using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.KeyboardInput.Validator
 @using ProjektZaliczeniowy_AiSD2.States
@@ -23,10 +22,10 @@
 @code {
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
     private string _inputText = "";
-
+        
     private PhraseCorrectionInputData PrepareInputData()
     {
-        return new PhraseCorrectionInputData(_inputText);
+        return new PhraseCorrectionInputData(_inputText.ToLower());
     }
 
     private void GoToProblemPage()
