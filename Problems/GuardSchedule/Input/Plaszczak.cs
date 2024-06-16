@@ -8,9 +8,9 @@ public record Plaszczak : IComparable<Plaszczak>
 
     public Plaszczak(int energyMax)
     {
-        var RandomEnergy = Random.Next(0, energyMax + 1);
-        MaxEnergy = RandomEnergy;
-        Energy = RandomEnergy;
+        var randomEnergy = Random.Next(0, energyMax + 1);
+        MaxEnergy = randomEnergy;
+        Energy = randomEnergy;
         Melody = 0;
         Steps = 0;
     }
@@ -60,7 +60,6 @@ public record Plaszczak : IComparable<Plaszczak>
 
     public bool IsGuard(int maxEnergy)
     {
-        if (MaxEnergy >= maxEnergy) return true;
-        return false;
+        return MaxEnergy >= maxEnergy;
     }
 }

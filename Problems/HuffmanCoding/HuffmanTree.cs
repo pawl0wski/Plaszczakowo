@@ -9,7 +9,7 @@ public class HuffmanTree
 {
     private const int ScreenWidth = 1280;
     private const int ScreenHeight = 720;
-    private readonly List<Node> _minHeap = new();
+    private readonly List<Node> _minHeap = [];
 
     public Node GenerateHuffmanTree(Dictionary<char, int> letterAppearances,
         ref ProblemRecreationCommands<GraphData> commands)

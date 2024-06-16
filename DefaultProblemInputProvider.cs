@@ -90,7 +90,7 @@ public static class DefaultProblemInputProvider
     private static void GenerateComputerScienceMachineFile()
     {
         var destinationFilePath = Path.Join(GetProblemPath("computer_science_machine"), DemoFileName);
-        var inputPhrase = "peter piper picked a picked pepper";
+        const string inputPhrase = "peter piper picked a picked pepper";
 
         PhraseCorrectionInputData computerScienceMachine = new(inputPhrase);
         var jsonComputerScienceMachine = JsonSerializer.Serialize(computerScienceMachine);

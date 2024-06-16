@@ -3,6 +3,4 @@ namespace Plaszczakowo.ProblemResolver;
 /*
     Rozwiązanie problemu zwracane przez ProblemResolver
 */
-public abstract record ProblemOutput
-{
-}
+public abstract record ProblemOutput;
