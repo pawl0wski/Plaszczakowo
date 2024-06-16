@@ -40,3 +40,9 @@ div.monitor__center__text {
 
     color: lawngreen;
 }
+
+div.return_button {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}

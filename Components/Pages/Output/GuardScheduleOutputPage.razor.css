@@ -56,7 +56,7 @@ table, td, th {
     text-align: center;
 }
 
-div.next_button {
+div.return_button {
     position: fixed;
     bottom: 1rem;
     right: 1rem;

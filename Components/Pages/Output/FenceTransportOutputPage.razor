@@ -27,7 +27,9 @@
         }
     }
 
-
+    <div class="return_button">
+        <OldButton @onclick="GoBack">Zakończ</OldButton>
+    </div>
     <div class="next_button">
         <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
     </div>
@@ -56,4 +58,9 @@
         Navigation.NavigateTo("/input/graphcreator/guard_schedule");
     }
 
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/");
+    }
+    
 }

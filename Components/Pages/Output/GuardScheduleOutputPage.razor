@@ -34,6 +34,9 @@
             </table>
         </div>
     </div>
+    <div class="return_button">
+        <OldButton onclick="GoBack">Koniec</OldButton>
+    </div>
 </div>
 
 @code {
@@ -45,6 +48,11 @@
 
         var id = 0;
         return Output.Plaszczaki.Select(p => (++id, p));
+    }
+    
+    private void GoBack()
+    {
+        Navigator.NavigateTo("/");
     }
 
 }
