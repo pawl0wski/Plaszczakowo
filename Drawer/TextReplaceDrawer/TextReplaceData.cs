@@ -1,10 +1,10 @@
-namespace Drawer.TextReplaceDrawer;
+namespace Plaszczakowo.Drawer.TextReplaceDrawer;
 
 public class TextReplaceData : DrawerData
 {
+    public List<TextReplaceChar> Chars;
 
     public int Offset;
-    public List<TextReplaceChar> Chars;
 
     public TextReplaceData(List<TextReplaceChar> chars, int? offset = null)
     {

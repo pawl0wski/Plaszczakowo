@@ -1,4 +1,4 @@
-namespace Drawer.TextReplaceDrawer.States;
+namespace Plaszczakowo.Drawer.TextReplaceDrawer.States;
 
 public class TextReplaceStateInactive : TextReplaceState
 {
@@ -16,5 +16,4 @@ public class TextReplaceStateInactive : TextReplaceState
     {
         return false;
     }
-
 }

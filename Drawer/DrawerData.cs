@@ -1,4 +1,4 @@
-namespace Drawer;
+namespace Plaszczakowo.Drawer;
 
 public abstract class DrawerData : ICloneable
 {

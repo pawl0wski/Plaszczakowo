@@ -1,8 +1,9 @@
 @page "/input/graphcreator/{ProblemName}"
-@using Drawer.GraphDrawer
-@using ProblemResolver.Converters
-@using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator
-@using ProjektZaliczeniowy_AiSD2.States
+@using Plaszczakowo.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator
+@using Plaszczakowo.Drawer.GraphDrawer
+@using Plaszczakowo.Drawer.GraphDrawer.States
+@using Plaszczakowo.ProblemResolver.Converters
+@using Plaszczakowo.States
 @inherits InputMethodBase;
 @inject NavigationManager Navigator;
 @inject IProblemState ProblemState;
@@ -18,7 +19,7 @@
         SelectedMode="_currentMode"
         AllowVertexValueChange="_problemSettings.CanChangeVertexValue"/>
     <GraphCreatorToolContinue OnContinue="OnContinue"/>
-    <GraphCreatorCursorPosition X="_cursorX" Y="_cursorY" />
+    <GraphCreatorCursorPosition X="_cursorX" Y="_cursorY"/>
 </div>
 
 
@@ -34,22 +35,24 @@
     private GraphState? _prevSelectedState;
 
     private GraphCanvas? _canvas;
-    
-    private int _cursorX = 0;
 
-    private int _cursorY = 0;
+    private int _cursorX;
+
+    private int _cursorY;
 
     private GraphCreatorProblemSettings _problemSettings = new();
 
     protected override void OnInitialized()
     {
         _problemSettings = GraphCreatorProblemSettingsProvider.GetSettingsForProblem(ProblemName);
-        
+
         GetGraphFromFenceState();
     }
 
-    private void GetGraphFromFenceState() {
-        if (_problemSettings.ReadGraphDataFromFenceState && FenceState.IsFenceSet()){
+    private void GetGraphFromFenceState()
+    {
+        if (_problemSettings.ReadGraphDataFromFenceState && FenceState.IsFenceSet())
+        {
             _currentData = FenceState.GetFence();
             FenceState.ClearFence();
         }
@@ -128,10 +131,10 @@
         if (_selectedVertex == anotherSelectedVertex)
             return;
 
-        if (_currentData.Edges.Exists((v) => v.From == _selectedVertex && v.To == anotherSelectedVertex))
+        if (_currentData.Edges.Exists(v => v.From == _selectedVertex && v.To == anotherSelectedVertex))
             return;
 
-        _currentData.AddEdge(new(_selectedVertex, anotherSelectedVertex, directed: _problemSettings.DirectedGraph));
+        _currentData.AddEdge(new GraphEdge(_selectedVertex, anotherSelectedVertex, directed: _problemSettings.DirectedGraph));
         _currentMode = GraphCreatorMode.ConnectFirstEdge;
         _selectedVertex.State = _prevSelectedState ?? GraphStates.Inactive;
         _selectedVertex = null;
@@ -164,12 +167,12 @@
 
     private bool CheckVertexXCoordinates(int mouseX, GraphVertex vertex)
     {
-        return (mouseX < (vertex.X + 25)) && (mouseX > (vertex.X - 25));
+        return mouseX < vertex.X + 25 && mouseX > vertex.X - 25;
     }
 
     private bool CheckVertexYCoordinates(int mouseY, GraphVertex vertex)
     {
-        return (mouseY < (vertex.Y + 25)) && (mouseY > (vertex.Y - 25));
+        return mouseY < vertex.Y + 25 && mouseY > vertex.Y - 25;
     }
 
     private void OnToolSelect(GraphCreatorMode newMode)
@@ -197,7 +200,7 @@
     private void ShowValidatorErrorModal(List<GraphValidatorError> errors)
     {
         var parameters = new ModalParameters().Add(nameof(GraphValidatorErrorsModal.Errors), errors);
-        Modal.Show<GraphValidatorErrorsModal>("", parameters, new ModalOptions() { Size = ModalSize.Medium });
+        Modal.Show<GraphValidatorErrorsModal>("", parameters, new ModalOptions { Size = ModalSize.Medium });
     }
 
     private void UpdateCursorXY(MouseEventArgs obj)

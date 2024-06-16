@@ -1,18 +1,24 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
 
-namespace ProblemResolver.Graph;
+namespace Plaszczakowo.ProblemResolver.ProblemGraph;
 
-public class ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = false) : ICloneable
+public class ProblemVertex(int id, int? x, int? y, int? value, bool isSpecial = false) : ICloneable
 {
-    public int Id { get; set; } = Id;
+    public int Id { get; set; } = id;
 
-    public int? X { get; set; } = X;
+    public int? X { get; set; } = x;
 
-    public int? Y { get; set; } = Y;
+    public int? Y { get; set; } = y;
 
-    public int? Value { get; set; } = Value;
+    public int? Value { get; set; } = value;
 
-    public bool IsSpecial { get; set; } = IsSpecial;
+    public bool IsSpecial { get; set; } = isSpecial;
+
+    public object Clone()
+    {
+        return new ProblemVertex(Id, X, Y, Value);
+    }
 
     public static ProblemVertex FromGraphVertex(int id, GraphVertex vertex)
     {
@@ -25,11 +31,7 @@ public class ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = 
 
     public GraphVertex ToGraphVertex()
     {
-        return new GraphVertex(X ?? 0, Y ?? 0, Value?.ToString(), IsSpecial ? GraphStates.Special : GraphStates.Inactive);
-    }
-
-    public object Clone()
-    {
-        return new ProblemVertex(Id, X, Y, Value);
+        return new GraphVertex(X ?? 0, Y ?? 0, Value?.ToString(),
+            IsSpecial ? GraphStates.Special : GraphStates.Inactive);
     }
 }

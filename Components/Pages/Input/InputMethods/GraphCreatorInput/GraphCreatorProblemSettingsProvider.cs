@@ -1,6 +1,6 @@
-using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
+using Plaszczakowo.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput;
+namespace Plaszczakowo.Components.Pages.Input.InputMethods.GraphCreatorInput;
 
 public static class GraphCreatorProblemSettingsProvider
 {
@@ -14,27 +14,33 @@ public static class GraphCreatorProblemSettingsProvider
         };
     }
 
-    private static GraphCreatorProblemSettings GetSettingsForGuardSchedule() => new GraphCreatorProblemSettings
+    private static GraphCreatorProblemSettings GetSettingsForGuardSchedule()
     {
-        DirectedGraph = true,
-        CanChangeVertexValue = true,
-        ReadGraphDataFromFenceState = true,
-        Modes = GraphInputValidatorModes.HaveLoop
-                | GraphInputValidatorModes.OneEdgeFromEveryVertex
-                | GraphInputValidatorModes.EverythingConnected
-                | GraphInputValidatorModes.ShouldHave3Vertices
-                | GraphInputValidatorModes.ShouldHaveSpecialVertex
-                | GraphInputValidatorModes.EveryVertexShouldHaveValue
-    };
+        return new GraphCreatorProblemSettings
+        {
+            DirectedGraph = true,
+            CanChangeVertexValue = true,
+            ReadGraphDataFromFenceState = true,
+            Modes = GraphInputValidatorModes.HaveLoop
+                    | GraphInputValidatorModes.OneEdgeFromEveryVertex
+                    | GraphInputValidatorModes.EverythingConnected
+                    | GraphInputValidatorModes.ShouldHave3Vertices
+                    | GraphInputValidatorModes.ShouldHaveSpecialVertex
+                    | GraphInputValidatorModes.EveryVertexShouldHaveValue
+        };
+    }
 
 
-    private static GraphCreatorProblemSettings GetSettingsForFenceTransport() => new GraphCreatorProblemSettings
+    private static GraphCreatorProblemSettings GetSettingsForFenceTransport()
     {
-        DirectedGraph = false,
-        CanChangeVertexValue = false,
-        ReadGraphDataFromFenceState = false,
-        Modes = GraphInputValidatorModes.EverythingConnected
-                | GraphInputValidatorModes.ShouldHave3Vertices
-                | GraphInputValidatorModes.ShouldHaveSpecialVertex
-    };
+        return new GraphCreatorProblemSettings
+        {
+            DirectedGraph = false,
+            CanChangeVertexValue = false,
+            ReadGraphDataFromFenceState = false,
+            Modes = GraphInputValidatorModes.EverythingConnected
+                    | GraphInputValidatorModes.ShouldHave3Vertices
+                    | GraphInputValidatorModes.ShouldHaveSpecialVertex
+        };
+    }
 }

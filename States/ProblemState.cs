@@ -1,14 +1,14 @@
 using System.Text.Json;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using ProblemResolver;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProjektZaliczeniowy_AiSD2.States;
+namespace Plaszczakowo.States;
 
 public class ProblemState : IProblemState
 {
-    private string? _problemInputData = null;
+    private string? _problemInputData;
 
-    private string? _problemOutputData = null;
+    private string? _problemOutputData;
 
     public void SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData

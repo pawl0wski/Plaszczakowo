@@ -1,6 +1,7 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.Images;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class ChangeVertexImageCommand(int id, GraphVertexImage image)
     : ProblemVisualizerCommand<GraphData>
@@ -10,10 +11,7 @@ public class ChangeVertexImageCommand(int id, GraphVertexImage image)
 
     public override void Execute(ref GraphData data)
     {
-        if (Id > data.Edges.Count || Id < 0) 
-        {
-            return;
-        }
+        if (Id > data.Edges.Count || Id < 0) return;
         data.ChangeVertexImage(Id, Image);
     }
 }

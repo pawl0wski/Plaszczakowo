@@ -1,12 +1,11 @@
 ﻿@page "/fence_transport_output"
-@using Problem.FenceTransport
-@using ProjektZaliczeniowy_AiSD2.States
-@using ProblemResolver
-@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+
+@using Plaszczakowo.Problems.FenceTransport.Input
+@using Plaszczakowo.Problems.FenceTransport.Output
+@using Plaszczakowo.States
 @inherits ProblemOutputBase<FenceTransportOutput>
 
 @inject NavigationManager Navigation
-@inject IProblemState ProblemState
 
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
 <SaveButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ProblemName="carrier_assignment">Zapisz dane wejściowe</SaveButton>
@@ -28,7 +27,9 @@
         }
     }
 
-
+    <div class="return_button">
+        <OldButton @onclick="GoBack">Zakończ</OldButton>
+    </div>
     <div class="next_button">
         <OldButton @onclick="NextProblem">Przejdź Dalej</OldButton>
     </div>
@@ -39,7 +40,7 @@
 
     protected override void OnInitialized()
     {
-        _outputData = ProblemState.GetProblemOutputData<FenceTransportOutput>();
+        _outputData = ProblemState!.GetProblemOutputData<FenceTransportOutput>();
         var inputData = ProblemState.GetProblemInputData<FenceTransportInputData>();
         ProblemState.SetProblemInputData(inputData);
     }
@@ -53,9 +54,13 @@
     }
 
     private void NextProblem()
-        => Navigation.NavigateTo("/input/graphcreator/guard_schedule");
+    {
+        Navigation.NavigateTo("/input/graphcreator/guard_schedule");
+    }
 
-    private void ReturnBack()
-        => Navigation.NavigateTo("/");
-
+    private void GoBack()
+    {
+        Navigation.NavigateTo("/");
+    }
+    
 }

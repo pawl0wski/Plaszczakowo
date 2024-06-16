@@ -6,13 +6,13 @@ div.title h1 {
 
 div.title {
     height: 15vh;
-    
+
     display: flex;
     align-items: center;
     background: url("img/background/wall_background.png");
-    
+
     color: white;
-    
+
 }
 
 div.files {
@@ -21,7 +21,7 @@ div.files {
 
     width: 100vw;
     height: 75vh;
-    
+
     background: url("img/background/map_bright.png");
 }
 

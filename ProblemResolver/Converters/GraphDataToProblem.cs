@@ -1,7 +1,8 @@
-using Drawer.GraphDrawer;
-using ProblemResolver.Graph;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProblemResolver.Converters;
+namespace Plaszczakowo.ProblemResolver.Converters;
 
 public static class GraphDataToProblem
 {
@@ -22,13 +23,13 @@ public static class GraphDataToProblem
             edges.Add(new ProblemEdge(i,
                 data.Vertices.IndexOf(currentEdge.From),
                 data.Vertices.IndexOf(currentEdge.To),
-                currentEdge.Throughput is null ? null :
-                ProblemGraphThroughput.FromGraphThroughput(currentEdge.Throughput),
+                currentEdge.Throughput is null
+                    ? null
+                    : ProblemGraphThroughput.FromGraphThroughput(currentEdge.Throughput),
                 currentEdge.Directed
             ));
         }
 
-        return new(vertices, edges); 
+        return new ProblemGraphInputData(vertices, edges);
     }
 }
-

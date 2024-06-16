@@ -1,7 +1,8 @@
-using Drawer.TextReplaceDrawer;
-using ProblemVisualizer;
+using Plaszczakowo.Drawer.TextReplaceDrawer;
+using Plaszczakowo.Problems.PhraseCorrection.Input;
+using Plaszczakowo.ProblemVisualizer;
 
-namespace Problem.PhraseCorrection;
+namespace Plaszczakowo.Problems.PhraseCorrection;
 
 public class FirstPhraseCorrectionSnapshotCreator(PhraseCorrectionInputData inputData)
     : FirstSnapshotCreator<PhraseCorrectionInputData, TextReplaceData>(inputData)
@@ -9,9 +10,7 @@ public class FirstPhraseCorrectionSnapshotCreator(PhraseCorrectionInputData inpu
     public override TextReplaceData CreateFirstSnapshot()
     {
         List<TextReplaceChar> chars = [];
-        foreach( char c in InputData.InputPhrase) {
-            chars.Add(new TextReplaceChar(c, null));
-        }
+        foreach (var c in InputData.InputPhrase) chars.Add(new TextReplaceChar(c));
 
         return new TextReplaceData(chars);
     }

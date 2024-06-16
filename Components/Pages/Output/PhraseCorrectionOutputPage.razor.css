@@ -2,7 +2,7 @@ div.phrase-correction-output {
     height: 100vh;
     width: 100vw;
     background: url("img/background/wall_background.png");
-    
+
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -11,10 +11,10 @@ div.phrase-correction-output {
 
 div.paper {
     text-align: center;
-    
+
     padding: 1rem 6rem 3rem 5rem;
-    
-    height: 45rem;    
+
+    height: 45rem;
     width: 40rem;
 
     background: url("img/paper.png") no-repeat center;
@@ -26,13 +26,13 @@ div.paper {
     word-break: break-word;
 }
 
-div.paper p{
+div.paper p {
     font-size: large;
 }
 
 div.paper h2 {
     font-size: xx-large;
-    
+
     margin-top: 3rem;
     margin-bottom: 0;
 }

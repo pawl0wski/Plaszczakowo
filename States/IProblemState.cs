@@ -1,6 +1,7 @@
-using ProblemResolver;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProjektZaliczeniowy_AiSD2.States;
+namespace Plaszczakowo.States;
 
 public interface IProblemState
 {
@@ -8,14 +9,14 @@ public interface IProblemState
         where TInputData : ProblemInputData;
 
     public string GetProblemJsonInputData();
-    
+
     public void SetProblemJsonInputData(string inputData);
 
     public void SetProblemInputData<TInputData>(TInputData inputData)
         where TInputData : ProblemInputData;
 
     public TOutputData GetProblemOutputData<TOutputData>()
-    where TOutputData : ProblemOutput;
+        where TOutputData : ProblemOutput;
 
     public void SetProblemJsonOutputData(string outputData);
 

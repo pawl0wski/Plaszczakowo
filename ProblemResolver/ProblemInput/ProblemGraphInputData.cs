@@ -1,6 +1,6 @@
-using ProblemResolver.Graph;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
 
-namespace ProblemResolver;
+namespace Plaszczakowo.ProblemResolver.ProblemInput;
 
 public record ProblemGraphInputData(List<ProblemVertex> Vertices, List<ProblemEdge> Edges) : ProblemInputData
 {
@@ -8,4 +8,3 @@ public record ProblemGraphInputData(List<ProblemVertex> Vertices, List<ProblemEd
 
     public List<ProblemEdge> Edges { get; set; } = Edges;
 }
- 

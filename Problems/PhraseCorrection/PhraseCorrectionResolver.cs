@@ -1,11 +1,15 @@
-using Drawer.TextReplaceDrawer;
-using ProblemResolver;
-using ProblemVisualizer.Commands;
-namespace Problem.PhraseCorrection;
+using Plaszczakowo.Drawer.TextReplaceDrawer;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.Problems.PhraseCorrection.Input;
+using Plaszczakowo.Problems.PhraseCorrection.Output;
 
-public class PhraseCorrectionResolver : ProblemResolver<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
+namespace Plaszczakowo.Problems.PhraseCorrection;
+
+public class
+    PhraseCorrectionResolver : ProblemResolver<PhraseCorrectionInputData, PhraseCorrectionOutput, TextReplaceData>
 {
-    public override PhraseCorrectionOutput Resolve(PhraseCorrectionInputData data, ref ProblemRecreationCommands<TextReplaceData> commands)
+    public override PhraseCorrectionOutput Resolve(PhraseCorrectionInputData data,
+        ref ProblemRecreationCommands<TextReplaceData> commands)
     {
         PhraseCorrection correction = new(data.InputPhrase);
         PhraseCorrectionOutput output = new();
@@ -13,4 +17,3 @@ public class PhraseCorrectionResolver : ProblemResolver<PhraseCorrectionInputDat
         return output;
     }
 }
-

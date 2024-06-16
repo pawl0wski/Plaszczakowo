@@ -17,8 +17,8 @@ window.enableCanvasZoom = function () {
     })
 }
 
-window.scrollTextList = function(offset) {
+window.scrollTextList = function (offset) {
     let element = document.querySelector("div.text-list");
     console.log(element);
-    element.scrollLeft =  (offset - Math.floor(window.innerWidth / 2 / 100)) * 100;
+    element.scrollLeft = (offset - Math.floor(window.innerWidth / 2 / 100)) * 100;
 }

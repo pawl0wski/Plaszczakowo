@@ -10,7 +10,7 @@
     [Parameter] public required string FilePath { get; set; }
 
     [Parameter] public bool? Selected { get; set; }
-    
+
     private string GetFileName()
     {
         return Path.GetFileNameWithoutExtension(FilePath);

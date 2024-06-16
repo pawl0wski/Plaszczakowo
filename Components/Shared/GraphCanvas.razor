@@ -1,8 +1,9 @@
-@using Drawer.GraphDrawer
+@using Plaszczakowo.Drawer.GraphDrawer
+@using Plaszczakowo.Drawer.GraphDrawer.Images
 @inject IJSRuntime JsRuntime;
 @rendermode InteractiveServer
 
-<GraphCanvasImages @ref="_provider" />
+<GraphCanvasImages @ref="_provider"/>
 <div class="canvas_wrapper">
     <BECanvas Width="CanvasWidth ?? 2560" Height="CanvasHeight ?? 1080" @ref="_canvasReference"/>
 </div>
@@ -18,7 +19,7 @@
     [Parameter] public bool EnableZoom { get; set; } = true;
 
     private IGraphVertexImageProvider? _provider;
-    
+
     private BECanvasComponent? _canvasReference;
 
     private Canvas2DContext? _context;
@@ -34,7 +35,7 @@
 
             _context = await _canvasReference.CreateCanvas2DAsync();
             _drawer = new GraphDrawer(_context, Data);
-            
+
             _drawer.UpdateVertexImages(_provider!);
             await _drawer!.Draw();
         }

@@ -1,6 +1,7 @@
-using Drawer;
+using Plaszczakowo.Drawer;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProblemResolver;
+namespace Plaszczakowo.ProblemResolver;
 
 /*
     Klasa odpowiedzialna za rozwiązanie problemu.

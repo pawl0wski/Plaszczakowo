@@ -1,4 +1,4 @@
-namespace Drawer.TextReplaceDrawer.States;
+namespace Plaszczakowo.Drawer.TextReplaceDrawer.States;
 
 public class TextReplaceStateIncorrect : TextReplaceState
 {
@@ -17,5 +17,4 @@ public class TextReplaceStateIncorrect : TextReplaceState
     {
         return true;
     }
-
 }

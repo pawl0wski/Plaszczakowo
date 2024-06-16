@@ -1,4 +1,4 @@
-@using Drawer.GraphDrawer
+@using Plaszczakowo.Drawer.GraphDrawer
 @inherits VisualizerComponentBase<GraphData>
 
 <div class="visualizer_player">
@@ -17,9 +17,9 @@
 </div>
 
 @code {
-    [Parameter] public int? CanvasWidth { get; set; } 
-    
-    [Parameter] public int? CanvasHeight { get; set; } 
+    [Parameter] public int? CanvasWidth { get; set; }
+
+    [Parameter] public int? CanvasHeight { get; set; }
 
     private GraphData? _currentGraphData;
 

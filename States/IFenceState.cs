@@ -1,7 +1,8 @@
-using Drawer.GraphDrawer;
-using Problem.FenceTransport;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Problems.FenceTransport.Input;
+using Plaszczakowo.Problems.FenceTransport.Output;
 
-namespace ProjektZaliczeniowy_AiSD2.States;
+namespace Plaszczakowo.States;
 
 public interface IFenceState
 {

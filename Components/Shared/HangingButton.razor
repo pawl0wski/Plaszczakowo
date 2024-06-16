@@ -8,6 +8,7 @@
 
 
 @code {
+
     public enum HangingButtonPosition
     {
         Left = 0,
@@ -15,7 +16,7 @@
     }
 
     [Parameter] public RenderFragment? ChildContent { get; set; }
-    
+
     [Parameter] public HangingButtonPosition? ButtonPosition { get; set; }
 
 
@@ -29,6 +30,9 @@
     {
     }
 
-    protected virtual string GetButtonContent() => "Kliknij mnie!";
+    protected virtual string GetButtonContent()
+    {
+        return "Kliknij mnie!";
+    }
 
 }

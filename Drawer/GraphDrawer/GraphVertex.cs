@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Plaszczakowo.Drawer.GraphDrawer.Images;
+using Plaszczakowo.Drawer.GraphDrawer.States;
 
-namespace Drawer.GraphDrawer;
+namespace Plaszczakowo.Drawer.GraphDrawer;
 
 public class GraphVertex : ICloneable
 {
@@ -20,15 +21,15 @@ public class GraphVertex : ICloneable
         VertexImage = vertexImage;
     }
 
-    public void FillImageWithProvider(IGraphVertexImageProvider provider)
-    {
-        ArgumentNullException.ThrowIfNull(VertexImage);
-        
-        VertexImage.FillWithProvider(provider);
-    }
-
     public object Clone()
     {
         return new GraphVertex(X, Y, Value, State, VertexImage);
+    }
+
+    public void FillImageWithProvider(IGraphVertexImageProvider provider)
+    {
+        ArgumentNullException.ThrowIfNull(VertexImage);
+
+        VertexImage.FillWithProvider(provider);
     }
 }

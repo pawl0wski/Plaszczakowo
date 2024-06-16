@@ -1,13 +1,15 @@
 @page "/convex_hull_output"
-@using Drawer.GraphDrawer
-@using Problem.FenceTransport
-@using ProjektZaliczeniowy_AiSD2.States
+
+@using Plaszczakowo.Drawer.GraphDrawer
+@using Plaszczakowo.Problems.FenceTransport.Input
+@using Plaszczakowo.Problems.FenceTransport.Output
+@using Plaszczakowo.States
 @inherits ProblemOutputBase<ConvexHullOutput>
 
 @inject NavigationManager Navigation
 @inject IFenceState FenceState
 
-<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left" />
+<ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
 <div class="convex_hull">
     <div class="title">
         <WoodenTitle>Otoczka wypukła</WoodenTitle>
@@ -45,18 +47,18 @@
 
     private void GetConvexHullGraphData()
     {
-        if (_outputData is not null && _inputData is not null) 
+        if (_outputData is not null && _inputData is not null)
             ConvexHull = _outputData.ToGraphData(_inputData, false);
     }
-    
+
     private void SaveFenceToFenceState()
     {
         FenceState.SetFence(_inputData!, _outputData!);
     }
-    
+
     private void NextProblem()
     {
         Navigation.NavigateTo("fence_transport");
     }
-    
+
 }

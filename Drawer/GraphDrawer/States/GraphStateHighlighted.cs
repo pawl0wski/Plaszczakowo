@@ -1,12 +1,24 @@
-namespace Drawer.GraphDrawer;
+namespace Plaszczakowo.Drawer.GraphDrawer.States;
 
 public class GraphStateHighlighted : GraphState
 {
-    public override string GetPrimaryColor() => "blue";
+    public override string GetPrimaryColor()
+    {
+        return "blue";
+    }
 
-    public override string GetSecondaryColor() => "white";
+    public override string GetSecondaryColor()
+    {
+        return "white";
+    }
 
-    public override string GetThroughputColor() => "#5454ff";
+    public override string GetThroughputColor()
+    {
+        return "#5454ff";
+    }
 
-    public override int GetLineWidth() => 3;
+    public override int GetLineWidth()
+    {
+        return 3;
+    }
 }

@@ -1,13 +1,12 @@
-using Drawer.TextReplaceDrawer;
+using Plaszczakowo.Drawer.TextReplaceDrawer;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class ChangeCharCommand(int id, char newChar) :
- ProblemVisualizerCommand<TextReplaceData>
+    ProblemVisualizerCommand<TextReplaceData>
 {
-    public readonly int Id = id;
-    
     public readonly char Char = newChar;
+    public readonly int Id = id;
 
     public override void Execute(ref TextReplaceData data)
     {

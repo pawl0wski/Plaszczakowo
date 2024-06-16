@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods;
+namespace Plaszczakowo.Components.Pages.Input.InputMethods;
 
 public class InputMethodBase : ComponentBase
 {

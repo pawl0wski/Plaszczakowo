@@ -1,7 +1,8 @@
 @page "/input/file/{ProblemName}"
+
 @using ElectronNET.API
 @using ElectronNET.API.Entities
-@using ProjektZaliczeniowy_AiSD2.States
+@using Plaszczakowo.States
 @inherits InputMethodBase;
 @inject NavigationManager Navigator
 @inject IProblemState ProblemState;
@@ -23,8 +24,10 @@
     </div>
     <div class="buttons">
         <OldButton @onclick="GetFile">Wybierz inny plik</OldButton>
-        <OldButton Disabled="_selectedFile is null" 
-            @onclick="ReadFileAndGoToProblemPage">Wczytaj</OldButton>
+        <OldButton Disabled="_selectedFile is null"
+                   @onclick="ReadFileAndGoToProblemPage">
+            Wczytaj
+        </OldButton>
     </div>
 </div>
 
@@ -74,7 +77,7 @@
         var files = await Electron.Dialog.ShowOpenDialogAsync(currentBrowserWindow, dialogOptions);
         if (files is null || files.Length == 0)
             return;
-        
+
         var file = files.First();
         File.Copy(file, Path.Join(GetProblemPath(), Path.GetFileName(file)));
         StateHasChanged();

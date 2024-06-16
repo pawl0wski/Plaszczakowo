@@ -1,6 +1,6 @@
-using ProblemResolver;
+using Plaszczakowo.ProblemResolver;
 
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport.Output;
 
 public record CarrierAssignmentOutput : ProblemOutput
 {

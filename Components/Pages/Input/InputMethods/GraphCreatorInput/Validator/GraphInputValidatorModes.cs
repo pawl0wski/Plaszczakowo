@@ -1,4 +1,4 @@
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
+namespace Plaszczakowo.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
 
 [Flags]
 public enum GraphInputValidatorModes
@@ -8,5 +8,5 @@ public enum GraphInputValidatorModes
     EverythingConnected = 4,
     ShouldHave3Vertices = 8,
     ShouldHaveSpecialVertex = 16,
-    EveryVertexShouldHaveValue = 32,
+    EveryVertexShouldHaveValue = 32
 }

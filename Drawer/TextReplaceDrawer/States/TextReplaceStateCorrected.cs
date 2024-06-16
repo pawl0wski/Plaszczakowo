@@ -1,4 +1,5 @@
-namespace Drawer.TextReplaceDrawer.States;
+namespace Plaszczakowo.Drawer.TextReplaceDrawer.States;
+
 public class TextReplaceStateCorrected : TextReplaceState
 {
     public override string GetFontColor()
@@ -15,5 +16,4 @@ public class TextReplaceStateCorrected : TextReplaceState
     {
         return true;
     }
-
 }

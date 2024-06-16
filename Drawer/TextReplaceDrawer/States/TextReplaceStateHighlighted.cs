@@ -1,4 +1,4 @@
-namespace Drawer.TextReplaceDrawer.States;
+namespace Plaszczakowo.Drawer.TextReplaceDrawer.States;
 
 public class TextReplaceStateHighlighted : TextReplaceState
 {
@@ -15,7 +15,5 @@ public class TextReplaceStateHighlighted : TextReplaceState
     public override bool IsBold()
     {
         return true;
-        
     }
-
 }

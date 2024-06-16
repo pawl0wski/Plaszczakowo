@@ -1,7 +1,7 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
-using Microsoft.AspNetCore.Components;
+using Plaszczakowo.Drawer.GraphDrawer.Images;
 
-namespace Drawer.GraphDrawer;
+namespace Plaszczakowo.Drawer.GraphDrawer;
 
 public class GraphDrawer : Drawer
 {
@@ -99,12 +99,9 @@ public class GraphDrawer : Drawer
         {
             await DrawCircleOutline(v);
             await DrawCircle(v);
-        } 
-        
-        if (v.VertexImage != null)
-        {
-            await DrawImageFromRef(v);
         }
+
+        if (v.VertexImage != null) await DrawImageFromRef(v);
 
         await FillVertexTextContent(v);
     }

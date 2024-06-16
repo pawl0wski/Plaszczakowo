@@ -1,32 +1,21 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Problem.GuardSchedule;
+namespace Plaszczakowo.Problems.GuardSchedule.Input;
 
 public record Plaszczak : IComparable<Plaszczak>
 {
-   private static readonly Random Random = new();
-
-    public int CurrentVertexIndex { get; set; }
-    public int CurrentVertexValue { get; set; }
-    public int Energy { get; set; }
-    public int Index { get; set; }
-    public int MaxEnergy { get; set; }
-    public int Melody { get; set; }
-    public int NextVertexValue { get; set; }
-
-    public int PreviousVertexValue { get; set; }
-    public int Steps { get; set; }
+    private static readonly Random Random = new();
 
     public Plaszczak(int energyMax)
     {
-        var RandomEnergy = Random.Next(0, energyMax + 1);
-        MaxEnergy = RandomEnergy;
-        Energy = RandomEnergy;
+        var randomEnergy = Random.Next(0, energyMax + 1);
+        MaxEnergy = randomEnergy;
+        Energy = randomEnergy;
         Melody = 0;
         Steps = 0;
     }
 
-    public Plaszczak (int energy, int melody = 0, int steps = 0)
+    public Plaszczak(int energy, int melody = 0, int steps = 0)
     {
         MaxEnergy = energy;
         Energy = energy;
@@ -34,8 +23,8 @@ public record Plaszczak : IComparable<Plaszczak>
         Steps = steps;
     }
 
-    [JsonConstructorAttribute]
-    public Plaszczak(int CurrentVertexIndex, int CurrentVertexValue, int Energy, int Index, 
+    [JsonConstructor]
+    public Plaszczak(int CurrentVertexIndex, int CurrentVertexValue, int Energy, int Index,
         int MaxEnergy, int Melody, int NextVertexValue, int PreviousVertexValue, int Steps)
     {
         this.CurrentVertexIndex = CurrentVertexIndex;
@@ -49,6 +38,17 @@ public record Plaszczak : IComparable<Plaszczak>
         this.Steps = Steps;
     }
 
+    public int CurrentVertexIndex { get; set; }
+    public int CurrentVertexValue { get; set; }
+    public int Energy { get; set; }
+    public int Index { get; set; }
+    public int MaxEnergy { get; set; }
+    public int Melody { get; set; }
+    public int NextVertexValue { get; set; }
+
+    public int PreviousVertexValue { get; set; }
+    public int Steps { get; set; }
+
     public int CompareTo(Plaszczak? other)
     {
         if (other == null)
@@ -60,7 +60,6 @@ public record Plaszczak : IComparable<Plaszczak>
 
     public bool IsGuard(int maxEnergy)
     {
-        if (MaxEnergy >= maxEnergy) return true;
-        return false;
+        return MaxEnergy >= maxEnergy;
     }
 }

@@ -1,15 +1,16 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class ChangeTextCommand(int index, string text, int x, int y, GraphState? state = null)
     : ProblemVisualizerCommand<GraphData>
 {
     public readonly int Index = index;
+    public readonly GraphState? State = state;
     public readonly string Text = text;
     public readonly int X = x;
     public readonly int Y = y;
-    public readonly GraphState? State = state;
 
     public override void Execute(ref GraphData data)
     {

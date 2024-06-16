@@ -2,9 +2,9 @@ div.guard_schedule {
     width: 100vw;
     height: 100vh;
     background: url("img/background/wall_background.png");
-    
+
     padding-top: 2rem;
-    
+
 }
 
 div.table_wrapper {
@@ -18,13 +18,13 @@ div.board {
     height: 35rem;
 
     padding: 4rem 5rem;
-    
+
     margin-left: auto;
     margin-right: auto;
 
     background: url("img/board.png") center;
     background-size: contain;
-    
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -56,7 +56,7 @@ table, td, th {
     text-align: center;
 }
 
-div.next_button {
+div.return_button {
     position: fixed;
     bottom: 1rem;
     right: 1rem;

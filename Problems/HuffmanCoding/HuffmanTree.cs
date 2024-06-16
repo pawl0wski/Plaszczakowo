@@ -1,15 +1,15 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemVisualizer.Commands;
 
-namespace Problem.HuffmanCoding;
-
-using ProblemResolver;
-using ProblemVisualizer.Commands;
+namespace Plaszczakowo.Problems.HuffmanCoding;
 
 public class HuffmanTree
 {
-    List<Node> _minHeap = new();
     private const int ScreenWidth = 1280;
     private const int ScreenHeight = 720;
+    private readonly List<Node> _minHeap = [];
 
     public Node GenerateHuffmanTree(Dictionary<char, int> letterAppearances,
         ref ProblemRecreationCommands<GraphData> commands)
@@ -21,10 +21,7 @@ public class HuffmanTree
 
     private void GenerateMinHeap(Dictionary<char, int> letterAppearances)
     {
-        foreach (var letter in letterAppearances.Keys)
-        {
-            _minHeap.Add(new(letter, letterAppearances[letter], false));
-        }
+        foreach (var letter in letterAppearances.Keys) _minHeap.Add(new Node(letter, letterAppearances[letter], false));
 
         _minHeap.Sort();
     }
@@ -115,9 +112,11 @@ public class HuffmanTree
                 if (node.Right != null)
                     next.Push(node.Right);
             }
+
             (current, next) = (next, current);
             level++;
         }
+
         return level;
     }
 }

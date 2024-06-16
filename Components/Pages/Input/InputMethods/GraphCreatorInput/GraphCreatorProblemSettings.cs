@@ -1,6 +1,6 @@
-using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
+using Plaszczakowo.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput;
+namespace Plaszczakowo.Components.Pages.Input.InputMethods.GraphCreatorInput;
 
 public record GraphCreatorProblemSettings
 {

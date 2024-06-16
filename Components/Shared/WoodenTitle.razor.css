@@ -3,11 +3,11 @@ div.title {
     height: 5rem;
     background: url("img/title.png") no-repeat;
     background-size: contain;
-    
+
     margin-left: auto;
     margin-right: auto;
-    
-    
+
+
     display: flex;
     justify-content: center;
     align-items: center;

@@ -1,13 +1,15 @@
 @page "/convex_hull";
-@using Problem.FenceTransport;
-@inherits ProblemComponentBase<FenceTransportInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
+
+@using Plaszczakowo.Problems.FenceTransport
+@using Plaszczakowo.Problems.FenceTransport.Input
+@inherits ProblemComponentBase<FenceTransportInputData, Plaszczakowo.Problems.FenceTransport.Output.ConvexHullOutput, Plaszczakowo.Drawer.GraphDrawer.GraphData>
 
 <div class="map-background">
     @if (Executor is not null)
     {
-      <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
-      <ReturnButton/>
-      <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.ConvexHull"/>
+        <GraphVisualizer Snapshots="Executor.GetSnapshots()"/>
+        <ReturnButton/>
+        <OutputButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ButtonProblem="OutputButton.OutputButtonProblem.ConvexHull"/>
     }
 </div>
 

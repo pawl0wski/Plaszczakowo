@@ -1,6 +1,7 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class ChangeEdgeStateCommand(int id, GraphState state)
     : ProblemVisualizerCommand<GraphData>
@@ -10,10 +11,7 @@ public class ChangeEdgeStateCommand(int id, GraphState state)
 
     public override void Execute(ref GraphData data)
     {
-        if (Id > data.Edges.Count || Id < 0) 
-        {
-            return;
-        }
+        if (Id > data.Edges.Count || Id < 0) return;
         data.ChangeEdgeState(Id, State);
     }
 }

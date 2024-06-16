@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input;
+namespace Plaszczakowo.Components.Pages.Input;
 
 public class InputChoiceBase : ComponentBase
 {

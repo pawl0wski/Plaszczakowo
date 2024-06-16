@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.SignalR;
-using ProblemResolver;
-namespace Problem.HuffmanCoding;
+using Plaszczakowo.ProblemResolver;
+
+namespace Plaszczakowo.Problems.HuffmanCoding.Output;
 
 public record HuffmanCodingOutput : ProblemOutput
 {
@@ -9,4 +9,3 @@ public record HuffmanCodingOutput : ProblemOutput
     public string InputPhrase { get; set; } = "";
     public Dictionary<char, string> HuffmanDictionary { get; set; } = new();
 }
-

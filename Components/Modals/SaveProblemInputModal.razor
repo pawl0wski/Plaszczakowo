@@ -1,4 +1,4 @@
-@using ProjektZaliczeniowy_AiSD2.States
+@using Plaszczakowo.States
 @inject IProblemState ProblemState
 
 <div class="save_input">
@@ -24,4 +24,5 @@
         File.WriteAllText(Path.Join(problemPath, $"{_fileName}.json"), ProblemState.GetProblemJsonInputData());
         BlazoredModal.CloseAsync();
     }
+
 }

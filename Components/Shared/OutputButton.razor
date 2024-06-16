@@ -7,34 +7,36 @@
 }
 
 @code {
+
     public enum OutputButtonProblem
     {
-        [Description("guard_schedule_output")]
-        GuardSchedule,
+        [Description("guard_schedule_output")] GuardSchedule,
 
         [Description("carrier_assignment_output")]
         CarrierAssignment,
-        
-        [Description("convex_hull_output")]
-        ConvexHull,
+
+        [Description("convex_hull_output")] ConvexHull,
 
         [Description("fence_transport_output")]
         FenceTransport,
 
         [Description("phrase_correction_output")]
         PhraseCorrection,
-        
-        [Description("huffman_coding_output")]
-        HuffmanCoding
+
+        [Description("huffman_coding_output")] HuffmanCoding
     }
 
     [Parameter] public OutputButtonProblem ButtonProblem { get; set; }
-    
+
     protected override void OnHangingButtonClick()
     {
         var problem = ButtonProblem.GetDescription();
         Navigation.NavigateTo(problem);
     }
 
-    protected override string GetButtonContent() => "Wynik";
+    protected override string GetButtonContent()
+    {
+        return "Wynik";
+    }
+
 }

@@ -1,8 +1,9 @@
 using Blazored.Modal;
 using BlazorTransitionableRoute;
 using ElectronNET.API;
-using ProjektZaliczeniowy_AiSD2.States;
-using App = ProjektZaliczeniowy_AiSD2.Components.App;
+using Plaszczakowo;
+using Plaszczakowo.States;
+using App = Plaszczakowo.Components.App;
 
 /*
     Tworzenie instancji klasy odpowiedzialnej

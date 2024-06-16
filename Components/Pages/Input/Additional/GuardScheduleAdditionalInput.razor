@@ -1,14 +1,11 @@
 ﻿@page "/input/additional/guard_schedule"
-
-@using Problem.GuardSchedule
-@using System.Text.Json
-@using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.Additional.Components
+@using Plaszczakowo.Problems.GuardSchedule.Input
 @inherits AdditionalInputBase<GuardScheduleInputData>
 @inject NavigationManager Navigator
 
 <div class="guard_schedule_additional_input">
     <WoodenTitle>Powołane płaszczaki</WoodenTitle>
-    
+
     <div class="plaszczak_entry_wrapper">
         @if (ProblemInput is not null)
         {
@@ -20,10 +17,9 @@
         <hr/>
         @foreach (var plaszczak in ProblemInput?.Plaszczaki ?? [])
         {
-            <PlaszczakEntry 
+            <PlaszczakEntry
                 Plaszczak="plaszczak"
-                OnRemove="RemovePlaszczak"
-                />
+                OnRemove="RemovePlaszczak"/>
         }
     </div>
     <div class="add_plaszczak">
@@ -51,14 +47,14 @@
         if (ProblemInput is null)
             return;
 
-        ProblemInput.Plaszczaki.Add(new Plaszczak(0, 0, 0));
+        ProblemInput.Plaszczaki.Add(new Plaszczak(0, 0));
         FixIndexing();
     }
 
     void RemovePlaszczak(Plaszczak plaszczak)
     {
         ProblemInput?.Plaszczaki.Remove(plaszczak);
-        
+
         StateHasChanged();
 
         FixIndexing();
@@ -70,7 +66,7 @@
             return;
 
         ProblemInput.Plaszczaki = [];
-        
+
         var randomPlaszczakAmount = _random.Next(1, 20);
 
         var randomMaxSteps = _random.Next(1, 6);
@@ -79,7 +75,7 @@
         for (var i = 0; i < randomPlaszczakAmount; i++)
         {
             var randomPlaszczakEnergy = _random.Next(1, 50);
-            ProblemInput.Plaszczaki.Add(new Plaszczak(randomPlaszczakEnergy, 0, 0));
+            ProblemInput.Plaszczaki.Add(new Plaszczak(randomPlaszczakEnergy, 0));
         }
 
         FixIndexing();
@@ -96,10 +92,11 @@
             id++;
         }
     }
-    
+
     private void GoToProblemPage()
     {
         ProblemState!.SetProblemInputData(ProblemInput!);
-        Navigator.NavigateTo($"/guard_schedule");
+        Navigator.NavigateTo("/guard_schedule");
     }
+
 }

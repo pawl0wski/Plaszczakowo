@@ -1,25 +1,28 @@
-﻿using Problem.GuardSchedule;
-using Problem.FenceTransport;
-using Problem.PhraseCorrection;
-using ProblemResolver.Graph;
-using System.Text.Json;
+﻿using System.Text.Json;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
+using Plaszczakowo.Problems.FenceTransport.Input;
+using Plaszczakowo.Problems.GuardSchedule.Input;
+using Plaszczakowo.Problems.PhraseCorrection.Input;
+
+namespace Plaszczakowo;
 
 public static class DefaultProblemInputProvider
 {
     private const string DemoFileName = "Przykladowy problem.json";
+
     public static void CreateDefaultFilesForProblems()
     {
         Directory.CreateDirectory(GetProblemPath(""));
         Directory.CreateDirectory(GetProblemPath("guard_schedule"));
         Directory.CreateDirectory(GetProblemPath("computer_science_machine"));
         Directory.CreateDirectory(GetProblemPath("carrier_assignment"));
-        
+
         if (!CheckIfFileExists("guard_schedule"))
             GenerateGuardScheduleFile();
-        
+
         if (!CheckIfFileExists("computer_science_machine"))
             GenerateComputerScienceMachineFile();
-        
+
         if (!CheckIfFileExists("carrier_assignment"))
             GenerateFenceTransportFile();
     }
@@ -39,21 +42,21 @@ public static class DefaultProblemInputProvider
 
     private static void GenerateGuardScheduleFile()
     {
-        string destinationFilePath = Path.Join(GetProblemPath("guard_schedule"), DemoFileName);
+        var destinationFilePath = Path.Join(GetProblemPath("guard_schedule"), DemoFileName);
 
-        List<ProblemVertex> problemVertices = 
+        List<ProblemVertex> problemVertices =
         [
             new ProblemVertex(0, 250, 320, 5, true),
-            new ProblemVertex(1, 450, 220, 10, false),
-            new ProblemVertex(2, 690, 230, 12, false),
-            new ProblemVertex(3, 840, 360, 10, false),
-            new ProblemVertex(4, 800, 440, 8, false),
-            new ProblemVertex(5, 650, 525, 17, false),
-            new ProblemVertex(6, 500, 520, 3, false),
-            new ProblemVertex(7, 310, 470, 13, false),
+            new ProblemVertex(1, 450, 220, 10),
+            new ProblemVertex(2, 690, 230, 12),
+            new ProblemVertex(3, 840, 360, 10),
+            new ProblemVertex(4, 800, 440, 8),
+            new ProblemVertex(5, 650, 525, 17),
+            new ProblemVertex(6, 500, 520, 3),
+            new ProblemVertex(7, 310, 470, 13)
         ];
 
-        List<ProblemEdge> problemEdges = 
+        List<ProblemEdge> problemEdges =
         [
             new ProblemEdge(0, 0, 1, null, true),
             new ProblemEdge(1, 1, 2, null, true),
@@ -62,40 +65,41 @@ public static class DefaultProblemInputProvider
             new ProblemEdge(4, 4, 5, null, true),
             new ProblemEdge(5, 5, 6, null, true),
             new ProblemEdge(6, 6, 7, null, true),
-            new ProblemEdge(7, 7, 0, null, true),
+            new ProblemEdge(7, 7, 0, null, true)
         ];
 
         List<Plaszczak> plaszczaki =
         [
-            new Plaszczak(25, 0, 0),
-            new Plaszczak(13, 0, 0),
-            new Plaszczak(15, 0, 0),
-            new Plaszczak(19, 0, 0),
-            new Plaszczak(23, 0, 0),
-            new Plaszczak(28, 0, 0),
-            new Plaszczak(3, 0, 0),
-            new Plaszczak(8, 0, 0),
-            new Plaszczak(37, 0, 0),
-            new Plaszczak(44, 0, 0),
+            new Plaszczak(25, 0),
+            new Plaszczak(13, 0),
+            new Plaszczak(15, 0),
+            new Plaszczak(19, 0),
+            new Plaszczak(23, 0),
+            new Plaszczak(28, 0),
+            new Plaszczak(3, 0),
+            new Plaszczak(8, 0),
+            new Plaszczak(37, 0),
+            new Plaszczak(44, 0)
         ];
 
         GuardScheduleInputData guardSchedule = new(problemVertices, problemEdges, plaszczaki, 3);
-        string jsonGuardSchedule = JsonSerializer.Serialize(guardSchedule);
+        var jsonGuardSchedule = JsonSerializer.Serialize(guardSchedule);
         File.WriteAllText(destinationFilePath, jsonGuardSchedule);
     }
 
     private static void GenerateComputerScienceMachineFile()
     {
-        string destinationFilePath = Path.Join(GetProblemPath("computer_science_machine"), DemoFileName);
-        string inputPhrase = "peter piper picked a picked pepper";
+        var destinationFilePath = Path.Join(GetProblemPath("computer_science_machine"), DemoFileName);
+        const string inputPhrase = "peter piper picked a picked pepper";
 
         PhraseCorrectionInputData computerScienceMachine = new(inputPhrase);
-        string jsonComputerScienceMachine = JsonSerializer.Serialize(computerScienceMachine);
+        var jsonComputerScienceMachine = JsonSerializer.Serialize(computerScienceMachine);
         File.WriteAllText(destinationFilePath, jsonComputerScienceMachine);
     }
+
     private static void GenerateFenceTransportFile()
     {
-        string destinationFilePath = Path.Join(GetProblemPath("carrier_assignment"), DemoFileName);
+        var destinationFilePath = Path.Join(GetProblemPath("carrier_assignment"), DemoFileName);
 
         List<Edge> relations =
         [
@@ -109,7 +113,7 @@ public static class DefaultProblemInputProvider
             new Edge(3, 8),
             new Edge(4, 6),
             new Edge(4, 11),
-            new Edge(5, 9),
+            new Edge(5, 9)
         ];
 
         List<ProblemVertex> vertices =
@@ -120,7 +124,7 @@ public static class DefaultProblemInputProvider
             new ProblemVertex(3, 600, 400, null),
             new ProblemVertex(4, 600, 700, null),
             new ProblemVertex(5, 50, 700, null),
-            new ProblemVertex(6, 800, 250, null),
+            new ProblemVertex(6, 800, 250, null)
         ];
 
         List<ProblemEdge> edges =
@@ -131,11 +135,11 @@ public static class DefaultProblemInputProvider
             new ProblemEdge(3, 2, 4),
             new ProblemEdge(4, 3, 4),
             new ProblemEdge(5, 3, 5),
-            new ProblemEdge(6, 4, 6),
+            new ProblemEdge(6, 4, 6)
         ];
 
         FenceTransportInputData carrierAssigment = new(6, 6, relations, vertices, edges, 3);
-        string jsonCarrierAssigment = JsonSerializer.Serialize(carrierAssigment);
+        var jsonCarrierAssigment = JsonSerializer.Serialize(carrierAssigment);
         File.WriteAllText(destinationFilePath, jsonCarrierAssigment);
     }
 }

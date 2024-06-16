@@ -1,15 +1,15 @@
 div.old_button {
     height: 3.7rem;
-    
+
     background-image: url("img/buttons/button.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    
+
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
     cursor: pointer;
     user-select: none;
 }

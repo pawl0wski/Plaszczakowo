@@ -1,6 +1,5 @@
 @page "/"
 @using ElectronNET.API
-@using ProjektZaliczeniowy_AiSD2.Components.Modals.Documentation
 @rendermode InteractiveServer
 
 <div class="welcome">
@@ -42,7 +41,7 @@
 
     private void ShowDocumentation()
     {
-        Modal.Show<Documentation>();
+        Modal.Show<DocumentationModal>();
     }
 
     private static void Exit()

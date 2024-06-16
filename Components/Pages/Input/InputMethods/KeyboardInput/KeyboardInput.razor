@@ -1,9 +1,8 @@
 @page "/input/keyboard/{ProblemName}"
 
-@using Problem.PhraseCorrection
-@using ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.KeyboardInput.Validator
-@using ProjektZaliczeniowy_AiSD2.States
-
+@using Plaszczakowo.Components.Pages.Input.InputMethods.KeyboardInput.Validator
+@using Plaszczakowo.Problems.PhraseCorrection.Input
+@using Plaszczakowo.States
 @inherits InputMethodBase;
 @inject NavigationManager Navigator;
 @inject IProblemState ProblemState;
@@ -11,18 +10,18 @@
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Right"></ReturnButton>
 <div class="keyboard_input">
     <WoodenTitle>Wprowadź tekst z klawiatury</WoodenTitle>
-    
+
     <div class="keyboard_input__input">
         <textarea @bind="_inputText"></textarea>
         <OldButton @onclick="GoToProblemPage">Wczytaj</OldButton>
     </div>
-    
+
 </div>
 
 @code {
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
     private string _inputText = "";
-        
+
     private PhraseCorrectionInputData PrepareInputData()
     {
         return new PhraseCorrectionInputData(_inputText.ToLower());
@@ -37,14 +36,15 @@
             ShowValidatorErrorModal(errors);
             return;
         }
+
         ProblemState.SetProblemInputData(input);
         Navigator.NavigateTo($"/{ProblemName}");
     }
-    
+
     private void ShowValidatorErrorModal(List<KeyboardInputError> errors)
     {
         var parameters = new ModalParameters().Add(nameof(KeyboardValidatorErrorsModal.Errors), errors);
-        Modal.Show<KeyboardValidatorErrorsModal>("", parameters, new ModalOptions() { Size = ModalSize.Medium });
+        Modal.Show<KeyboardValidatorErrorsModal>("", parameters, new ModalOptions { Size = ModalSize.Medium });
     }
 
 }

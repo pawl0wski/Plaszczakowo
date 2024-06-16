@@ -1,12 +1,14 @@
-using Drawer.TextReplaceDrawer;
-using Drawer.TextReplaceDrawer.States;
-using ProblemResolver;
-using ProblemVisualizer.Commands;
-namespace Problem.PhraseCorrection;
+using Plaszczakowo.Drawer.TextReplaceDrawer;
+using Plaszczakowo.Drawer.TextReplaceDrawer.States;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.Problems.PhraseCorrection.Output;
+using Plaszczakowo.ProblemVisualizer.Commands;
+
+namespace Plaszczakowo.Problems.PhraseCorrection;
 
 public class PhraseCorrection(string phrase)
 {
-    Dictionary<char, char> _correctLetters = new Dictionary<char, char>()
+    private readonly Dictionary<char, char> _correctLetters = new()
     {
         ['p'] = 'b',
         ['q'] = 'd',
@@ -20,9 +22,9 @@ public class PhraseCorrection(string phrase)
 
     private string _result = "", _phrase = phrase;
 
-    public void FixPhrase(string inputPhrase, ref PhraseCorrectionOutput output, ref ProblemRecreationCommands<TextReplaceData> commands)
+    public void FixPhrase(string inputPhrase, ref PhraseCorrectionOutput output,
+        ref ProblemRecreationCommands<TextReplaceData> commands)
     {
-        
         _phrase = inputPhrase;
         for (var i = 0; i < _phrase.Length; i++)
         {
@@ -42,11 +44,11 @@ public class PhraseCorrection(string phrase)
                 ChangeWithoutReplace(i);
                 commands.Add(new ChangeCharStateCommand(i, TextReplaceStates.Inactive));
             }
+
             commands.Add(new MoveTextToRightCommand());
-        } 
+        }
 
         output.FixedPhrase = _result;
-
     }
 
     private void ChangeAndReplace(int i)
@@ -59,4 +61,3 @@ public class PhraseCorrection(string phrase)
         _result += _phrase[i];
     }
 }
-
