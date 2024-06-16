@@ -1,8 +1,10 @@
-﻿using Problem.GuardSchedule;
-using Problem.FenceTransport;
-using Problem.PhraseCorrection;
-using ProblemResolver.Graph;
-using System.Text.Json;
+﻿using System.Text.Json;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
+using Plaszczakowo.Problems.FenceTransport.Input;
+using Plaszczakowo.Problems.GuardSchedule.Input;
+using Plaszczakowo.Problems.PhraseCorrection.Input;
+
+namespace Plaszczakowo;
 
 public static class DefaultProblemInputProvider
 {

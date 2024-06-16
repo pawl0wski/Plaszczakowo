@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Components;
-using ProblemResolver;
-using ProjektZaliczeniowy_AiSD2.States;
+using Plaszczakowo.ProblemResolver.ProblemInput;
+using Plaszczakowo.States;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.Additional;
+namespace Plaszczakowo.Components.Pages.Input.Additional;
 
 public abstract class AdditionalInputBase<TProblemInput> : ComponentBase
     where TProblemInput : ProblemInputData

@@ -1,7 +1,7 @@
-using Drawer.TextReplaceDrawer;
-using Drawer.TextReplaceDrawer.States;
+using Plaszczakowo.Drawer.TextReplaceDrawer;
+using Plaszczakowo.Drawer.TextReplaceDrawer.States;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class ChangeCharStateCommand(int id, TextReplaceState newState) 
     : ProblemVisualizerCommand<TextReplaceData>

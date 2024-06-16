@@ -1,4 +1,4 @@
-namespace Drawer.GraphDrawer;
+namespace Plaszczakowo.Drawer.GraphDrawer.Images;
 
 public static class GraphVertexImages
 {
@@ -13,8 +13,12 @@ public static class GraphVertexImages
     public static readonly GraphVertexPlaszczakSleepingImage PlaszczakSleeping = new();
 
     public static readonly GraphVertexPlaszczakiFenceImage PlaszczakiFence = new();
+    
     public static readonly GraphVertexFrontCarrierInactiveImage FrontCarrierInactiveImage = new();
+    
     public static readonly GraphVertexFrontCarrierActiveImage FrontCarrierActiveImage = new();
+    
     public static readonly GraphVertexRearCarrierInactiveImage RearCarrierInactiveImage = new();
+    
     public static readonly GraphVertexRearCarrierActiveImage RearCarrierActiveImage = new();
 }

@@ -1,8 +1,10 @@
-using Drawer.TextReplaceDrawer;
-using Drawer.TextReplaceDrawer.States;
-using ProblemResolver;
-using ProblemVisualizer.Commands;
-namespace Problem.PhraseCorrection;
+using Plaszczakowo.Drawer.TextReplaceDrawer;
+using Plaszczakowo.Drawer.TextReplaceDrawer.States;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.Problems.PhraseCorrection.Output;
+using Plaszczakowo.ProblemVisualizer.Commands;
+
+namespace Plaszczakowo.Problems.PhraseCorrection;
 
 public class PhraseCorrection(string phrase)
 {

@@ -1,6 +1,6 @@
-using ProblemResolver;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace Problem.PhraseCorrection;
+namespace Plaszczakowo.Problems.PhraseCorrection.Input;
 
 public record PhraseCorrectionInputData(string InputPhrase) : ProblemInputData
 {

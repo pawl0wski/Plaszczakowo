@@ -1,4 +1,4 @@
-namespace ProblemResolver;
+namespace Plaszczakowo.ProblemResolver.ProblemInput;
 
 /*
     Dane wejściowa dla ProblemResolver

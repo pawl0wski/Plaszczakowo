@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Problem.GuardSchedule;
+namespace Plaszczakowo.Problems.GuardSchedule.Input;
 
 public record Plaszczak : IComparable<Plaszczak>
 {
@@ -34,7 +34,7 @@ public record Plaszczak : IComparable<Plaszczak>
         Steps = steps;
     }
 
-    [JsonConstructorAttribute]
+    [JsonConstructor]
     public Plaszczak(int CurrentVertexIndex, int CurrentVertexValue, int Energy, int Index, 
         int MaxEnergy, int Melody, int NextVertexValue, int PreviousVertexValue, int Steps)
     {

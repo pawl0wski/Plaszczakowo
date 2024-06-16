@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Components;
-using ProblemResolver;
-using ProjektZaliczeniowy_AiSD2.States;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.States;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Output;
+namespace Plaszczakowo.Components.Pages.Output;
 
 public class ProblemOutputBase<TProblemOutput>  : ComponentBase
     where TProblemOutput : ProblemOutput

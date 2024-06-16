@@ -1,4 +1,6 @@
-﻿namespace Drawer.GraphDrawer;
+﻿using Plaszczakowo.Drawer.GraphDrawer.States;
+
+namespace Plaszczakowo.Drawer.GraphDrawer;
 
 public class GraphText : ICloneable
 {

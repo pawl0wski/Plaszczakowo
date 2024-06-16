@@ -1,7 +1,7 @@
 ﻿using Blazor.Extensions.Canvas.Canvas2D;
-using Microsoft.AspNetCore.Components;
+using Plaszczakowo.Drawer.GraphDrawer.Images;
 
-namespace Drawer.GraphDrawer;
+namespace Plaszczakowo.Drawer.GraphDrawer;
 
 public class GraphDrawer : Drawer
 {

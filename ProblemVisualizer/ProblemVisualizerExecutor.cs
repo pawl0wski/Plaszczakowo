@@ -1,7 +1,7 @@
-using Drawer;
-using ProblemResolver;
+using Plaszczakowo.Drawer;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProblemVisualizer;
+namespace Plaszczakowo.ProblemVisualizer;
 
 public class ProblemVisualizerExecutor<TInputData, TDrawerData>
     where TInputData : ProblemInputData

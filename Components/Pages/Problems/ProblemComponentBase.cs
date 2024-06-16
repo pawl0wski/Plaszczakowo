@@ -1,10 +1,11 @@
-using Drawer;
 using Microsoft.AspNetCore.Components;
-using ProblemResolver;
-using ProblemVisualizer;
-using ProjektZaliczeniowy_AiSD2.States;
+using Plaszczakowo.Drawer;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemResolver.ProblemInput;
+using Plaszczakowo.ProblemVisualizer;
+using Plaszczakowo.States;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Problems;
+namespace Plaszczakowo.Components.Pages.Problems;
 
 public abstract class ProblemComponentBase<TInputData, TOutputData, TDrawData> : ComponentBase
     where TInputData : ProblemInputData

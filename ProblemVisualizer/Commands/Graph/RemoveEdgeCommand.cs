@@ -1,7 +1,6 @@
-using Drawer.GraphDrawer;
-using Problem.FenceTransport;
+using Plaszczakowo.Drawer.GraphDrawer;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class RemoveEdgeCommand(int edgeIndex)
     : ProblemVisualizerCommand<GraphData>

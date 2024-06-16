@@ -1,9 +1,13 @@
-﻿using Drawer.GraphDrawer;
-using ProblemResolver;
-using ProblemResolver.Graph;
-using ProblemVisualizer.Commands;
+﻿using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.Images;
+using Plaszczakowo.Drawer.GraphDrawer.States;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
+using Plaszczakowo.Problems.GuardSchedule.Input;
+using Plaszczakowo.Problems.GuardSchedule.Output;
+using Plaszczakowo.ProblemVisualizer.Commands;
 
-namespace Problem.GuardSchedule;
+namespace Plaszczakowo.Problems.GuardSchedule;
 
 public class GuardScheduleResolver
     : ProblemResolver<GuardScheduleInputData, GuardScheduleOutput, GraphData>

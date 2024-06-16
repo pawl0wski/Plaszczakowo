@@ -1,7 +1,7 @@
-using Drawer;
-using ProblemVisualizer;
+using Plaszczakowo.Drawer;
+using Plaszczakowo.ProblemVisualizer;
 
-namespace ProblemResolver;
+namespace Plaszczakowo.ProblemResolver;
 
 public class ProblemRecreationCommands<TDrawData>
     where TDrawData : DrawerData

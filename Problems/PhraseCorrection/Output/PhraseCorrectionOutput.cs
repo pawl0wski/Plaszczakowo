@@ -1,6 +1,6 @@
-using ProblemResolver;
+using Plaszczakowo.ProblemResolver;
 
-namespace Problem.PhraseCorrection;
+namespace Plaszczakowo.Problems.PhraseCorrection.Output;
 
 public record PhraseCorrectionOutput : ProblemOutput
 {

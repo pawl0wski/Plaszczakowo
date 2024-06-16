@@ -1,7 +1,8 @@
-using Drawer.TextReplaceDrawer;
-using ProblemVisualizer;
+using Plaszczakowo.Drawer.TextReplaceDrawer;
+using Plaszczakowo.Problems.PhraseCorrection.Input;
+using Plaszczakowo.ProblemVisualizer;
 
-namespace Problem.PhraseCorrection;
+namespace Plaszczakowo.Problems.PhraseCorrection;
 
 public class FirstPhraseCorrectionSnapshotCreator(PhraseCorrectionInputData inputData)
     : FirstSnapshotCreator<PhraseCorrectionInputData, TextReplaceData>(inputData)

@@ -1,8 +1,12 @@
-using Drawer.GraphDrawer;
-using ProblemResolver;
-using ProblemVisualizer.Commands;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.Images;
+using Plaszczakowo.Drawer.GraphDrawer.States;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.Problems.FenceTransport.Input;
+using Plaszczakowo.Problems.FenceTransport.Output;
+using Plaszczakowo.ProblemVisualizer.Commands;
 
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport;
 
 public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData, CarrierAssignmentOutput, GraphData>
 {

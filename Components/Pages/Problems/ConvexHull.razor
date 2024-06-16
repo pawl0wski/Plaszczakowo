@@ -1,6 +1,11 @@
 @page "/convex_hull";
-@using Problem.FenceTransport;
-@inherits ProblemComponentBase<FenceTransportInputData, ConvexHullOutput, Drawer.GraphDrawer.GraphData>
+
+@using Plaszczakowo.Problems.FenceTransport
+@using Plaszczakowo.Problems.FenceTransport.Input
+@using Plaszczakowo.Problems.FenceTransport.Output
+@using Plaszczakowo.Drawer.GraphDrawer
+
+@inherits ProblemComponentBase<FenceTransportInputData, ConvexHullOutput, GraphData>
 
 <div class="map-background">
     @if (Executor is not null)

@@ -1,6 +1,6 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
 
-namespace ProblemResolver.Graph;
+namespace Plaszczakowo.ProblemResolver.ProblemGraph;
 
 public record ProblemGraphThroughput(int Flow, int Capacity)
 {

@@ -1,6 +1,6 @@
-using ProblemResolver.Graph;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
 
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport.Output;
 
 public class Carrier (int Id, ProblemVertex Position) {
     public int Id { get; set; } = Id;

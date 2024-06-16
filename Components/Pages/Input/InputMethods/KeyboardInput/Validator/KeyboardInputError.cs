@@ -1,4 +1,4 @@
-﻿namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.KeyboardInput.Validator;
+﻿namespace Plaszczakowo.Components.Pages.Input.InputMethods.KeyboardInput.Validator;
 
 public record KeyboardInputError(string Content)
 {

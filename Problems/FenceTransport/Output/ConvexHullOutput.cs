@@ -1,7 +1,8 @@
-using Drawer.GraphDrawer;
-using ProblemResolver;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.Problems.FenceTransport.Input;
 
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport.Output;
 
 public record ConvexHullOutput : ProblemOutput
 {

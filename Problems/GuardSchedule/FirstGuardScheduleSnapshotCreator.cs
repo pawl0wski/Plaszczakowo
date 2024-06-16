@@ -1,9 +1,10 @@
-﻿using Drawer.GraphDrawer;
-using ProblemResolver.Converters;
-using ProblemResolver.Graph;
-using ProblemVisualizer;
+﻿using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
+using Plaszczakowo.ProblemResolver.Converters;
+using Plaszczakowo.Problems.GuardSchedule.Input;
+using Plaszczakowo.ProblemVisualizer;
 
-namespace Problem.GuardSchedule;
+namespace Plaszczakowo.Problems.GuardSchedule;
 
 public class FirstGuardScheduleSnapshotCreator(GuardScheduleInputData inputData)
     : FirstSnapshotCreator<GuardScheduleInputData, GraphData>(inputData)

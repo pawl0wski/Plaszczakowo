@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.SignalR;
-using ProblemResolver;
-namespace Problem.HuffmanCoding;
+using Plaszczakowo.ProblemResolver;
+
+namespace Plaszczakowo.Problems.HuffmanCoding.Output;
 
 public record HuffmanCodingOutput : ProblemOutput
 {

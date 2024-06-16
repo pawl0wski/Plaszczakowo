@@ -1,6 +1,11 @@
 @page "/fence_transport"
-@using Problem.FenceTransport;
-@inherits ProblemComponentBase<FenceTransportInputData, FenceTransportOutput, Drawer.GraphDrawer.GraphData>
+
+@using Plaszczakowo.Problems.FenceTransport
+@using Plaszczakowo.Problems.FenceTransport.Input
+@using Plaszczakowo.Problems.FenceTransport.Output
+@using Plaszczakowo.Drawer.GraphDrawer
+
+@inherits ProblemComponentBase<FenceTransportInputData, FenceTransportOutput, GraphData>
 
 <div class="map-background">
     @if (Executor is not null)

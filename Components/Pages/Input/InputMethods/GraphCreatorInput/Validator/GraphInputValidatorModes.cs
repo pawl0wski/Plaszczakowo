@@ -1,4 +1,4 @@
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
+namespace Plaszczakowo.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
 
 [Flags]
 public enum GraphInputValidatorModes

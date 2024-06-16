@@ -1,6 +1,7 @@
-using ProblemResolver;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProjektZaliczeniowy_AiSD2.States;
+namespace Plaszczakowo.States;
 
 public interface IProblemState
 {

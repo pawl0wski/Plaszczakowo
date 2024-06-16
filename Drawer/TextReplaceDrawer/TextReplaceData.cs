@@ -1,4 +1,4 @@
-namespace Drawer.TextReplaceDrawer;
+namespace Plaszczakowo.Drawer.TextReplaceDrawer;
 
 public class TextReplaceData : DrawerData
 {

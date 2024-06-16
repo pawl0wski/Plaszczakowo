@@ -1,4 +1,4 @@
-namespace ProblemResolver.Graph;
+namespace Plaszczakowo.ProblemResolver.ProblemGraph;
 
 public record ProblemEdge(int Id, int From, int To, ProblemGraphThroughput? Throughput = null, bool Directed = false)
 

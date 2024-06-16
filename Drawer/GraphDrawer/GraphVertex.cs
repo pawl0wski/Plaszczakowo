@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Plaszczakowo.Drawer.GraphDrawer.Images;
+using Plaszczakowo.Drawer.GraphDrawer.States;
 
-namespace Drawer.GraphDrawer;
+namespace Plaszczakowo.Drawer.GraphDrawer;
 
 public class GraphVertex : ICloneable
 {

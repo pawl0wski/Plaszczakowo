@@ -1,6 +1,7 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class ChangeTextCommand(int index, string text, int x, int y, GraphState? state = null)
     : ProblemVisualizerCommand<GraphData>

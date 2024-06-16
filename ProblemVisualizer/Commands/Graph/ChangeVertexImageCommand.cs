@@ -1,6 +1,7 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.Images;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class ChangeVertexImageCommand(int id, GraphVertexImage image)
     : ProblemVisualizerCommand<GraphData>

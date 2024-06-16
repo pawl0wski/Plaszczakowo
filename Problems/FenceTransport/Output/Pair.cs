@@ -1,4 +1,4 @@
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport.Output;
 
 public record Pair (int First, int Second) {
     public int First { get; set; } = First;

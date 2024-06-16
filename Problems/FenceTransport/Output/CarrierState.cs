@@ -1,4 +1,4 @@
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport.Output;
 
 public enum CarrierState {
     Delivering,

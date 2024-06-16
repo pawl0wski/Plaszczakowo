@@ -1,15 +1,9 @@
-﻿namespace Drawer.GraphDrawer;
+﻿namespace Plaszczakowo.Drawer.GraphDrawer;
 
-public class GraphThroughput
+public class GraphThroughput(int flow, int capacity = -1)
 {
-    public int Flow;
-    public int Capacity;
-
-    public GraphThroughput(int flow, int capacity = -1)
-    {
-        Flow = flow;
-        Capacity = capacity;
-    }
+    public int Flow = flow;
+    public int Capacity = capacity;
 
     public override string ToString()
     {

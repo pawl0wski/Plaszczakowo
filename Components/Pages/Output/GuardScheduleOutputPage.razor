@@ -1,6 +1,7 @@
 ﻿@page "/guard_schedule_output"
-@using Problem.GuardSchedule
-@inherits ProblemOutputBase<GuardScheduleOutput>
+@using Plaszczakowo.Problems.GuardSchedule.Input
+
+@inherits ProblemOutputBase<Plaszczakowo.Problems.GuardSchedule.Output.GuardScheduleOutput>
 @inject NavigationManager Navigator
 
 <SaveButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ProblemName="guard_schedule" />

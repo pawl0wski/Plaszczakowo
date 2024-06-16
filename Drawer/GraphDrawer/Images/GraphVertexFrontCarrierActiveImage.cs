@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace Drawer.GraphDrawer;
+namespace Plaszczakowo.Drawer.GraphDrawer.Images;
 
 public class GraphVertexFrontCarrierActiveImage : GraphVertexImage
 {

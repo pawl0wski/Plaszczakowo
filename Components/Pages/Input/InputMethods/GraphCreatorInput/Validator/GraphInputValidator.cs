@@ -1,7 +1,7 @@
-using ProblemResolver;
-using ProblemResolver.Graph;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
+namespace Plaszczakowo.Components.Pages.Input.InputMethods.GraphCreatorInput.Validator;
 
 public static class GraphInputValidator
 {

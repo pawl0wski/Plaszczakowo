@@ -1,6 +1,6 @@
-using Drawer.TextReplaceDrawer.States;
+using Plaszczakowo.Drawer.TextReplaceDrawer.States;
 
-namespace Drawer.TextReplaceDrawer;
+namespace Plaszczakowo.Drawer.TextReplaceDrawer;
 
 public class TextReplaceChar (char content, TextReplaceState? state = null) : ICloneable {
     public char Content = content;

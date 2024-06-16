@@ -1,4 +1,4 @@
-namespace ProblemVisualizer;
+namespace Plaszczakowo.ProblemVisualizer;
 
 public class ProblemVisualizerSnapshots<TDrawerData>
     : List<TDrawerData>

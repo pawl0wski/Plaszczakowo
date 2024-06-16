@@ -1,6 +1,6 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
 
-namespace ProblemVisualizer.Commands;
+namespace Plaszczakowo.ProblemVisualizer.Commands;
 
 public class ChangeVertexValueCommand(int id, string value)
     : ProblemVisualizerCommand<GraphData>

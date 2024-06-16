@@ -1,9 +1,9 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemVisualizer.Commands;
 
-namespace Problem.HuffmanCoding;
-
-using ProblemResolver;
-using ProblemVisualizer.Commands;
+namespace Plaszczakowo.Problems.HuffmanCoding;
 
 public class HuffmanTree
 {

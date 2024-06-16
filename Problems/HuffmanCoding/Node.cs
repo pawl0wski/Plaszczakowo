@@ -1,4 +1,4 @@
-namespace Problem.HuffmanCoding;
+namespace Plaszczakowo.Problems.HuffmanCoding;
 
 public class Node : IComparable<Node>
 {

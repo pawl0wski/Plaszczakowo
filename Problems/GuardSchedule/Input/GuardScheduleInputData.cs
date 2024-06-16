@@ -1,7 +1,7 @@
-using ProblemResolver;
-using ProblemResolver.Graph;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace Problem.GuardSchedule;
+namespace Plaszczakowo.Problems.GuardSchedule.Input;
 
 public record GuardScheduleInputData(
     List<ProblemVertex> Vertices,

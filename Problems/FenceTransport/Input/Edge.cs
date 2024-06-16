@@ -1,4 +1,4 @@
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport.Input;
 
 public record Edge(int From, int To)
 {

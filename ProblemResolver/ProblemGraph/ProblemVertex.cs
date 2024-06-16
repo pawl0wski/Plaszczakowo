@@ -1,6 +1,7 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
 
-namespace ProblemResolver.Graph;
+namespace Plaszczakowo.ProblemResolver.ProblemGraph;
 
 public class ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = false) : ICloneable
 {

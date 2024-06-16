@@ -1,9 +1,9 @@
-using Drawer.GraphDrawer;
-using ProblemResolver.Converters;
-using ProblemVisualizer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
+using Plaszczakowo.Problems.HuffmanCoding.Input;
+using Plaszczakowo.ProblemVisualizer;
 
-namespace Problem.HuffmanCoding;
-
+namespace Plaszczakowo.Problems.HuffmanCoding;
 
 public class FirstHuffmanCodingSnapshotCreator(HuffmanCodingInputData inputData)
     : FirstSnapshotCreator<HuffmanCodingInputData, GraphData>(inputData)

@@ -1,8 +1,8 @@
 using System.Text.Json;
-using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using ProblemResolver;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProjektZaliczeniowy_AiSD2.States;
+namespace Plaszczakowo.States;
 
 public class ProblemState : IProblemState
 {

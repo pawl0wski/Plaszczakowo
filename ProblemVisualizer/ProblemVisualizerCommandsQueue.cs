@@ -1,6 +1,6 @@
-using Drawer;
+using Plaszczakowo.Drawer;
 
-namespace ProblemVisualizer;
+namespace Plaszczakowo.ProblemVisualizer;
 
 public class ProblemVisualizerCommandsQueue<TDrawerData>
     : Queue<ProblemVisualizerCommand<TDrawerData>>

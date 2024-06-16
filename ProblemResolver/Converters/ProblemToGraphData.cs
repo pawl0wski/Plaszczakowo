@@ -1,6 +1,7 @@
-using Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.ProblemResolver.ProblemInput;
 
-namespace ProblemResolver.Converters;
+namespace Plaszczakowo.ProblemResolver.Converters;
 
 public static class ProblemToGraphData
 {

@@ -1,8 +1,8 @@
-using Drawer;
 using Microsoft.AspNetCore.Components;
-using ProblemVisualizer;
+using Plaszczakowo.Drawer;
+using Plaszczakowo.ProblemVisualizer;
 
-namespace ProjektZaliczeniowy_AiSD2.Components.Shared.Visualizer;
+namespace Plaszczakowo.Components.Shared.Visualizer;
 
 public abstract class VisualizerComponentBase<TDrawerData> : ComponentBase
     where TDrawerData : DrawerData

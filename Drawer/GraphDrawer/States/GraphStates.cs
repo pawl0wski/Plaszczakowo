@@ -1,4 +1,4 @@
-namespace Drawer.GraphDrawer;
+namespace Plaszczakowo.Drawer.GraphDrawer.States;
 
 public static class GraphStates
 {

@@ -1,7 +1,8 @@
-using ProblemResolver;
-using ProblemResolver.Graph;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
+using Plaszczakowo.ProblemResolver.ProblemInput;
+using Plaszczakowo.Problems.FenceTransport.Output;
 
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport.Input;
 
 public record FenceTransportInputData(int FrontCarrierNumber, int RearCarrierNumber, List<Edge> Relations, 
     List<ProblemVertex> Vertices, List<ProblemEdge> Edges, int FactoryIndex) : ProblemGraphInputData(Vertices, Edges)

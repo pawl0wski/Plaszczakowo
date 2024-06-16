@@ -1,9 +1,12 @@
-using Drawer.GraphDrawer;
-using ProblemResolver;
-using ProblemResolver.Graph;
-using ProblemVisualizer.Commands;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.States;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.ProblemResolver.ProblemGraph;
+using Plaszczakowo.Problems.FenceTransport.Input;
+using Plaszczakowo.Problems.FenceTransport.Output;
+using Plaszczakowo.ProblemVisualizer.Commands;
 
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport;
 
 public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, ConvexHullOutput, GraphData>
 {

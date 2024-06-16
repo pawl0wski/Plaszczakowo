@@ -1,7 +1,8 @@
-using Drawer.GraphDrawer;
-using ProblemVisualizer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Problems.FenceTransport.Input;
+using Plaszczakowo.ProblemVisualizer;
 
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport;
 
 public class ConvexHullFirstSnapshotCreator(FenceTransportInputData inputData)
     : FirstSnapshotCreator<FenceTransportInputData, GraphData>(inputData)

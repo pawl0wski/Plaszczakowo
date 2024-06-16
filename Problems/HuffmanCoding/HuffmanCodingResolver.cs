@@ -1,8 +1,9 @@
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.ProblemResolver;
+using Plaszczakowo.Problems.HuffmanCoding.Input;
+using Plaszczakowo.Problems.HuffmanCoding.Output;
 
-using Drawer.GraphDrawer;
-using ProblemResolver;
-using ProblemVisualizer.Commands;
-namespace Problem.HuffmanCoding;
+namespace Plaszczakowo.Problems.HuffmanCoding;
 
 public class HuffmanCodingResolver :
     ProblemResolver<HuffmanCodingInputData, HuffmanCodingOutput, GraphData>

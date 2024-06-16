@@ -1,7 +1,10 @@
-using Drawer.GraphDrawer;
-using ProblemVisualizer;
+using Plaszczakowo.Drawer.GraphDrawer;
+using Plaszczakowo.Drawer.GraphDrawer.Images;
+using Plaszczakowo.Drawer.GraphDrawer.States;
+using Plaszczakowo.Problems.FenceTransport.Input;
+using Plaszczakowo.ProblemVisualizer;
 
-namespace Problem.FenceTransport;
+namespace Plaszczakowo.Problems.FenceTransport;
 
 public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputData)
     : FirstSnapshotCreator<FenceTransportInputData, GraphData>(inputData)
