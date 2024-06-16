@@ -3,6 +3,7 @@
 @inherits ProblemOutputBase<GuardScheduleOutput>
 @inject NavigationManager Navigator
 
+<SaveButton ButtonPosition="HangingButton.HangingButtonPosition.Right" ProblemName="guard_schedule" />
 <ReturnButton ButtonPosition="HangingButton.HangingButtonPosition.Left"/>
 <div class="guard_schedule">
     <WoodenTitle>Grafik strażników</WoodenTitle>
@@ -31,9 +32,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="next_button">
-        <OldButton @onclick="ReturnBack">Zakończ</OldButton>
     </div>
 </div>
 

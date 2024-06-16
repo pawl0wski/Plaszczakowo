@@ -7,6 +7,8 @@ public interface IProblemState
     public TInputData GetProblemInputData<TInputData>()
         where TInputData : ProblemInputData;
 
+    public string GetProblemJsonInputData();
+    
     public void SetProblemJsonInputData(string inputData);
 
     public void SetProblemInputData<TInputData>(TInputData inputData)

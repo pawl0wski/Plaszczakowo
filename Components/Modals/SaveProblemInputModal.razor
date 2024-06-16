@@ -1,0 +1,27 @@
+@using ProjektZaliczeniowy_AiSD2.States
+@inject IProblemState ProblemState
+
+<div class="save_input">
+    <h2>Podaj nazwę pliku do zapisu</h2>
+    <input @bind="_fileName" type="text" placeholder="Nazwa pliku"/>
+    <OldButton @onclick="Save">Zapisz</OldButton>
+</div>
+
+
+@code {
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public required string ProblemName { get; set; }
+
+    private string _fileName = "";
+
+    private void Save()
+    {
+        var documents = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        var plaszczakowoPath = Path.Join(documents, "Plaszczakowo");
+        var problemPath = Path.Join(plaszczakowoPath, ProblemName);
+
+        File.WriteAllText(Path.Join(problemPath, $"{_fileName}.json"), ProblemState.GetProblemJsonInputData());
+        BlazoredModal.CloseAsync();
+    }
+}

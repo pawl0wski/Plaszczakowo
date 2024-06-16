@@ -24,10 +24,12 @@ div.keyboard_input__input textarea {
     
     font-size: x-large;
     
-    background: url("img/table.png");
+    background: url("img/background/map_bright.png");
     background-size: cover;
     border-style: solid;
     border-color: #522300;
     border-width: 3px;
     border-radius: 0.5rem;
+    
+    padding: 0.5rem;
 }

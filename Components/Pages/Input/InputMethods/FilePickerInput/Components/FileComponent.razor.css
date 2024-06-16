@@ -10,10 +10,13 @@ div.file {
     user-select: none;
 
     cursor: pointer;
+    font-weight: bold;
+    
+    transition: background-color 0.2s;
 }
 
 div.file--active {
-    background-color: #593316;
+    background-color: #00000078;
     color: white;
 }
 

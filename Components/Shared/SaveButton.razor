@@ -1,0 +1,21 @@
+@inherits HangingButton
+@inject NavigationManager Navigator
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    [CascadingParameter] IModalService Modal { get; set; } = default!;
+
+    [Parameter] public required string ProblemName { get; set; }
+
+    protected override async void OnHangingButtonClick()
+    {
+        var parameters = new ModalParameters().Add(nameof(SaveProblemInputModal.ProblemName), ProblemName);
+        await Modal.Show<SaveProblemInputModal>(parameters, new ModalOptions { Size = ModalSize.Medium }).Result;
+        Navigator.NavigateTo("/");
+    }
+
+    protected override string GetButtonContent() => "Zapisz wejście";
+}
