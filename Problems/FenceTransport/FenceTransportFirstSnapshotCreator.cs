@@ -13,9 +13,14 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
         List<GraphVertex> vertices = [];
         List<GraphEdge> edges = [];
 
+        SetFactoryVertex();
         CreateVertices(vertices);
         CreateEdges(vertices, edges);
         return new (vertices, edges, []);
+    }
+    private void SetFactoryVertex()
+    {
+        _inputData.FactoryIndex = _inputData.Vertices.First(x => x.IsSpecial).Id;
     }
 
     private void CreateVertices(List<GraphVertex> graphVertices)
@@ -24,15 +29,24 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
             throw new NullReferenceException("InputData cannot be null");
         var carriersCount = InputData.CarrierAssignmentOutput.Pairs.Count();
         _inputData.Vertices.Sort((x, y)=>x.Id.CompareTo(y.Id));
+        
         foreach (var vertex in _inputData.Vertices) 
         {
-            if (vertex.Id == _inputData.FactoryIndex)
-                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, 
+            if (vertex.Id == _inputData.FactoryIndex){
+                graphVertices.Add(new GraphVertex(
+                    vertex.X ?? 0, 
+                    vertex.Y ?? 0, 
                     carriersCount.ToString(),
                     GraphStates.Special,
                     GraphVertexImages.Factory));
-            else if (_inputData.ConvexHullOutput!.HullIndexes!.Contains(vertex.Id))
-                graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, 0.ToString(), GraphStates.Active));
+            }
+               
+            else if (_inputData.ConvexHullOutput!.HullIndexes!.Contains(vertex.Id)){
+                graphVertices.Add(new GraphVertex(vertex.X ?? 0, 
+                vertex.Y ?? 0, 
+                0.ToString(), 
+                GraphStates.Active));
+            }
             else
                 graphVertices.Add(new GraphVertex(vertex.X ?? 0, vertex.Y ?? 0, 0.ToString()));
         }
