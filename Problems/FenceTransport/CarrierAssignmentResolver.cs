@@ -28,24 +28,17 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
         DrawSourceAndSink(network);
         var parent = new int[network.Vertices.Count];
 
-        var rGraph = InitializeResidualGraph(network);
-
-        while (DFS(network, rGraph, source, sink, parent))
+        while (DFS(network, source, sink, parent))
         {
             var pathFlow = int.MaxValue;
             for (var vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
             {
                 var previousIndex = parent[vertexIndex];
-                Console.WriteLine("path flowy " + pathFlow + " " + rGraph[(previousIndex, vertexIndex)] + " " + previousIndex + " " + vertexIndex);
-                pathFlow = Math.Min(pathFlow, rGraph[(previousIndex, vertexIndex)]);
             }
 
             for (var vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
             {
                 var previousIndex = parent[vertexIndex];
-                
-                rGraph[(previousIndex, vertexIndex)] -= pathFlow;
-                rGraph[(vertexIndex, previousIndex)] += pathFlow;
 
                 foreach (var edge in network.Edges){
                     if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
@@ -68,20 +61,7 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
         return pairs;
     }
 
-    private Dictionary<(int, int), int> InitializeResidualGraph(GraphData network)
-    {
-        var rGraph = new Dictionary<(int, int), int>();
-        foreach (var edge in network.Edges)
-        {
-            var fromIndex = network.Vertices.IndexOf(edge.From);
-            var toIndex = network.Vertices.IndexOf(edge.To);
-            rGraph[(fromIndex, toIndex)] = edge.Throughput!.Capacity;
-            rGraph[(toIndex, fromIndex)] = 0;
-        }
-        return rGraph;
-    }
-
-    private bool DFS(GraphData network, Dictionary<(int, int), int> rGraph, int source, int sink, int[] parent)
+    private bool DFS(GraphData network, int source, int sink, int[] parent)
     {
         var visited = new bool[network.Vertices.Count];
         Stack<int> stack = new();
@@ -93,7 +73,7 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
             var current = stack.Pop();
 
             foreach (var edge in network.Edges)
-                if (IsValidEdge(edge, current, visited, network, rGraph))
+                if (IsValidEdge(edge, current, visited, network))
                 {
                     var to = network.Vertices.IndexOf(edge.To);
                     stack.Push(to);
@@ -106,12 +86,11 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
 
         return visited[sink];
     }
-    private bool IsValidEdge(GraphEdge edge, int current, bool[] visited, GraphData network, Dictionary<(int, int), int> rGraph)
+    private bool IsValidEdge(GraphEdge edge, int current, bool[] visited, GraphData network)
     {
         return edge.Throughput != null
                && edge.From == network.Vertices[current]
-               && !visited[network.Vertices.IndexOf(edge.To)]
-               && rGraph[(current, network.Vertices.IndexOf(edge.To))] > 0;
+               && !visited[network.Vertices.IndexOf(edge.To)];
     }
     private void DrawGraph(GraphData graphData, FenceTransportInputData data)
     {
