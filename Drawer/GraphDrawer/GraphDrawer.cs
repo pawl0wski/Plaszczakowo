@@ -138,9 +138,10 @@ public class GraphDrawer : Drawer
         await _context.SetFillStyleAsync(v.State.GetPrimaryColor());
         await _context.SetFontAsync("26px Dekko");
         var text = v.Value ?? "";
-        var textWidth = await _context.MeasureTextAsync(text);
-        var x = v.X - textWidth.Width / 2;
-        var y = v.Y + 7;
+        await _context.SetTextAlignAsync(TextAlign.Center);
+        await _context.SetTextBaselineAsync(TextBaseline.Middle);
+        var x = v.X;
+        var y = v.Y + 4;
         await _context.FillTextAsync(text, x, y);
     }
 
