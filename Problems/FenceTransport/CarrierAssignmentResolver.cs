@@ -25,91 +25,122 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
     public CarrierAssignmentOutput PairCreator(GraphData network, int source, int sink, FenceTransportInputData data)
     {
         var pairs = new CarrierAssignmentOutput();
-        problemRecreationCommands?.Add(new ChangeVertexStateCommand(source, GraphStates.Special));
-        problemRecreationCommands?.Add(new ChangeVertexStateCommand(sink, GraphStates.Special));
-        var parent = new int[network.Vertices.Count];
-        while (DFS(network, source, sink, parent))
+        DrawSourceAndSink(network);
+
+        Dictionary<GraphVertex, GraphEdge> parentMap;
+        while (DFS(network, source, sink, out parentMap))
         {
-            var pathFlow = int.MaxValue;
-            for (var vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
+            int pathFlow = int.MaxValue;
+            List<GraphVertex> path = new List<GraphVertex>();
+            for (var v = network.Vertices[sink]; v != network.Vertices[source]; v = parentMap[v].From)
             {
-                var previousIndex = parent[vertexIndex];
-                foreach (var edge in network.Edges)
-                    if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
-                    {
-                        if (edge.Throughput != null)
-                            pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
-                        break;
-                    }
+                path.Add(v);
+            }
+            path.Add(network.Vertices[source]);
+            path.Reverse();
+
+            foreach (var v in path)
+            {
+                if (v == network.Vertices[source]) continue;
+
+                var edge = parentMap[v];
+                pathFlow = Math.Min(pathFlow, edge.Throughput!.Capacity - edge.Throughput.Flow);
             }
 
-            for (var vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
+            foreach (var v in path)
             {
-                var previousIndex = parent[vertexIndex];
-                foreach (var edge in network.Edges)
-                    if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
-                    {
-                        if (edge.Throughput != null)
-                            edge.Throughput.Flow += pathFlow;
-                        if (pathFlow == 1)
-                            if (previousIndex != source && vertexIndex != sink)
-                                pairs.Pairs.Add(new Pair(previousIndex, vertexIndex));
-                        break;
-                    }
+                if (v == network.Vertices[source]) continue;
+
+                var edge = parentMap[v];
+                edge.Throughput!.Flow += pathFlow;
+
+                var reverseEdge = GetEdge(edge.To, edge.From, network);
+                if (reverseEdge == null)
+                {
+                    reverseEdge = new GraphEdge(edge.To, edge.From, null, new GraphThroughput(0, pathFlow));
+                    network.Edges.Add(reverseEdge);
+                }
+                reverseEdge.Throughput!.Flow -= pathFlow;
+
                 DrawGraph(network, data);
             }
         }
-
+        GetPairs(network, out pairs);
         return pairs;
     }
 
-    private bool DFS(GraphData network, int source, int sink, int[] parent)
+    private bool DFS(GraphData network, int source, int sink, out Dictionary<GraphVertex, GraphEdge> parentMap)
     {
-        var visited = new bool[network.Vertices.Count];
-        Stack<int> stack = new();
-        stack.Push(source);
-        visited[source] = true;
-        parent[source] = -1;
+        parentMap = new();
+        HashSet<GraphVertex> visited = new();
+        Stack<GraphVertex> stack = new();
+    
+        stack.Push(network.Vertices[source]);
+        visited.Add(network.Vertices[source]);
+    
         while (stack.Count > 0)
         {
             var current = stack.Pop();
-
-            foreach (var edge in network.Edges)
-                if (IsValidEdge(edge, current, visited, network))
+    
+            foreach (var edge in network.Edges.Where(e => e.From == current))
+            {
+                var neighbour = edge.To;
+                if (IsValidEdge(edge, neighbour, visited, network))
                 {
-                    var to = network.Vertices.IndexOf(edge.To);
-                    stack.Push(to);
-                    parent[to] = current;
-                    visited[to] = true;
-
-                    if (to == sink) return true;
+                    parentMap[neighbour] = edge;
+                    if (neighbour == network.Vertices[sink])
+                        return true;
+    
+                    visited.Add(neighbour);
+                    stack.Push(neighbour);
                 }
+            }
         }
-
-        return visited[sink];
+    
+        return false;
     }
-    private bool IsValidEdge(GraphEdge edge, int current, bool[] visited, GraphData network)
+    
+    private bool IsValidEdge(GraphEdge edge, GraphVertex neighbour, HashSet<GraphVertex> visited, GraphData network)
     {
         return edge.Throughput != null
-               && edge.From == network.Vertices[current]
                && edge.Throughput.Capacity > edge.Throughput.Flow
-               && !visited[network.Vertices.IndexOf(edge.To)];
+               && !visited.Contains(neighbour);
     }
+
+    private GraphEdge GetEdge(GraphVertex from, GraphVertex to, GraphData network)
+    {
+        return network.Edges.FirstOrDefault(edge => edge.From == from && edge.To == to);
+    }
+
+    private void GetPairs(GraphData network, out CarrierAssignmentOutput output)
+    {
+        output = new();
+        foreach (var edge in network.Edges)
+        {
+            if (edge.Throughput?.Flow == 1
+                && network.Vertices.IndexOf(edge.From) < network.Vertices.Count - 2
+                && network.Vertices.IndexOf(edge.To) < network.Vertices.Count - 2)
+            {
+                var from = network.Vertices.IndexOf(edge.From);
+                var to = network.Vertices.IndexOf(edge.To);
+                output.Pairs.Add(new Pair(from, to));
+            }
+        }
+    }
+
     private void DrawGraph(GraphData graphData, FenceTransportInputData data)
     {
         problemRecreationCommands?.Add(new ResetGraphStateCommand());
         foreach (var edge in graphData.Edges)
             if (edge.Throughput?.Flow == 1)
             {
-                problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(graphData.Edges.IndexOf(edge),
-                    new GraphThroughput(edge.Throughput.Flow, edge.Throughput.Capacity)));
-                problemRecreationCommands?.Add(new ChangeEdgeStateCommand(graphData.Edges.IndexOf(edge), GraphStates.Active));
+                ChangeEdge(graphData.Edges.IndexOf(edge), edge);
+
                 var from = graphData.Vertices.IndexOf(edge.From);
                 var to = graphData.Vertices.IndexOf(edge.To);
-                problemRecreationCommands?.Add(new ChangeVertexStateCommand(from,
-                    GraphStates.Active));
-                problemRecreationCommands?.Add(new ChangeVertexStateCommand(to,
-                    GraphStates.Active));
+                ActivateVertex(from);
+                ActivateVertex(to);
+
                 if (from >= 0 && from < data.FrontCarrierNumber)
                     problemRecreationCommands?.Add(new ChangeVertexImageCommand(from,
                         GraphVertexImages.FrontCarrierActiveImage));
@@ -125,28 +156,9 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
             }
             else if (edge.Throughput?.Flow == 0)
             {
-                problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(graphData.Edges.IndexOf(edge),
-                    new GraphThroughput(edge.Throughput.Flow, edge.Throughput.Capacity)));
-                problemRecreationCommands?.Add(new ChangeEdgeStateCommand(graphData.Edges.IndexOf(edge), GraphStates.Inactive));
-                var from = graphData.Vertices.IndexOf(edge.From);
-                var to = graphData.Vertices.IndexOf(edge.To);
-                problemRecreationCommands?.Add(new ChangeVertexStateCommand(from,
-                    GraphStates.Inactive));
-                problemRecreationCommands?.Add(new ChangeVertexStateCommand(to,
-                    GraphStates.Inactive));
-                if (from >= 0 && from < data.FrontCarrierNumber)
-                    problemRecreationCommands?.Add(new ChangeVertexImageCommand(from,
-                        GraphVertexImages.FrontCarrierInactiveImage));
-                else if (from >= data.FrontCarrierNumber && from < data.FrontCarrierNumber + data.RearCarrierNumber)
-                    problemRecreationCommands?.Add(
-                        new ChangeVertexImageCommand(from, GraphVertexImages.RearCarrierInactiveImage));
-                if (to >= 0 && to < data.FrontCarrierNumber)
-                    problemRecreationCommands?.Add(new ChangeVertexImageCommand(to,
-                        GraphVertexImages.FrontCarrierInactiveImage));
-                else if (to >= data.FrontCarrierNumber && to < data.FrontCarrierNumber + data.RearCarrierNumber)
-                    problemRecreationCommands?.Add(
-                        new ChangeVertexImageCommand(to, GraphVertexImages.RearCarrierInactiveImage));
+                ChangeEdge(graphData.Edges.IndexOf(edge), edge);
             }
+
         DrawSourceAndSink(graphData);
         problemRecreationCommands?.NextStep();
     }
@@ -157,4 +169,18 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(graphData.Vertices.Count - 1, GraphStates.Special));
     }
 
+    private void ActivateVertex(int index)
+    {
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
+    }
+
+    private void ChangeEdge(int index, GraphEdge edge)
+    {
+        problemRecreationCommands?.Add(new ChangeEdgeFlowCommand(index,
+            new GraphThroughput(edge.Throughput!.Flow, edge.Throughput.Capacity)));
+        if (edge.Throughput!.Flow == 1)
+            problemRecreationCommands?.Add(new ChangeEdgeStateCommand(index, GraphStates.Active));
+        else
+            problemRecreationCommands?.Add(new ChangeEdgeStateCommand(index, GraphStates.Inactive));
+    }
 }
