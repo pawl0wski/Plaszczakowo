@@ -24,36 +24,38 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
 
     public CarrierAssignmentOutput PairCreator(GraphData network, int source, int sink, FenceTransportInputData data)
     {
-        CarrierAssignmentOutput pairs = new();
-        DrawSourceAndSink(network);
+        var pairs = new CarrierAssignmentOutput();
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(source, GraphStates.Special));
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(sink, GraphStates.Special));
         var parent = new int[network.Vertices.Count];
-
         while (DFS(network, source, sink, parent))
         {
             var pathFlow = int.MaxValue;
             for (var vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
             {
                 var previousIndex = parent[vertexIndex];
+                foreach (var edge in network.Edges)
+                    if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
+                    {
+                        if (edge.Throughput != null)
+                            pathFlow = Math.Min(pathFlow, edge.Throughput.Capacity - edge.Throughput.Flow);
+                        break;
+                    }
             }
 
             for (var vertexIndex = sink; vertexIndex != source; vertexIndex = parent[vertexIndex])
             {
                 var previousIndex = parent[vertexIndex];
-
-                foreach (var edge in network.Edges){
+                foreach (var edge in network.Edges)
                     if (edge.From == network.Vertices[previousIndex] && edge.To == network.Vertices[vertexIndex])
                     {
                         if (edge.Throughput != null)
                             edge.Throughput.Flow += pathFlow;
+                        if (pathFlow == 1)
+                            if (previousIndex != source && vertexIndex != sink)
+                                pairs.Pairs.Add(new Pair(previousIndex, vertexIndex));
                         break;
                     }
-                    else if (edge.From == network.Vertices[vertexIndex] && edge.To == network.Vertices[previousIndex])
-                    {
-                        if (edge.Throughput != null)
-                            edge.Throughput.Flow -= pathFlow;
-                        break;
-                    }
-                }
                 DrawGraph(network, data);
             }
         }
@@ -90,6 +92,7 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
     {
         return edge.Throughput != null
                && edge.From == network.Vertices[current]
+               && edge.Throughput.Capacity > edge.Throughput.Flow
                && !visited[network.Vertices.IndexOf(edge.To)];
     }
     private void DrawGraph(GraphData graphData, FenceTransportInputData data)
