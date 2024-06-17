@@ -6,10 +6,10 @@ Dokumentacja: [PDF](wwwroot/documentation.pdf)
 
 ## Skład projektu
 
-- Jakub Pawłowski
 - Adam Cedro
-- Bartłomiej Wiśniewski
 - Sajmon Koniec
+- Jakub Pawłowski
+- Bartłomiej Wiśniewski
 
 ## Użyte technologie
 
