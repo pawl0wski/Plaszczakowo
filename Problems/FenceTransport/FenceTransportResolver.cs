@@ -16,11 +16,11 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     public override FenceTransportOutput Resolve(FenceTransportInputData data,
         ref ProblemRecreationCommands<GraphData> commands)
     {
-        var ConvexHullEdgesIndexes = AddHullEdges(data.Vertices[data.FactoryIndex], data.Vertices, data.Edges,
+        var ConvexHullEdgesIndexes = AddHullEdges(data.Vertices, data.Edges,
             data.ConvexHullOutput!.HullIndexes!);
-
+        
         FenceTransportOutput output = new();
-        _factoryIndex = data.FactoryIndex;
+        SetFactoryVertex(data);
         problemRecreationCommands = commands;
         var hoursCount = 0;
         var carriers = CreateCarriers(data);
@@ -30,7 +30,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
             return output;
         }
 
-        data.Vertices[data.FactoryIndex].Value = carriers.Count;
+        data.Vertices[_factoryIndex].Value = carriers.Count;
         var firstVertex = GetUnfinishedVertieces(data).First();
         while (GetUnfinishedVertieces(data).Count > 0)
         {
@@ -107,11 +107,16 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         return output;
     }
 
+    private void SetFactoryVertex(FenceTransportInputData data)
+    {
+        _factoryIndex = data.Vertices.First(x => x.IsSpecial).Id;
+    }
+
     private List<Carrier> CreateCarriers(FenceTransportInputData data)
     {
         List<Carrier> carriers = [];
         for (var i = 0; i < (data.CarrierAssignmentOutput?.Pairs.Count ?? 0); i++)
-            carriers.Add(new Carrier(i, data.Vertices[data.FactoryIndex]));
+            carriers.Add(new Carrier(i, data.Vertices[_factoryIndex]));
         return carriers;
     }
 
@@ -145,7 +150,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
 
     private void ReturnCarrierToFactory(Carrier carrier, FenceTransportInputData data)
     {
-        var factoryVertex = data.Vertices[data.FactoryIndex];
+        var factoryVertex = data.Vertices[_factoryIndex];
         var path = FindShortestPathToVertex(carrier.Position, factoryVertex, data);
         foreach (var vertex in path) carrier.CurrentRoute.Enqueue(vertex);
         carrier.State = CarrierState.Reffiling;
@@ -168,7 +173,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         return null;
     }
 
-    private List<int> AddHullEdges(ProblemVertex FactoryVertex, List<ProblemVertex> vertices,
+    private List<int> AddHullEdges(List<ProblemVertex> vertices,
         List<ProblemEdge> edges, List<int> HullIndexes)
     {
         List<int> HullEdgesIndexes = new();
