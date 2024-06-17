@@ -87,6 +87,7 @@ public class GuardScheduleResolver
                 Resting(p);
 
                 ChangeVertexImages(p, vertexIndex, previousMelody);
+
                 ChangePlaszczakText(p, xCoordinateForText, previousMelody, vertexIndex, maxSteps);
                 ChangeGraphColor(vertexIndex);
 
@@ -100,6 +101,9 @@ public class GuardScheduleResolver
             output.Plaszczaki.Add(p);
             plaszczakIndex++;
         }
+        _problemRecreationCommands?.Add(new ChangeVertexStateCommand(0, GraphStates.Special));
+        _problemRecreationCommands?.Add(new RemoveAllVertexImageCommand());
+        ResetPlaszczakText(xCoordinateForText);
     }
 
     private void ChangeVertexImages(Plaszczak p, int vertexIndex, int previousMelody)
@@ -199,6 +203,22 @@ public class GuardScheduleResolver
         else
             _problemRecreationCommands?.Add(new ChangeTextCommand(5, $"Kroki: {p.Steps}", xCoordinateForText, 510,
                 GraphStates.Inactive));
+    }
+
+    private void ResetPlaszczakText(int xCoordinateForText)
+    {
+        _problemRecreationCommands?.Add(new ChangeTextCommand(0, $"Id 💂: -", xCoordinateForText, 260,
+            GraphStates.Inactive));
+        _problemRecreationCommands?.Add(new ChangeTextCommand(1, $"Max ⚡: -", xCoordinateForText, 310,
+            GraphStates.Inactive));
+        _problemRecreationCommands?.Add(new ChangeTextCommand(2, $"Energia: -", xCoordinateForText, 360,
+            GraphStates.Inactive));
+        _problemRecreationCommands?.Add(new ChangeTextCommand(3, $"Melodia: -", xCoordinateForText, 410,
+            GraphStates.Inactive));
+        _problemRecreationCommands?.Add(new ChangeTextCommand(4, $"Max 🦶: -", xCoordinateForText, 460,
+            GraphStates.Inactive));
+        _problemRecreationCommands?.Add(new ChangeTextCommand(5, $"Kroki: -", xCoordinateForText, 510,
+            GraphStates.Inactive));
     }
 
     private int FindMaxXCoordinate(List<ProblemVertex> inputData)
