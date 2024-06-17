@@ -78,7 +78,7 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
     {
         for (var i = 0; i < angles.Count; i++)
         for (var j = i + 1; j < angles.Count; j++)
-            if (angles[i] >= angles[j])
+            if (angles[i] > angles[j] || (angles[i] == angles[j] && vertices[i].X > vertices[j].X))
             {
                 var temp = angles[i];
                 angles[i] = angles[j];
