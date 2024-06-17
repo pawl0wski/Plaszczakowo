@@ -15,7 +15,10 @@ public class HuffmanTree
         ref ProblemRecreationCommands<GraphData> commands)
     {
         GenerateMinHeap(letterAppearances);
-        GenerateHuffmanHeap(ref commands);
+        if (letterAppearances.Count == 1) 
+            CreateSingleNodeTree(ref commands);
+        else
+            GenerateHuffmanHeap(ref commands);
         return _minHeap.First();
     }
 
@@ -38,6 +41,26 @@ public class HuffmanTree
             Right = right
         };
         return top;
+    }
+
+    private Node CreateLeftConnector()
+    {
+        var left = _minHeap.First();
+        _minHeap.RemoveAt(0);
+        Node top = new('%', left.Value, true)
+        {
+            Left = left
+        };
+        return top;
+    }
+
+    private void CreateSingleNodeTree(ref ProblemRecreationCommands<GraphData> commands)
+    {
+        var top = CreateLeftConnector();
+        _minHeap.Add(top);
+        commands.Add(new ClearGraphCommand());
+        DrawVertices(top, ref commands, CalculateLevels(top));
+        commands.NextStep();
     }
 
     private void GenerateHuffmanHeap(ref ProblemRecreationCommands<GraphData> commands)
