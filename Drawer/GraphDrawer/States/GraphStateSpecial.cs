@@ -4,12 +4,12 @@ public class GraphStateSpecial : GraphState
 {
     public override string GetPrimaryColor()
     {
-        return "red";
+        return "blue";
     }
 
     public override string GetSecondaryColor()
     {
-        return "white";
+        return "yellow";
     }
 
     public override string GetThroughputColor()
