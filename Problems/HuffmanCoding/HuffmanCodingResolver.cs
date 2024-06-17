@@ -26,6 +26,11 @@ public class HuffmanCodingResolver :
     private void GenerateHuffmanDictionary(Node? root, string code = "")
     {
         if (root == null) return;
+        if (!root.IfConnector && root.Left is null && root.Right is null && root.Character != '%')
+        {
+            _huffmanDictionary.Add(root.Character, "0");
+            return;
+        }
         if (!root.IfConnector) _huffmanDictionary.Add(root.Character, code);
         GenerateHuffmanDictionary(root.Left, code + "0");
         GenerateHuffmanDictionary(root.Right, code + "1");
