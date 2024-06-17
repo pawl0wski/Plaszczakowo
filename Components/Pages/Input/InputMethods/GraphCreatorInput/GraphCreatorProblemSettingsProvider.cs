@@ -16,7 +16,7 @@ public static class GraphCreatorProblemSettingsProvider
 
     private static GraphCreatorProblemSettings GetSettingsForGuardSchedule()
     {
-        return new GraphCreatorProblemSettings
+        return new GraphCreatorProblemSettings()
         {
             DirectedGraph = true,
             CanChangeVertexValue = true,
@@ -33,7 +33,7 @@ public static class GraphCreatorProblemSettingsProvider
 
     private static GraphCreatorProblemSettings GetSettingsForFenceTransport()
     {
-        return new GraphCreatorProblemSettings
+        return new GraphCreatorProblemSettings()
         {
             DirectedGraph = false,
             CanChangeVertexValue = false,

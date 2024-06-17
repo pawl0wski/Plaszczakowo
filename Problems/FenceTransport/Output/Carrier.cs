@@ -5,7 +5,6 @@ namespace Plaszczakowo.Problems.FenceTransport.Output;
 public class Carrier(int Id, ProblemVertex Position)
 {
     public CarrierState State = CarrierState.Unassigned;
-    
     public int Id { get; set; } = Id;
     public ProblemVertex Position { get; set; } = Position;
     public Queue<ProblemVertex> CurrentRoute { get; set; } = [];

@@ -31,7 +31,8 @@ public class HuffmanCodingResolver :
         GenerateHuffmanDictionary(root.Right, code + "1");
     }
 
-    private static string GenerateResult(string inputPhrase, Dictionary<char, string> huffmanDictionary)
+    private static string GenerateResult(string inputPhrase, Dictionary<char, string> huffmanDictionary,
+        ref ProblemRecreationCommands<GraphData> commands)
     {
         var result = "";
         foreach (var character in inputPhrase) result += huffmanDictionary[character];
@@ -52,7 +53,7 @@ public class HuffmanCodingResolver :
         var root = tree.GenerateHuffmanTree(letterAppearances, ref commands);
         GenerateHuffmanDictionary(root);
         output.HuffmanDictionary = _huffmanDictionary;
-        output.Result = GenerateResult(data.InputPhrase, output.HuffmanDictionary);
+        output.Result = GenerateResult(data.InputPhrase, output.HuffmanDictionary, ref commands);
         return output;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Plaszczakowo.Components.Pages.Input.InputMethods.KeyboardInput.Validator;
 
-public static class KeyboardInputValidator
+public class KeyboardInputValidator
 {
     public static List<KeyboardInputError> Validate(string Input)
     {

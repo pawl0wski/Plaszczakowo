@@ -10,16 +10,16 @@ namespace Plaszczakowo.Problems.FenceTransport;
 
 public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, ConvexHullOutput, GraphData>
 {
-    private int _edgeIndex = -1;
-    private ProblemRecreationCommands<GraphData>? _problemRecreationCommands;
+    private int edgeIndex = -1;
+    private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
 
     public override ConvexHullOutput Resolve(FenceTransportInputData data,
         ref ProblemRecreationCommands<GraphData> commands)
     {
-        _problemRecreationCommands = commands;
+        problemRecreationCommands = commands;
         ConvexHullOutput output = new();
-        var lowestVertex = FindLowestVertex(data.Vertices);
-        var angles = GetAngleOfOtherVertices(lowestVertex, data.Vertices);
+        var LowestVertex = FindLowestVertex(data.Vertices);
+        var angles = GetAngleOfOtherVertices(LowestVertex, data.Vertices);
 
         SortByAngle(angles, data.Vertices);
 
@@ -40,8 +40,8 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
                 lowestVertex = vertex;
             }
 
-        _problemRecreationCommands?.Add(new ChangeVertexStateCommand(lowestVertex.Id, GraphStates.Special));
-        _problemRecreationCommands?.NextStep();
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(lowestVertex.Id, GraphStates.Special));
+        problemRecreationCommands?.NextStep();
         return lowestVertex;
     }
 
@@ -80,53 +80,57 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
         for (var j = i + 1; j < angles.Count; j++)
             if (angles[i] >= angles[j])
             {
-                (angles[i], angles[j]) = (angles[j], angles[i]);
-                (vertices[i], vertices[j]) = (vertices[j], vertices[i]);
+                var temp = angles[i];
+                angles[i] = angles[j];
+                angles[j] = temp;
+                var tempVertex = vertices[i];
+                vertices[i] = vertices[j];
+                vertices[j] = tempVertex;
             }
     }
 
     private List<int> DrawConvexHull(List<ProblemVertex> vertices)
     {
-        List<int> convexHullIndexes = new();
-        var convexHullStack = new Stack<ProblemVertex>();
+        List<int> ConvexHullIndexes = new();
+        var ConvexHullStack = new Stack<ProblemVertex>();
 
-        convexHullStack.Push(vertices[0]);
-        convexHullStack.Push(vertices[1]);
-        DrawCurrentHull(convexHullStack);
+        ConvexHullStack.Push(vertices[0]);
+        ConvexHullStack.Push(vertices[1]);
+        DrawCurrentHull(ConvexHullStack);
         for (var i = 2; i < vertices.Count; i++)
         {
-            var last = convexHullStack.Pop();
-            var beforeLast = convexHullStack.Peek();
+            var Last = ConvexHullStack.Pop();
+            var BeforeLast = ConvexHullStack.Peek();
 
-            while (IsClockwise(beforeLast, last, vertices[i]))
+            while (IsClockwise(BeforeLast, Last, vertices[i]))
             {
-                last = convexHullStack.Pop();
-                beforeLast = convexHullStack.Peek();
+                Last = ConvexHullStack.Pop();
+                BeforeLast = ConvexHullStack.Peek();
             }
 
-            convexHullStack.Push(last);
-            convexHullStack.Push(vertices[i]);
-            DrawCurrentHull(convexHullStack);
+            ConvexHullStack.Push(Last);
+            ConvexHullStack.Push(vertices[i]);
+            DrawCurrentHull(ConvexHullStack);
         }
 
-        foreach (var vertex in convexHullStack)
+        foreach (var vertex in ConvexHullStack)
         {
-            convexHullIndexes.Add(vertex.Id);
+            ConvexHullIndexes.Add(vertex.Id);
             Activate(vertex.Id);
         }
 
-        Connect(convexHullIndexes[0], convexHullIndexes[^1]);
-        for (var i = 0; i < convexHullIndexes.Count - 1; i++) Connect(convexHullIndexes[i], convexHullIndexes[i + 1]);
+        Connect(ConvexHullIndexes[0], ConvexHullIndexes[ConvexHullIndexes.Count - 1]);
+        for (var i = 0; i < ConvexHullIndexes.Count - 1; i++) Connect(ConvexHullIndexes[i], ConvexHullIndexes[i + 1]);
 
-        return convexHullIndexes;
+        return ConvexHullIndexes;
     }
 
-    private bool IsClockwise(ProblemVertex beforePrevious, ProblemVertex previous, ProblemVertex current)
+    private bool IsClockwise(ProblemVertex BeforePrevious, ProblemVertex Previous, ProblemVertex Current)
     {
-        var deltaX1 = previous.X - beforePrevious.X;
-        var deltaY1 = previous.Y - beforePrevious.Y;
-        var deltaX2 = current.X - beforePrevious.X;
-        var deltaY2 = current.Y - beforePrevious.Y;
+        var deltaX1 = Previous.X - BeforePrevious.X;
+        var deltaY1 = Previous.Y - BeforePrevious.Y;
+        var deltaX2 = Current.X - BeforePrevious.X;
+        var deltaY2 = Current.Y - BeforePrevious.Y;
 
         var result = deltaX1 * deltaY2 - deltaY1 * deltaX2;
         return result > 0;
@@ -134,26 +138,26 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
 
     private void Highlight(int index)
     {
-        _problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Highlighted));
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Highlighted));
     }
 
     private void Activate(int index)
     {
-        _problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
+        problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
     }
 
     private void Connect(int sourceId, int destinationId)
     {
-        _problemRecreationCommands?.Add(new ConnectVertexCommand(sourceId, destinationId));
-        _edgeIndex++;
-        _problemRecreationCommands?.Add(new ChangeEdgeStateCommand(_edgeIndex, GraphStates.Active));
+        problemRecreationCommands?.Add(new ConnectVertexCommand(sourceId, destinationId));
+        edgeIndex++;
+        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(edgeIndex, GraphStates.Active));
     }
 
     private void HighlightConnect(int sourceId, int destinationId)
     {
-        _problemRecreationCommands?.Add(new ConnectVertexCommand(sourceId, destinationId));
-        _edgeIndex++;
-        _problemRecreationCommands?.Add(new ChangeEdgeStateCommand(_edgeIndex, GraphStates.Highlighted));
+        problemRecreationCommands?.Add(new ConnectVertexCommand(sourceId, destinationId));
+        edgeIndex++;
+        problemRecreationCommands?.Add(new ChangeEdgeStateCommand(edgeIndex, GraphStates.Highlighted));
     }
 
     private void DrawCurrentHull(Stack<ProblemVertex> vertexStack)
@@ -169,20 +173,20 @@ public class ConvexHullResolver : ProblemResolver<FenceTransportInputData, Conve
         }
 
         Highlight(indices[indices.Count - 1]);
-        _problemRecreationCommands?.NextStep();
+        problemRecreationCommands?.NextStep();
     }
 
     private void ClearAllEdges()
     {
-        for (var i = _edgeIndex; i >= 0; i--)
+        for (var i = edgeIndex; i >= 0; i--)
         {
-            _problemRecreationCommands?.Add(new RemoveEdgeCommand(i));
-            _edgeIndex--;
+            problemRecreationCommands?.Add(new RemoveEdgeCommand(i));
+            edgeIndex--;
         }
     }
 
     private void InactivateAllVertices()
     {
-        _problemRecreationCommands?.Add(new ResetGraphStateCommand());
+        problemRecreationCommands?.Add(new ResetGraphStateCommand());
     }
 }

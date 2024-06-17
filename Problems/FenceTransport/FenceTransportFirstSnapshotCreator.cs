@@ -31,7 +31,7 @@ public class FenceTransportFirstSnapshotCreator(FenceTransportInputData inputDat
     {
         if (InputData.CarrierAssignmentOutput is null || InputData.CarrierAssignmentOutput.Pairs is null)
             throw new NullReferenceException("InputData cannot be null");
-        var carriersCount = InputData.CarrierAssignmentOutput.Pairs.Count;
+        var carriersCount = InputData.CarrierAssignmentOutput.Pairs.Count();
         _inputData.Vertices.Sort((x, y) => x.Id.CompareTo(y.Id));
 
         foreach (var vertex in _inputData.Vertices)

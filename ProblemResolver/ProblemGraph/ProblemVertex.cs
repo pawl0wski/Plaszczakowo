@@ -3,17 +3,17 @@ using Plaszczakowo.Drawer.GraphDrawer.States;
 
 namespace Plaszczakowo.ProblemResolver.ProblemGraph;
 
-public class ProblemVertex(int id, int? x, int? y, int? value, bool isSpecial = false) : ICloneable
+public class ProblemVertex(int Id, int? X, int? Y, int? Value, bool IsSpecial = false) : ICloneable
 {
-    public int Id { get; set; } = id;
+    public int Id { get; set; } = Id;
 
-    public int? X { get; set; } = x;
+    public int? X { get; set; } = X;
 
-    public int? Y { get; set; } = y;
+    public int? Y { get; set; } = Y;
 
-    public int? Value { get; set; } = value;
+    public int? Value { get; set; } = Value;
 
-    public bool IsSpecial { get; set; } = isSpecial;
+    public bool IsSpecial { get; set; } = IsSpecial;
 
     public object Clone()
     {

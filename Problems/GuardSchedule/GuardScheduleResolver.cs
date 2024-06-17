@@ -120,7 +120,7 @@ public class GuardScheduleResolver
     {
         if (vertexIndex == 0)
         {
-            p.PreviousVertexValue = vertices[^1].Value ?? 0;
+            p.PreviousVertexValue = vertices[vertices.Count - 1].Value ?? 0;
             p.CurrentVertexValue = vertices[vertexIndex].Value ?? 0;
             p.NextVertexValue = vertices[vertexIndex + 1].Value ?? 0;
         }
@@ -140,9 +140,9 @@ public class GuardScheduleResolver
 
     private void EnoughEnergyOrSteps(Plaszczak p, int maxSteps, int vertexIndex)
     {
-        if ((p.Energy >= p.NextVertexValue && p.Steps < maxSteps) || vertexIndex == 0) return;
-        if (p.CurrentVertexValue >= p.PreviousVertexValue)
-            ListenMelody(p);
+        if ((p.Energy < p.NextVertexValue || p.Steps >= maxSteps) && vertexIndex != 0)
+            if (p.CurrentVertexValue >= p.PreviousVertexValue)
+                ListenMelody(p);
     }
 
     private void ListenMelody(Plaszczak p)
@@ -154,9 +154,11 @@ public class GuardScheduleResolver
 
     private void Resting(Plaszczak p)
     {
-        if (p.CurrentVertexValue >= p.PreviousVertexValue) return;
-        p.Steps = 0;
-        p.Energy = p.MaxEnergy;
+        if (p.CurrentVertexValue < p.PreviousVertexValue)
+        {
+            p.Steps = 0;
+            p.Energy = p.MaxEnergy;
+        }
     }
 
     private void ChangeGraphColor(int vertexIndex)

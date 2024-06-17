@@ -11,14 +11,17 @@ namespace Plaszczakowo.Problems.FenceTransport;
 public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, FenceTransportOutput, GraphData>
 {
     private int _factoryIndex;
-    private ProblemRecreationCommands<GraphData>? _problemRecreationCommands;
+    private ProblemRecreationCommands<GraphData>? problemRecreationCommands;
 
     public override FenceTransportOutput Resolve(FenceTransportInputData data,
         ref ProblemRecreationCommands<GraphData> commands)
     {
+        var ConvexHullEdgesIndexes = AddHullEdges(data.Vertices[data.FactoryIndex], data.Vertices, data.Edges,
+            data.ConvexHullOutput!.HullIndexes!);
+
         FenceTransportOutput output = new();
         _factoryIndex = data.FactoryIndex;
-        _problemRecreationCommands = commands;
+        problemRecreationCommands = commands;
         var hoursCount = 0;
         var carriers = CreateCarriers(data);
         if (carriers.Count == 0)
@@ -28,6 +31,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         }
 
         data.Vertices[data.FactoryIndex].Value = carriers.Count;
+        var firstVertex = GetUnfinishedVertieces(data).First();
         while (GetUnfinishedVertieces(data).Count > 0)
         {
             var moved = false;
@@ -68,11 +72,11 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
                         MoveCarrierOnGraph(carrier);
                         moved = true;
                         carrier.Deliver();
-                        _problemRecreationCommands.Add(new ChangeEdgeFlowCommand(carrier.EdgeToBuild!.Id,
-                            new GraphThroughput(carrier.EdgeToBuild!.Throughput!.Flow,
+                        problemRecreationCommands.Add(new ChangeEdgeFlowCommand(carrier!.EdgeToBuild!.Id,
+                            new GraphThroughput(carrier!.EdgeToBuild!.Throughput!.Flow,
                                 carrier.EdgeToBuild.Throughput.Capacity)));
 
-                        if (carrier.Load > 0)
+                        if (carrier!.Load > 0)
                             AssignCarrierVertexToBuild(carrier, data);
                         else
                             ReturnCarrierToFactory(carrier, data);
@@ -94,7 +98,7 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
 
             if (moved)
             {
-                _problemRecreationCommands.NextStep();
+                problemRecreationCommands.NextStep();
                 hoursCount++;
             }
         }
@@ -114,13 +118,13 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     private void MoveCarrierOnGraph(Carrier carrier)
     {
         carrier.Position.Value -= 1;
-        _problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id,
+        problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id,
             carrier.Position.Value.ToString()!));
         AddCarriersImageToVertexIf(carrier.Position.Value != 0, carrier.Position.Id);
 
         carrier.MoveTo(carrier.CurrentRoute.Dequeue());
         carrier.Position.Value = (carrier.Position.Value ?? 0) + 1;
-        _problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id,
+        problemRecreationCommands?.Add(new ChangeVertexValueCommand(carrier.Position.Id,
             carrier.Position.Value.ToString()!));
 
         AddCarriersImageToVertexIf(carrier.Position.Value != 0, carrier.Position.Id);
@@ -130,12 +134,12 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
     {
         if (expression && _factoryIndex != index)
         {
-            _problemRecreationCommands?.Add(new ChangeVertexImageCommand(index, GraphVertexImages.PlaszczakiFence));
+            problemRecreationCommands?.Add(new ChangeVertexImageCommand(index, GraphVertexImages.PlaszczakiFence));
         }
         else
         {
             if (_factoryIndex != index)
-                _problemRecreationCommands?.Add(new RemoveVertexImageCommand(index));
+                problemRecreationCommands?.Add(new RemoveVertexImageCommand(index));
         }
     }
 
@@ -162,6 +166,31 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
         if (edge.To == current.Id)
             return vertices.First(v => v.Id == edge.From);
         return null;
+    }
+
+    private List<int> AddHullEdges(ProblemVertex FactoryVertex, List<ProblemVertex> vertices,
+        List<ProblemEdge> edges, List<int> HullIndexes)
+    {
+        List<int> HullEdgesIndexes = new();
+        for (var i = 0; i < HullIndexes.Count; i++)
+        {
+            var from = HullIndexes[i];
+            var to = HullIndexes[(i + 1) % HullIndexes.Count];
+            HullEdgesIndexes.Add(edges.Count);
+            edges.Add(new ProblemEdge(edges.Count, from, to,
+                new ProblemGraphThroughput(0, CalculateLengthBetweenHullVerticies(vertices[from], vertices[to]))));
+        }
+
+        return HullEdgesIndexes;
+    }
+
+    private int CalculateLengthBetweenHullVerticies(ProblemVertex vertex1, ProblemVertex vertex2)
+    {
+        var x1 = vertex1.X.GetValueOrDefault();
+        var y1 = vertex1.Y.GetValueOrDefault();
+        var x2 = vertex2.X.GetValueOrDefault();
+        var y2 = vertex2.Y.GetValueOrDefault();
+        return (int)Math.Sqrt(Math.Pow(x1 - x2, 2) + Math.Pow(y1 - y2, 2));
     }
 
     private List<ProblemVertex> GetUnfinishedVertieces(FenceTransportInputData data)
@@ -198,17 +227,17 @@ public class FenceTransportResolver : ProblemResolver<FenceTransportInputData, F
 
     private ProblemVertex FindFurthestUnfinishedFenceVertex(ProblemVertex FactoryVertex, FenceTransportInputData data)
     {
-        var hullIndexes = data.ConvexHullOutput!.HullIndexes!;
+        var HullIndexes = data.ConvexHullOutput!.HullIndexes!;
         var vertices = data.Vertices;
         var distances = GetDistancesToEachVertex(FactoryVertex, data);
         var maxDistance = 0;
         var maxIndex = 0;
-        var unfinishedVertices = GetUnfinishedVertieces(data);
-        for (var i = 0; i < hullIndexes.Count; i++)
-            if (distances[hullIndexes[i]] > maxDistance && unfinishedVertices.Contains(vertices[hullIndexes[i]]))
+        var UnfinishedVertices = GetUnfinishedVertieces(data);
+        for (var i = 0; i < HullIndexes.Count; i++)
+            if (distances[HullIndexes[i]] > maxDistance && UnfinishedVertices.Contains(vertices[HullIndexes[i]]))
             {
-                maxDistance = distances[hullIndexes[i]];
-                maxIndex = hullIndexes[i];
+                maxDistance = distances[HullIndexes[i]];
+                maxIndex = HullIndexes[i];
             }
 
         return vertices[maxIndex];

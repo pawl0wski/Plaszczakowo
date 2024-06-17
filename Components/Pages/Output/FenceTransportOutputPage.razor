@@ -40,7 +40,7 @@
 
     protected override void OnInitialized()
     {
-        _outputData = ProblemState!.GetProblemOutputData<FenceTransportOutput>();
+        _outputData = ProblemState.GetProblemOutputData<FenceTransportOutput>();
         var inputData = ProblemState.GetProblemInputData<FenceTransportInputData>();
         ProblemState.SetProblemInputData(inputData);
     }
@@ -57,7 +57,7 @@
     {
         Navigation.NavigateTo("/input/graphcreator/guard_schedule");
     }
-
+    
     private void GoBack()
     {
         Navigation.NavigateTo("/");
