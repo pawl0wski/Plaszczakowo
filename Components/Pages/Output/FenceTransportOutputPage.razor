@@ -2,7 +2,6 @@
 
 @using Plaszczakowo.Problems.FenceTransport.Input
 @using Plaszczakowo.Problems.FenceTransport.Output
-@using Plaszczakowo.States
 @inherits ProblemOutputBase<FenceTransportOutput>
 
 @inject NavigationManager Navigation
@@ -40,8 +39,8 @@
 
     protected override void OnInitialized()
     {
-        _outputData = ProblemState.GetProblemOutputData<FenceTransportOutput>();
-        var inputData = ProblemState.GetProblemInputData<FenceTransportInputData>();
+        _outputData = ProblemState!.GetProblemOutputData<FenceTransportOutput>();
+        var inputData = ProblemState!.GetProblemInputData<FenceTransportInputData>();
         ProblemState.SetProblemInputData(inputData);
     }
 

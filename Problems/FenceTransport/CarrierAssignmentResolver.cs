@@ -109,7 +109,7 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
 
     private GraphEdge GetEdge(GraphVertex from, GraphVertex to, GraphData network)
     {
-        return network.Edges.FirstOrDefault(edge => edge.From == from && edge.To == to);
+        return network.Edges.FirstOrDefault(edge => edge.From == from && edge.To == to)!;
     }
 
     private void GetPairs(GraphData network, out CarrierAssignmentOutput output)
