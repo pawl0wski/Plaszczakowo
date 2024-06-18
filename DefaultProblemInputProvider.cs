@@ -121,7 +121,7 @@ public static class DefaultProblemInputProvider
             new ProblemVertex(0, 50, 100, null),
             new ProblemVertex(1, 150, 250, null),
             new ProblemVertex(2, 500, 300, null),
-            new ProblemVertex(3, 600, 400, null),
+            new ProblemVertex(3, 600, 400, null, IsSpecial: true),
             new ProblemVertex(4, 600, 700, null),
             new ProblemVertex(5, 50, 700, null),
             new ProblemVertex(6, 800, 250, null)

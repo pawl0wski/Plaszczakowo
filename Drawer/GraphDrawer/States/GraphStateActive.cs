@@ -4,17 +4,17 @@ public class GraphStateActive : GraphState
 {
     public override string GetPrimaryColor()
     {
-        return "green";
+        return "#059212";
     }
 
     public override string GetSecondaryColor()
     {
-        return "white";
+        return "#ecffed";
     }
 
     public override string GetThroughputColor()
     {
-        return "brown";
+        return "black";
     }
 
     public override int GetLineWidth()

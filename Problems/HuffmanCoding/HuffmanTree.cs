@@ -104,6 +104,7 @@ public class HuffmanTree
                     commands.Add(new AddNewEdgeCommand(current.Id, current.ConnectTo ?? 0));
                     commands.Add(new ChangeLastEdgeThroughputCommand(
                         new GraphThroughput(current.Id % 2 == 0 ? 1 : 0)));
+                    commands.Add(new ChangeLastEdgeStateCommand(GraphStates.Text));
                 }
 
                 if (current.Left is not null)

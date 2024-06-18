@@ -25,10 +25,14 @@ div.monitor__center {
     width: 70vw;
     background: url("img/monitor_center.png") no-repeat center;
     background-size: 100% 100%;
-
+    
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+div.monitor__center h2,p {
+    font-family: 'Silkscreen', system-ui;
 }
 
 div.monitor__center__text {

@@ -88,9 +88,11 @@ public class GraphDrawer : Drawer
         var x = e.From.X + (e.To.X - e.From.X) / heightIndicator + xOffset;
         var y = e.From.Y + (e.To.Y - e.From.Y) / heightIndicator + yOffset;
 
+
         await _context.SetFillStyleAsync(e.State.GetThroughputColor());
-        await _context.SetFontAsync("bold 20px Dekko");
+        await _context.SetFontAsync("bold 24px Arial");
         await _context.FillTextAsync(e.Throughput.ToString(), x, y);
+        
     }
 
     private async Task DrawVertex(GraphVertex v)

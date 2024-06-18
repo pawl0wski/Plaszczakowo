@@ -4,6 +4,7 @@ import panzoom from "panzoom";
 import "@fontsource/caveat-brush";
 import "@fontsource/dekko"
 import "@fontsource/dseg14-modern"
+import "@fontsource/silkscreen"
 
 window.enableCanvasZoom = function () {
     let canvas = document.querySelectorAll("canvas");
