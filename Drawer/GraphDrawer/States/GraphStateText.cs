@@ -14,7 +14,7 @@ public class GraphStateText : GraphState
 
     public override string GetThroughputColor()
     {
-        return "gray";
+        return "black";
     }
 
     public override int GetLineWidth()
@@ -29,6 +29,6 @@ public class GraphStateText : GraphState
 
     public override int GetEdgeRadius()
     {
-        return 20;
+        return 18;
     }
 }
