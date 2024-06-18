@@ -138,8 +138,6 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
 
                 var from = graphData.Vertices.IndexOf(edge.From);
                 var to = graphData.Vertices.IndexOf(edge.To);
-                ActivateVertex(from);
-                ActivateVertex(to);
 
                 if (from >= 0 && from < data.FrontCarrierNumber)
                     problemRecreationCommands?.Add(new ChangeVertexImageCommand(from,
@@ -167,11 +165,6 @@ public class CarrierAssignmentResolver : ProblemResolver<FenceTransportInputData
     {
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(graphData.Vertices.Count - 2, GraphStates.Special));
         problemRecreationCommands?.Add(new ChangeVertexStateCommand(graphData.Vertices.Count - 1, GraphStates.Special));
-    }
-
-    private void ActivateVertex(int index)
-    {
-        problemRecreationCommands?.Add(new ChangeVertexStateCommand(index, GraphStates.Active));
     }
 
     private void ChangeEdge(int index, GraphEdge edge)
