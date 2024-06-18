@@ -1,6 +1,6 @@
 div.keyboard_input {
     background: url("img/background/wall_background.png");
-
+    
     padding-top: 2rem;
     height: 100vh;
     width: 100vw;
@@ -25,7 +25,8 @@ div.keyboard_input__input textarea {
     font-size: x-large;
 
     background: url("img/background/map_bright.png");
-    background-size: cover;
+    background-size: 100% 100%;
+
     border-style: solid;
     border-color: #522300;
     border-width: 3px;

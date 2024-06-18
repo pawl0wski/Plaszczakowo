@@ -14,7 +14,6 @@
     {
         var parameters = new ModalParameters().Add(nameof(SaveProblemInputModal.ProblemName), ProblemName);
         await Modal.Show<SaveProblemInputModal>(parameters, new ModalOptions { Size = ModalSize.Medium }).Result;
-        Navigator.NavigateTo("/");
     }
 
     protected override string GetButtonContent()
