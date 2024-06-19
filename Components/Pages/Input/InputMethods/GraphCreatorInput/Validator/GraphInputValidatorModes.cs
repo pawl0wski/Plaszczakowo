@@ -8,5 +8,6 @@ public enum GraphInputValidatorModes
     EverythingConnected = 4,
     ShouldHave3Vertices = 8,
     ShouldHaveSpecialVertex = 16,
-    EveryVertexShouldHaveValue = 32
+    EveryVertexShouldHaveValue = 32,
+    VerticesShouldBeOnDifferentLines = 64
 }
