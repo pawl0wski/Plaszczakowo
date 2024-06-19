@@ -27,6 +27,7 @@ public static class GraphCreatorProblemSettingsProvider
                     | GraphInputValidatorModes.ShouldHave3Vertices
                     | GraphInputValidatorModes.ShouldHaveSpecialVertex
                     | GraphInputValidatorModes.EveryVertexShouldHaveValue
+                    | GraphInputValidatorModes.VerticesShouldBeOnDifferentLines
         };
     }
 
@@ -41,6 +42,7 @@ public static class GraphCreatorProblemSettingsProvider
             Modes = GraphInputValidatorModes.EverythingConnected
                     | GraphInputValidatorModes.ShouldHave3Vertices
                     | GraphInputValidatorModes.ShouldHaveSpecialVertex
+                    | GraphInputValidatorModes.VerticesShouldBeOnDifferentLines
         };
     }
 }

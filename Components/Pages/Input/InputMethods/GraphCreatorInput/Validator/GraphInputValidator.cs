@@ -41,8 +41,21 @@ public static class GraphInputValidator
         if (modes.HasFlag(GraphInputValidatorModes.EverythingConnected))
             if (!CheckEverythingConnected(graphInputData, isDirected))
                 errors.Add(new GraphValidatorError("Wszystkie wierzchołki muszą być połączone ze sobą."));
+        if (modes.HasFlag(GraphInputValidatorModes.VerticesShouldBeOnDifferentLines))
+            if (!CheckVerticesOnDifferentLines(graphInputData))
+                errors.Add(new GraphValidatorError("Wierzchołki nie mogą być wszystkie na jednej prostej."));
 
         return errors;
+    }
+
+    private static bool CheckVerticesOnDifferentLines(ProblemGraphInputData graphInputData)
+    {
+        var vertices = graphInputData.Vertices;
+        var xValues = vertices.Select(v => v.X).ToList();
+        var yValues = vertices.Select(v => v.Y).ToList();
+        Console.WriteLine(xValues.Distinct().Count());
+        Console.WriteLine(yValues.Distinct().Count());
+        return xValues.Distinct().Count() > 1 && yValues.Distinct().Count() > 1;
     }
 
     private static bool CheckEveryVertexHaveValue(ProblemGraphInputData graphInputData)
